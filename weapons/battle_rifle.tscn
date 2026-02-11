@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://eb2b3kshyi51"]
+
+[ext_resource type="PackedScene" uid="uid://c1j2f7qcgf7xy" path="res://models/blasterP.glb" id="2_h5vgt"]
+
+[node name="Battle_Rifle" type="Node3D"]
+
+[node name="WeaponModel" parent="." instance=ExtResource("2_h5vgt")]
+
+[node name="blasterP" parent="WeaponModel" index="0"]
+collision_mask = 3
+freeze = true
+
+[node name="Muzzle" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0443118, 0.486001)
+
+[editable path="WeaponModel"]

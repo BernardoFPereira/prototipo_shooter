@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b1s41klx2sr6r"]
+
+[node name="HUD" type="CanvasLayer" unique_id=822683137]
+
+[node name="Crosshair" type="TextureRect" parent="." unique_id=150073288]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+pivot_offset = Vector2(64, 64)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="InteractText" type="Label" parent="." unique_id=177017208]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -174.0
+offset_right = 20.0
+offset_bottom = -147.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press E to pickup weapon"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=4 format=3 uid="uid://brbm4qcuxkyyt"]
+
+[ext_resource type="Texture2D" uid="uid://bfmhmxr1xsybi" path="res://sprites/crosshair-repeater.png" id="1_kuvnl"]
+[ext_resource type="PackedScene" uid="uid://b75rb6xhka4yd" path="res://weapons/quad_gun.tscn" id="1_rgf6m"]
+[ext_resource type="Script" path="res://scripts/weapon.gd" id="3_wn635"]
+
+[resource]
+script = ExtResource("3_wn635")
+model = ExtResource("1_rgf6m")
+position = Vector3(0, 0, 0)
+rotation = Vector3(0, 0, 0)
+cooldown = 1.0
+max_distance = 15
+damage = 8.0
+spread = 5.0
+shot_count = 4
+knockback = 4.0
+magazine_capacity = 12
+crosshair = ExtResource("1_kuvnl")
