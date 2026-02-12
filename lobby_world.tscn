@@ -1722,5 +1722,15 @@ alignment = 1
 _spawnable_scenes = PackedStringArray("res://MP_Player.tscn")
 spawn_path = NodePath("..")
 
+[node name="WeaponsSpawner" type="MultiplayerSpawner" parent="." groups=["WeaponsSpawner"]]
+_spawnable_scenes = PackedStringArray("res://weapons/unnarmed.tscn", "res://weapons/pistol.tscn", "res://weapons/quad_gun.tscn", "res://weapons/battle_rifle.tscn")
+spawn_path = NodePath("..")
+
+[node name="RifleSpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.52553, 0.238291, 6.52098)
+
+[node name="PistolSpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00631, 0.238291, 6.52098)
+
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

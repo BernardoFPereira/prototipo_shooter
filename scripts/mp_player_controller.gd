@@ -9,6 +9,8 @@ extends CharacterBody3D
 @onready var crouch_collision = $CrouchCollision
 @onready var ID_label = $Label3D
 
+@onready var weapon_spawner = get_tree().get_first_node_in_group("WeaponsSpawner")
+
 @export_subgroup("Properties")
 @export var move_speed := 10
 @export var jump_strength := 300
