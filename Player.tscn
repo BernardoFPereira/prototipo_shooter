@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://vyla6r65uudu"]
+[gd_scene load_steps=10 format=3 uid="uid://vyla6r65uudu"]
 
 [ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_qvere"]
 [ext_resource type="Resource" uid="uid://dntqy6c2c1s1l" path="res://weapons/unnarmed.tres" id="2_altu7"]
@@ -14,6 +14,13 @@ height = 1.139
 radius = 0.3
 height = 1.6
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j2fdh"]
+albedo_color = Color(0.249627, 0.388312, 0.869091, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_co16f"]
+material = SubResource("StandardMaterial3D_j2fdh")
+size = Vector3(0.43, 0.265, 0.185)
+
 [sub_resource type="SphereMesh" id="SphereMesh_s8mlf"]
 radius = 0.3
 height = 0.6
@@ -22,9 +29,13 @@ height = 0.6
 height = 0.4
 radius = 0.753
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("crosshair")]
 collision_layer = 8
 script = ExtResource("1_qvere")
+move_speed = null
+jump_strength = null
+crouch_amount = null
+crosshair = NodePath("HUD/Crosshair")
 weapons = Array[Resource("res://scripts/weapon.gd")]([ExtResource("2_altu7"), ExtResource("2_altu7")])
 
 [node name="StandCollision" type="CollisionShape3D" parent="."]
@@ -39,6 +50,10 @@ shape = SubResource("CapsuleShape3D_x1ph6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = SubResource("CapsuleMesh_7yh1p")
 skeleton = NodePath("../Head")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshBody"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.00591, -0.306942)
+mesh = SubResource("PrismMesh_co16f")
 
 [node name="MeshHead" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
@@ -66,6 +81,40 @@ collision_mask = 2
 [node name="PickUpArea" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.199, 0)
 shape = SubResource("CylinderShape3D_aarew")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Crosshair" type="TextureRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.35, 0.35)
+pivot_offset = Vector2(64, 64)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="InteractText" type="Label" parent="HUD"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -174.0
+offset_right = 20.0
+offset_bottom = -147.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press E to pickup weapon"
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

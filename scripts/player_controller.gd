@@ -4,7 +4,7 @@ extends CharacterBody3D
 @onready var container = $Head/Camera/WeaponContainer
 @onready var raycast = $Head/Camera/RayCast3D
 @onready var head = $Head
-@onready var interact_text = $"../HUD/InteractText"
+@onready var interact_text = $"HUD/InteractText"
 @onready var stand_collision = $StandCollision
 @onready var crouch_collision = $CrouchCollision
 
@@ -34,6 +34,8 @@ var can_pickup := [false, null, null]
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	weapon = weapons[weapon_index]
+	
+	weapon_spawner = get_tree().get_first_node_in_group("Main")
 	
 	if weapon.model:
 		var weapon_model = weapon.model.instantiate()
@@ -86,7 +88,7 @@ func _input(event):
 		weapon_toggle()
 		
 	if event.is_action_pressed("weapon_drop"):
-		action_drop_weapon()
+		action_drop_weapon.rpc()
 	
 func handle_controls(delta):
 	if Input.is_action_just_pressed("click") and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
@@ -110,7 +112,7 @@ func handle_controls(delta):
 	if can_pickup[0] and Input.is_action_just_pressed("interact"):
 		#var is_unnarmed: bool
 		
-		action_drop_weapon()
+		action_drop_weapon.rpc()
 		action_pickup_weapon(can_pickup[1])
 		can_pickup[2].queue_free()
 	
@@ -138,6 +140,7 @@ func action_stand(delta):
 	stand_collision.disabled = false
 	crouch_collision.disabled = true
 
+@rpc("call_local")
 func action_shoot():
 	# Weapon knockback
 	container.position.z += weapon.knockback * 0.1
@@ -182,8 +185,9 @@ func weapon_toggle():
 
 func initiate_weapon_toggle(index: int):
 	weapon_index = index
-	toggle_weapon()
+	toggle_weapon.rpc()
 
+@rpc("call_local")
 func toggle_weapon():
 	weapon = weapons[weapon_index]
 	
@@ -196,6 +200,7 @@ func toggle_weapon():
 	raycast.target_position = Vector3(0, 0, -1) * weapon.max_distance
 	crosshair.texture = weapon.crosshair
 
+@rpc("call_local")
 func action_drop_weapon():
 	var weapon_scene = weapon.model.instantiate()
 	weapon_scene.position = position + Vector3(0, 1.3, 0) * transform.basis
@@ -206,15 +211,16 @@ func action_drop_weapon():
 		rigidbody.apply_impulse(transform.basis * Vector3.FORWARD * 3)
 		rigidbody.apply_torque_impulse(Vector3(100,100,100))
 	
-	get_tree().root.add_child.call_deferred(weapon_scene,true)
+	weapon_spawner.spawn(weapon_scene)
+	#get_tree().root.add_child.call_deferred(weapon_scene,true)
 	
 	var unnarmed = preload("res://weapons/unnarmed.tres")
 	weapons[weapon_index] = unnarmed
-	toggle_weapon()
+	toggle_weapon.rpc()
 
 func action_pickup_weapon(weapon_to_pick):
 	weapons[weapon_index] = weapon_to_pick
-	toggle_weapon()
+	toggle_weapon.rpc()
 
 func action_jump():
 	pass
