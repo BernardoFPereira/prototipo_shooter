@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var interact_text = $"../HUD/InteractText"
 @onready var stand_collision = $StandCollision
 @onready var crouch_collision = $CrouchCollision
+@onready var weapon_spawner = $WeaponSpawner
 
 @export_subgroup("Properties")
 @export var move_speed := 10
@@ -206,7 +207,8 @@ func action_drop_weapon():
 		rigidbody.apply_impulse(transform.basis * Vector3.FORWARD * 3)
 		rigidbody.apply_torque_impulse(Vector3(100,100,100))
 	
-	get_tree().root.add_child.call_deferred(weapon_scene,true)
+	#get_tree().root.add_child.call_deferred(weapon_scene,true)
+	weapon_spawner.spawn(weapon_scene)
 	
 	var unnarmed = preload("res://weapons/unnarmed.tres")
 	weapons[weapon_index] = unnarmed

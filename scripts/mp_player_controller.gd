@@ -28,14 +28,19 @@ var mouse_sensitivity = 0.002
 var weapon_offset = Vector3(0.2, -0.2, -0.1)
 var movement_velocity: Vector3
 
-
 var input_mouse: Vector2
 var mouse_captured
 
 var can_pickup := [false, null, null]
 
+@export var username: String = "..." :
+	set(value):
+		username = value
+		if ID_label:
+			ID_label.text = value if value else "?"
+
 func _enter_tree():
-	set_multiplayer_authority(str(name).to_int())
+	set_multiplayer_authority(int(str(name)))
 
 	if weapons.is_empty():
 		var default_weapon = preload("res://weapons/unnarmed.tres")
@@ -44,14 +49,13 @@ func _enter_tree():
 	weapon = weapons[weapon_index]
 
 func _ready():
-	ID_label.text = self.name
+	if ID_label:
+		ID_label.text = username if username else "?"
+		
 	if not is_multiplayer_authority(): return
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	camera.current = true
-	
-	
-	
 	
 	if weapon.model:
 		var weapon_model = weapon.model.instantiate()
@@ -62,7 +66,6 @@ func _ready():
 	
 	if weapon.crosshair:
 		crosshair.texture = weapon.crosshair
-	
 	
 
 func _physics_process(delta):
