@@ -1,4 +1,4 @@
-[gd_scene load_steps=530 format=3 uid="uid://cfjnfww7t4iku"]
+[gd_scene load_steps=531 format=3 uid="uid://cfjnfww7t4iku"]
 
 [ext_resource type="Script" path="res://scripts/mp_lobby.gd" id="1_rvfn0"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="2_7dkom"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_float.gd" id="4_co7sc"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_int.gd" id="5_eqq2y"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/mesh_vector_data.gd" id="6_ulkye"]
+[ext_resource type="PackedScene" uid="uid://b75rb6xhka4yd" path="res://weapons/quad_gun.tscn" id="7_525pb"]
 
 [sub_resource type="Resource" id="Resource_st35k"]
 script = ExtResource("3_nr8q6")
@@ -5534,6 +5535,9 @@ shadow_blur = 1.31
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://MP_Player.tscn")
 spawn_path = NodePath("..")
+
+[node name="Quad_Gun" parent="." instance=ExtResource("7_525pb")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -5.81919, 0.14379, 0.13207)
 
 [connection signal="pressed" from="UI/Multiplayer/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="UI/Multiplayer/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

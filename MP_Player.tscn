@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dofslycdwhjgp"]
+[gd_scene load_steps=11 format=3 uid="uid://dofslycdwhjgp"]
 
 [ext_resource type="Script" path="res://scripts/mp_player_controller.gd" id="1_eh34q"]
-[ext_resource type="Resource" uid="uid://dntqy6c2c1s1l" path="res://weapons/unnarmed.tres" id="2_id53j"]
+[ext_resource type="Resource" uid="uid://cdlnm6x0ewypx" path="res://weapons/battle_rifle.tres" id="2_c174w"]
+[ext_resource type="Resource" uid="uid://brbm4qcuxkyyt" path="res://weapons/quad_gun.tres" id="3_wcu85"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1usyg"]
 radius = 0.351161
@@ -29,7 +30,7 @@ radius = 0.753
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t7vus"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
@@ -44,7 +45,7 @@ properties/3/replication_mode = 1
 collision_layer = 8
 script = ExtResource("1_eh34q")
 crosshair = NodePath("HUD/Crosshair")
-weapons = Array[Resource("res://scripts/weapon.gd")]([ExtResource("2_id53j"), ExtResource("2_id53j")])
+weapons = Array[Resource("res://scripts/weapon.gd")]([ExtResource("2_c174w"), ExtResource("3_wcu85")])
 
 [node name="StandCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06773, 0)

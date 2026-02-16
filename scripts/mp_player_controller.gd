@@ -1,5 +1,14 @@
 extends CharacterBody3D
 
+enum PlayerStates {
+	IDLE,
+	WALK,
+	JUMP,
+	FALL,
+	CROUCH,
+	INTERACT,
+}
+
 @onready var camera = $Head/Camera
 @onready var container = $Head/Camera/WeaponContainer
 @onready var raycast = $Head/Camera/RayCast3D
@@ -19,6 +28,13 @@ extends CharacterBody3D
 
 @export_subgroup("Weapons")
 @export var weapons: Array[Weapon] = []
+
+@export var username: String = "..." :
+	set(value):
+		username = value
+		if ID_label:
+			ID_label.text = value if value else "?"
+
 var weapon: Weapon
 var weapon_index := 0
 
@@ -33,11 +49,7 @@ var mouse_captured
 
 var can_pickup := [false, null, null]
 
-@export var username: String = "..." :
-	set(value):
-		username = value
-		if ID_label:
-			ID_label.text = value if value else "?"
+var state := PlayerStates.IDLE
 
 func _enter_tree():
 	set_multiplayer_authority(int(str(name)))
@@ -71,29 +83,33 @@ func _ready():
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
 	
-	var applied_velocity: Vector3
-	
+	state_machine_process(delta)
 	handle_controls(delta)
 	
-	movement_velocity = transform.basis * movement_velocity
-	applied_velocity = velocity.lerp(movement_velocity, delta * 5)
-	
-	if !is_on_floor():
-		gravity += 1.5
-		applied_velocity.y -= gravity * delta
-	elif gravity != std_gravity:
-		gravity = std_gravity
+	# Falling/moving player back to arena
+	if global_position.y < -20:
+		global_position = Vector3(0, 10, 0)
+		#get_tree().reload_current_scene()
 		
-	velocity = applied_velocity
-	move_and_slide()
-	
-	container.position = lerp(container.position, weapon_offset - (basis.inverse() * applied_velocity / 80), delta * 10)
-	
-	head.rotation.z = lerp_angle(head.rotation.z, -input_mouse.x * delta, delta * 5) / 2
-	
-	# Falling/respawning
-	if position.y < -10:
-		get_tree().reload_current_scene()
+	#movement_velocity = transform.basis * movement_velocity
+	#applied_velocity = velocity.lerp(movement_velocity, delta * 5)
+	#
+	#if !is_on_floor():
+		#gravity += 1.5
+		#applied_velocity.y -= gravity * delta
+	#elif gravity != std_gravity:
+		#gravity = std_gravity
+		#
+	#velocity = applied_velocity
+	#move_and_slide()
+	#
+	#container.position = lerp(container.position, weapon_offset - (basis.inverse() * applied_velocity / 80), delta * 10)
+	#
+	#head.rotation.z = lerp_angle(head.rotation.z, -input_mouse.x * delta, delta * 5) / 2
+	#
+	## Falling/respawning
+	#if position.y < -10:
+		#get_tree().reload_current_scene()
 	
 func _input(event):
 	if not is_multiplayer_authority(): return
@@ -111,11 +127,70 @@ func _input(event):
 		action_shoot()
 		
 	if event.is_action_pressed("weapon_switch"):
+		#weapon_toggle.rpc()
 		weapon_toggle()
 		
 	if event.is_action_pressed("weapon_drop"):
 		action_drop_weapon.rpc()
-	
+
+func change_state(new_state: PlayerStates):
+	var old_state = state
+	if new_state == PlayerStates.CROUCH:
+		move_speed /= 2
+		stand_collision.disabled = true
+		crouch_collision.disabled = false
+		
+	match old_state:
+		PlayerStates.IDLE:
+			pass
+		PlayerStates.WALK:
+			pass
+		PlayerStates.JUMP:
+			pass
+		PlayerStates.FALL:
+			pass
+		PlayerStates.CROUCH:
+				move_speed *= 2
+				stand_collision.disabled = false
+				crouch_collision.disabled = true
+			
+		PlayerStates.INTERACT:
+			pass
+		
+	state = new_state
+
+func state_machine_process(delta):
+	match state:
+		PlayerStates.IDLE:
+			pass
+		PlayerStates.WALK:
+			var applied_velocity: Vector3
+			movement_velocity = transform.basis * movement_velocity
+			applied_velocity = velocity.lerp(movement_velocity, delta * 5)
+			
+			if !is_on_floor():
+				gravity += 1.5
+				applied_velocity.y -= gravity * delta
+			elif gravity != std_gravity:
+				gravity = std_gravity
+				
+			velocity = applied_velocity
+			move_and_slide()
+			
+			container.position = lerp(container.position, weapon_offset - (basis.inverse() * applied_velocity / 80), delta * 10)
+			
+			head.rotation.z = lerp_angle(head.rotation.z, -input_mouse.x * delta, delta * 5) / 2
+			
+			if applied_velocity == Vector3.ZERO:
+				change_state(PlayerStates.IDLE)
+
+		PlayerStates.JUMP:
+			pass
+		PlayerStates.FALL:
+			pass
+		PlayerStates.INTERACT:
+			pass
+
 func handle_controls(delta):
 	if Input.is_action_just_pressed("click") and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -129,6 +204,9 @@ func handle_controls(delta):
 	
 	var input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	movement_velocity = Vector3(input.x, 0, input.y).normalized() * move_speed
+	
+	if input:
+		change_state(PlayerStates.WALK)
 	
 	# Jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -144,26 +222,33 @@ func handle_controls(delta):
 		can_pickup[2].queue_free()
 	
 	if Input.is_action_just_pressed("crouch"):
+		change_state(PlayerStates.CROUCH)
 		#can_crouch = true
-		action_crouch(delta)
+		#action_crouch(delta)
 	
 	if Input.is_action_just_released("crouch"):
+		change_state(PlayerStates.IDLE)
+		pass
 		#can_stand = true
-		action_stand(delta)
+		#action_stand(delta)
 	
 func action_crouch(delta):
+	var tween = get_tree().create_tween()
 	#var target_head_pos = Vector3(0, camera.global_position.y - 30, 0)
 	
 	move_speed /= 2
-	head.position = lerp(head.position, head.position + Vector3(0, -0.7, 0), delta)
+	tween.tween_property(head, "position", head.position + Vector3(0, -0.5, 0), 0.1)
+	#head.position = lerp(head.position, head.position + Vector3(0, -30, 0), delta)
 	stand_collision.disabled = true
 	crouch_collision.disabled = false
 	
 func action_stand(delta):
+	var tween = get_tree().create_tween()
 	#var target_head_pos = Vector3(0, camera.global_position.y + 30, 0)
 	
 	move_speed *= 2
-	head.global_translate(Vector3(0, +0.7, 0))
+	tween.tween_property(head, "position", head.position + Vector3(0, 0.5, 0), 0.1)
+	#head.position = lerp(head.position, head.position + Vector3(0, 30, 0), delta)
 	stand_collision.disabled = false
 	crouch_collision.disabled = true
 
@@ -203,7 +288,8 @@ func action_shoot():
 		
 		impact_instance.position = raycast.get_collision_point() + (raycast.get_collision_normal() / 10)
 		impact_instance.look_at(camera.global_transform.origin, Vector3.UP, true)
-	
+
+#@rpc("call_local")
 func weapon_toggle():
 	if Input.is_action_just_pressed("weapon_switch"):
 		weapon_index = wrap(weapon_index + 1, 0, weapons.size())
@@ -213,7 +299,7 @@ func initiate_weapon_toggle(index: int):
 	weapon_index = index
 	toggle_weapon.rpc()
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local", "reliable")
 func toggle_weapon():
 	weapon = weapons[weapon_index]
 	
@@ -226,7 +312,7 @@ func toggle_weapon():
 	raycast.target_position = Vector3(0, 0, -1) * weapon.max_distance
 	crosshair.texture = weapon.crosshair
 
-@rpc("call_local")
+@rpc("any_peer", "call_local", "reliable")
 func action_drop_weapon():
 	var weapon_scene = weapon.model.instantiate()
 	weapon_scene.position = position + Vector3(0, 1.3, 0) * transform.basis
@@ -243,7 +329,7 @@ func action_drop_weapon():
 	weapons[weapon_index] = unnarmed
 	toggle_weapon.rpc()
 
-@rpc("call_local")
+@rpc("any_peer", "call_local", "reliable")
 func action_pickup_weapon(weapon_to_pick):
 	weapons[weapon_index] = weapon_to_pick
 	toggle_weapon.rpc()
