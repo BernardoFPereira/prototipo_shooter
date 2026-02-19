@@ -23,8 +23,8 @@ func _ready():
 			push_error("NodeTunnel Error: ", error_msg)
 	)
 	
-	peer.connect_to_relay("oriean.space:4224", "kwopmaderer777")
-	#peer.connect_to_relay("us_east.nodetunnel.io:8080", "kowqnsa2y2l4fot")
+	#peer.connect_to_relay("oriean.space:4224", "kwopmaderer777")
+	peer.connect_to_relay("us_east.nodetunnel.io:8080", "kowqnsa2y2l4fot")
 	multiplayer.multiplayer_peer = peer
 	
 	print("Authenticating...")
