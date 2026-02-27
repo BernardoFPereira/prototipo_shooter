@@ -1,0 +1,119 @@
+[gd_scene load_steps=10 format=3 uid="uid://dyngooikjw5l6"]
+
+[ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
+[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="1_ixdo3"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
+properties/0/path = NodePath(".:global_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_pc11p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.52716, -1.5708)]
+}
+
+[sub_resource type="Animation" id="Animation_3dbqs"]
+resource_name = "flying"
+length = 0.2
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.386387), Vector3(-0.379933, 0, 0.0147901), Vector3(0, 0, -0.356806), Vector3(0.338992, 0, 0.0147901)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, -1.5708), Vector3(0, -1.52716, -1.5708), Vector3(0, -4.77348, -1.5708)]
+}
+
+[sub_resource type="Animation" id="Animation_epnd4"]
+resource_name = "stuck"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_44j61"]
+_data = {
+"RESET": SubResource("Animation_pc11p"),
+"flying": SubResource("Animation_3dbqs"),
+"stuck": SubResource("Animation_epnd4")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_shfns"]
+size = Vector3(0.659912, 0.113037, 1.82324)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7cdf8"]
+size = Vector3(1.44922, 0.176025, 1.40137)
+
+[node name="Sword" type="Node3D"]
+script = ExtResource("1_3wp2a")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3aojy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_44j61")
+}
+autoplay = "flying"
+
+[node name="sword" parent="." instance=ExtResource("1_ixdo3")]
+transform = Transform3D(-1.57913e-07, 0.0436224, -0.999048, -1, -3.61999e-06, 0, -3.61654e-06, 0.999048, 0.0436224, 0, 0, 0)
+
+[node name="CollisionArea" type="RigidBody3D" parent="."]
+collision_layer = 0
+collision_mask = 16
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+max_contacts_reported = 12
+contact_monitor = true
+
+[node name="StuckCollision" type="CollisionShape3D" parent="CollisionArea"]
+shape = SubResource("BoxShape3D_shfns")
+disabled = true
+
+[node name="FlyingCollision" type="CollisionShape3D" parent="CollisionArea"]
+shape = SubResource("BoxShape3D_7cdf8")

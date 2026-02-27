@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr7vvsmmlfddc"]
+
+[ext_resource type="Script" path="res://components/player_input_syncronizer.gd" id="1_ucv4b"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h70a0"]
+properties/0/path = NodePath(".:movement_vector")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:is_jump_pressed")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:input_mouse")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:is_attack_pressed")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:is_throw_pressed")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:is_pull_pressed")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:is_disarmed")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[node name="PlayerInputSyncronizer" type="MultiplayerSynchronizer"]
+root_path = NodePath(".")
+replication_config = SubResource("SceneReplicationConfig_h70a0")
+script = ExtResource("1_ucv4b")

@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdu40asu3x8p7"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mv2xe"]
+properties/0/path = NodePath(".:global_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+properties/2/path = NodePath(".:direction")
+properties/2/spawn = true
+properties/2/replication_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irntn"]
+albedo_color = Color(0.160784, 0.419608, 0.490196, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_64x7p"]
+material = SubResource("StandardMaterial3D_irntn")
+radius = 0.405
+height = 1.585
+
+[sub_resource type="Curve" id="Curve_nkxa6"]
+_data = [Vector2(0, 0.747253), 0.0, 0.279352, 0, 0, Vector2(0.753623, 0.615385), 0.554811, 0.554811, 0, 0, Vector2(1, 0), -8.03736, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_w4eex"]
+curve = SubResource("Curve_nkxa6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uokkp"]
+direction = Vector3(0, 0, 0)
+spread = 53.273
+initial_velocity_min = 0.85
+initial_velocity_max = 2.44
+orbit_velocity_max = 0.225
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -9.6
+radial_accel_max = -5.05
+scale_curve = SubResource("CurveTexture_w4eex")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_sc6wm"]
+albedo_color = Color(0.230919, 0.433051, 0.468154, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o3wa0"]
+material = SubResource("ORMMaterial3D_sc6wm")
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Specter" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0661219)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_mv2xe")
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_64x7p")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.165778)
+amount = 250
+explosiveness = 0.18
+randomness = 0.24
+visibility_aabb = AABB(-1.90855, -2.3516, -3.00871, 3.8171, 4.7032, 6.01741)
+process_material = SubResource("ParticleProcessMaterial_uokkp")
+draw_pass_1 = SubResource("BoxMesh_o3wa0")

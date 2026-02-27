@@ -1,0 +1,28 @@
+extends Control
+
+const PORT := 8081
+
+@onready var host_button = $HBoxContainer/HostButton
+@onready var join_button = $HBoxContainer/JoinButton
+
+var level_scene = preload("uid://yusjlgf3x7bm")
+
+func _ready() -> void:
+	host_button.pressed.connect(_on_host_pressed)
+	join_button.pressed.connect(_on_join_pressed)
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+
+func _on_host_pressed() -> void:
+	var server_peer := ENetMultiplayerPeer.new()
+	server_peer.create_server(PORT)
+	multiplayer.multiplayer_peer = server_peer
+	
+	get_tree().change_scene_to_packed(level_scene)
+
+func _on_join_pressed() -> void:
+	var client_peer := ENetMultiplayerPeer.new()
+	client_peer.create_client("localhost", PORT)
+	multiplayer.multiplayer_peer = client_peer
+
+func _on_connected_to_server() -> void:
+	get_tree().change_scene_to_packed(level_scene)
