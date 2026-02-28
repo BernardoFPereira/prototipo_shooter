@@ -27,9 +27,6 @@ properties/6/replication_mode = 2
 properties/7/path = NodePath(".:current_animation")
 properties/7/spawn = true
 properties/7/replication_mode = 2
-properties/8/path = NodePath(".:is_weapon_visible")
-properties/8/spawn = true
-properties/8/replication_mode = 2
 
 [node name="PlayerInputSyncronizer" type="MultiplayerSynchronizer"]
 root_path = NodePath(".")

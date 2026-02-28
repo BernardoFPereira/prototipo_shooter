@@ -1,7 +1,7 @@
 class_name PlayerInputSynchronizerComponent
 extends MultiplayerSynchronizer
 
-@onready var animation_player: AnimationPlayer = owner.get_node("AnimationPlayer")
+@onready var animation_player: AnimationPlayer = get_parent().get_node("AnimationPlayer")
 
 var movement_vector: Vector2 = Vector2.ZERO
 var input_mouse: Vector2 = Vector2.ZERO
@@ -12,21 +12,20 @@ var is_attack_pressed: bool
 var is_throw_pressed: bool
 var is_pull_pressed: bool
 
-var is_disarmed: bool = false#:
-	#set(value):
-		#get_parent().weapon.visible = !value
+var is_disarmed: bool = false:
+	set(value):
+		is_disarmed = value
+		get_parent().weapon.visible = !value
 
 var thrown_sword: Sword
 
-var is_weapon_visible: bool = true# :
-	#set(value):
-		#get_parent().weapon.visible = value
-
-var current_animation: String:
+var current_animation: String :
 	set(value):
 		current_animation = value
 		if animation_player:
 			animation_player.play(value)
+		else:
+			print("Animation Player is likely null!!")
 
 func _process(_delta: float) -> void:
 	if is_multiplayer_authority():
