@@ -17,13 +17,19 @@ properties/3/spawn = true
 properties/3/replication_mode = 2
 properties/4/path = NodePath(".:is_throw_pressed")
 properties/4/spawn = true
-properties/4/replication_mode = 1
+properties/4/replication_mode = 2
 properties/5/path = NodePath(".:is_pull_pressed")
 properties/5/spawn = true
-properties/5/replication_mode = 1
+properties/5/replication_mode = 2
 properties/6/path = NodePath(".:is_disarmed")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
+properties/7/path = NodePath(".:current_animation")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath(".:is_weapon_visible")
+properties/8/spawn = true
+properties/8/replication_mode = 2
 
 [node name="PlayerInputSyncronizer" type="MultiplayerSynchronizer"]
 root_path = NodePath(".")

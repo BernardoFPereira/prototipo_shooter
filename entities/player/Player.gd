@@ -18,6 +18,7 @@ const JUMP_VELOCITY := 16
 #@onready var specter_aim_cast = $Head/SpecterAimCast
 
 var sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
+#var thrown_sword: Sword
 
 var mouse_sensitivity := 0.002
 var input_multiplayer_authority: int
@@ -29,11 +30,11 @@ func _ready():
 	player_input_synchronizer_component.set_multiplayer_authority(input_multiplayer_authority)
 
 func _process(delta):
-	if player_input_synchronizer_component.is_attack_pressed:
-		try_attack()
+	#if player_input_synchronizer_component.is_attack_pressed:
+		#try_attack()
 		
-	if player_input_synchronizer_component.is_throw_pressed:
-		try_throw_sword() if !player_input_synchronizer_component.is_disarmed else try_pull_sword()
+	#if player_input_synchronizer_component.is_throw_pressed:
+		#try_throw_sword() if !player_input_synchronizer_component.is_disarmed else try_pull_sword()
 		
 	if is_multiplayer_authority():
 		var movement_vector: Vector2 = player_input_synchronizer_component.movement_vector
@@ -57,11 +58,14 @@ func _process(delta):
 		
 		move_and_slide()
 		
-		#if player_input_synchronizer_component.is_throw_pressed:
-			#try_throw_sword() if !player_input_synchronizer_component.is_disarmed else try_pull_sword()
+		if player_input_synchronizer_component.is_throw_pressed:
+			if !player_input_synchronizer_component.is_disarmed:
+				try_throw_sword()
+			else:
+				try_pull_sword()
 		
-		#if player_input_synchronizer_component.is_pull_pressed:
-			#try_pull_sword()
+		if player_input_synchronizer_component.is_attack_pressed:
+			try_attack()
 		
 		if player_input_synchronizer_component.is_jump_pressed:
 			try_jump()
@@ -88,10 +92,14 @@ func release_mouse_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func try_pull_sword():
+	#if !player_input_synchronizer_component.is_disarmed or !thrown_sword:
+		#return
 	if !player_input_synchronizer_component.is_disarmed or !player_input_synchronizer_component.thrown_sword:
 		return
-	
+		
+	#if is_multiplayer_authority():
 	print("Pulling sword back!")
+	#thrown_sword.set_state(Sword.SwordState.PULLED_BACK)
 	player_input_synchronizer_component.thrown_sword.set_state(
 		player_input_synchronizer_component.thrown_sword.SwordState.PULLED_BACK
 		)
@@ -105,19 +113,22 @@ func try_throw_sword():
 	print("Throwing Sword!")
 	var sword = sword_scene.instantiate() as Sword
 	sword.transform = head.global_transform
-	get_tree().root.add_child(sword, true)
+	get_parent().add_child(sword, true)
 	sword.sword_owner = self
 	sword.start(-head.global_transform.basis.z)
+	#thrown_sword = sword
 	player_input_synchronizer_component.thrown_sword = sword
 	player_input_synchronizer_component.is_disarmed = true
-	weapon.hide()
+	#player_input_synchronizer_component.is_weapon_visible = false
+	#weapon.hide()
 
 func try_attack():
-	if animation_player.is_playing() and animation_player.current_animation == "attack":
+	if animation_player.is_playing() and player_input_synchronizer_component.current_animation == "attack":
 		return
 	
 	print("Attacking!")
-	animation_player.play("attack")
+	player_input_synchronizer_component.current_animation = "attack"
+	#animation_player.play("attack")
 
 func try_jump():
 	if !is_on_floor():
@@ -129,6 +140,7 @@ func try_jump():
 func _on_animation_finished(anim_name):
 	match anim_name:
 		"attack":
-			animation_player.play("idle")
+			player_input_synchronizer_component.current_animation = "idle"
+			#animation_player.play("idle")
 		_:
 			pass

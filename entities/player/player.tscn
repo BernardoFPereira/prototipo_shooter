@@ -174,7 +174,7 @@ mesh = SubResource("CapsuleMesh_hbx61")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Weapon" type="Node3D" parent="Head"]
-transform = Transform3D(0.993682, 0.0867978, 0.0711438, -0.093643, 0.990638, 0.0993196, -0.0618572, -0.105354, 0.992507, 0.951, -0.597, -1.045)
+transform = Transform3D(0.993682, 0.0867977, 0.0711438, -0.093643, 0.990638, 0.0993196, -0.0618572, -0.105354, 0.992507, 0.951, -0.597, -1.045)
 
 [node name="sword" parent="Head/Weapon" instance=ExtResource("3_6b2jb")]
 transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-16, -1.49012e-08, 5.13479e-16, 1, 0, 0, 0)
