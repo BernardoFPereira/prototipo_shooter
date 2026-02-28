@@ -11,6 +11,10 @@ enum SwordState {
 @onready var collision_area = $CollisionArea
 @onready var stuck_collision = $CollisionArea/StuckCollision
 @onready var flying_collision = $CollisionArea/FlyingCollision
+@onready var trail3d = $sword/GPUTrail3D
+
+@onready var trail_color_1 = preload("res://assets/textures/gradients/trail_01.tres")
+@onready var trail_color_2 = preload("res://assets/textures/gradients/trail_02.tres")
 
 var state = SwordState.THROWN
 
@@ -39,6 +43,11 @@ func _process(delta):
 
 func start(direction) -> void:
 	self.direction = direction
+	
+	if sword_owner.is_multiplayer_authority():
+		trail3d.color_ramp.gradient = trail_color_1
+	else:
+		trail3d.color_ramp.gradient = trail_color_2
 
 func set_state(new_state: SwordState):
 	match new_state:

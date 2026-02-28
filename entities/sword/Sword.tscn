@@ -1,7 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyngooikjw5l6"]
+[gd_scene load_steps=21 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="1_ixdo3"]
+[ext_resource type="Shader" path="res://GPUTrail-main/shaders/trail.gdshader" id="3_c74e4"]
+[ext_resource type="Shader" path="res://GPUTrail-main/shaders/trail_draw_pass.gdshader" id="4_yvnsb"]
+[ext_resource type="Texture2D" uid="uid://cqoawqmk7dgr1" path="res://assets/textures/T_VFX_Trail223.png" id="5_dal88"]
+[ext_resource type="Gradient" uid="uid://cxtcfx7cewnir" path="res://assets/textures/gradients/trail_02.tres" id="5_njnsk"]
+[ext_resource type="Script" path="res://GPUTrail-main/GPUTrail3D.gd" id="6_lyojb"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -37,6 +42,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, -1.52716, -1.5708)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sword/GPUTrail3D:length")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sword/GPUTrail3D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_3dbqs"]
 resource_name = "flying"
@@ -67,9 +96,45 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 1.5708, -1.5708), Vector3(0, -1.52716, -1.5708), Vector3(0, -4.77348, -1.5708)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sword/GPUTrail3D:length")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [35]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sword/GPUTrail3D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_epnd4"]
 resource_name = "stuck"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sword/GPUTrail3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_44j61"]
 _data = {
@@ -77,6 +142,37 @@ _data = {
 "flying": SubResource("Animation_3dbqs"),
 "stuck": SubResource("Animation_epnd4")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4day"]
+shader = ExtResource("3_c74e4")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ip34n"]
+gradient = ExtResource("5_njnsk")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_07y1h"]
+bake_resolution = 32
+_data = [Vector2(0, 1), 0.0, -0.859922, 0, 1, Vector2(1, 0.140078), -0.859922, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mjcee"]
+width = 512
+curve = SubResource("Curve_07y1h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4mmbb"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_yvnsb")
+shader_parameter/mask_strength = 1.0
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 42
+shader_parameter/tex = ExtResource("5_dal88")
+shader_parameter/color_ramp = SubResource("GradientTexture1D_ip34n")
+shader_parameter/curve = SubResource("CurveTexture_mjcee")
+
+[sub_resource type="QuadMesh" id="QuadMesh_lkhgp"]
+material = SubResource("ShaderMaterial_4mmbb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shfns"]
 size = Vector3(0.659912, 0.113037, 1.82324)
@@ -98,6 +194,23 @@ autoplay = "flying"
 
 [node name="sword" parent="." instance=ExtResource("1_ixdo3")]
 transform = Transform3D(-1.57913e-07, 0.0436224, -0.999048, -1, -3.61999e-06, 0, -3.61654e-06, 0.999048, 0.0436224, 0, 0, 0)
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="sword"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0.885, 0)
+visible = false
+amount = 1
+explosiveness = 1.0
+fixed_fps = 59
+process_material = SubResource("ShaderMaterial_p4day")
+draw_pass_1 = SubResource("QuadMesh_lkhgp")
+script = ExtResource("6_lyojb")
+length = 1
+length_seconds = 0.0169492
+texture = ExtResource("5_dal88")
+color_ramp = SubResource("GradientTexture1D_ip34n")
+curve = SubResource("CurveTexture_mjcee")
+use_red_as_alpha = true
+_defaults_have_been_set = true
 
 [node name="CollisionArea" type="RigidBody3D" parent="."]
 collision_layer = 0
