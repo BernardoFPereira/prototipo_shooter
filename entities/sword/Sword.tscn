@@ -82,7 +82,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shfns"]
-size = Vector3(0.659912, 0.113037, 1.82324)
+size = Vector3(0.916992, 0.113037, 1.93603)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7cdf8"]
 size = Vector3(1.44922, 0.176025, 1.40137)
@@ -115,6 +115,7 @@ max_contacts_reported = 12
 contact_monitor = true
 
 [node name="StuckCollision" type="CollisionShape3D" parent="CollisionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25524)
 shape = SubResource("BoxShape3D_shfns")
 disabled = true
 

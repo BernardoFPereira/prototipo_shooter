@@ -12,14 +12,20 @@ var is_attack_pressed: bool
 var is_throw_pressed: bool
 var is_pull_pressed: bool
 
-var is_disarmed: bool = false:
+var is_disarmed: bool:
 	set(value):
 		is_disarmed = value
-		get_parent().weapon.visible = !value
+		match is_disarmed:
+			true:
+				get_parent().weapon.visible = false
+			false:
+				get_parent().weapon.visible = true
+				
+		print("is_disarmed value set to: %s" % value)
 
 var thrown_sword: Sword
 
-var current_animation: String :
+var current_animation: String = "idle" :
 	set(value):
 		current_animation = value
 		if animation_player:

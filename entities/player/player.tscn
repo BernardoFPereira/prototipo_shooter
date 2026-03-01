@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgn62wgeteqw1"]
+[gd_scene load_steps=13 format=3 uid="uid://dgn62wgeteqw1"]
 
 [ext_resource type="Script" path="res://entities/player/Player.gd" id="1_ox8fk"]
 [ext_resource type="PackedScene" uid="uid://cr7vvsmmlfddc" path="res://components/player_input_syncronizer.tscn" id="2_kbt6j"]
@@ -144,8 +144,12 @@ _data = {
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hbx61"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
+radius = 0.7
+
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 6
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_ox8fk")
 
 [node name="ActivationTimer" type="Timer" parent="."]
@@ -175,7 +179,7 @@ mesh = SubResource("CapsuleMesh_hbx61")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Weapon" type="Node3D" parent="Head"]
-transform = Transform3D(0.993682, 0.0867977, 0.0711438, -0.093643, 0.990637, 0.0993195, -0.0618572, -0.105354, 0.992507, 0.951, -0.597, -1.045)
+transform = Transform3D(0.993682, 0.0867977, 0.0711437, -0.093643, 0.990637, 0.0993195, -0.0618572, -0.105354, 0.992506, 0.951, -0.597, -1.045)
 
 [node name="sword" parent="Head/Weapon" instance=ExtResource("3_6b2jb")]
 transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-16, -1.49012e-08, 5.13479e-16, 1, 0, 0, 0)
@@ -185,3 +189,11 @@ transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-
 [node name="SpecterAimCast" type="RayCast3D" parent="Head"]
 visible = false
 target_position = Vector3(0, 0, -15)
+
+[node name="GetSwordArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GetSwordArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
+shape = SubResource("SphereShape3D_k5oyn")
