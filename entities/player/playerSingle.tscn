@@ -1,33 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgn62wgeteqw1"]
+[gd_scene load_steps=14 format=3 uid="uid://dumkd0qt2sxvx"]
 
-[ext_resource type="Script" path="res://entities/player/Player.gd" id="1_ox8fk"]
-[ext_resource type="PackedScene" uid="uid://cr7vvsmmlfddc" path="res://components/player_input_syncronizer.tscn" id="2_kbt6j"]
-[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="3_6b2jb"]
-[ext_resource type="Script" path="res://entities/player/StateSynchronizer.gd" id="3_a07ba"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xn3ut"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("Head:position")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Head:rotation")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:velocity")
-properties/4/spawn = true
-properties/4/replication_mode = 1
+[ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
+[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="4_v6suj"]
 
 [sub_resource type="Animation" id="Animation_x4mkt"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Sword:position")
+tracks/0/path = NodePath("Head/Weapon:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -39,7 +20,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Sword:rotation")
+tracks/1/path = NodePath("Head/Weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -47,6 +28,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(-0.0994838, 0.0715585, -0.0942478)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Head/Cannon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/Cannon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_33soh"]
@@ -56,7 +61,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Sword:position")
+tracks/0/path = NodePath("Head/Weapon:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +73,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Sword:rotation")
+tracks/1/path = NodePath("Head/Weapon:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -85,7 +90,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Sword:position")
+tracks/0/path = NodePath("Head/Weapon:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -97,7 +102,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Sword:rotation")
+tracks/1/path = NodePath("Head/Weapon:rotation")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -114,7 +119,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Sword:position")
+tracks/0/path = NodePath("Head/Weapon:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -126,7 +131,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Sword:rotation")
+tracks/1/path = NodePath("Head/Weapon:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -139,11 +144,41 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_pmpnh"]
 resource_name = "release_block"
 
+[sub_resource type="Animation" id="Animation_mjtu2"]
+resource_name = "fire"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Cannon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0578976, 0, 0.125444), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Cannon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.084545, 0.0573121, 0.00484495), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x7c7m"]
 _data = {
 "RESET": SubResource("Animation_x4mkt"),
 "attack": SubResource("Animation_33soh"),
 "block": SubResource("Animation_xockt"),
+"fire": SubResource("Animation_mjtu2"),
 "idle": SubResource("Animation_ptllg"),
 "release_block": SubResource("Animation_pmpnh")
 }
@@ -152,23 +187,20 @@ _data = {
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hbx61"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_3367n"]
+size = Vector3(0.24, 0.28, 0.935)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 4
 collision_mask = 3
-script = ExtResource("1_ox8fk")
+script = ExtResource("1_wj731")
 
 [node name="ActivationTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-
-[node name="PlayerInputSyncronizer" parent="." instance=ExtResource("2_kbt6j")]
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_xn3ut")
-script = ExtResource("3_a07ba")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -187,10 +219,10 @@ mesh = SubResource("CapsuleMesh_hbx61")
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="Sword" type="Node3D" parent="Head"]
+[node name="Weapon" type="Node3D" parent="Head"]
 transform = Transform3D(0.993682, 0.0867977, 0.0711437, -0.093643, 0.990637, 0.0993195, -0.0618572, -0.105354, 0.992506, 0.951, -0.597, -1.045)
 
-[node name="sword" parent="Head/Sword" instance=ExtResource("3_6b2jb")]
+[node name="sword" parent="Head/Weapon" instance=ExtResource("4_v6suj")]
 transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-16, -1.49012e-08, 5.13479e-16, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
@@ -198,6 +230,15 @@ transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-
 [node name="SpecterAimCast" type="RayCast3D" parent="Head"]
 visible = false
 target_position = Vector3(0, 0, -15)
+
+[node name="Cannon" type="Node3D" parent="Head"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Cannon"]
+transform = Transform3D(0.662102, 0, 0, 0, 0.65483, 0.0978649, 0, -0.0978649, 0.65483, -0.4414, 0.256545, -0.423315)
+mesh = SubResource("BoxMesh_3367n")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Cannon"]
+transform = Transform3D(1, 2.6921e-10, -1.30385e-08, -3.63798e-11, 1, 1.02445e-08, -9.31323e-10, -9.31323e-09, 1, -0.449911, 0.217413, -0.796732)
 
 [node name="GetSwordArea" type="Area3D" parent="."]
 collision_layer = 0

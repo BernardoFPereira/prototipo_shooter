@@ -1,4 +1,4 @@
-class_name Player
+#class_name Player
 extends CharacterBody3D
 
 var move_speed := 12
@@ -10,6 +10,8 @@ const JUMP_VELOCITY := 16
 @onready var get_sword_area = $GetSwordArea
 
 @onready var player_input_synchronizer_component: PlayerInputSynchronizerComponent = $PlayerInputSyncronizer
+@onready var player_state_synchronizer = $MultiplayerSynchronizer
+
 @onready var head: Node3D = $Head
 @onready var camera = $Head/Camera3D
 @onready var weapon = $Head/Weapon
@@ -34,43 +36,70 @@ func _ready():
 func _process(delta):
 	if player_input_synchronizer_component.is_attack_pressed:
 		try_attack()
-			
+	
+	if player_input_synchronizer_component.is_block_pressed:
+		if !player_input_synchronizer_component.is_blocking:
+			try_block()
+		
+	if player_input_synchronizer_component.is_block_released:
+		release_block()
+	
 	if player_input_synchronizer_component.is_throw_pressed:
 		if !player_input_synchronizer_component.is_disarmed:
 			try_throw_sword()
 		else:
 			try_pull_sword()
+		
+	#if !is_multiplayer_authority():
+		#player_state_synchronizer.apply_reconciliation(self, delta)
+	
+	var movement_vector: Vector2 = player_input_synchronizer_component.movement_vector
+	var direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
+	if movement_vector:
+		velocity.z = lerpf(direction.z * move_speed, 0, delta * move_speed)
+		velocity.x = lerpf(direction.x * move_speed, 0, delta * move_speed)
+	else:
+		velocity.z = move_toward(velocity.z, 0, delta * (drag * 4))
+		velocity.x = move_toward(velocity.x, 0, delta * (drag * 4))
+		
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	
+	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag, delta * 6)
+		
+	_rotate_camera()
 	
 	if is_multiplayer_authority():
-		var movement_vector: Vector2 = player_input_synchronizer_component.movement_vector
-		var direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
-		if direction:
-			velocity.z = lerpf(direction.z * move_speed, 0, delta * move_speed)
-			velocity.x = lerpf(direction.x * move_speed, 0, delta * move_speed)
-		else:
-			velocity.z = lerpf(velocity.z, 0, delta * drag/4)
-			velocity.x = lerpf(velocity.x, 0, delta * drag/4)
-			
-		if not is_on_floor():
-			velocity.y -= gravity * delta
-		
-		head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag, delta * 6)
-		_rotate_camera()
-		
-		move_and_slide()
-		
 		if player_input_synchronizer_component.is_jump_pressed:
 			try_jump()
+		
+		move_and_slide()
 
 func _rotate_camera():
-	var movement_vector = player_input_synchronizer_component.movement_vector
-	
 	if player_input_synchronizer_component.input_mouse:
-		rotate_y(-player_input_synchronizer_component.input_mouse.x * mouse_sensitivity)
-		head.rotate_x(-player_input_synchronizer_component.input_mouse.y * mouse_sensitivity)
+		var mouse_delta = player_input_synchronizer_component.input_mouse
+
+		# --- Yaw (left/right) ---
+		# Apply yaw rotation locally for responsiveness.
+		# On the server this is authoritative; on the client it's prediction.
+		rotate_y(-mouse_delta.x * mouse_sensitivity)
+
+		# --- Pitch (up/down) ---
+		# Always apply pitch locally, never reconciled.
+		head.rotate_x(-mouse_delta.y * mouse_sensitivity)
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+
+		# --- Roll (optional tilt) ---
 		head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
-	#player_input_synchronizer_component.input_mouse = Vector2.ZERO
+
+#func _rotate_camera():
+	#var movement_vector = player_input_synchronizer_component.movement_vector
+	#
+	#if player_input_synchronizer_component.input_mouse:
+		#rotate_y(-player_input_synchronizer_component.input_mouse.x * mouse_sensitivity)
+		#head.rotate_x(-player_input_synchronizer_component.input_mouse.y * mouse_sensitivity)
+		#head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		#head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
 
 func _input(event):
 	if Input.is_action_just_pressed("click"):
@@ -122,6 +151,24 @@ func try_attack():
 			rpc_id(1, "request_server_animation", "attack")
 		print("Attacking!")
 
+func try_block():
+	if animation_player.current_animation == "idle":
+		player_input_synchronizer_component.current_animation = "block"
+		if !is_multiplayer_authority():
+			rpc_id(1, "request_server_animation", "block")
+		print("Blocking!")
+	
+	player_input_synchronizer_component.is_blocking = true
+
+func release_block():
+	#if animation_player.current_animation == "block":
+	player_input_synchronizer_component.current_animation = "idle"
+	if !is_multiplayer_authority():
+		rpc_id(1, "request_server_animation", "idle")
+	print("Stopped blocking!")
+		
+	player_input_synchronizer_component.is_blocking = false
+
 func try_jump():
 	if !is_on_floor():
 		return
@@ -142,8 +189,6 @@ func _on_sword_back(body):
 	var sword: Sword = body.get_parent()
 	if sword is Sword and sword.sword_owner == self:
 		if is_multiplayer_authority():
-			print("REARM SERVER")
-			print(input_multiplayer_authority)
 			rpc_id(input_multiplayer_authority, "request_server_disarm_switch", false)
 			player_input_synchronizer_component.is_disarmed = false
 			body.get_parent().register_impact()

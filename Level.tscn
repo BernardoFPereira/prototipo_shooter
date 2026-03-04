@@ -1,11 +1,11 @@
-[gd_scene load_steps=114 format=3 uid="uid://yusjlgf3x7bm"]
+[gd_scene load_steps=117 format=3 uid="uid://yusjlgf3x7bm"]
 
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="1_s88dd"]
-[ext_resource type="Script" path="res://main.gd" id="1_yrmsw"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_byte.gd" id="2_jspue"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_int.gd" id="3_oqm8j"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_float.gd" id="4_75vqg"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/mesh_vector_data.gd" id="5_4nga7"]
+[ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="7_dta2b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uxh04"]
 
@@ -1064,10 +1064,19 @@ face_vertex_data = {
 "vertex_index": SubResource("Resource_tn5wr")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhukm"]
+albedo_color = Color(1, 0.329412, 0.329412, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b0a11"]
+material = SubResource("StandardMaterial3D_rhukm")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ikf3y"]
+size = Vector3(1, 2, 1)
+
 [node name="Main" type="Node"]
-script = ExtResource("1_yrmsw")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+process_mode = 4
 _spawnable_scenes = PackedStringArray("res://entities/sword/Sword.tscn")
 spawn_path = NodePath("..")
 
@@ -1101,31 +1110,47 @@ mesh_vector_data = SubResource("Resource_badja")
 collision_layer = 17
 
 [node name="Block_2" type="Node3D" parent="Cyclops"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 10, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 7, 14)
 script = ExtResource("1_s88dd")
 mesh_vector_data = SubResource("Resource_b51nf")
 collision_layer = 17
 
 [node name="Block_3" type="Node3D" parent="Cyclops"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 8, -6)
 script = ExtResource("1_s88dd")
 mesh_vector_data = SubResource("Resource_1lrdh")
 collision_layer = 17
 
 [node name="Block_4" type="Node3D" parent="Cyclops"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 10, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 8, -6)
 script = ExtResource("1_s88dd")
 mesh_vector_data = SubResource("Resource_56ni5")
 collision_layer = 17
 
 [node name="Block_5" type="Node3D" parent="Cyclops"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 8, -6)
 script = ExtResource("1_s88dd")
 mesh_vector_data = SubResource("Resource_wy1qu")
 collision_layer = 17
 
 [node name="Block_6" type="Node3D" parent="Cyclops"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10, -9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 8, -6)
 script = ExtResource("1_s88dd")
 mesh_vector_data = SubResource("Resource_ueb8k")
 collision_layer = 17
+
+[node name="Enemy" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.9939, 9, -4.3625)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_b0a11")
+
+[node name="Area3D" type="Area3D" parent="Enemy"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ikf3y")
+
+[node name="Player" parent="." instance=ExtResource("7_dta2b")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 6.58471, 0, -15.8469)

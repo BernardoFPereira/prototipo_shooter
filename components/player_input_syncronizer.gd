@@ -11,7 +11,11 @@ var is_jump_pressed: bool
 var is_attack_pressed: bool
 var is_throw_pressed: bool
 var is_pull_pressed: bool
+var is_block_pressed: bool
+var is_block_released: bool
 
+var is_blocking: bool
+	
 var is_disarmed: bool:
 	set(value):
 		is_disarmed = value
@@ -48,3 +52,5 @@ func gather_input():
 	is_jump_pressed = Input.is_action_just_pressed("jump")
 	is_attack_pressed = Input.is_action_just_pressed("attack")
 	is_throw_pressed = Input.is_action_just_pressed("throw_sword")
+	is_block_pressed = Input.is_action_pressed("block")
+	is_block_released = Input.is_action_just_released("block")
