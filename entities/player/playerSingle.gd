@@ -8,6 +8,7 @@ var gravity := 42
 const JUMP_VELOCITY := 16
 
 @onready var get_sword_area = $GetSwordArea
+@onready var sword_hit_area = $SwordHitArea
 
 #@onready var player_input_synchronizer_component: PlayerInputSynchronizerComponent = $PlayerInputSyncronizer
 #@onready var player_state_synchronizer = $MultiplayerSynchronizer
@@ -41,6 +42,9 @@ func _ready():
 	#player_input_synchronizer_component.set_multiplayer_authority(input_multiplayer_authority)
 
 func _process(delta):
+	_rotate_camera()
+
+func _physics_process(delta):
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
 	if movement_vector:
@@ -55,27 +59,23 @@ func _process(delta):
 	
 	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag, delta * 6)
 	
-	#_rotate_camera()
 	move_and_slide()
 
-#func _rotate_camera():
-	#if input_mouse:
-		#rotate_y(-input_mouse.x * mouse_sensitivity)
-		#head.rotate_x(-input_mouse.y * mouse_sensitivity)
-		#
-		#head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-		#head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
-
-func _input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		var input_mouse = event.relative
+func _rotate_camera():
+	if input_mouse:
+		rotate_y(-input_mouse.x * mouse_sensitivity)
+		head.rotate_x(-input_mouse.y * mouse_sensitivity)
 		
-		if input_mouse:
-			rotate_y(-input_mouse.x * mouse_sensitivity)
-			head.rotate_x(-input_mouse.y * mouse_sensitivity)
-			
-			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-			head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
+	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-70), deg_to_rad(60))
+	head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
+	head.rotation.y = clamp(head.rotation.y, deg_to_rad(0), deg_to_rad(0))
+	input_mouse = Vector2.ZERO
+
+func _unhandled_input(event):
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		input_mouse = event.relative
+		
+func _input(event):
 		
 	if Input.is_action_just_pressed("click"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -177,6 +177,16 @@ func _on_animation_finished(anim_name):
 			animation_player.play("idle")
 		_:
 			pass
+
+func _on_sword_hit():
+	print(sword_hit_area.collision_result)
+	if sword_hit_area.collision_result:
+		if sword_hit_area.collision_result[0].collider is Enemy:
+			print("Enemy hit")
+			var enemy = sword_hit_area.collision_result[0].collider as Enemy
+			enemy.spawn_blood(sword_hit_area.collision_result[0].point)
+	print("Sword Hit time")
+	pass
 
 func _on_sword_back(body):
 	var sword: Sword = body.get_parent()

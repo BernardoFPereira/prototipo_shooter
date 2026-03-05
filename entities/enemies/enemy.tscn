@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bl6itlv6uspjd"]
+
+[ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_el1td"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ikf3y"]
+size = Vector3(1, 2, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhukm"]
+albedo_color = Color(1, 0.329412, 0.329412, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b0a11"]
+material = SubResource("StandardMaterial3D_rhukm")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvyrw"]
+radius = 0.748138
+height = 2.03272
+
+[node name="Enemy" type="RigidBody3D"]
+collision_layer = 2
+script = ExtResource("1_el1td")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_ikf3y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_b0a11")
+
+[node name="SwordCollisionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SwordCollisionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19537, 0)
+shape = SubResource("CapsuleShape3D_cvyrw")

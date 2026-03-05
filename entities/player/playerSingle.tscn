@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=15 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="4_v6suj"]
@@ -82,6 +82,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, -0.00341804), Vector3(0.378166, -0.47618, -0.268085), Vector3(-0.363693, 2.52047, -1.70112), Vector3(0, 0, -0.00341804)]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_sword_hit"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_xockt"]
 resource_name = "block"
@@ -110,6 +124,35 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, -0.00341804), Vector3(-0.905273, -2.00465, 3.02293)]
+}
+
+[sub_resource type="Animation" id="Animation_mjtu2"]
+resource_name = "fire"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Cannon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0578976, 0, 0.125444), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Cannon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.084545, 0.0573121, 0.00484495), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ptllg"]
@@ -144,35 +187,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_pmpnh"]
 resource_name = "release_block"
 
-[sub_resource type="Animation" id="Animation_mjtu2"]
-resource_name = "fire"
-length = 0.3
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Cannon:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.02, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.0578976, 0, 0.125444), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Cannon:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.02, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.084545, 0.0573121, 0.00484495), Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_x7c7m"]
 _data = {
 "RESET": SubResource("Animation_x4mkt"),
@@ -193,8 +207,11 @@ size = Vector3(0.24, 0.28, 0.935)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_we5c5"]
+size = Vector3(0.89, 1, 1.495)
+
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 4
+collision_layer = 6
 collision_mask = 3
 script = ExtResource("1_wj731")
 
@@ -247,3 +264,9 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GetSwordArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
 shape = SubResource("SphereShape3D_k5oyn")
+
+[node name="SwordHitArea" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15988, -0.972419)
+shape = SubResource("BoxShape3D_we5c5")
+target_position = Vector3(0, 0, -0.68)
+collision_mask = 2

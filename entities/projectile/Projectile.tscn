@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdu40asu3x8p7"]
+[gd_scene load_steps=11 format=3 uid="uid://cdu40asu3x8p7"]
 
 [ext_resource type="Script" path="res://entities/projectile/projectile.gd" id="1_5487q"]
 
@@ -35,7 +35,13 @@ albedo_color = Color(0.230919, 0.433051, 0.468154, 1)
 material = SubResource("ORMMaterial3D_sc6wm")
 size = Vector3(0.5, 0.5, 0.5)
 
-[node name="Specter" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_hfops"]
+size = Vector3(0.404297, 0.407227, 0.951172)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t8u5j"]
+radius = 4.0
+
+[node name="Projectile" type="Node3D"]
 transform = Transform3D(0.665466, 0, 0, 0, 0.665466, 0, 0, 0, 0.665466, 0, 0, 0)
 script = ExtResource("1_5487q")
 
@@ -56,3 +62,16 @@ randomness = 0.24
 visibility_aabb = AABB(-1.90855, -2.54887, -3.00871, 3.8171, 4.7032, 6.01741)
 process_material = SubResource("ParticleProcessMaterial_uokkp")
 draw_pass_1 = SubResource("BoxMesh_o3wa0")
+
+[node name="CollisionArea" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionArea"]
+shape = SubResource("BoxShape3D_hfops")
+
+[node name="ExplosionArea" type="ShapeCast3D" parent="."]
+shape = SubResource("SphereShape3D_t8u5j")
+target_position = Vector3(0, 0, 0)
+collision_mask = 2
+collide_with_areas = true

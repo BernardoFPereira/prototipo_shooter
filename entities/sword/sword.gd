@@ -41,6 +41,7 @@ func set_state(new_state: SwordState):
 			flying_collision.disabled = false
 			collision_area.set_collision_layer_value(2, false)
 			collision_area.set_collision_layer_value(4, false)
+			#collision_area.set_collision_layer_value(6, true)
 			
 		SwordState.PULLED_BACK:
 			stuck_collision.disabled = true
@@ -48,6 +49,7 @@ func set_state(new_state: SwordState):
 			collision_area.set_collision_mask_value(5, false)
 			collision_area.set_collision_layer_value(2, false)
 			collision_area.set_collision_mask_value(3, true)
+			#collision_area.set_collision_layer_value(6, true)
 			
 			animation_player.play("flying")
 			
@@ -56,6 +58,7 @@ func set_state(new_state: SwordState):
 			flying_collision.disabled = true
 			collision_area.set_collision_layer_value(2, true)
 			collision_area.set_collision_layer_value(4, false)
+			#collision_area.set_collision_mask_value(6, false)
 			
 			animation_player.play("stuck")
 		
@@ -66,12 +69,12 @@ func register_impact():
 
 func _on_sword_impact(body):
 	if body is Player and state == SwordState.PULLED_BACK:
-		print("Sword hit player")
+		print("Sword collided player")
 		if sword_owner == body:
 			print(sword_owner)
 			collision_area.set_collision_layer_value(4, true)
 		return
-		
+	
 	var collision_result: KinematicCollision3D = collision_area.move_and_collide(global_position)
 	if collision_result:
 		var collision_normal = collision_result.get_normal()
@@ -83,3 +86,17 @@ func _on_sword_impact(body):
 	#print("-----> Thrown sword hit something!")
 	#print("-----> Should STUCK!")
 	call_deferred("set_state", SwordState.STUCK)
+
+#func _on_sword_area_impact(area):
+	#if area is Enemy:
+		#match state:
+			#SwordState.THROWN:
+				#var tween = get_tree().create_tween()
+				#tween.tween_property(sword_owner, "global_position", global_position, 0.16)
+				#speed = 0
+				#print("Throw hit enemy!")
+				#set_state(SwordState.PULLED_BACK)
+			#SwordState.PULLED_BACK:
+				## TODO: Deal damage
+				#print("Sword hit enemy on way back")
+		#return
