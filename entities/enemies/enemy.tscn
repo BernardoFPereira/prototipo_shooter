@@ -16,7 +16,9 @@ radius = 0.748138
 height = 2.03272
 
 [node name="Enemy" type="RigidBody3D"]
-collision_layer = 2
+collision_layer = 4352
+axis_lock_angular_x = true
+axis_lock_angular_z = true
 script = ExtResource("1_el1td")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

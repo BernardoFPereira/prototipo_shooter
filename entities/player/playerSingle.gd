@@ -7,11 +7,17 @@ var gravity := 42
 
 const JUMP_VELOCITY := 16
 
-@onready var get_sword_area = $GetSwordArea
-@onready var sword_hit_area = $SwordHitArea
+enum PlayerStates {
+	IDLE,
+	RUN,
+	JUMP,
+	FALL,
+	ATTACK,
+	BLOCK,
+}
 
-#@onready var player_input_synchronizer_component: PlayerInputSynchronizerComponent = $PlayerInputSyncronizer
-#@onready var player_state_synchronizer = $MultiplayerSynchronizer
+@onready var get_sword_area = $GetSwordArea
+@onready var sword_hit_area = $Head/SwordHitArea
 
 @onready var head: Node3D = $Head
 @onready var camera = $Head/Camera3D
@@ -24,7 +30,6 @@ const JUMP_VELOCITY := 16
 
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
-#var input_multiplayer_authority: int
 var movement_vector: Vector2
 
 var sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
@@ -34,12 +39,11 @@ var is_blocking: bool
 var is_disarmed: bool
 var thrown_sword: Sword
 
+@export var sword_impact_strength: int = 250
+
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
-	
-	#camera.current = (multiplayer.get_unique_id() == input_multiplayer_authority)
-	#player_input_synchronizer_component.set_multiplayer_authority(input_multiplayer_authority)
 
 func _process(delta):
 	_rotate_camera()
@@ -147,7 +151,6 @@ func try_fire():
 		get_parent().add_child(projectile, true)
 		projectile.start(-head.global_transform.basis.z)
 		animation_player.play("fire")
-		# TODO: Instantiate projectiles
 		print("Firing gun!")
 
 func try_block():
@@ -181,12 +184,21 @@ func _on_animation_finished(anim_name):
 func _on_sword_hit():
 	print(sword_hit_area.collision_result)
 	if sword_hit_area.collision_result:
-		if sword_hit_area.collision_result[0].collider is Enemy:
-			print("Enemy hit")
-			var enemy = sword_hit_area.collision_result[0].collider as Enemy
-			enemy.spawn_blood(sword_hit_area.collision_result[0].point)
+		for collision in sword_hit_area.collision_result:
+			if collision.collider is Enemy:
+				print("Enemy hit")
+				var enemy = collision.collider as Enemy
+				enemy.spawn_blood(collision.point)
+				enemy.linear_velocity += global_position.direction_to(
+					enemy.global_position) * (global_position.distance_squared_to(
+						enemy.global_position) * sword_impact_strength)
+				enemy.linear_velocity.y += 5
+				
+				enemy.linear_velocity.x = clamp(enemy.linear_velocity.x, -3, 3)
+				enemy.linear_velocity.y = clamp(enemy.linear_velocity.y, -6, 6)
+				enemy.linear_velocity.z = clamp(enemy.linear_velocity.z, -3, 3)
+				
 	print("Sword Hit time")
-	pass
 
 func _on_sword_back(body):
 	var sword: Sword = body.get_parent()

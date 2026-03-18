@@ -26,7 +26,7 @@ window/size/viewport_height=720
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg", "res://addons/nodetunnel/plugin.cfg")
+enabled=PackedStringArray("res://addons/cyclops_level_builder/plugin.cfg")
 
 [input]
 
@@ -84,3 +84,5 @@ block={
 [layer_names]
 
 3d_physics/layer_5="LevelBlocks"
+3d_physics/layer_9="Knockback"
+3d_physics/layer_13="SwordHit"

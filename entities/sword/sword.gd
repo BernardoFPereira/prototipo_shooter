@@ -12,6 +12,8 @@ enum SwordState {
 @onready var stuck_collision = $CollisionArea/StuckCollision
 @onready var flying_collision = $CollisionArea/FlyingCollision
 
+@onready var sword_model = $sword
+
 var state = SwordState.THROWN
 
 var speed: int = 35
@@ -41,15 +43,15 @@ func set_state(new_state: SwordState):
 			flying_collision.disabled = false
 			collision_area.set_collision_layer_value(2, false)
 			collision_area.set_collision_layer_value(4, false)
-			#collision_area.set_collision_layer_value(6, true)
+			collision_area.set_collision_layer_value(10, false)
 			
 		SwordState.PULLED_BACK:
 			stuck_collision.disabled = true
 			flying_collision.disabled = false
 			collision_area.set_collision_mask_value(5, false)
 			collision_area.set_collision_layer_value(2, false)
-			collision_area.set_collision_mask_value(3, true)
-			#collision_area.set_collision_layer_value(6, true)
+			collision_area.set_collision_layer_value(4, true)
+			collision_area.set_collision_layer_value(10, false)
 			
 			animation_player.play("flying")
 			
@@ -58,7 +60,7 @@ func set_state(new_state: SwordState):
 			flying_collision.disabled = true
 			collision_area.set_collision_layer_value(2, true)
 			collision_area.set_collision_layer_value(4, false)
-			#collision_area.set_collision_mask_value(6, false)
+			collision_area.set_collision_layer_value(10, true)
 			
 			animation_player.play("stuck")
 		
@@ -80,8 +82,11 @@ func _on_sword_impact(body):
 		var collision_normal = collision_result.get_normal()
 		var collision_pos = collision_result.get_position()
 		print(collision_pos)
-		global_position = collision_pos + collision_normal * 0.1
+		global_position = collision_pos + collision_normal
 		look_at(global_position + collision_normal)
+		#sword_model.look_at(collision_pos)
+		sword_model.transform = stuck_collision.transform
+		sword_model.rotate_z(deg_to_rad(90))
 	
 	#print("-----> Thrown sword hit something!")
 	#print("-----> Should STUCK!")

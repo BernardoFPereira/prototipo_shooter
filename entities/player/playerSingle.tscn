@@ -204,15 +204,15 @@ _data = {
 [sub_resource type="BoxMesh" id="BoxMesh_3367n"]
 size = Vector3(0.24, 0.28, 0.935)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
-radius = 0.7
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_we5c5"]
 size = Vector3(0.89, 1, 1.495)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
+radius = 0.7
+
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 6
-collision_mask = 3
+collision_layer = 262
+collision_mask = 513
 script = ExtResource("1_wj731")
 
 [node name="ActivationTimer" type="Timer" parent="."]
@@ -257,6 +257,12 @@ mesh = SubResource("BoxMesh_3367n")
 [node name="Muzzle" type="Marker3D" parent="Head/Cannon"]
 transform = Transform3D(1, 2.6921e-10, -1.30385e-08, -3.63798e-11, 1, 1.02445e-08, -9.31323e-10, -9.31323e-09, 1, -0.449911, 0.217413, -0.796732)
 
+[node name="SwordHitArea" type="ShapeCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.64012, -0.972419)
+shape = SubResource("BoxShape3D_we5c5")
+target_position = Vector3(0, 0, -0.68)
+collision_mask = 4096
+
 [node name="GetSwordArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 8
@@ -264,9 +270,3 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GetSwordArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
 shape = SubResource("SphereShape3D_k5oyn")
-
-[node name="SwordHitArea" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15988, -0.972419)
-shape = SubResource("BoxShape3D_we5c5")
-target_position = Vector3(0, 0, -0.68)
-collision_mask = 2
