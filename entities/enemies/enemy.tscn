@@ -1,19 +1,135 @@
-[gd_scene load_steps=6 format=3 uid="uid://bl6itlv6uspjd"]
+[gd_scene load_steps=18 format=3 uid="uid://bl6itlv6uspjd"]
 
 [ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_el1td"]
+[ext_resource type="Material" uid="uid://rrg46k8k12ef" path="res://materials/enemy/idle_material.tres" id="2_sg62k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ikf3y"]
 size = Vector3(1, 2, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhukm"]
-albedo_color = Color(1, 0.329412, 0.329412, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5wu6v"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_b0a11"]
-material = SubResource("StandardMaterial3D_rhukm")
+material = ExtResource("2_sg62k")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvyrw"]
 radius = 0.748138
 height = 2.03272
+
+[sub_resource type="Animation" id="Animation_6tvw1"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_sg62k")]
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a6jq8"]
+albedo_color = Color(0.68722, 0.502209, 0, 1)
+
+[sub_resource type="Animation" id="Animation_vfnwa"]
+resource_name = "chase"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StandardMaterial3D_a6jq8")]
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jql50"]
+albedo_color = Color(0.686275, 0.501961, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lia3b"]
+albedo_color = Color(0.584314, 0.360784, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk6vs"]
+albedo_color = Color(0.686275, 0.501961, 0, 1)
+
+[sub_resource type="Animation" id="Animation_hdls1"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [SubResource("StandardMaterial3D_jql50"), SubResource("StandardMaterial3D_lia3b"), SubResource("StandardMaterial3D_jk6vs")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finished_attacking"
+}]
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pw4t1"]
+albedo_color = Color(0, 0.717647, 0.352941, 1)
+
+[sub_resource type="Animation" id="Animation_4j78q"]
+resource_name = "hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_override")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [SubResource("StandardMaterial3D_5wu6v"), SubResource("StandardMaterial3D_pw4t1"), SubResource("StandardMaterial3D_5wu6v")]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"finished_get_hit"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c7xfy"]
+_data = {
+"attack": SubResource("Animation_hdls1"),
+"chase": SubResource("Animation_vfnwa"),
+"hit": SubResource("Animation_4j78q"),
+"idle": SubResource("Animation_6tvw1")
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cg7ux"]
+radius = 10.0
 
 [node name="Enemy" type="RigidBody3D"]
 collision_layer = 4352
@@ -27,6 +143,7 @@ shape = SubResource("BoxShape3D_ikf3y")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_5wu6v")
 mesh = SubResource("CapsuleMesh_b0a11")
 
 [node name="SwordCollisionArea" type="Area3D" parent="."]
@@ -36,3 +153,24 @@ collision_mask = 32
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SwordCollisionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19537, 0)
 shape = SubResource("CapsuleShape3D_cvyrw")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 2.0
+target_desired_distance = 2.0
+debug_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_c7xfy")
+}
+autoplay = "idle"
+
+[node name="SightArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="SightShape" type="CollisionShape3D" parent="SightArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.8259)
+shape = SubResource("SphereShape3D_cg7ux")
+
+[connection signal="body_entered" from="SightArea" to="." method="_on_sight_area_body_entered"]

@@ -189,6 +189,7 @@ func _on_sword_hit():
 				print("Enemy hit")
 				var enemy = collision.collider as Enemy
 				enemy.spawn_blood(collision.point)
+				enemy.set_current_state(enemy.EnemyState.HIT)
 				enemy.linear_velocity += global_position.direction_to(
 					enemy.global_position) * (global_position.distance_squared_to(
 						enemy.global_position) * sword_impact_strength)
