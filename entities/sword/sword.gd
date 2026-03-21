@@ -18,6 +18,7 @@ var state = SwordState.THROWN
 
 var speed: int = 35
 var direction: Vector3
+var damage: float = 25
 
 var sword_owner: Player
 

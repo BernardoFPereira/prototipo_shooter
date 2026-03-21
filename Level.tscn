@@ -1090,10 +1090,11 @@ environment = SubResource("Environment_31r0e")
 [node name="PlayerSpawnPosition" type="Marker3D" parent="."]
 
 [node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 target = NodePath("../Player")
 
 [node name="Enemy2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3589, 12, -1.46838)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -17.3589, 12, -1.46838)
 target = NodePath("../Player")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("7_dta2b")]

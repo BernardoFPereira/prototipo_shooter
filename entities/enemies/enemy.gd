@@ -1,15 +1,18 @@
 class_name Enemy
 extends RigidBody3D
 
-var max_health: int
-var current_health: int
+
 
 @onready var anim_player = $AnimationPlayer
 @onready var sight_area = $SightArea
-
 @onready var nav_agent = $NavigationAgent3D
+
+var current_health: float
+
+@export var max_health: float = 100.0
 @export var target: CharacterBody3D
 @export var move_speed: float = 3.0
+@export var attack_range: float = 2.0
 
 var player_in_sight_area : bool = false
 
@@ -30,6 +33,8 @@ func _ready():
 	sword_collision_area.body_entered.connect(_on_sword_entered)
 	sight_area.body_entered.connect(_on_sight_area_body_entered)
 	sight_area.body_exited.connect(_on_sight_area_body_exited)
+	
+	current_health = max_health
 
 func _process(delta):
 	pass
@@ -54,7 +59,8 @@ func _physics_process(delta):
 			rotation.y = move_toward(rotation.y, target_rotation, delta * rotation_speed)
 			if nav_agent.is_navigation_finished():
 				linear_velocity = Vector3.ZERO
-				set_current_state(EnemyState.ATTACKING)
+				if target_is_in_range():
+					set_current_state(EnemyState.ATTACKING)
 	
 		EnemyState.HIT:
 			pass
@@ -65,9 +71,13 @@ func _physics_process(delta):
 		EnemyState.DEAD:
 			pass
 
-func deal_damage(amount: int):
-	current_health -= clampi(current_health, 0, max_health)
-	pass
+func take_damage(amount: float):
+	if current_health > 0:
+		current_health -= clampf(amount, 0, max_health)
+		if current_health <= 0:
+			set_current_state(EnemyState.DEAD)
+		else:
+			set_current_state(EnemyState.HIT)
 
 func spawn_blood(position: Vector3):
 	var blood_particles: GPUParticles3D = blood_particles_scene.instantiate()
@@ -87,31 +97,45 @@ func _on_sword_entered(body):
 				sword.speed = 0
 				print("Throw hit enemy!")
 				sword.set_state(sword.SwordState.PULLED_BACK)
+				
+				take_damage(current_health)
+				print(current_health)
+				
 			sword.SwordState.PULLED_BACK:
-				# TODO: Deal damage
+				take_damage(sword.damage)
+				print(current_health)
 				print("Sword hit enemy on way back")
 
 
 func set_current_state(new_state):
 	match new_state:
 		EnemyState.IDLE:
+			if current_health <= 0:
+				return
 			nav_agent = null
 			anim_player.play("idle")
 		
 		EnemyState.CHASE:
+			if current_health <= 0:
+				return
 			nav_agent = $NavigationAgent3D
 			anim_player.play("chase")
 	
 		EnemyState.HIT:
+			if current_health <= 0:
+				return
 			nav_agent = null
 			anim_player.play("hit")
 		
 		EnemyState.ATTACKING:
+			if current_health <= 0:
+				return
 			nav_agent = null
 			anim_player.play("attack")
 		
 		EnemyState.DEAD:
-			pass
+			nav_agent = null
+			anim_player.play("dead_anim/dead")
 	
 	current_state = new_state
 
@@ -121,6 +145,30 @@ func finished_attacking():
 func finished_get_hit():
 	set_current_state(EnemyState.CHASE)
 
+func finished_dead():
+	await get_tree().create_timer(5).timeout
+	queue_free()
+
+func target_is_in_range() -> bool:
+	if not target:
+		return false
+	
+	var distance = global_position.distance_to(target.global_position)
+	if distance > attack_range:
+		return false
+	
+	var space_state = get_world_3d().direct_space_state
+	
+	var from = global_position + Vector3(0, 1.5, 0)
+	var to = target.global_position + Vector3(0, 1.5, 0)
+	
+	var ray_params = PhysicsRayQueryParameters3D.create(from, to)
+	ray_params.exclude = [self, target]
+	ray_params.collision_mask = 1
+	
+	var result = space_state.intersect_ray(ray_params)
+	
+	return result.is_empty()
 
 func _on_sight_area_body_entered(body):
 	if body == target:
@@ -139,7 +187,6 @@ func _on_sight_area_body_entered(body):
 		
 		if result.is_empty():
 			set_current_state(EnemyState.CHASE)
-
 
 func _on_sight_area_body_exited(body):
 	if body == target:
