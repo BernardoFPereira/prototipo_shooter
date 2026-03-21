@@ -11,6 +11,8 @@ var current_health: int
 @export var target: CharacterBody3D
 @export var move_speed: float = 3.0
 
+var player_in_sight_area : bool = false
+
 
 var current_state : EnemyState = EnemyState.IDLE
 enum EnemyState {
@@ -27,6 +29,7 @@ var blood_particles_scene = preload("uid://dauurgt5mibfk")
 func _ready():
 	sword_collision_area.body_entered.connect(_on_sword_entered)
 	sight_area.body_entered.connect(_on_sight_area_body_entered)
+	sight_area.body_exited.connect(_on_sight_area_body_exited)
 
 func _process(delta):
 	pass
@@ -34,7 +37,9 @@ func _process(delta):
 func _physics_process(delta):
 	match current_state:
 		EnemyState.IDLE:
-			pass
+			if player_in_sight_area:
+				sight_area.monitoring = false
+				sight_area.monitoring = true
 		
 		EnemyState.CHASE:
 			nav_agent.target_position = target.position
@@ -116,13 +121,26 @@ func finished_attacking():
 func finished_get_hit():
 	set_current_state(EnemyState.CHASE)
 
-#FIX SIGHT
+
 func _on_sight_area_body_entered(body):
 	if body == target:
+		player_in_sight_area = true
+		
 		var space_state = get_world_3d().direct_space_state
-		var vision_cast = PhysicsRayQueryParameters3D.create(global_position + Vector3(0,1,0), body.global_position, 1)
-		var result = space_state.intersect_ray(vision_cast)
-		if !result:
-			return
-		else:
+		
+		var from = global_position + Vector3(0, 1.5, 0)
+		var to = body.global_position + Vector3(0, 1.5, 0)
+		
+		var ray_params = PhysicsRayQueryParameters3D.create(from, to)
+		ray_params.exclude = [self, body]
+		ray_params.collision_mask = 1
+		
+		var result = space_state.intersect_ray(ray_params)
+		
+		if result.is_empty():
 			set_current_state(EnemyState.CHASE)
+
+
+func _on_sight_area_body_exited(body):
+	if body == target:
+		player_in_sight_area = false
