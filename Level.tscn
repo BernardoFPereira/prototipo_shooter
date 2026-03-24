@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://yusjlgf3x7bm"]
+[gd_scene load_steps=118 format=3 uid="uid://yusjlgf3x7bm"]
 
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="1_s88dd"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_byte.gd" id="2_jspue"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/mesh_vector_data.gd" id="5_4nga7"]
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/enemy.tscn" id="6_gipjw"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="7_dta2b"]
+[ext_resource type="Script" path="res://patrol_route.gd" id="8_ga0a5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uxh04"]
 
@@ -1073,6 +1074,13 @@ face_vertex_data = {
 "vertex_index": SubResource("Resource_tn5wr")
 }
 
+[sub_resource type="Curve3D" id="Curve3D_ks4rg"]
+_data = {
+"points": PackedVector3Array(0.926826, 0.0954252, 2.20545, -0.927, 0, -2.205, 0, 0, 0, -2.445, 0, 2.407, 2.445, 0, -2.407, 3.351, 0, -8.753, -3.248, 0, -0.604, 3.248, 0, 0.604, 14.032, 0, -10.406, -2.078, 0, -2.598, 2.078, 0, 2.598, 22.216, 0, -6.485, 1.639, 0, -3.636, -1.639, 0, 3.636, 22.331, 0, 4.035, 4.04, 0, 0.421, -4.04, 0, -0.421, 11.66, 0, 8.25, 2.585, 0, 2.225, -2.585, 0, -2.225, 3.215, 0, 4.705, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
 [node name="Main" type="Node"]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -1089,9 +1097,10 @@ environment = SubResource("Environment_31r0e")
 
 [node name="PlayerSpawnPosition" type="Marker3D" parent="."]
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+[node name="Enemy" parent="." node_paths=PackedStringArray("target", "patrol_route") instance=ExtResource("6_gipjw")]
+transform = Transform3D(0.933899, 0, -0.357534, 0, 1, 0, 0.357534, 0, 0.933899, 16.7583, 0.100001, 9.58579)
 target = NodePath("../Player")
+patrol_route = NodePath("../Patrol_Path_01/Patrol_Route_01")
 
 [node name="Enemy2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -17.3589, 12, -1.46838)
@@ -1152,3 +1161,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 11, -6)
 script = ExtResource("1_s88dd")
 mesh_vector_data = SubResource("Resource_ueb8k")
 collision_layer = 17
+
+[node name="Patrol_Path_01" type="Path3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.5612, 0.100001, 9.63298)
+curve = SubResource("Curve3D_ks4rg")
+
+[node name="Patrol_Route_01" type="PathFollow3D" parent="Patrol_Path_01"]
+transform = Transform3D(-0.921843, 0, -0.38755, 0, 1, 0, 0.38755, 0, -0.921843, 0, 0, 0)
+use_model_front = true
+script = ExtResource("8_ga0a5")

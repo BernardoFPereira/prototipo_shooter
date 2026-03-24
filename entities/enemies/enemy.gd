@@ -5,29 +5,40 @@ extends RigidBody3D
 
 @onready var anim_player = $AnimationPlayer
 @onready var sight_area = $SightArea
+@onready var sword_collision_area = $SwordCollisionArea
+@onready var sword_hit_collision = $SwordCollisionArea/SwordHitCollision
 @onready var nav_agent = $NavigationAgent3D
+@onready var attack_collision = $Armature/Skeleton3D/BoneAttachment3D/AttackArea/AttackCollision
 
-var current_health: float
+var player_in_sight_area: bool = false
 
-@export var max_health: float = 100.0
+var blood_particles_scene = preload("uid://dauurgt5mibfk")
+
+@export_category("Targets")
 @export var target: CharacterBody3D
-@export var move_speed: float = 3.0
-@export var attack_range: float = 2.0
+@export var patrol_route: PathFollow3D
 
-var player_in_sight_area : bool = false
+@export_category("Combat Properties")
+var current_health: float
+@export var max_health: float = 100.0
+@export var attack_range: float = 2.0
+@export var attack_damage: float = 55.0
+
+@export_category("Movement Properties")
+@export var patrol_speed: float = 2.0
+@export var chase_speed: float = 6.0
+@export var rotation_speed: float = 5.0
 
 
 var current_state : EnemyState = EnemyState.IDLE
 enum EnemyState {
 	IDLE,
+	PATROLLING,
 	CHASE,
 	HIT,
 	ATTACKING,
 	DEAD,
 }
-
-@onready var sword_collision_area = $SwordCollisionArea
-var blood_particles_scene = preload("uid://dauurgt5mibfk")
 
 func _ready():
 	sword_collision_area.body_entered.connect(_on_sword_entered)
@@ -40,33 +51,46 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
+	
+	var pos2d = Vector2(global_position.x, global_position.z)
+	var target_pos2d = Vector2(target.global_position.x, target.global_position.z)
+	var rotation_direction = -(pos2d - target_pos2d)
+	
 	match current_state:
 		EnemyState.IDLE:
+			if patrol_route != null:
+				set_current_state(EnemyState.PATROLLING)
+				
 			if player_in_sight_area:
 				sight_area.monitoring = false
 				sight_area.monitoring = true
+		
+		EnemyState.PATROLLING:
+			if patrol_route.has_enemy:
+				linear_velocity = Vector3.ZERO
+				if get_parent() != patrol_route:
+					move_to_parent(patrol_route)
+				patrol_route.progress += patrol_speed * delta
 		
 		EnemyState.CHASE:
 			nav_agent.target_position = target.position
 			var next_path_pos: Vector3 = nav_agent.get_next_path_position()
 			var direction := global_position.direction_to(next_path_pos)
-			linear_velocity = direction * move_speed
-			var rotation_speed = 4
-			var target_rotation := direction.signed_angle_to(Vector3.MODEL_FRONT, Vector3.DOWN)
-			if abs(target_rotation - rotation.y) > deg_to_rad(60):
-				rotation_speed = 20
-				
-			rotation.y = move_toward(rotation.y, target_rotation, delta * rotation_speed)
+			linear_velocity = direction * chase_speed
+			
+			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
+			
+			
 			if nav_agent.is_navigation_finished():
 				linear_velocity = Vector3.ZERO
 				if target_is_in_range():
 					set_current_state(EnemyState.ATTACKING)
 	
 		EnemyState.HIT:
-			pass
+			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 		
 		EnemyState.ATTACKING:
-			pass
+			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 		
 		EnemyState.DEAD:
 			pass
@@ -112,29 +136,49 @@ func set_current_state(new_state):
 		EnemyState.IDLE:
 			if current_health <= 0:
 				return
+			
 			nav_agent = null
+			attack_collision.disabled = true
 			anim_player.play("idle")
+		
+		EnemyState.PATROLLING:
+			if get_parent() != patrol_route and patrol_route != null:
+				move_to_parent(patrol_route)
+			
+			if !patrol_route.has_enemy:
+				patrol_route.has_enemy = true
+			
+			attack_collision.disabled = true
+			anim_player.play("patrol_anim/patrol")
 		
 		EnemyState.CHASE:
 			if current_health <= 0:
 				return
+			
+			if get_parent() is PathFollow3D:
+				move_to_parent(get_tree().current_scene)
+			
 			nav_agent = $NavigationAgent3D
+			attack_collision.disabled = true
 			anim_player.play("chase")
 	
 		EnemyState.HIT:
 			if current_health <= 0:
 				return
 			nav_agent = null
+			attack_collision.disabled = true
 			anim_player.play("hit")
 		
 		EnemyState.ATTACKING:
 			if current_health <= 0:
 				return
-			nav_agent = null
+			attack_collision.disabled = false
+			linear_velocity = Vector3.ZERO
 			anim_player.play("attack")
 		
 		EnemyState.DEAD:
 			nav_agent = null
+			attack_collision.disabled = true
 			anim_player.play("dead_anim/dead")
 	
 	current_state = new_state
@@ -170,6 +214,14 @@ func target_is_in_range() -> bool:
 	
 	return result.is_empty()
 
+func move_to_parent(new_parent: Node):
+	var current_global_position = global_position
+	
+	get_parent().remove_child(self)
+	new_parent.add_child(self)
+	
+	global_position = current_global_position
+
 func _on_sight_area_body_entered(body):
 	if body == target:
 		player_in_sight_area = true
@@ -191,3 +243,8 @@ func _on_sight_area_body_entered(body):
 func _on_sight_area_body_exited(body):
 	if body == target:
 		player_in_sight_area = false
+
+func _on_attack_area_body_entered(body):
+	print("Hit Player")
+	if body == target:
+		target.take_damage(attack_damage)

@@ -39,11 +39,18 @@ var is_blocking: bool
 var is_disarmed: bool
 var thrown_sword: Sword
 
+@export_category("Combat Properties")
+var current_health: float
+@export var max_health: float = 100.0
+@export var melee_damage: float = 50.0
+
 @export var sword_impact_strength: int = 250
 
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
+	
+	current_health = max_health
 
 func _process(delta):
 	_rotate_camera()
@@ -140,7 +147,7 @@ func try_throw_sword():
 	weapon.visible = false
 
 func try_attack():
-	if animation_player.current_animation != "attack":
+	if animation_player.current_animation != "attack" and !is_disarmed:
 		animation_player.play("attack")
 		print("Attacking!")
 
@@ -188,8 +195,11 @@ func _on_sword_hit():
 			if collision.collider is Enemy:
 				print("Enemy hit")
 				var enemy = collision.collider as Enemy
+				if enemy.current_state == enemy.EnemyState.DEAD:
+					return
 				enemy.spawn_blood(collision.point)
 				enemy.set_current_state(enemy.EnemyState.HIT)
+				enemy.take_damage(melee_damage)
 				enemy.linear_velocity += global_position.direction_to(
 					enemy.global_position) * (global_position.distance_squared_to(
 						enemy.global_position) * sword_impact_strength)
@@ -207,3 +217,10 @@ func _on_sword_back(body):
 		is_disarmed = false
 		body.get_parent().register_impact()
 		weapon.visible = true
+
+func take_damage(amount: float):
+	if current_health > 0:
+		current_health -= clampf(amount, 0, max_health)
+		print("current_health")
+		if current_health <= 0:
+			print("dead!")
