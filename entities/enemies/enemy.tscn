@@ -701,7 +701,7 @@ mesh = ExtResource("2_o502o")
 skin = SubResource("Skin_u50mk")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.715875, -0.319439, 0.620872, 0.545773, 0.810613, -0.212224, -0.435494, 0.490781, 0.754638, -29.3411, 29.8863, -110.465)
+transform = Transform3D(0.715875, -0.31944, 0.620871, 0.545774, 0.810612, -0.212225, -0.435492, 0.490782, 0.754639, -29.3412, 29.8863, -110.465)
 bone_name = "mixamorig_RightHand"
 bone_idx = 34
 
@@ -744,7 +744,7 @@ shape = SubResource("CapsuleShape3D_cvyrw")
 collision_layer = 0
 collision_mask = 4
 
-[node name="SightShape" type="CollisionShape3D" parent="SightArea"]
+[node name="SightCollision" type="CollisionShape3D" parent="SightArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 shape = SubResource("SphereShape3D_cg7ux")
 

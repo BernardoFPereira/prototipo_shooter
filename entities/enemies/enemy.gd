@@ -34,7 +34,8 @@ var current_state : EnemyState = EnemyState.IDLE
 enum EnemyState {
 	IDLE,
 	PATROLLING,
-	CHASE,
+	CHASING,
+	JUMPING,
 	HIT,
 	ATTACKING,
 	DEAD,
@@ -72,20 +73,24 @@ func _physics_process(delta):
 					move_to_parent(patrol_route)
 				patrol_route.progress += patrol_speed * delta
 		
-		EnemyState.CHASE:
+		EnemyState.CHASING:
 			nav_agent.target_position = target.position
 			var next_path_pos: Vector3 = nav_agent.get_next_path_position()
-			var direction := global_position.direction_to(next_path_pos)
+			var direction := global_position.direction_to(Vector3(next_path_pos.x, 0, next_path_pos.z))
 			linear_velocity = direction * chase_speed
 			
 			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
-			
 			
 			if nav_agent.is_navigation_finished():
 				linear_velocity = Vector3.ZERO
 				if target_is_in_range():
 					set_current_state(EnemyState.ATTACKING)
-	
+				else:
+					pass
+		
+		EnemyState.JUMPING:
+			pass
+		
 		EnemyState.HIT:
 			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 		
@@ -130,7 +135,6 @@ func _on_sword_entered(body):
 				print(current_health)
 				print("Sword hit enemy on way back")
 
-
 func set_current_state(new_state):
 	match new_state:
 		EnemyState.IDLE:
@@ -151,7 +155,7 @@ func set_current_state(new_state):
 			attack_collision.disabled = true
 			anim_player.play("patrol_anim/patrol")
 		
-		EnemyState.CHASE:
+		EnemyState.CHASING:
 			if current_health <= 0:
 				return
 			
@@ -161,6 +165,9 @@ func set_current_state(new_state):
 			nav_agent = $NavigationAgent3D
 			attack_collision.disabled = true
 			anim_player.play("chase")
+	
+		EnemyState.JUMPING:
+			pass
 	
 		EnemyState.HIT:
 			if current_health <= 0:
@@ -184,10 +191,10 @@ func set_current_state(new_state):
 	current_state = new_state
 
 func finished_attacking():
-	set_current_state(EnemyState.CHASE)
+	set_current_state(EnemyState.CHASING)
 
 func finished_get_hit():
-	set_current_state(EnemyState.CHASE)
+	set_current_state(EnemyState.CHASING)
 
 func finished_dead():
 	await get_tree().create_timer(5).timeout
@@ -238,7 +245,7 @@ func _on_sight_area_body_entered(body):
 		var result = space_state.intersect_ray(ray_params)
 		
 		if result.is_empty():
-			set_current_state(EnemyState.CHASE)
+			set_current_state(EnemyState.CHASING)
 
 func _on_sight_area_body_exited(body):
 	if body == target:
