@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody3D
 
-var move_speed := 12
+var move_speed := 22
 var drag := 25
 var gravity := 42
 
