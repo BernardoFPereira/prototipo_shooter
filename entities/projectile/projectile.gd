@@ -35,8 +35,9 @@ func explode():
 		
 		if collision.collider is Enemy:
 			var enemy = collision.collider as Enemy
+			enemy.set_current_state(enemy.EnemyState.HIT)
 			enemy.linear_velocity += (global_position.direction_to(enemy.global_position) * knockback)
-			enemy.spawn_blood(enemy.global_position) 
+			enemy.spawn_blood(enemy.global_position)
 		
 func _on_lifetime_timer_timeout():
 	call_deferred("queue_free")

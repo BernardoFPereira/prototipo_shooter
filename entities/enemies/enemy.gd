@@ -9,18 +9,20 @@ extends RigidBody3D
 @onready var sword_hit_collision = $SwordCollisionArea/SwordHitCollision
 @onready var nav_agent = $NavigationAgent3D
 @onready var attack_collision = $Armature/Skeleton3D/BoneAttachment3D/AttackArea/AttackCollision
+@onready var ground_raycast = $GroundRaycast
 
 var player_in_sight_area: bool = false
 
 var blood_particles_scene = preload("uid://dauurgt5mibfk")
 
 @export_category("Targets")
+var has_target: bool
 @export var target: CharacterBody3D
 @export var patrol_route: PathFollow3D
 
 @export_category("Combat Properties")
 var current_health: float
-@export var max_health: float = 100.0
+@export var max_health: float = 1000.0
 @export var attack_range: float = 2.0
 @export var attack_damage: float = 55.0
 
@@ -35,7 +37,6 @@ enum EnemyState {
 	IDLE,
 	PATROLLING,
 	CHASING,
-	JUMPING,
 	HIT,
 	ATTACKING,
 	DEAD,
@@ -50,12 +51,13 @@ func _ready():
 
 func _process(delta):
 	pass
-
+	
 func _physics_process(delta):
 	
 	var pos2d = Vector2(global_position.x, global_position.z)
 	var target_pos2d = Vector2(target.global_position.x, target.global_position.z)
 	var rotation_direction = -(pos2d - target_pos2d)
+	
 	
 	match current_state:
 		EnemyState.IDLE:
@@ -79,17 +81,13 @@ func _physics_process(delta):
 			var direction := global_position.direction_to(Vector3(next_path_pos.x, 0, next_path_pos.z))
 			linear_velocity = direction * chase_speed
 			
+			
 			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 			
 			if nav_agent.is_navigation_finished():
 				linear_velocity = Vector3.ZERO
 				if target_is_in_range():
 					set_current_state(EnemyState.ATTACKING)
-				else:
-					pass
-		
-		EnemyState.JUMPING:
-			pass
 		
 		EnemyState.HIT:
 			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
@@ -98,7 +96,8 @@ func _physics_process(delta):
 			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 		
 		EnemyState.DEAD:
-			pass
+			rotation.y = 0
+		
 
 func take_damage(amount: float):
 	if current_health > 0:
@@ -164,10 +163,8 @@ func set_current_state(new_state):
 			
 			nav_agent = $NavigationAgent3D
 			attack_collision.disabled = true
+			has_target = true
 			anim_player.play("chase")
-	
-		EnemyState.JUMPING:
-			pass
 	
 		EnemyState.HIT:
 			if current_health <= 0:
