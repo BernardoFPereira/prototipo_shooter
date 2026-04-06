@@ -22,7 +22,7 @@ var has_target: bool
 
 @export_category("Combat Properties")
 var current_health: float
-@export var max_health: float = 1000.0
+@export var max_health: float = 100.0
 @export var attack_range: float = 2.0
 @export var attack_damage: float = 55.0
 
@@ -78,14 +78,17 @@ func _physics_process(delta):
 		EnemyState.CHASING:
 			nav_agent.target_position = target.position
 			var next_path_pos: Vector3 = nav_agent.get_next_path_position()
-			var direction := global_position.direction_to(Vector3(next_path_pos.x, 0, next_path_pos.z))
-			linear_velocity = direction * chase_speed
+			var direction = global_position.direction_to(Vector3(next_path_pos.x, 0, next_path_pos.z))
+			if nav_agent.avoidance_enabled:
+				nav_agent.velocity = direction * chase_speed
+			else:
+				_on_velocity_computed(direction * chase_speed)
 			
 			
 			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 			
 			if nav_agent.is_navigation_finished():
-				linear_velocity = Vector3.ZERO
+				nav_agent.velocity = Vector3.ZERO
 				if target_is_in_range():
 					set_current_state(EnemyState.ATTACKING)
 		
@@ -101,7 +104,7 @@ func _physics_process(delta):
 
 func take_damage(amount: float):
 	if current_health > 0:
-		current_health -= clampf(amount, 0, max_health)
+		current_health -= clampf(amount, 0, max_health) 
 		if current_health <= 0:
 			set_current_state(EnemyState.DEAD)
 		else:
@@ -123,23 +126,18 @@ func _on_sword_entered(body):
 				var tween = get_tree().create_tween()
 				tween.tween_property(sword.sword_owner, "global_position", sword.global_position, 0.16)
 				sword.speed = 0
-				print("Throw hit enemy!")
 				sword.set_state(sword.SwordState.PULLED_BACK)
 				
 				take_damage(current_health)
-				print(current_health)
 				
 			sword.SwordState.PULLED_BACK:
 				take_damage(sword.damage)
-				print(current_health)
-				print("Sword hit enemy on way back")
 
 func set_current_state(new_state):
 	match new_state:
 		EnemyState.IDLE:
 			if current_health <= 0:
 				return
-			
 			nav_agent = null
 			attack_collision.disabled = true
 			anim_player.play("idle")
@@ -176,23 +174,41 @@ func set_current_state(new_state):
 		EnemyState.ATTACKING:
 			if current_health <= 0:
 				return
-			attack_collision.disabled = false
 			linear_velocity = Vector3.ZERO
+			attack_collision.disabled = false
 			anim_player.play("attack")
 		
 		EnemyState.DEAD:
 			nav_agent = null
+			linear_velocity = Vector3.ZERO
 			attack_collision.disabled = true
 			anim_player.play("dead_anim/dead")
 	
 	current_state = new_state
 
+func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int):
+	set_current_state(EnemyState.HIT)
+	take_damage(damage)
+	linear_velocity += global_position.direction_to(global_position) * (hit_position.distance_squared_to(global_position) * impact_strength)
+	linear_velocity.y += 5
+	linear_velocity.x = clamp(linear_velocity.x, -3, 3)
+	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
+	linear_velocity.z = clamp(linear_velocity.z, -3, 3)
+
+func receive_rocket_impact(hit_position: Vector3, knockback: int, damage: int):
+	set_current_state(EnemyState.HIT)
+	linear_velocity += (hit_position.direction_to(global_position) * knockback)
+	spawn_blood(global_position)
+	take_damage(damage)
+
 func finished_attacking():
 	set_current_state(EnemyState.CHASING)
 
 func finished_get_hit():
-	set_current_state(EnemyState.CHASING)
-
+	if ground_raycast.is_colliding():
+		set_current_state(EnemyState.CHASING)
+	else:
+		set_current_state(EnemyState.HIT)
 func finished_dead():
 	await get_tree().create_timer(5).timeout
 	queue_free()
@@ -252,3 +268,7 @@ func _on_attack_area_body_entered(body):
 	print("Hit Player")
 	if body == target:
 		target.take_damage(attack_damage)
+
+func _on_velocity_computed(safe_velocity):
+	if current_state == EnemyState.CHASING:
+		linear_velocity = safe_velocity

@@ -198,18 +198,7 @@ func _on_sword_hit():
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
 				enemy.spawn_blood(collision.point)
-				enemy.set_current_state(enemy.EnemyState.HIT)
-				enemy.take_damage(melee_damage)
-				enemy.linear_velocity += global_position.direction_to(
-					enemy.global_position) * (global_position.distance_squared_to(
-						enemy.global_position) * sword_impact_strength)
-				enemy.linear_velocity.y += 5
-				
-				enemy.linear_velocity.x = clamp(enemy.linear_velocity.x, -3, 3)
-				enemy.linear_velocity.y = clamp(enemy.linear_velocity.y, -6, 6)
-				enemy.linear_velocity.z = clamp(enemy.linear_velocity.z, -3, 3)
-				
-	print("Sword Hit time")
+				enemy.receive_sword_impact(melee_damage, global_position, sword_impact_strength)
 
 func _on_sword_back(body):
 	var sword: Sword = body.get_parent()
@@ -221,6 +210,6 @@ func _on_sword_back(body):
 func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
-		print("current_health")
+		print(str(current_health))
 		if current_health <= 0:
 			print("dead!")

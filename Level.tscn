@@ -420,10 +420,9 @@ face_vertex_data = {
 }
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_2npyl"]
-vertices = PackedVector3Array(-15.75, 12.02, 10, -14.5, 12.02, 10, -16, 12.02, 7.25, -18, 12.02, 7.25, -18, 12.02, -2.25, -18, 12.02, 7.25, -16, 12.02, 7.25, -16, 12.02, -2.25, -16, 12.02, -2.25, -14.5, 12.02, -5, -15.75, 12.02, -5, -18, 12.02, -2.25)
+vertices = PackedVector3Array(-16, 12.02, 10.5, -13.75, 12.02, 10.5, -15.5, 12.02, 7.25, -18.5, 12.02, 7.25, -18.5, 12.02, -2.25, -18.5, 12.02, 7.25, -15.5, 12.02, 7.25, -15.5, 12.02, -2.25, -15.5, 12.02, -2.25, -13.75, 12.02, -5.5, -16, 12.02, -5.5, -18.5, 12.02, -2.25)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11)]
 cell_height = 0.01
-agent_radius = 1.0
 
 [sub_resource type="Resource" id="Resource_q0kdp"]
 script = ExtResource("2_jspue")
@@ -1112,27 +1111,27 @@ environment = SubResource("Environment_31r0e")
 transform = Transform3D(0.933899, 0, -0.357534, 0, 1, 0, 0.357534, 0, 0.933899, 16.7583, 0.100001, 9.58579)
 target = NodePath("../Player")
 patrol_route = NodePath("../Patrol_Path_01/Patrol_Route_01")
-chase_speed = 300.0
+chase_speed = 200.0
 
 [node name="Enemy2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -16.5949, 12, -1.46838)
+transform = Transform3D(-0.999999, 0, -8.74227e-08, 0, 1, 0, 8.74227e-08, 0, -0.999999, -16.9419, 12, -1.636)
 target = NodePath("../Player")
-chase_speed = 300.0
+chase_speed = 200.0
 
 [node name="Enemy3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 target = NodePath("../Player")
-chase_speed = 300.0
+chase_speed = 200.0
 
 [node name="Enemy4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.62275, 0, 0)
 target = NodePath("../Player")
-chase_speed = 300.0
+chase_speed = 200.0
 
 [node name="Enemy5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -20.9601, 0, 0)
 target = NodePath("../Player")
-chase_speed = 300.0
+chase_speed = 200.0
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("7_dta2b")]
 transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 6.58471, 0, -15.8469)
