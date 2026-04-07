@@ -1,15 +1,16 @@
-class_name Enemy
+class_name EnemyRanged
 extends RigidBody3D
-
 
 
 @onready var anim_player = $AnimationPlayer
 @onready var sight_area = $SightArea
+@onready var sight_collision = $SightArea/SightCollision
 @onready var sword_collision_area = $SwordCollisionArea
 @onready var sword_hit_collision = $SwordCollisionArea/SwordHitCollision
 @onready var nav_agent = $NavigationAgent3D
 @onready var attack_collision = $Armature/Skeleton3D/BoneAttachment3D/AttackArea/AttackCollision
 @onready var ground_raycast = $GroundRaycast
+@onready var muzzle_point = $MuzzlePoint
 
 var player_in_sight_area: bool = false
 
@@ -22,9 +23,9 @@ var has_target: bool
 
 @export_category("Combat Properties")
 var current_health: float
-@export var max_health: float = 100.0
-@export var attack_range: float = 2.0
-@export var attack_damage: float = 55.0
+@export var max_health: float = 100
+@export var attack_range: float = 2
+@export var attack_damage: int = 55
 
 @export_category("Movement Properties")
 @export var patrol_speed: float = 2.0
@@ -46,7 +47,7 @@ func _ready():
 	sword_collision_area.body_entered.connect(_on_sword_entered)
 	sight_area.body_entered.connect(_on_sight_area_body_entered)
 	sight_area.body_exited.connect(_on_sight_area_body_exited)
-	
+
 	current_health = max_health
 
 func _process(delta):
@@ -86,6 +87,9 @@ func _physics_process(delta):
 			
 			
 			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
+			
+			if target_is_in_range():
+					set_current_state(EnemyState.ATTACKING)
 			
 			if nav_agent.is_navigation_finished():
 				nav_agent.velocity = Vector3.ZERO
@@ -202,8 +206,11 @@ func receive_rocket_impact(hit_position: Vector3, knockback: int, damage: int):
 	take_damage(damage)
 
 func finished_attacking():
-	set_current_state(EnemyState.CHASING)
-
+	if ground_raycast.is_colliding():
+		set_current_state(EnemyState.CHASING)
+	else:
+		set_current_state(EnemyState.HIT)
+		
 func finished_get_hit():
 	if ground_raycast.is_colliding():
 		set_current_state(EnemyState.CHASING)

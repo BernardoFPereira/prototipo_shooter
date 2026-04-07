@@ -26,15 +26,17 @@ func explode():
 	print(explosion_area.collision_result)
 	
 	for collision in explosion_area.collision_result:
-		# DEBUG PRINT
-		#print(collision)
 		
 		if collision.collider is Player:
 			var player = collision.collider as Player
 			player.velocity += (global_position.direction_to(player.global_position) * knockback)
 		
-		if collision.collider is Enemy:
-			var enemy = collision.collider as Enemy
+		if collision.collider is EnemyMelee:
+			var enemy = collision.collider as EnemyMelee
+			enemy.receive_rocket_impact(global_position, knockback, 25)
+		
+		if collision.collider is EnemyRanged:
+			var enemy = collision.collider as EnemyRanged
 			enemy.receive_rocket_impact(global_position, knockback, 25)
 		
 func _on_lifetime_timer_timeout():

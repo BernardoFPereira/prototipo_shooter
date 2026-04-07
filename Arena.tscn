@@ -1,6 +1,6 @@
 [gd_scene load_steps=116 format=3 uid="uid://cf23pt82ospok"]
 
-[ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/enemy.tscn" id="1_5rn4a"]
+[ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/enemy_melee.tscn" id="1_5rn4a"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="2_7me3b"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="3_e5eum"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_byte.gd" id="4_dg1s1"]

@@ -192,9 +192,16 @@ func _on_sword_hit():
 	print(sword_hit_area.collision_result)
 	if sword_hit_area.collision_result:
 		for collision in sword_hit_area.collision_result:
-			if collision.collider is Enemy:
+			if collision.collider is EnemyMelee:
 				print("Enemy hit")
-				var enemy = collision.collider as Enemy
+				var enemy = collision.collider as EnemyMelee
+				if enemy.current_state == enemy.EnemyState.DEAD:
+					return
+				enemy.spawn_blood(collision.point)
+				enemy.receive_sword_impact(melee_damage, global_position, sword_impact_strength)
+				
+			elif collision.collider is EnemyRanged:
+				var enemy = collision.collider as EnemyRanged
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
 				enemy.spawn_blood(collision.point)

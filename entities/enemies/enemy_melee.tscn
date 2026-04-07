@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://bl6itlv6uspjd"]
 
-[ext_resource type="Script" path="res://entities/enemies/enemy.gd" id="1_el1td"]
-[ext_resource type="ArrayMesh" uid="uid://bc110bwhlbbf8" path="res://entities/mockup/SavedToFile/alien_mesh.res" id="2_o502o"]
-[ext_resource type="Animation" uid="uid://b0pxi1tqf5a7q" path="res://entities/mockup/SavedToFile/alien_attack.res" id="3_rwm0w"]
-[ext_resource type="Animation" uid="uid://6pf0e15ld4ht" path="res://entities/mockup/SavedToFile/alien_chase.res" id="4_ujpk1"]
-[ext_resource type="Animation" uid="uid://bkyajnrm5olp0" path="res://entities/mockup/SavedToFile/alien_hit.res" id="5_qyl0s"]
-[ext_resource type="Animation" uid="uid://djekvxpoamapy" path="res://entities/mockup/SavedToFile/alien_idle.res" id="6_gjt2e"]
-[ext_resource type="AnimationLibrary" uid="uid://dqlv36qyvvbbj" path="res://entities/mockup/anims/dead_anim.glb" id="7_8e1m7"]
-[ext_resource type="AnimationLibrary" uid="uid://cu4pytoqd5dsw" path="res://entities/mockup/anims/patrol_anim.glb" id="8_vvabq"]
+[ext_resource type="Script" path="res://entities/enemies/enemy_melee.gd" id="1_x23wf"]
+[ext_resource type="ArrayMesh" uid="uid://bc110bwhlbbf8" path="res://entities/mockup/SavedToFile/alien_mesh.res" id="2_qpvdc"]
+[ext_resource type="Animation" uid="uid://b0pxi1tqf5a7q" path="res://entities/mockup/SavedToFile/alien_attack.res" id="3_xefue"]
+[ext_resource type="Animation" uid="uid://6pf0e15ld4ht" path="res://entities/mockup/SavedToFile/alien_chase.res" id="4_oa7ve"]
+[ext_resource type="Animation" uid="uid://bkyajnrm5olp0" path="res://entities/mockup/SavedToFile/alien_hit.res" id="5_aqlcd"]
+[ext_resource type="Animation" uid="uid://djekvxpoamapy" path="res://entities/mockup/SavedToFile/alien_idle.res" id="6_qo22d"]
+[ext_resource type="AnimationLibrary" uid="uid://dqlv36qyvvbbj" path="res://entities/mockup/anims/dead_anim.glb" id="7_mhhcm"]
+[ext_resource type="AnimationLibrary" uid="uid://cu4pytoqd5dsw" path="res://entities/mockup/anims/patrol_anim.glb" id="8_4ur1p"]
 
 [sub_resource type="Skin" id="Skin_u50mk"]
 resource_name = "Skin"
@@ -214,10 +214,10 @@ height = 46.8347
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gxwgs"]
 _data = {
-"attack": ExtResource("3_rwm0w"),
-"chase": ExtResource("4_ujpk1"),
-"hit": ExtResource("5_qyl0s"),
-"idle": ExtResource("6_gjt2e")
+"attack": ExtResource("3_xefue"),
+"chase": ExtResource("4_oa7ve"),
+"hit": ExtResource("5_aqlcd"),
+"idle": ExtResource("6_qo22d")
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_500qd"]
@@ -228,14 +228,14 @@ height = 2.2
 height = 2.2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cg7ux"]
-radius = 10.0
+radius = 25.0
 
-[node name="Enemy" type="RigidBody3D"]
+[node name="EnemyMelee" type="RigidBody3D"]
 collision_layer = 4352
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25
-script = ExtResource("1_el1td")
+script = ExtResource("1_x23wf")
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(0.012, 0, 0, 0, -5.24537e-10, -0.012, 0, 0.012, -5.24537e-10, 0, 0, 0)
@@ -698,11 +698,11 @@ bones/64/rotation = Quaternion(3.00352e-08, -1.39233e-07, 2.84956e-07, 1)
 bones/64/scale = Vector3(1, 1, 1)
 
 [node name="Ch44" type="MeshInstance3D" parent="Armature/Skeleton3D"]
-mesh = ExtResource("2_o502o")
+mesh = ExtResource("2_qpvdc")
 skin = SubResource("Skin_u50mk")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.106643, 0.440346, 0.891472, -0.868948, 0.477059, -0.131697, -0.483277, -0.760599, 0.433513, -22.4976, 16.5587, -141.536)
+transform = Transform3D(0.106642, 0.440345, 0.891473, -0.868948, 0.477058, -0.131696, -0.483276, -0.760599, 0.433512, -22.4976, 16.5587, -141.536)
 bone_name = "mixamorig_RightHand"
 bone_idx = 34
 
@@ -719,8 +719,8 @@ disabled = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_gxwgs"),
-"dead_anim": ExtResource("7_8e1m7"),
-"patrol_anim": ExtResource("8_vvabq")
+"dead_anim": ExtResource("7_mhhcm"),
+"patrol_anim": ExtResource("8_4ur1p")
 }
 autoplay = "idle"
 
@@ -732,6 +732,7 @@ shape = SubResource("CapsuleShape3D_500qd")
 path_desired_distance = 2.0
 target_desired_distance = 2.0
 avoidance_enabled = true
+radius = 1.0
 max_neighbors = 20
 max_speed = 5.0
 use_3d_avoidance = true
@@ -750,10 +751,11 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="SightCollision" type="CollisionShape3D" parent="SightArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 shape = SubResource("SphereShape3D_cg7ux")
 
 [node name="GroundRaycast" type="RayCast3D" parent="."]
+target_position = Vector3(0, -0.5, 0)
 collision_mask = 17
 hit_from_inside = true
 
