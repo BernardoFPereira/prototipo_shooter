@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://db0txb362rcuv"]
+
+[ext_resource type="PackedScene" uid="uid://drwkoc6vlux0p" path="res://models/ST_assetsCenario_imported/ST_gancho.glb" id="1_2iwe1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cc243"]
+radius = 0.145302
+height = 1.1046
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.553679, 0)
+shape = SubResource("CapsuleShape3D_cc243")
+
+[node name="ST_gancho" parent="StaticBody3D" instance=ExtResource("1_2iwe1")]
+transform = Transform3D(-0.999301, 0.0373762, 0, -0.0373762, -0.999301, 0, 0, 0, 1, 0, 1.08061, 0)
