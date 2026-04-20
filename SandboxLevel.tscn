@@ -1,9 +1,11 @@
-[gd_scene load_steps=2253 format=3 uid="uid://cphtpynykfii4"]
+[gd_scene load_steps=2255 format=3 uid="uid://cphtpynykfii4"]
 
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/enemy.tscn" id="1_emao3"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="2_hbx2f"]
+[ext_resource type="PackedScene" uid="uid://djriivifdcxl4" path="res://prefabs/button.tscn" id="3_3t5re"]
 [ext_resource type="PackedScene" uid="uid://dm8ef2edy2n6q" path="res://models/scale.glb" id="3_km4uc"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="4_c36y4"]
+[ext_resource type="PackedScene" uid="uid://6pplbw1odkvt" path="res://prefabs/door1.tscn" id="4_cbk3l"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_byte.gd" id="5_y4ag6"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_float.gd" id="6_tipd2"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_int.gd" id="7_8vn7m"]
@@ -22621,6 +22623,13 @@ target = NodePath("../Player")
 [node name="Player" parent="." groups=["player"] instance=ExtResource("2_hbx2f")]
 transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 0.277724, 0, -15.8469)
 
+[node name="Button" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("3_3t5re")]
+transform = Transform3D(-1.37919, 0, -0.047391, 0, 1.38, 0, 0.047391, 0, -1.37919, -17.0738, 1.85548, 11.2515)
+linked_obj = NodePath("../Door")
+
+[node name="Door" parent="." instance=ExtResource("4_cbk3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4314, 0, 9.09505)
+
 [node name="scale" parent="." instance=ExtResource("3_km4uc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.531, -20.9274, -3.04132)
 
@@ -22639,7 +22648,7 @@ mesh_vector_data = SubResource("Resource_j5tqi")
 collision_layer = 17
 
 [node name="block1" type="Node3D" parent="NavigationRegion3D/Cyclops"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
 script = ExtResource("4_c36y4")
 mesh_vector_data = SubResource("Resource_njoqb")
 collision_layer = 17
