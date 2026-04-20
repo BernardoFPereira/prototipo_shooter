@@ -28,6 +28,7 @@ var current_health: float
 @export var attack_damage: int = 55
 
 @export_category("Movement Properties")
+var is_floating: bool
 @export var patrol_speed: float = 2.0
 @export var chase_speed: float = 6.0
 @export var rotation_speed: float = 5.0
@@ -154,7 +155,7 @@ func set_current_state(new_state):
 				patrol_route.has_enemy = true
 			
 			attack_collision.disabled = true
-			anim_player.play("patrol_anim/patrol")
+			anim_player.play("patrol")
 		
 		EnemyState.CHASING:
 			if current_health <= 0:
@@ -173,7 +174,7 @@ func set_current_state(new_state):
 				return
 			nav_agent = null
 			attack_collision.disabled = true
-			anim_player.play("hit")
+			anim_player.play("hit",-1, 1.5)
 		
 		EnemyState.ATTACKING:
 			if current_health <= 0:
@@ -186,36 +187,38 @@ func set_current_state(new_state):
 			nav_agent = null
 			linear_velocity = Vector3.ZERO
 			attack_collision.disabled = true
-			anim_player.play("dead_anim/dead")
+			anim_player.play("hit",-1, 1.5)
 	
 	current_state = new_state
 
 func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int):
 	set_current_state(EnemyState.HIT)
 	take_damage(damage)
-	linear_velocity += global_position.direction_to(global_position) * (hit_position.distance_squared_to(global_position) * impact_strength)
 	linear_velocity.y += 5
-	linear_velocity.x = clamp(linear_velocity.x, -3, 3)
 	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
-	linear_velocity.z = clamp(linear_velocity.z, -3, 3)
 
-func receive_rocket_impact(hit_position: Vector3, knockback: int, damage: int):
+func receive_rocket_impact(hit_position: Vector3, damage: int):
 	set_current_state(EnemyState.HIT)
-	linear_velocity += (hit_position.direction_to(global_position) * knockback)
 	spawn_blood(global_position)
 	take_damage(damage)
+	linear_velocity.y += 5
+	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
 
 func finished_attacking():
-	if ground_raycast.is_colliding():
+	if !is_floating:
 		set_current_state(EnemyState.CHASING)
 	else:
 		set_current_state(EnemyState.HIT)
-		
+
 func finished_get_hit():
-	if ground_raycast.is_colliding():
+	if !is_floating:
 		set_current_state(EnemyState.CHASING)
 	else:
 		set_current_state(EnemyState.HIT)
+	
+	if current_health <= 0:
+		anim_player.play("dead")
+
 func finished_dead():
 	await get_tree().create_timer(5).timeout
 	queue_free()

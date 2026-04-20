@@ -1107,34 +1107,19 @@ environment = SubResource("Environment_31r0e")
 
 [node name="PlayerSpawnPosition" type="Marker3D" parent="."]
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("target", "patrol_route") instance=ExtResource("6_gipjw")]
-transform = Transform3D(0.933899, 0, -0.357534, 0, 1, 0, 0.357534, 0, 0.933899, 16.7583, 0.100001, 9.58579)
+[node name="EnemyMelee" parent="." node_paths=PackedStringArray("target", "patrol_route") instance=ExtResource("6_gipjw")]
+transform = Transform3D(0.933899, 0, -0.357534, 0, 1, 0, 0.357534, 0, 0.933899, 16.758, 0, 9.586)
 target = NodePath("../Player")
 patrol_route = NodePath("../Patrol_Path_01/Patrol_Route_01")
-chase_speed = 200.0
+chase_speed = 250.0
 
-[node name="Enemy2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(-0.740558, 0, 0.671991, 0, 1, 0, -0.671991, 0, -0.740558, -13.8304, 12, -5.48838)
+[node name="EnemyMelee2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
+transform = Transform3D(-0.937628, 0, 0.347637, 0, 1, 0, -0.347637, 0, -0.937628, -16.7067, 12, -1.736)
 target = NodePath("../Player")
-chase_speed = 200.0
-
-[node name="Enemy3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-target = NodePath("../Player")
-chase_speed = 200.0
-
-[node name="Enemy4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.62275, 0, 0)
-target = NodePath("../Player")
-chase_speed = 200.0
-
-[node name="Enemy5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -20.9601, 0, 0)
-target = NodePath("../Player")
-chase_speed = 200.0
+chase_speed = 250.0
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("7_dta2b")]
-transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 6.58471, 0, -15.8469)
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, -16.4593, 0, -4.10905)
 
 [node name="Cyclops" type="Node3D" parent="."]
 
@@ -1148,6 +1133,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 script = ExtResource("1_s88dd")
 mesh_vector_data = SubResource("Resource_qakci")
 collision_layer = 17
+collision_mask = 17
 
 [node name="Obstacle01" type="CSGBox3D" parent="Cyclops/NavigationRegion3D/Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.350341, -6.5)

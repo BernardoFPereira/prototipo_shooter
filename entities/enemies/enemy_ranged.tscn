@@ -236,6 +236,7 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25
 script = ExtResource("1_ixay4")
+attack_range = 75.0
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(0.012, 0, 0, 0, -5.24537e-10, -0.012, 0, 0.012, -5.24537e-10, 0, 0, 0)
@@ -702,7 +703,7 @@ mesh = ExtResource("2_ydgcu")
 skin = SubResource("Skin_u50mk")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.985854, 0.130804, 0.104802, -0.108596, 0.97476, -0.195064, -0.127672, 0.180923, 0.975175, -10.8561, 79.146, -135.212)
+transform = Transform3D(0.985853, 0.130804, 0.104802, -0.108596, 0.97476, -0.195064, -0.127671, 0.180923, 0.975175, -10.8561, 79.1459, -135.212)
 bone_name = "mixamorig_RightHand"
 bone_idx = 34
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=16 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="4_v6suj"]
@@ -210,6 +210,9 @@ size = Vector3(0.89, 1, 1.495)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnlr8"]
+bg_color = Color(0.313726, 0, 0, 0.490196)
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 262
 collision_mask = 513
@@ -270,3 +273,40 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GetSwordArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
 shape = SubResource("SphereShape3D_k5oyn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnlr8")
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+text = "Você Morreu!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = 41.0
+offset_right = 73.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Voltar ao Menu"
+
+[connection signal="pressed" from="CanvasLayer/MenuButton" to="." method="_on_menu_button_pressed"]

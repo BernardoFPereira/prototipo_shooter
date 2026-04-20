@@ -25,8 +25,12 @@ enum PlayerStates {
 @onready var muzzle = $Head/Cannon/Muzzle
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var dead_canvas = $CanvasLayer
+@onready var menu_button = $CanvasLayer/MenuButton
 
 @onready var activation_timer = $ActivationTimer
+
+var menu_scene = preload("uid://d2rqkagxvdfhw")
 
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
@@ -37,6 +41,7 @@ var projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 
 var is_blocking: bool
 var is_disarmed: bool
+var is_dead: bool = false
 var thrown_sword: Sword
 
 @export_category("Combat Properties")
@@ -49,13 +54,21 @@ var current_health: float
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
+	menu_button.pressed.connect(_on_menu_button_pressed)
+	dead_canvas.visible = false
 	
 	current_health = max_health
 
 func _process(delta):
+	if is_dead:
+		return
+	
 	_rotate_camera()
 
 func _physics_process(delta):
+	if is_dead:
+		return
+	
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	var direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
 	if movement_vector:
@@ -73,6 +86,9 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _rotate_camera():
+	if is_dead:
+		return
+		
 	if input_mouse:
 		rotate_y(-input_mouse.x * mouse_sensitivity)
 		head.rotate_x(-input_mouse.y * mouse_sensitivity)
@@ -87,7 +103,9 @@ func _unhandled_input(event):
 		input_mouse = event.relative
 		
 func _input(event):
-		
+	if is_dead:
+		return
+	
 	if Input.is_action_just_pressed("click"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -217,6 +235,14 @@ func _on_sword_back(body):
 func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
+		print("Player Health:")
 		print(str(current_health))
 		if current_health <= 0:
+			is_dead = true
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			dead_canvas.visible = true
 			print("dead!")
+
+
+func _on_menu_button_pressed():
+	get_tree().change_scene_to_packed(menu_scene)

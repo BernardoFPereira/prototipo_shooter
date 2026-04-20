@@ -1,4 +1,4 @@
-[gd_scene load_steps=1209 format=3 uid="uid://dh8uwvfl13ksr"]
+[gd_scene load_steps=1210 format=3 uid="uid://dh8uwvfl13ksr"]
 
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/enemy_melee.tscn" id="1_6s3kv"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="2_wb81e"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_float.gd" id="5_ro3if"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_int.gd" id="6_lypyj"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/mesh_vector_data.gd" id="7_f14jo"]
+[ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/enemy_ranged.tscn" id="9_251bo"]
 [ext_resource type="PackedScene" uid="uid://c6eg8oofsarrx" path="res://patrol_route.tscn" id="9_jklxb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uxh04"]
@@ -13479,6 +13480,10 @@ transform = Transform3D(0.999824, 0, -0.0187786, 0, 1, 0, 0.0187786, 0, 0.999824
 
 [node name="PatrolRoutePath" parent="PatrolRoute3" index="0"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_251bo")]
+transform = Transform3D(-0.999772, 0, 0.0213613, 0, 1, 0, -0.0213613, 0, -0.999772, -3.40305, 0, 64.4093)
+target = NodePath("../Player")
 
 [editable path="PatrolRoute"]
 [editable path="PatrolRoute2"]
