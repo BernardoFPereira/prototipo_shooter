@@ -8,13 +8,13 @@ extends RigidBody3D
 @onready var sword_collision_area = $SwordCollisionArea
 @onready var sword_hit_collision = $SwordCollisionArea/SwordHitCollision
 @onready var nav_agent = $NavigationAgent3D
-@onready var attack_collision = $Armature/Skeleton3D/BoneAttachment3D/AttackArea/AttackCollision
 @onready var ground_raycast = $GroundRaycast
 @onready var muzzle_point = $MuzzlePoint
 
 var player_in_sight_area: bool = false
 
 var blood_particles_scene = preload("uid://dauurgt5mibfk")
+var enemy_projectile_scene = preload("uid://bkecmbnogq48m")
 
 @export_category("Targets")
 var has_target: bool
@@ -144,7 +144,6 @@ func set_current_state(new_state):
 			if current_health <= 0:
 				return
 			nav_agent = null
-			attack_collision.disabled = true
 			anim_player.play("idle")
 		
 		EnemyState.PATROLLING:
@@ -154,7 +153,6 @@ func set_current_state(new_state):
 			if !patrol_route.has_enemy:
 				patrol_route.has_enemy = true
 			
-			attack_collision.disabled = true
 			anim_player.play("patrol")
 		
 		EnemyState.CHASING:
@@ -165,7 +163,6 @@ func set_current_state(new_state):
 				move_to_parent(get_tree().current_scene)
 			
 			nav_agent = $NavigationAgent3D
-			attack_collision.disabled = true
 			has_target = true
 			anim_player.play("chase")
 	
@@ -173,20 +170,17 @@ func set_current_state(new_state):
 			if current_health <= 0:
 				return
 			nav_agent = null
-			attack_collision.disabled = true
 			anim_player.play("hit",-1, 1.5)
 		
 		EnemyState.ATTACKING:
 			if current_health <= 0:
 				return
 			linear_velocity = Vector3.ZERO
-			attack_collision.disabled = false
 			anim_player.play("attack")
 		
 		EnemyState.DEAD:
 			nav_agent = null
 			linear_velocity = Vector3.ZERO
-			attack_collision.disabled = true
 			anim_player.play("hit",-1, 1.5)
 	
 	current_state = new_state
@@ -243,6 +237,12 @@ func target_is_in_range() -> bool:
 	var result = space_state.intersect_ray(ray_params)
 	
 	return result.is_empty()
+
+func spawn_projectile():
+	var projectile = enemy_projectile_scene.instantiate()
+	projectile.transform = muzzle_point.global_transform
+	get_parent().add_child(projectile, true)
+	projectile.start(global_position.direction_to(target.global_position))
 
 func move_to_parent(new_parent: Node):
 	var current_global_position = global_position

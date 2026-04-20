@@ -86,6 +86,7 @@ block={
 3d_physics/layer_5="LevelBlocks"
 3d_physics/layer_8="NavLink"
 3d_physics/layer_9="Knockback"
+3d_physics/layer_10="PlayerHitbox"
 3d_physics/layer_13="SwordHit"
 
 [navigation]

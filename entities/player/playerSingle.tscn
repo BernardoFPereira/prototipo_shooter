@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=17 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="4_v6suj"]
@@ -197,6 +197,8 @@ _data = {
 "release_block": SubResource("Animation_pmpnh")
 }
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8esgh"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ycpcb"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hbx61"]
@@ -228,7 +230,15 @@ libraries = {
 }
 autoplay = "idle"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="HitBoxArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 512
+collision_mask = 0
+
+[node name="PlayerHitbox" type="CollisionShape3D" parent="HitBoxArea"]
+shape = SubResource("CapsuleShape3D_8esgh")
+
+[node name="MovementCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ycpcb")
 
