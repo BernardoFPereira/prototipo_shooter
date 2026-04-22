@@ -135,6 +135,7 @@ shape = SubResource("ConvexPolygonShape3D_o0lvg")
 
 [node name="door2" type="MeshInstance3D" parent="Door2/AnimBdDoor2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000232697, -0.0245905)
+layers = 17
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
 
@@ -149,5 +150,6 @@ shape = SubResource("ConvexPolygonShape3D_h1cab")
 
 [node name="door1" type="MeshInstance3D" parent="Door1/AnimBdDoor1"]
 transform = Transform3D(1, 0, 0, 0, 0.999433, 0.0336785, 0, -0.0336785, 0.999433, 0, 0, 0)
+layers = 17
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")

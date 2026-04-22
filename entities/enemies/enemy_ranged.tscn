@@ -232,7 +232,8 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25
 script = ExtResource("1_ixay4")
-attack_range = 75.0
+attack_range = 50.0
+attack_damage = 10
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(0.012, 0, 0, 0, -5.24537e-10, -0.012, 0, 0.012, -5.24537e-10, 0, 0, 0)

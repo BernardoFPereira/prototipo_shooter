@@ -30,7 +30,7 @@ enum PlayerStates {
 
 @onready var activation_timer = $ActivationTimer
 
-var menu_scene = preload("uid://d2rqkagxvdfhw")
+var menu_scene = preload("uid://d2rqkagxvdfhw") 
 
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
