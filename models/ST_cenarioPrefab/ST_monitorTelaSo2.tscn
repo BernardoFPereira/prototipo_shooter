@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddmk306btv8hn"]
+
+[ext_resource type="PackedScene" uid="uid://uslxihc3p5uv" path="res://models/ST_assetsCenario_imported/ST_monitorTelaSo.glb" id="1_5neet"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w5dy1"]
+size = Vector3(0.82373, 0.817383, 0.107422)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="ST_monitorTelaSo2" parent="StaticBody3D" instance=ExtResource("1_5neet")]
+transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39334, 0.410522, 0)
+shape = SubResource("BoxShape3D_w5dy1")
