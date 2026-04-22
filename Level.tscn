@@ -1113,13 +1113,8 @@ target = NodePath("../Player")
 patrol_route = NodePath("../Patrol_Path_01/Patrol_Route_01")
 chase_speed = 250.0
 
-[node name="EnemyMelee2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_gipjw")]
-transform = Transform3D(-0.937628, 0, 0.347637, 0, 1, 0, -0.347637, 0, -0.937628, -16.7067, 12, -1.736)
-target = NodePath("../Player")
-chase_speed = 250.0
-
 [node name="Player" parent="." groups=["player"] instance=ExtResource("7_dta2b")]
-transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, -16.4593, 0, -4.10905)
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, -20.8524, -0.0178022, -21.8551)
 
 [node name="Cyclops" type="Node3D" parent="."]
 

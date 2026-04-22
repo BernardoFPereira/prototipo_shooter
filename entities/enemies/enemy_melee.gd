@@ -51,7 +51,10 @@ func _ready():
 	current_health = max_health
 
 func _process(delta):
-	pass
+	if ground_raycast.is_colliding():
+		is_floating = false
+	else:
+		is_floating = true
 	
 func _physics_process(delta):
 	
@@ -170,7 +173,7 @@ func set_current_state(new_state):
 				return
 			nav_agent = null
 			attack_collision.disabled = true
-			anim_player.play("hit",-1, 1.5)
+			anim_player.play("hit")
 		
 		EnemyState.ATTACKING:
 			if current_health <= 0:
@@ -183,7 +186,7 @@ func set_current_state(new_state):
 			nav_agent = null
 			linear_velocity = Vector3.ZERO
 			attack_collision.disabled = true
-			anim_player.play("hit",-1, 1.5)
+			anim_player.play("hit")
 	
 	current_state = new_state
 
