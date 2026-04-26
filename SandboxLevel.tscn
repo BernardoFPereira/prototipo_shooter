@@ -25903,3 +25903,23 @@ mesh_vector_data = SubResource("Resource_d2hx0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125, 13, -39)
 script = ExtResource("4_c36y4")
 mesh_vector_data = SubResource("Resource_mknxa")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-0.999529, 0, -0.0306781, 0, 1, 0, 0.0306781, 0, -0.999529, 16.6516, 11.8902, 14.3243)
+
+[node name="Label3D" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.39806, 0)
+text = "Controles:
+"
+font_size = 387
+
+[node name="Label3D2" type="Label3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.0055, -6.52388, 4.75655)
+text = "Shift = Arremessar Espada
+Espaço = Pular
+Clique Esquerdo 
+do Mouse = Atirar Foguete
+"
+font_size = 147
+
+[node name="Label3D3" type="Label3D" parent="Node3D"]
