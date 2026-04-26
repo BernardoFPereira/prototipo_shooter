@@ -3,8 +3,8 @@ extends Node3D
 @onready var lifetime_timer = $LifetimeTimer
 @onready var collision_area = $CollisionArea
 
-@export var damage: int = 55
-var speed: int = 75
+@export var damage: int = 15
+var speed: int = 55
 var direction: Vector3
 
 func _ready():
