@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://p13gufm2kjpk"]
+
+[ext_resource type="PackedScene" uid="uid://sbl6eb2rhm5c" path="res://entities/enemies/MeleeEnemy/melee_enemy_01.glb" id="1_llfte"]
+
+[node name="melee_enemy_01" instance=ExtResource("1_llfte")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(0.415361, 5.52608e-17, 5.52607e-17, 0.909657)
+bones/2/rotation = Quaternion(-0.494229, -1.03632e-07, 5.89167e-08, 0.869332)
+bones/4/rotation = Quaternion(0.135882, 0.0450683, 0.913679, -0.380388)
+bones/5/rotation = Quaternion(0.224292, -0.0715817, -0.26873, 0.933999)
+bones/7/rotation = Quaternion(-0.226801, -0.0397192, -0.135215, 0.963691)
+bones/9/rotation = Quaternion(-0.146823, -0.13117, 0.741943, 0.640905)
+bones/10/rotation = Quaternion(-0.127041, 0.0441132, 0.913575, 0.38379)
+bones/12/rotation = Quaternion(0.788024, 0.142854, 0.0531441, 0.596478)
+bones/13/rotation = Quaternion(0.281924, -0.034296, 0.0714228, 0.95616)
+bones/14/rotation = Quaternion(0.788024, -0.142854, -0.0531441, 0.596478)
+bones/15/rotation = Quaternion(0.281924, 0.034296, -0.0714228, 0.95616)
