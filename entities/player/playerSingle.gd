@@ -5,7 +5,13 @@ var move_speed := 22
 var drag := 25
 var gravity := 42
 
+#sensibilidade da camera pelo joystick
+var look_sensitivity_horizontal : = 75
+var look_sensitivity_vertical : = 30
+
 const JUMP_VELOCITY := 16
+const JUMP_JOYSTICK_VELOCITY: = 5
+
 
 enum PlayerStates {
 	IDLE,
@@ -47,6 +53,8 @@ func _ready():
 
 func _process(delta):
 	_rotate_camera()
+	#vinculando rotate da câmera com joystick
+	_rotate_camera_joystick()
 
 func _physics_process(delta):
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -108,6 +116,9 @@ func _input(event):
 		
 	if Input.is_action_just_pressed("jump"):
 		try_jump()
+		
+	if Input.is_action_just_pressed("jump_joysitck"):
+		try_jump_joystick()
 
 func release_mouse_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -173,6 +184,15 @@ func try_jump():
 		
 	print("Jumping!")
 	velocity.y += JUMP_VELOCITY
+	
+
+func try_jump_joystick():
+	if !is_on_floor():
+		return
+		
+	print("Jumping!")
+	velocity.y += JUMP_JOYSTICK_VELOCITY
+	
 
 func _on_animation_finished(anim_name):
 	match anim_name:
@@ -207,3 +227,37 @@ func _on_sword_back(body):
 		is_disarmed = false
 		body.get_parent().register_impact()
 		weapon.visible = true
+
+
+
+
+# (todo o código acima permanece EXATAMENTE igual)
+
+@rpc("any_peer", "call_local", "reliable")
+func notify_sword_returned():
+	print("Client: server confirmed sword returned")
+	weapon.visible = true 
+
+
+func _rotate_camera_joystick():
+	
+	#______________________________
+	#Código para vincular visão do player com L3 do joystick
+	
+	var look_x = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
+	var look_y = Input.get_action_strength("look_down") - Input.get_action_strength("look_up")
+	
+	var look_delta = Vector2(look_x, look_y)
+	
+	if look_delta.length() > 0:
+		# --- Yaw (left/right) ---
+		rotate_y(-look_delta.x * mouse_sensitivity * look_sensitivity_horizontal)
+
+		# --- Pitch (up/down) ---
+		head.rotate_x(-look_delta.y * mouse_sensitivity * look_sensitivity_vertical)
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+
+		# --- Roll (optional tilt) ---
+		head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
+	
+	#_______________________________
