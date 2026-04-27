@@ -128,6 +128,7 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.902333, 1.23662, 0)
 
 [node name="AnimBdDoor2" type="RigidBody3D" parent="Door2"]
+collision_layer = 17
 gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door2/AnimBdDoor2"]
@@ -143,6 +144,7 @@ skeleton = NodePath("../../..")
 
 [node name="AnimBdDoor1" type="RigidBody3D" parent="Door1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.784654, 1.23662, 0)
+collision_layer = 17
 gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door1/AnimBdDoor1"]
