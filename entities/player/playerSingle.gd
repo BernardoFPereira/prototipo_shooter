@@ -268,7 +268,7 @@ func take_damage(amount: float):
 
 
 func _on_menu_button_pressed():
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_packed(menu_scene)
 
 func _rotate_camera_joystick():
 	
