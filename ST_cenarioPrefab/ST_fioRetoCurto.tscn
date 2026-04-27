@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctwpbeh46md6r"]
+
+[ext_resource type="PackedScene" uid="uid://brtuhm6hp5vdq" path="res://models/ST_assetsCenario_imported/ST_fioRetoCurto.glb" id="1_je0uh"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ST_fioRetoCurto" parent="." instance=ExtResource("1_je0uh")]
