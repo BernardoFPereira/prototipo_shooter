@@ -5,7 +5,7 @@ extends Control
 @onready var play_button = $VBoxContainer/PlayButton
 @onready var quit_button = $VBoxContainer/QuitButton
 
-var level_scene = preload("uid://yusjlgf3x7bm")
+var level_scene = preload("uid://cphtpynykfii4")
 
 #var peer = NodeTunnelPeer.new()
 #var connected_players: Dictionary = {}

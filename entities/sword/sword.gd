@@ -20,6 +20,8 @@ var speed: int = 35
 var direction: Vector3
 var damage: float = 25.0
 
+var is_on_button: bool 
+var pressed_button: SwordButton
 var sword_owner: Player
 
 func _ready():
@@ -53,6 +55,10 @@ func set_state(new_state: SwordState):
 			collision_area.set_collision_layer_value(2, false)
 			collision_area.set_collision_layer_value(4, true)
 			collision_area.set_collision_layer_value(10, false)
+			if is_on_button:
+				pressed_button.set_state(pressed_button.button_states.UNPRESSED)
+				pressed_button = null
+				is_on_button = false
 			
 			animation_player.play("flying")
 			
@@ -80,9 +86,18 @@ func _on_sword_impact(body):
 	
 	var collision_result: KinematicCollision3D = collision_area.move_and_collide(global_position)
 	if collision_result:
+		var collision_parent = collision_result.get_collider().get_parent()
+		if collision_parent is SwordButton: #abre as portas linkadas nos botões
+			print("parent detected")
+			collision_parent.set_state(collision_parent.button_states.PRESSED)
+			is_on_button = true
+			pressed_button = collision_parent
+		else:
+			print("no parent detected")
 		var collision_normal = collision_result.get_normal()
 		var collision_pos = collision_result.get_position()
 		print(collision_pos)
+		print(collision_result.get_collider())
 		global_position = collision_pos + collision_normal
 		look_at(global_position + collision_normal)
 		#sword_model.look_at(collision_pos)
