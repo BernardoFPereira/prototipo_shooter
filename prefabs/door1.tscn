@@ -80,12 +80,15 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.902333, 1.23662, 0)
 
 [node name="AnimBdDoor2" type="RigidBody3D" parent="Door2"]
+collision_layer = 18
+collision_mask = 0
 gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door2/AnimBdDoor2"]
 shape = SubResource("ConvexPolygonShape3D_o0lvg")
 
 [node name="door2" type="MeshInstance3D" parent="Door2/AnimBdDoor2"]
+layers = 2
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
 
@@ -93,11 +96,14 @@ skeleton = NodePath("../../..")
 
 [node name="AnimBdDoor1" type="RigidBody3D" parent="Door1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.784654, 1.23662, 0)
+collision_layer = 18
+collision_mask = 0
 gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door1/AnimBdDoor1"]
 shape = SubResource("ConvexPolygonShape3D_h1cab")
 
 [node name="door1" type="MeshInstance3D" parent="Door1/AnimBdDoor1"]
+layers = 2
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
