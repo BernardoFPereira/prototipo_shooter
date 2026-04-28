@@ -23,12 +23,12 @@
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uxh04"]
 
-[sub_resource type="Sky" id="Sky_l3son"]
+[sub_resource type="Sky" id="Sky_of0us"]
 sky_material = SubResource("ProceduralSkyMaterial_uxh04")
 
 [sub_resource type="Environment" id="Environment_31r0e"]
 background_mode = 2
-sky = SubResource("Sky_l3son")
+sky = SubResource("Sky_of0us")
 
 [sub_resource type="Resource" id="Resource_v1jom"]
 script = ExtResource("5_y4ag6")
