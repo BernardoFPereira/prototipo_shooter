@@ -217,7 +217,7 @@ radius = 0.7
 bg_color = Color(0.313726, 0, 0, 0.490196)
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 263
+collision_layer = 261
 collision_mask = 515
 script = ExtResource("1_wj731")
 

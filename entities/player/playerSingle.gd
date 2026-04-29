@@ -35,7 +35,7 @@ enum PlayerStates {
 
 @onready var activation_timer = $ActivationTimer
 
-var menu_scene: PackedScene = preload("uid://yusjlgf3x7bm") 
+#var menu_scene: PackedScene = preload("uid://yusjlgf3x7bm")
 
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
@@ -59,7 +59,7 @@ var current_health: float
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
-	menu_button.pressed.connect(_on_menu_button_pressed)
+	#menu_button.pressed.connect(_on_menu_button_pressed)
 	dead_canvas.visible = false
 	
 	current_health = max_health
@@ -267,8 +267,8 @@ func take_damage(amount: float):
 			print("dead!")
 
 
-func _on_menu_button_pressed():
-	get_tree().change_scene_to_packed(menu_scene)
+#func _on_menu_button_pressed():
+	#get_tree().change_scene_to_packed(menu_scene)
 
 func _rotate_camera_joystick():
 	
