@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://tljil247mfog"]
+
+[ext_resource type="PackedScene" uid="uid://c826pec2idk27" path="res://entities/enemies/RangedEnemy/ranged_enemy_01.glb" id="1_8dfar"]
+
+[node name="ranged_enemy_01" instance=ExtResource("1_8dfar")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(0.499144, -2.06594e-07, -1.19005e-07, 0.866519)
+bones/2/rotation = Quaternion(-0.37806, -1.56242e-13, 1.80273e-07, 0.925781)
+bones/4/rotation = Quaternion(-0.552544, 0.0196951, 0.689723, -0.467535)
+bones/5/rotation = Quaternion(0.167157, -0.0561274, 0.150805, 0.972711)
+bones/6/rotation = Quaternion(0.552544, 0.0196954, 0.689723, 0.467535)
+bones/7/rotation = Quaternion(0.167157, 0.0561273, -0.150805, 0.972711)
+bones/8/rotation = Quaternion(0.639953, -0.157118, -0.251766, 0.708793)
+bones/9/rotation = Quaternion(0.311974, 0.000345962, -0.205833, 0.927526)
+bones/10/rotation = Quaternion(0.638578, 0.15831, 0.255284, 0.70851)
+bones/11/rotation = Quaternion(0.311974, -0.000345991, 0.205833, 0.927526)

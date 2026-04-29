@@ -2,13 +2,15 @@
 
 [ext_resource type="Script" path="res://entities/projectile/EnemyProjectile.gd" id="1_4l8oa"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3a755"]
-albedo_color = Color(0.4, 0.0941176, 0.101961, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11i2v"]
+albedo_color = Color(0.711199, 0.547753, 0, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_64x7p"]
-material = SubResource("StandardMaterial3D_3a755")
-radius = 0.12
-height = 0.675
+[sub_resource type="SphereMesh" id="SphereMesh_fk0ay"]
+material = SubResource("StandardMaterial3D_11i2v")
+radius = 0.25
+height = 0.5
+radial_segments = 32
+rings = 16
 
 [sub_resource type="Curve" id="Curve_nkxa6"]
 _data = [Vector2(0, 0.351648), 0.0, 0.279352, 0, 0, Vector2(0.623188, 0.285714), -0.210623, -0.210623, 0, 0, Vector2(1, 0), -3.17083, 0.0, 0, 0]
@@ -29,14 +31,14 @@ radial_accel_max = -5.05
 scale_curve = SubResource("CurveTexture_w4eex")
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_w2rg8"]
-albedo_color = Color(0.4, 0.0941176, 0.101961, 1)
+albedo_color = Color(0.709804, 0.54902, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_o3wa0"]
 material = SubResource("ORMMaterial3D_w2rg8")
 size = Vector3(0.2, 0.2, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hfops"]
-size = Vector3(0.404297, 0.407227, 0.951172)
+size = Vector3(0.404, 0.404, 0.404)
 
 [node name="Projectile" type="Node3D"]
 transform = Transform3D(0.665466, 0, 0, 0, 0.665466, 0, 0, 0, 0.665466, 0, 0, 0)
@@ -49,7 +51,7 @@ autostart = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_64x7p")
+mesh = SubResource("SphereMesh_fk0ay")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0613556, 0.165778)
