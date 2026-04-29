@@ -236,7 +236,7 @@ mesh = SubResource("ArrayMesh_024hr")
 skin = SubResource("Skin_pgcwt")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.091853, -0.304453, 0.948088, 0.701715, -0.655745, -0.278558, 0.706512, 0.690874, 0.153407, -0.387046, 0.996513, -0.00858033)
+transform = Transform3D(0.0918532, -0.304453, 0.948088, 0.701715, -0.655745, -0.278558, 0.706512, 0.690875, 0.153407, -0.387046, 0.996512, -0.00858069)
 bone_name = "lowerArm.R"
 bone_idx = 7
 
@@ -260,7 +260,6 @@ avoidance_enabled = true
 radius = 1.5
 max_neighbors = 20
 max_speed = 6.0
-debug_enabled = true
 
 [node name="SwordCollisionArea" type="Area3D" parent="."]
 collision_layer = 0

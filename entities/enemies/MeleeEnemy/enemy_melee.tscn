@@ -323,7 +323,7 @@ mesh = SubResource("ArrayMesh_pyq3v")
 skin = SubResource("Skin_d5emy")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(-0.773882, -0.409984, -0.482721, -0.0270301, -0.74012, 0.671932, -0.632753, 0.533044, 0.561683, -0.441615, 1.48229, -0.137909)
+transform = Transform3D(-0.773882, -0.409984, -0.482722, -0.027032, -0.740119, 0.671932, -0.632753, 0.533045, 0.561682, -0.441615, 1.48229, -0.137909)
 bone_name = "lowerArm.R"
 bone_idx = 11
 
@@ -355,7 +355,6 @@ height = 2.0
 radius = 1.7
 max_neighbors = 20
 max_speed = 6.0
-debug_enabled = true
 
 [node name="SwordCollisionArea" type="Area3D" parent="."]
 collision_layer = 0
