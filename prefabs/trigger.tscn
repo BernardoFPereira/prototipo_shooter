@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtmkaniyo2uk6"]
+
+[ext_resource type="Script" path="res://scripts/Trigger.gd" id="1_8qbei"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nq3vt"]
+size = Vector3(2.4668, 7.65601, 5.98462)
+
+[node name="Trigger" type="Node3D" node_paths=PackedStringArray("linked_obj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2259, 24.6986, 37.53)
+script = ExtResource("1_8qbei")
+linked_obj = NodePath("")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71186, 1.54395, 0)
+shape = SubResource("BoxShape3D_nq3vt")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

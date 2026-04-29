@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
-[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="1_ixdo3"]
+[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://sword.glb" id="1_ixdo3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -106,7 +106,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shfns"]
-size = Vector3(0.916992, 0.113037, 1.93603)
+size = Vector3(1.4668, 0.113037, 1.93603)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7cdf8"]
 size = Vector3(1.44922, 0.176025, 1.40137)

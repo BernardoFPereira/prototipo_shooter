@@ -5,7 +5,12 @@ var move_speed := 22
 var drag := 25
 var gravity := 42
 
+#sensibilidade da camera pelo joystick
+var look_sensitivity_horizontal : = 75
+var look_sensitivity_vertical : = 30
+
 const JUMP_VELOCITY := 16
+const JUMP_JOYSTICK_VELOCITY: = 5
 
 enum PlayerStates {
 	IDLE,
@@ -30,7 +35,7 @@ enum PlayerStates {
 
 @onready var activation_timer = $ActivationTimer
 
-var menu_scene = preload("uid://d2rqkagxvdfhw")
+#var menu_scene: PackedScene = preload("uid://yusjlgf3x7bm")
 
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
@@ -54,7 +59,7 @@ var current_health: float
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
-	menu_button.pressed.connect(_on_menu_button_pressed)
+	#menu_button.pressed.connect(_on_menu_button_pressed)
 	dead_canvas.visible = false
 	
 	current_health = max_health
@@ -64,6 +69,10 @@ func _process(delta):
 		return
 	
 	_rotate_camera()
+	#vinculando rotate da câmera com joystick
+	_rotate_camera_joystick()
+	if global_position.y <= -70: # if que coloca o player na area inicial do mapa
+		global_position = Vector3.ZERO
 
 func _physics_process(delta):
 	if is_dead:
@@ -106,11 +115,14 @@ func _input(event):
 	if is_dead:
 		return
 	
-	if Input.is_action_just_pressed("click"):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	if Input.is_action_just_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		match Input.mouse_mode:
+			Input.MOUSE_MODE_VISIBLE:
+				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			Input.MOUSE_MODE_CAPTURED:
+				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
 		
 	if Input.is_action_just_pressed("attack"):
 		try_attack()
@@ -133,6 +145,9 @@ func _input(event):
 		
 	if Input.is_action_just_pressed("jump"):
 		try_jump()
+		
+	if Input.is_action_just_pressed("jump_joystick"):
+		try_jump_joystick()
 
 func release_mouse_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -199,6 +214,14 @@ func try_jump():
 	print("Jumping!")
 	velocity.y += JUMP_VELOCITY
 
+func try_jump_joystick():
+	if !is_on_floor():
+		return
+		
+	print("Jumping!")
+	velocity.y += JUMP_JOYSTICK_VELOCITY
+	
+
 func _on_animation_finished(anim_name):
 	match anim_name:
 		"attack":
@@ -244,5 +267,28 @@ func take_damage(amount: float):
 			print("dead!")
 
 
-func _on_menu_button_pressed():
-	get_tree().change_scene_to_packed(menu_scene)
+#func _on_menu_button_pressed():
+	#get_tree().change_scene_to_packed(menu_scene)
+
+func _rotate_camera_joystick():
+	
+	#______________________________
+	#Código para vincular visão do player com L3 do joystick
+	
+	var look_x = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
+	var look_y = Input.get_action_strength("look_down") - Input.get_action_strength("look_up")
+	
+	var look_delta = Vector2(look_x, look_y)
+	
+	if look_delta.length() > 0:
+		# --- Yaw (left/right) ---
+		rotate_y(-look_delta.x * mouse_sensitivity * look_sensitivity_horizontal)
+
+		# --- Pitch (up/down) ---
+		head.rotate_x(-look_delta.y * mouse_sensitivity * look_sensitivity_vertical)
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+
+		# --- Roll (optional tilt) ---
+		head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
+	
+	#_______________________________

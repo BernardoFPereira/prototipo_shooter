@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://vbmdicpcqo8j"]
+
+[ext_resource type="PackedScene" uid="uid://dh1ew4107llw4" path="res://models/ST_assetsCenario_imported/ST_monitorBaseSo.glb" id="1_8xh6s"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ST_monitorBaseSo2" parent="." instance=ExtResource("1_8xh6s")]

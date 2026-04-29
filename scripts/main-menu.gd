@@ -5,7 +5,7 @@ extends Control
 @onready var play_button = $VBoxContainer/PlayButton
 @onready var quit_button = $VBoxContainer/QuitButton
 
-var level_scene = preload("uid://dh8uwvfl13ksr")
+var level_scene:PackedScene = preload("uid://ij2y5aqlc1dt")
 
 #var peer = NodeTunnelPeer.new()
 #var connected_players: Dictionary = {}
@@ -33,6 +33,7 @@ func _ready() -> void:
 	#print("Authenticated!")
 
 func _on_play_pressed() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().change_scene_to_packed(level_scene)
 	#var entered = username_field.text.strip_edges()
 	#peer_username = entered if not entered.is_empty() else "Host"

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://q661d70gyarc"]
+
+[ext_resource type="PackedScene" uid="uid://cuc8usqxcc1q7" path="res://models/ST_assetsCenario_imported/ST_fioQuina.glb" id="1_k56j6"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ST_fioQuina" parent="." instance=ExtResource("1_k56j6")]
