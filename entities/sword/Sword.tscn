@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
-[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://sword.glb" id="1_ixdo3"]
+[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -124,7 +124,7 @@ libraries = {
 }
 autoplay = "flying"
 
-[node name="sword" parent="." instance=ExtResource("1_ixdo3")]
+[node name="sword" parent="." instance=ExtResource("2_kqb88")]
 transform = Transform3D(-1.57913e-07, 0.0436224, -0.999048, -1, -3.61999e-06, 0, -3.61654e-06, 0.999048, 0.0436224, 0, 0, 0)
 
 [node name="CollisionArea" type="RigidBody3D" parent="."]

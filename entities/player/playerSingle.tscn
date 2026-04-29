@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
+[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_cgxxp"]
 [ext_resource type="Texture2D" uid="uid://bfyp8hyjap7gw" path="res://textures/crosshairs/Crosshair3.png" id="3_5hn21"]
-[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://sword.glb" id="4_v6suj"]
 
 [sub_resource type="Animation" id="Animation_x4mkt"]
 length = 0.001
@@ -217,8 +217,8 @@ radius = 0.7
 bg_color = Color(0.313726, 0, 0, 0.490196)
 
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 261
-collision_mask = 515
+collision_layer = 260
+collision_mask = 3
 script = ExtResource("1_wj731")
 
 [node name="ActivationTimer" type="Timer" parent="."]
@@ -253,7 +253,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="Weapon" type="Node3D" parent="Head"]
 transform = Transform3D(0.993682, 0.0867977, 0.0711437, -0.093643, 0.990637, 0.0993195, -0.0618572, -0.105354, 0.992506, 0.951, -0.597, -1.045)
 
-[node name="sword" parent="Head/Weapon" instance=ExtResource("4_v6suj")]
+[node name="sword" parent="Head/Weapon" instance=ExtResource("2_cgxxp")]
 transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-16, -1.49012e-08, 5.13479e-16, 1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
@@ -302,6 +302,27 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_5hn21")
 
+[node name="HealthLabel" type="Label" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -61.0
+offset_right = 21.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 24
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
 
@@ -321,18 +342,33 @@ text = "Você Morreu!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MenuButton" type="Button" parent="CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -73.0
-offset_top = 41.0
-offset_right = 73.0
-offset_bottom = 83.0
+offset_left = -77.0
+offset_top = 44.0
+offset_right = 77.0
+offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="RetryButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Tentar Novamente"
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Voltar ao Menu"
+
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]

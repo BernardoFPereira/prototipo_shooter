@@ -18,7 +18,7 @@ config/icon="res://Scenes/Assets/icon.svg"
 [autoload]
 
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
-MenuManager="*res://menu_manager.gd"
+MenuManager="*res://scripts/menu_manager.gd"
 
 [display]
 
@@ -118,8 +118,15 @@ look_up={
 
 [layer_names]
 
+3d_physics/layer_3="SightArea"
 3d_physics/layer_5="LevelBlocks"
+3d_physics/layer_6="SwordCollision"
 3d_physics/layer_8="NavLink"
 3d_physics/layer_9="Knockback"
 3d_physics/layer_10="PlayerHitbox"
+3d_physics/layer_12="Inimigos"
 3d_physics/layer_13="SwordHit"
+
+[navigation]
+
+3d/default_cell_height=0.01

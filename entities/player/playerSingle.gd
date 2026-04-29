@@ -32,10 +32,11 @@ enum PlayerStates {
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var dead_canvas = $CanvasLayer
 @onready var menu_button = $CanvasLayer/MenuButton
+@onready var health_label = $HUD/HealthLabel
 
 @onready var activation_timer = $ActivationTimer
 
-#var menu_scene: PackedScene = preload("uid://yusjlgf3x7bm")
+var menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
 
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
@@ -63,6 +64,7 @@ func _ready():
 	dead_canvas.visible = false
 	
 	current_health = max_health
+	health_label.text = str(current_health)
 
 func _process(delta):
 	if is_dead:
@@ -258,17 +260,13 @@ func _on_sword_back(body):
 func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
-		print("Player Health:")
-		print(str(current_health))
+		health_label.text = str(current_health)
 		if current_health <= 0:
+			current_health = 0
 			is_dead = true
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			dead_canvas.visible = true
-			print("dead!")
 
-
-#func _on_menu_button_pressed():
-	#get_tree().change_scene_to_packed(menu_scene)
 
 func _rotate_camera_joystick():
 	
@@ -286,9 +284,20 @@ func _rotate_camera_joystick():
 
 		# --- Pitch (up/down) ---
 		head.rotate_x(-look_delta.y * mouse_sensitivity * look_sensitivity_vertical)
-		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 
 		# --- Roll (optional tilt) ---
 		head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
 	
 	#_______________________________
+
+
+func _on_menu_button_pressed():
+	get_tree().change_scene_to_packed(menu_scene)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+
+
+func _on_retry_button_pressed():
+	get_tree().reload_current_scene()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

@@ -14,7 +14,7 @@ extends RigidBody3D
 var player_in_sight_area: bool = false
 
 var blood_particles_scene = preload("uid://dauurgt5mibfk")
-var enemy_projectile_scene = preload("res://entities/projectile/EnemyProjectile.tscn")
+var enemy_projectile_scene = preload("uid://bkecmbnogq48m")
 
 @export_category("Targets")
 var has_target: bool
@@ -25,7 +25,6 @@ var has_target: bool
 var current_health: float
 @export var max_health: float = 100
 @export var attack_range: float = 2
-@export var attack_damage: int = 55
 
 @export_category("Movement Properties")
 var is_floating: bool
@@ -49,17 +48,24 @@ func _ready():
 	sight_area.body_entered.connect(_on_sight_area_body_entered)
 	sight_area.body_exited.connect(_on_sight_area_body_exited)
 
+	#var enemies = get_tree().get_nodes_in_group("Enemies")
+	#for enemy in enemies:
+		#if enemy is EnemyMelee:
+			#add_collision_exception_with(enemy)
+		#elif enemy is EnemyRanged:
+			#add_collision_exception_with(enemy)
+
 	current_health = max_health
 
 func _process(delta):
-	print(is_floating)
+	pass
 	
 func _physics_process(delta):
+	check_is_floating()
 	
 	var pos2d = Vector2(global_position.x, global_position.z)
 	var target_pos2d = Vector2(target.global_position.x, target.global_position.z)
 	var rotation_direction = -(pos2d - target_pos2d)
-	
 	
 	match current_state:
 		EnemyState.IDLE:
@@ -85,10 +91,9 @@ func _physics_process(delta):
 				nav_agent.velocity = direction * chase_speed
 			else:
 				_on_velocity_computed(direction * chase_speed)
-				
-			check_is_floating()
 			
-			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
+			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
+			#rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 			
 			if target_is_in_range():
 					set_current_state(EnemyState.ATTACKING)
@@ -99,15 +104,15 @@ func _physics_process(delta):
 					set_current_state(EnemyState.ATTACKING)
 		
 		EnemyState.HIT:
-			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
-			check_is_floating()
+			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
+			#rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 		
 		EnemyState.ATTACKING:
-			rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
+			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
+			#rotation.y = lerp_angle(rotation.y, atan2(rotation_direction.x, rotation_direction.y), delta * rotation_speed)
 		
 		EnemyState.DEAD:
 			rotation.y = 0
-			check_is_floating()
 
 func take_damage(amount: float):
 	if current_health > 0:
@@ -155,6 +160,7 @@ func set_current_state(new_state):
 			if !patrol_route.has_enemy:
 				patrol_route.has_enemy = true
 			
+			nav_agent.max_speed = 2
 			anim_player.play("patrol")
 		
 		EnemyState.CHASING:
@@ -164,25 +170,27 @@ func set_current_state(new_state):
 			if get_parent() is PathFollow3D:
 				move_to_parent(get_tree().current_scene)
 			
-			nav_agent = $NavigationAgent3D
 			has_target = true
+			nav_agent.max_speed = 6
 			anim_player.play("chase")
 	
 		EnemyState.HIT:
 			if current_health <= 0:
 				return
-			nav_agent = null
+				
+			nav_agent.max_speed = 0
 			anim_player.play("hit")
 		
 		EnemyState.ATTACKING:
 			if current_health <= 0:
 				return
+				
 			linear_velocity = Vector3.ZERO
 			anim_player.play("attack")
 		
 		EnemyState.DEAD:
-			nav_agent = null
-			linear_velocity = Vector3.ZERO
+			nav_agent.set_avoidance_enabled(false)
+			nav_agent.max_speed = 0
 			anim_player.play("hit")
 	
 	current_state = new_state
@@ -242,8 +250,8 @@ func target_is_in_range() -> bool:
 
 func spawn_projectile():
 	var projectile = enemy_projectile_scene.instantiate()
-	projectile.transform = muzzle_point.global_transform
 	get_parent().add_child(projectile, true)
+	projectile.transform = muzzle_point.global_transform
 	projectile.start(global_position.direction_to(target.global_position))
 
 func move_to_parent(new_parent: Node):
@@ -282,11 +290,6 @@ func _on_sight_area_body_entered(body):
 func _on_sight_area_body_exited(body):
 	if body == target:
 		player_in_sight_area = false
-
-func _on_attack_area_body_entered(body):
-	print("Hit Player")
-	if body == target:
-		target.take_damage(attack_damage)
 
 func _on_velocity_computed(safe_velocity):
 	if current_state == EnemyState.CHASING:

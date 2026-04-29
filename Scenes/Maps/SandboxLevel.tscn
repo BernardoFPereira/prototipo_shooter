@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="2_hbx2f"]
 [ext_resource type="PackedScene" uid="uid://djriivifdcxl4" path="res://prefabs/button.tscn" id="3_3t5re"]
-[ext_resource type="PackedScene" uid="uid://dm8ef2edy2n6q" path="res://scale.glb" id="3_km4uc"]
+[ext_resource type="PackedScene" uid="uid://dm8ef2edy2n6q" path="res://Scenes/Assets/scale.glb" id="3_km4uc"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="4_c36y4"]
 [ext_resource type="PackedScene" uid="uid://6pplbw1odkvt" path="res://prefabs/door1.tscn" id="4_cbk3l"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_byte.gd" id="5_y4ag6"]
@@ -16,8 +16,8 @@
 [ext_resource type="NavigationMesh" uid="uid://kbnchhcyg81c" path="res://navmesh/platmesh.tres" id="12_rdoh6"]
 [ext_resource type="PackedScene" uid="uid://bkob43at1gw1n" path="res://prefabs/door2.tscn" id="15_wen6e"]
 [ext_resource type="PackedScene" uid="uid://74a2p42vk65i" path="res://prefabs/door3.tscn" id="15_yj78x"]
-[ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/enemy_ranged.tscn" id="16_db810"]
-[ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/enemy_melee.tscn" id="17_8hujt"]
+[ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/RangedEnemy/enemy_ranged.tscn" id="16_db810"]
+[ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="17_8hujt"]
 [ext_resource type="NavigationMesh" uid="uid://dr2mugc52h0so" path="res://navmesh/doorareamesh.tres" id="17_jqrtn"]
 [ext_resource type="NavigationMesh" uid="uid://dwp4vseueymbk" path="res://navmesh/throwmesh.tres" id="18_cnroy"]
 

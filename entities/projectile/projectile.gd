@@ -8,6 +8,7 @@ extends Node3D
 var speed: int = 35
 var direction: Vector3
 var knockback: int = 16
+var damage: int = 25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,11 +34,11 @@ func explode():
 		
 		if collision.collider is EnemyMelee:
 			var enemy = collision.collider as EnemyMelee
-			enemy.receive_rocket_impact(global_position, 25)
+			enemy.receive_rocket_impact(global_position, damage)
 		
 		if collision.collider is EnemyRanged:
 			var enemy = collision.collider as EnemyRanged
-			enemy.receive_rocket_impact(global_position, 25)
+			enemy.receive_rocket_impact(global_position, damage)
 		
 func _on_lifetime_timer_timeout():
 	call_deferred("queue_free")

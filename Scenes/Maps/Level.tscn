@@ -1,6 +1,7 @@
-[gd_scene load_steps=120 format=3 uid="uid://yusjlgf3x7bm"]
+[gd_scene load_steps=121 format=3 uid="uid://yusjlgf3x7bm"]
 
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="1_s88dd"]
+[ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/RangedEnemy/enemy_ranged.tscn" id="2_cqejh"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_byte.gd" id="2_jspue"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_int.gd" id="3_oqm8j"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_float.gd" id="4_75vqg"]
@@ -1112,6 +1113,10 @@ transform = Transform3D(0.933899, 0, -0.357534, 0, 1, 0, 0.357534, 0, 0.933899, 
 target = NodePath("../Player")
 patrol_route = NodePath("../Patrol_Path_01/Patrol_Route_01")
 chase_speed = 250.0
+
+[node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_cqejh")]
+transform = Transform3D(-0.636845, 0, -0.770991, 0, 1, 0, 0.770991, 0, -0.636845, 0, 0, 0)
+target = NodePath("../Player")
 
 [node name="Player" parent="." groups=["player"] instance=ExtResource("7_dta2b")]
 transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, -20.8524, -0.0178022, -21.8551)
