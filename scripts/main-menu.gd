@@ -14,12 +14,13 @@ var level_scene:PackedScene = load("uid://ij2y5aqlc1dt")
 func _ready() -> void:
 	play_button.pressed.connect(_on_play_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	#peer.error.connect(
 		#func(error_msg):
 			#push_error("NodeTunnel Error: ", error_msg)
 	#)
 	#
-	##peer.connect_to_relay("us_east.nodetunnel.io:8080", "kowqnsa2y2l4fot")
+	#peer.connect_to_relay("us_east.nodetunnel.io:8080", "kowqnsa2y2l4fot")
 	#peer.connect_to_relay("oriean.space:4224", "kwopmaderer777")
 	#
 	#host_button.pressed.connect(_on_host_pressed)
@@ -65,11 +66,11 @@ func _on_quit_pressed() -> void:
 	#await peer.room_connected
 	#print("Connected to room: ", room_id.text)
 	#
-	##multiplayer_menu.hide()
+	#multiplayer_menu.hide()
 	#
-	##_send_username.rpc_id(1, peer_username)
+	#_send_username.rpc_id(1, peer_username)
 	#
-	##multiplayer.multiplayer_peer = peer
+	#multiplayer.multiplayer_peer = peer
 #
 #func _on_connected_to_server() -> void:
 	#get_tree().change_scene_to_packed(level_scene)
@@ -83,4 +84,4 @@ func _on_quit_pressed() -> void:
 	#var clean = desired.strip_edges().substr(0, 20)
 	#if clean == "": clean = "Anon" + str(sender)
 	#
-	##multiplayer_spawner.spawn({"peer_id": sender, "username": clean})
+	#multiplayer_spawner.spawn({"peer_id": sender, "username": clean})

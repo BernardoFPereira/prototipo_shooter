@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=19 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_cgxxp"]
@@ -213,8 +213,11 @@ size = Vector3(0.89, 1, 1.495)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuyju"]
+bg_color = Color(0.443137, 0, 0, 0.490196)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnlr8"]
-bg_color = Color(0.313726, 0, 0, 0.490196)
+bg_color = Color(2.07564e-07, 0.191309, 0.00721884, 0.490196)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 260
@@ -285,9 +288,9 @@ collision_mask = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
 shape = SubResource("SphereShape3D_k5oyn")
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="GameHUD" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="HUD"]
+[node name="TextureRect" type="TextureRect" parent="GameHUD"]
 texture_filter = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -302,39 +305,40 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_5hn21")
 
-[node name="HealthLabel" type="Label" parent="HUD"]
+[node name="HealthLabel" type="Label" parent="GameHUD"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -21.0
-offset_top = -61.0
-offset_right = 21.0
-offset_bottom = -27.0
+offset_left = -61.0
+offset_top = -82.0
+offset_right = 61.0
+offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(1.00109, 1)
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GameOverHUD" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+[node name="PanelContainer" type="PanelContainer" parent="GameOverHUD"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dnlr8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wuyju")
 
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer"]
+[node name="Label" type="Label" parent="GameOverHUD/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
@@ -342,7 +346,7 @@ text = "Você Morreu!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverHUD"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -358,17 +362,66 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 10
 
-[node name="RetryButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="RetryButton" type="Button" parent="GameOverHUD/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Tentar Novamente"
 
-[node name="MenuButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="MenuButton" type="Button" parent="GameOverHUD/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Voltar ao Menu"
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[node name="NextLevelHUD" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="NextLevelHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnlr8")
+
+[node name="Label" type="Label" parent="NextLevelHUD/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+text = "Nível concluído!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NextLevelHUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = 44.0
+offset_right = 77.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="NextButton" type="Button" parent="NextLevelHUD/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Próximo Nível"
+
+[node name="RetryButton" type="Button" parent="NextLevelHUD/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Tentar Novamente"
+
+[connection signal="pressed" from="GameOverHUD/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GameOverHUD/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="NextLevelHUD/VBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="NextLevelHUD/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

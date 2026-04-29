@@ -30,13 +30,15 @@ enum PlayerStates {
 @onready var muzzle = $Head/Cannon/Muzzle
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var dead_canvas = $CanvasLayer
-@onready var menu_button = $CanvasLayer/MenuButton
-@onready var health_label = $HUD/HealthLabel
+@onready var game_hud_canvas = $GameHUD
+@onready var dead_canvas = $GameOverHUD
+@onready var next_level_canvas = $NextLevelHUD
+@onready var health_label = $GameHUD/HealthLabel
 
 @onready var activation_timer = $ActivationTimer
 
 var menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
+var next_level_scene: PackedScene
 
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
@@ -48,6 +50,7 @@ var projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 var is_blocking: bool
 var is_disarmed: bool
 var is_dead: bool = false
+var is_next_level
 var thrown_sword: Sword
 
 @export_category("Combat Properties")
@@ -60,14 +63,16 @@ var current_health: float
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
-	#menu_button.pressed.connect(_on_menu_button_pressed)
 	dead_canvas.visible = false
+	next_level_canvas.visible = false
+	game_hud_canvas.visible = true
+	is_next_level = false
 	
 	current_health = max_health
 	health_label.text = str(current_health)
 
 func _process(delta):
-	if is_dead:
+	if is_dead or is_next_level:
 		return
 	
 	_rotate_camera()
@@ -77,7 +82,7 @@ func _process(delta):
 		global_position = Vector3.ZERO
 
 func _physics_process(delta):
-	if is_dead:
+	if is_dead or is_next_level:
 		return
 	
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -104,7 +109,7 @@ func _rotate_camera():
 		rotate_y(-input_mouse.x * mouse_sensitivity)
 		head.rotate_x(-input_mouse.y * mouse_sensitivity)
 		
-	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-70), deg_to_rad(60))
+	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
 	head.rotation.y = clamp(head.rotation.y, deg_to_rad(0), deg_to_rad(0))
 	input_mouse = Vector2.ZERO
@@ -264,8 +269,9 @@ func take_damage(amount: float):
 		if current_health <= 0:
 			current_health = 0
 			is_dead = true
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			dead_canvas.visible = true
+			game_hud_canvas.visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _rotate_camera_joystick():
@@ -284,7 +290,7 @@ func _rotate_camera_joystick():
 
 		# --- Pitch (up/down) ---
 		head.rotate_x(-look_delta.y * mouse_sensitivity * look_sensitivity_vertical)
-		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 
 		# --- Roll (optional tilt) ---
 		head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
@@ -292,12 +298,24 @@ func _rotate_camera_joystick():
 	#_______________________________
 
 
+func next_level(level_scene: PackedScene):
+	next_level_canvas.visible = true
+	game_hud_canvas.visible = false
+	is_next_level = true
+	next_level_scene = level_scene
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+
 func _on_menu_button_pressed():
 	get_tree().change_scene_to_packed(menu_scene)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
 
 
 func _on_retry_button_pressed():
 	get_tree().reload_current_scene()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _on_next_button_pressed():
+	get_tree().change_scene_to_packed(next_level_scene)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
