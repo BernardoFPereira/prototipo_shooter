@@ -140,10 +140,10 @@ func _on_sword_entered(body):
 				sword.speed = 0
 				sword.set_state(sword.SwordState.PULLED_BACK)
 				
-				take_damage(current_health)
+				receive_sword_impact(current_health, sword.global_position, 250)
 				
 			sword.SwordState.PULLED_BACK:
-				take_damage(sword.damage)
+				receive_sword_impact(sword.damage, sword.global_position, 250)
 
 func set_current_state(new_state):
 	match new_state:
@@ -190,18 +190,24 @@ func set_current_state(new_state):
 		
 		EnemyState.DEAD:
 			nav_agent.set_avoidance_enabled(false)
+			sword_collision_area.set_collision_mask_value(6, false)
 			nav_agent.max_speed = 0
 			anim_player.play("hit")
 	
 	current_state = new_state
 
 func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int):
+	if current_state == EnemyState.DEAD:
+		return
 	set_current_state(EnemyState.HIT)
+	spawn_blood(global_position)
 	take_damage(damage)
 	linear_velocity.y += 5
 	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
 
 func receive_rocket_impact(hit_position: Vector3, damage: int):
+	if current_state == EnemyState.DEAD:
+		return
 	set_current_state(EnemyState.HIT)
 	spawn_blood(global_position)
 	take_damage(damage)
@@ -237,8 +243,8 @@ func target_is_in_range() -> bool:
 	
 	var space_state = get_world_3d().direct_space_state
 	
-	var from = global_position + Vector3(0, 1.5, 0)
-	var to = target.global_position + Vector3(0, 1.5, 0)
+	var from = global_position + Vector3(0, 1, 0)
+	var to = target.global_position + Vector3(0, 1, 0)
 	
 	var ray_params = PhysicsRayQueryParameters3D.create(from, to)
 	ray_params.exclude = [self, target]

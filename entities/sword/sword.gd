@@ -108,16 +108,3 @@ func _on_sword_impact(body):
 	#print("-----> Should STUCK!")
 	call_deferred("set_state", SwordState.STUCK)
 
-#func _on_sword_area_impact(area):
-	#if area is Enemy:
-		#match state:
-			#SwordState.THROWN:
-				#var tween = get_tree().create_tween()
-				#tween.tween_property(sword_owner, "global_position", global_position, 0.16)
-				#speed = 0
-				#print("Throw hit enemy!")
-				#set_state(SwordState.PULLED_BACK)
-			#SwordState.PULLED_BACK:
-				## TODO: Deal damage
-				#print("Sword hit enemy on way back")
-		#return

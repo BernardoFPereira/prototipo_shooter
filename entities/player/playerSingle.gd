@@ -33,6 +33,7 @@ enum PlayerStates {
 @onready var game_hud_canvas = $GameHUD
 @onready var dead_canvas = $GameOverHUD
 @onready var next_level_canvas = $NextLevelHUD
+@onready var menu_canvas = $MenuHUD
 @onready var health_label = $GameHUD/HealthLabel
 
 @onready var activation_timer = $ActivationTimer
@@ -107,7 +108,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _rotate_camera():
-	if is_dead:
+	if is_dead or is_next_level:
 		return
 		
 	if input_mouse:
@@ -120,19 +121,28 @@ func _rotate_camera():
 	input_mouse = Vector2.ZERO
 
 func _unhandled_input(event):
+	if is_dead or is_next_level:
+		return
+	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		input_mouse = event.relative
 		
 func _input(event):
-	if is_dead:
+	if is_dead or is_next_level:
 		return
-	
+		
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		match Input.mouse_mode:
 			Input.MOUSE_MODE_VISIBLE:
+				get_tree().paused = false
+				menu_canvas.visible = false
+				game_hud_canvas.visible = true
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			Input.MOUSE_MODE_CAPTURED:
+				get_tree().paused = true
+				menu_canvas.visible = true
+				game_hud_canvas.visible = false
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		
 		
@@ -327,6 +337,7 @@ func _rotate_camera_joystick():
 
 
 func next_level(level_scene: PackedScene):
+	get_tree().paused = false
 	next_level_canvas.visible = true
 	game_hud_canvas.visible = false
 	is_next_level = true
@@ -335,15 +346,25 @@ func next_level(level_scene: PackedScene):
 
 
 func _on_menu_button_pressed():
+	get_tree().paused = false
 	get_tree().change_scene_to_packed(menu_scene)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _on_retry_button_pressed():
+	get_tree().paused = false
+	menu_canvas.visible = false
 	get_tree().reload_current_scene()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _on_next_button_pressed():
 	get_tree().change_scene_to_packed(next_level_scene)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _on_resume_button_pressed():
+	get_tree().paused = false
+	menu_canvas.visible = false
+	game_hud_canvas.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

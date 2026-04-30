@@ -141,17 +141,17 @@ func _on_sword_entered(body):
 				sword.speed = 0
 				sword.set_state(sword.SwordState.PULLED_BACK)
 				
-				take_damage(current_health)
+				receive_sword_impact(current_health, sword.global_position, 250)
 				
 			sword.SwordState.PULLED_BACK:
-				take_damage(sword.damage)
+				receive_sword_impact(sword.damage, sword.global_position, 250)
 
 func set_current_state(new_state):
 	match new_state:
 		EnemyState.IDLE:
-			if current_health <= 0:
+			if current_state == EnemyState.DEAD:
 				return
-			attack_collision.disabled = true
+			attack_area.set_collision_mask_value(10, false)
 			anim_player.play("idle")
 		
 		EnemyState.PATROLLING:
@@ -161,57 +161,63 @@ func set_current_state(new_state):
 			if !patrol_route.has_enemy:
 				patrol_route.has_enemy = true
 			
-			attack_collision.disabled = true
+			attack_area.set_collision_mask_value(10, false)
 			nav_agent.max_speed = 2
 			anim_player.play("patrol")
 		
 		EnemyState.CHASING:
-			if current_health <= 0:
+			if current_state == EnemyState.DEAD:
 				return
 			
 			if get_parent() is PathFollow3D:
 				move_to_parent(get_tree().current_scene)
 			
-			attack_collision.disabled = true
+			attack_area.set_collision_mask_value(10, false)
 			has_target = true
 			nav_agent.max_speed = 6
 			anim_player.play("chase")
 	
 		EnemyState.HIT:
-			if current_health <= 0:
+			attack_area.set_collision_mask_value(10, false)
+			if current_state == EnemyState.DEAD:
 				return
-			attack_collision.disabled = true
 			nav_agent.max_speed = 0
 			anim_player.play("hit")
 		
 		EnemyState.ATTACKING:
-			if current_health <= 0:
+			if current_state == EnemyState.DEAD:
 				return
 			
 			linear_velocity = Vector3.ZERO
-			attack_collision.disabled = false
+			attack_area.set_collision_mask_value(10, true)
 			anim_player.play("attack")
 		
 		EnemyState.DEAD:
 			nav_agent.set_avoidance_enabled(false)
-			attack_collision.disabled = true
+			attack_area.set_collision_mask_value(10, false)
+			sword_collision_area.set_collision_mask_value(6, false)
 			nav_agent.max_speed = 0
 			anim_player.play("hit")
 	
 	current_state = new_state
 
 func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int):
+	if current_state == EnemyState.DEAD:
+		return
 	set_current_state(EnemyState.HIT)
+	spawn_blood(hit_position)
 	take_damage(damage)
 	linear_velocity.y += 5
 	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
 
 func receive_rocket_impact(hit_position: Vector3, damage: int):
+	if current_state == EnemyState.DEAD:
+		return
 	set_current_state(EnemyState.HIT)
-	spawn_blood(global_position)
+	spawn_blood(hit_position)
+	take_damage(damage)
 	linear_velocity.y += 5
 	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
-	take_damage(damage)
 
 func finished_attacking():
 	if !is_floating:
@@ -225,7 +231,7 @@ func finished_get_hit():
 	else:
 		set_current_state(EnemyState.HIT)
 	
-	if current_health <= 0:
+	if current_state == EnemyState.DEAD:
 		anim_player.play("dead")
 
 func finished_dead():
