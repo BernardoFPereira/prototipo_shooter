@@ -14,7 +14,7 @@ height = 0.935
 _data = [Vector2(0, 0.351648), 0.0, 0.279352, 0, 0, Vector2(0.623188, 0.285714), -0.210623, -0.210623, 0, 0, Vector2(1, 0), -3.17083, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_w4eex"]
+[sub_resource type="CurveTexture" id="CurveTexture_2cuv0"]
 curve = SubResource("Curve_nkxa6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uokkp"]
@@ -26,13 +26,13 @@ orbit_velocity_max = 0.225
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -9.6
 radial_accel_max = -5.05
-scale_curve = SubResource("CurveTexture_w4eex")
+scale_curve = SubResource("CurveTexture_2cuv0")
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_sc6wm"]
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_e2liw"]
 albedo_color = Color(0.230919, 0.433051, 0.468154, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_o3wa0"]
-material = SubResource("ORMMaterial3D_sc6wm")
+material = SubResource("ORMMaterial3D_e2liw")
 size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hfops"]

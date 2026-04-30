@@ -53,6 +53,11 @@ var is_dead: bool = false
 var is_next_level
 var thrown_sword: Sword
 
+@export_category("Camera Properties")
+@export var camera_juice : camera_effects
+@export var fall_velocity_threshhold : float = -5.0
+var current_fall_velocity : float
+
 @export_category("Combat Properties")
 var current_health: float
 @export var max_health: float = 100.0
@@ -228,6 +233,26 @@ func try_jump_joystick():
 	print("Jumping!")
 	velocity.y += JUMP_JOYSTICK_VELOCITY
 	
+
+func check_fall_speed() -> bool:
+	if current_fall_velocity < fall_velocity_threshhold:
+		current_fall_velocity = 0.0
+		return true
+	else:
+		current_fall_velocity = 0.0
+		return false
+		
+		
+
+#Camera Juice pra quando o player cair, por favor implementem se conseguirem organizar a state machine
+#func _on_airborne_state_physics_processing(delta : float) -> void:
+#	if Player.is_on_floor():
+#		if Player.check_fall_speed():
+#			Player.camera_effects.add_fall_kick(2.0)
+		#Player.PlayerStates.send_event("onGrounded")
+	
+	#Player.current_fall_velocity = Player.velocity.y
+
 
 func _on_animation_finished(anim_name):
 	match anim_name:

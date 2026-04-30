@@ -22273,6 +22273,10 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_42qho")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573916, 7.46304, -32.5344)
+fall_velocity_threshhold = -5.0
+max_health = 100.0
+melee_damage = 50.0
+sword_impact_strength = 250
 
 [node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -127, 27, 38)

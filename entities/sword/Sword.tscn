@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dyngooikjw5l6"]
+[gd_scene load_steps=14 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
+[ext_resource type="Material" uid="uid://c7oicl1hl28ur" path="res://entities/sword/swordstuckparticles.tres" id="2_usrfs"]
+[ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/sword/swordtipparticles.tres" id="4_i0gvs"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -40,6 +42,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, -1.52716, -1.5708)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Stuck Particles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sword/Swordtrail Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_3dbqs"]
 resource_name = "flying"
@@ -70,6 +96,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 1.5708, -1.5708), Vector3(0, -1.52716, -1.5708), Vector3(0, -4.77348, -1.5708)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Stuck Particles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sword/Swordtrail Particles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
 
 [sub_resource type="Animation" id="Animation_epnd4"]
 resource_name = "stuck"
@@ -97,6 +147,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, -1.5708, -1.5708)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Stuck Particles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_44j61"]
 _data = {
@@ -104,6 +166,16 @@ _data = {
 "flying": SubResource("Animation_3dbqs"),
 "stuck": SubResource("Animation_epnd4")
 }
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8k2t4"]
+albedo_color = Color(0.3773, 0.77, 0.48202, 0.803922)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fbjm6"]
+lightmap_size_hint = Vector2i(5, 8)
+material = SubResource("ORMMaterial3D_8k2t4")
+custom_aabb = AABB(2.22, 1.375, 0, 0, 53.035, 0)
+flip_faces = true
+size = Vector3(0.165, 0.135, 0.23)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shfns"]
 size = Vector3(1.4668, 0.113037, 1.93603)
@@ -124,8 +196,27 @@ libraries = {
 }
 autoplay = "flying"
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="AnimationPlayer"]
+transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0613556, 0.165778)
+emitting = false
+amount = 250
+explosiveness = 0.18
+randomness = 0.24
+visibility_aabb = AABB(-1.90855, -2.54887, -3.00871, 3.8171, 4.7032, 6.01741)
+process_material = ExtResource("2_usrfs")
+draw_pass_1 = SubResource("BoxMesh_fbjm6")
+
 [node name="sword" parent="." instance=ExtResource("2_kqb88")]
 transform = Transform3D(-1.57913e-07, 0.0436224, -0.999048, -1, -3.61999e-06, 0, -3.61654e-06, 0.999048, 0.0436224, 0, 0, 0)
+
+[node name="Swordtrail Particles" type="GPUParticles3D" parent="sword"]
+transform = Transform3D(8.06029e-12, -0.615086, 2.22661e-06, -2.22661e-06, -2.22661e-06, -0.615086, 0.615086, 0, -2.22661e-06, -0.00795018, 1.95471, 7.07603e-06)
+amount = 15
+explosiveness = 0.47
+randomness = 0.24
+visibility_aabb = AABB(-1.28781, -0.134271, 0.280115, 2.58735, 0.0947133, 0.138013)
+process_material = ExtResource("4_i0gvs")
+draw_pass_1 = SubResource("BoxMesh_fbjm6")
 
 [node name="CollisionArea" type="RigidBody3D" parent="."]
 collision_layer = 32
@@ -146,3 +237,13 @@ disabled = true
 
 [node name="FlyingCollision" type="CollisionShape3D" parent="CollisionArea"]
 shape = SubResource("BoxShape3D_7cdf8")
+
+[node name="Stuck Particles" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0613556, -0.2349)
+emitting = false
+amount = 15
+explosiveness = 0.47
+randomness = 0.24
+visibility_aabb = AABB(-1.28781, -0.134271, -1.3483, 2.58735, 0.0947133, 3.39484)
+process_material = ExtResource("2_usrfs")
+draw_pass_1 = SubResource("BoxMesh_fbjm6")
