@@ -296,6 +296,7 @@ shape = SubResource("SphereShape3D_k5oyn")
 [node name="GameHUD" type="CanvasLayer" parent="."]
 
 [node name="HitVignette" type="ColorRect" parent="GameHUD"]
+visible = false
 material = ExtResource("5_2w87f")
 anchors_preset = 15
 anchor_right = 1.0
