@@ -233,7 +233,7 @@ func try_jump_joystick():
 	print("Jumping!")
 	velocity.y += JUMP_JOYSTICK_VELOCITY
 	
-
+#mais uma func do camera juice
 func check_fall_speed() -> bool:
 	if current_fall_velocity < fall_velocity_threshhold:
 		current_fall_velocity = 0.0

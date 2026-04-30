@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=21 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_cgxxp"]
 [ext_resource type="Texture2D" uid="uid://bfyp8hyjap7gw" path="res://textures/crosshairs/Crosshair3.png" id="3_5hn21"]
 [ext_resource type="Script" path="res://scripts/camera_effects.gd" id="3_x4mog"]
+[ext_resource type="Material" uid="uid://bbdqc4m63071q" path="res://materials/shadermaterials/vignette.tres" id="5_2w87f"]
 
 [sub_resource type="Animation" id="Animation_x4mkt"]
 length = 0.001
@@ -293,6 +294,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
 shape = SubResource("SphereShape3D_k5oyn")
 
 [node name="GameHUD" type="CanvasLayer" parent="."]
+
+[node name="HitVignette" type="ColorRect" parent="GameHUD"]
+material = ExtResource("5_2w87f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="TextureRect" type="TextureRect" parent="GameHUD"]
 texture_filter = 3
