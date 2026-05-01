@@ -1,27 +1,25 @@
 [gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://c7ipp8wermpp2"]
 
-[sub_resource type="Curve" id="Curve_5y2i5"]
-_data = [Vector2(0, 0.351648), 0.0, 0.279352, 0, 0, Vector2(0.623188, 0.285714), -0.210623, -0.210623, 0, 0, Vector2(1, 0), -3.17083, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_7ynll"]
+_data = [Vector2(0, 1), 0.0, -0.19629, 0, 0, Vector2(0.858182, 0.690015), -1.1612, -1.1612, 0, 0, Vector2(1, 0), -8.04769, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_w4eex"]
-curve = SubResource("Curve_5y2i5")
+[sub_resource type="CurveTexture" id="CurveTexture_bvpuw"]
+curve = SubResource("Curve_7ynll")
 
 [resource]
-lifetime_randomness = 0.08
-emission_shape_scale = Vector3(-5, 1, 1)
+lifetime_randomness = 0.06
+emission_shape = 3
+emission_box_extents = Vector3(0, 0, 1.46)
 angle_min = 90.0
 angle_max = 90.0
-inherit_velocity_ratio = 0.036
-direction = Vector3(0, 0, 0)
 spread = 0.0
 flatness = 1.0
+initial_velocity_min = -4.0
+initial_velocity_max = 4.0
 orbit_velocity_max = 0.225
 gravity = Vector3(0, 0, 0)
-radial_accel_min = -9.6
-radial_accel_max = -5.05
-scale_curve = SubResource("CurveTexture_w4eex")
-turbulence_enabled = true
+scale_curve = SubResource("CurveTexture_bvpuw")
 turbulence_noise_strength = 0.0
 turbulence_noise_scale = 10.0
 turbulence_noise_speed_random = 1.59

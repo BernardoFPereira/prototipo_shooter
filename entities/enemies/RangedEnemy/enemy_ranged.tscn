@@ -109,7 +109,7 @@ height = 2.2
 radius = 100.0
 
 [node name="EnemyRanged" type="RigidBody3D"]
-collision_layer = 4352
+collision_layer = 528640
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25

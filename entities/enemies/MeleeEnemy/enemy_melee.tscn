@@ -139,7 +139,7 @@ height = 2.5
 radius = 25.0
 
 [node name="EnemyMelee" type="RigidBody3D" groups=["Enemies"]]
-collision_layer = 4352
+collision_layer = 528640
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entities/projectile/EnemyProjectile.gd" id="1_4l8oa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11i2v"]
-albedo_color = Color(1.92523e-06, 0.752283, 0.717234, 1)
+albedo_color = Color(2.703, 0.541, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_fk0ay"]
 material = SubResource("StandardMaterial3D_11i2v")
@@ -31,7 +31,9 @@ radial_accel_max = -5.05
 scale_curve = SubResource("CurveTexture_w4eex")
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_w2rg8"]
-albedo_color = Color(0, 0.752941, 0.717647, 1)
+albedo_color = Color(0.45098, 0.329412, 0, 1)
+emission_enabled = true
+emission = Color(2.92941, 0, 0.0823529, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_o3wa0"]
 material = SubResource("ORMMaterial3D_w2rg8")
@@ -55,7 +57,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 mesh = SubResource("SphereMesh_fk0ay")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0613556, 0.165778)
+transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.00811908, 0.0701635)
 amount = 250
 explosiveness = 0.18
 randomness = 0.24
