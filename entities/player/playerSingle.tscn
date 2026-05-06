@@ -262,6 +262,12 @@ transform = Transform3D(0.993682, 0.0867977, 0.0711437, -0.093643, 0.990637, 0.0
 [node name="sword" parent="Head/Weapon" instance=ExtResource("2_cgxxp")]
 transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-16, -1.49012e-08, 5.13479e-16, 1, 0, 0, 0)
 
+[node name="attachplates_geo" parent="Head/Weapon/sword/Sword_grp" index="0"]
+visible = false
+
+[node name="PlaneEffect_geo" parent="Head/Weapon/sword/Sword_grp" index="2"]
+visible = false
+
 [node name="Camera3D" type="Camera3D" parent="Head" node_paths=PackedStringArray("player_controller")]
 script = ExtResource("3_x4mog")
 player_controller = NodePath("../..")
@@ -494,3 +500,5 @@ text = "Tentar Novamente"
 [connection signal="pressed" from="GameOverHUD/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="NextLevelHUD/VBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="NextLevelHUD/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+
+[editable path="Head/Weapon/sword"]

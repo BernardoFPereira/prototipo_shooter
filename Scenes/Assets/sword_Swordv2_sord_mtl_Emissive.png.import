@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://lnji1ld23j8q"
+path.s3tc="res://.godot/imported/sword_Swordv2_sord_mtl_Emissive.png-902ae8bbbda3abad4f2fc2b64e30496b.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "ec5f44d09249d2d255c449005bffe992"
+}
+
+[deps]
+
+source_file="res://Scenes/Assets/sword_Swordv2_sord_mtl_Emissive.png"
+dest_files=["res://.godot/imported/sword_Swordv2_sord_mtl_Emissive.png-902ae8bbbda3abad4f2fc2b64e30496b.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

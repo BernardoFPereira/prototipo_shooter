@@ -301,6 +301,7 @@ func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
 		health_label.text = str(current_health)
+		camera_juice.add_screen_shake(2.0, 0.3)
 		game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
 		await get_tree().create_timer(.47).timeout # define o tempo antes de desligar o efeito
 		game_hud_canvas.find_child("HitVignette").visible = false
