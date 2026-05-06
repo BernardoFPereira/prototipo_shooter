@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cty5eusqpyx57"]
+
+[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://models/sword.glb" id="1_mw81f"]
+
+[node name="sword" instance=ExtResource("1_mw81f")]
+
+[node name="attachplates_geo" parent="Sword_grp" index="0"]
+visible = false
+
+[node name="PlaneEffect_geo" parent="Sword_grp" index="2"]
+visible = false

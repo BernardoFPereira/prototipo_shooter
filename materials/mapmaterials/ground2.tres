@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bhwohs3t662kv"]
+
+[ext_resource type="Texture2D" uid="uid://bl8jbef878yj0" path="res://textures/cyclopstextures/tile4_mtl_BaseColor.1001.png" id="1_3qsh7"]
+
+[resource]
+albedo_texture = ExtResource("1_3qsh7")
