@@ -232,6 +232,7 @@ func finished_get_hit():
 		set_current_state(EnemyState.HIT)
 	
 	if current_state == EnemyState.DEAD:
+		set_collision_layer_value(20, false)
 		anim_player.play("dead")
 
 func finished_dead():
@@ -262,7 +263,9 @@ func target_is_in_range() -> bool:
 func move_to_parent(new_parent: Node):
 	var current_global_position = global_position
 	
+	#get_parent().call_deferred("remove_child", self)
 	get_parent().remove_child(self)
+	#new_parent.call_deferred("add_child", self)
 	new_parent.add_child(self)
 	
 	global_position = current_global_position

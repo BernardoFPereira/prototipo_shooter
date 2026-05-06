@@ -31,11 +31,13 @@ func explode():
 	speed = 0
 	mesh.visible = false
 	particles.emitting = false
+	collision_area.set_deferred("monitoring", false)
+	collision_area.set_deferred("monitorable", false)
 	
 	print(explosion_area.collision_result)
 	
 	var explosion = preload("res://entities/projectile/ProjectileExplosion.tscn").instantiate()
-	explosion.global_position = global_position
+	explosion.global_transform = global_transform
 	get_tree().root.add_child(explosion)
 	
 	for collision in explosion_area.collision_result:
