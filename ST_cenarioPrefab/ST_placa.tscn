@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dk3qasf5f8qns"]
 
-[ext_resource type="PackedScene" uid="uid://c00ttgvpcg5le" path="res://models/ST_assetsCenario_imported/ST_placa.glb" id="1_7pnem"]
+[ext_resource type="PackedScene" uid="uid://c00ttgvpcg5le" path="res://ST_assetsCenario_imported/ST_placa.glb" id="1_7pnem"]
 
 [node name="Node3D" type="Node3D"]
 

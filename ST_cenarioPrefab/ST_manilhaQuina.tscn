@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://uba6x51b8byj"]
 
-[ext_resource type="PackedScene" uid="uid://cfmlppvpbyquj" path="res://models/ST_assetsCenario_imported/ST_manilhaQuina.glb" id="1_goe0g"]
+[ext_resource type="PackedScene" uid="uid://cfmlppvpbyquj" path="res://ST_assetsCenario_imported/ST_manilhaQuina.glb" id="1_goe0g"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t2wvc"]
 size = Vector3(1.84766, 3.59094, 1.9043)
