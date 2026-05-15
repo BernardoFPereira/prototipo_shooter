@@ -18,13 +18,14 @@ config/icon="res://Scenes/Assets/icon.svg"
 [autoload]
 
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
-MenuManager="*res://scripts/menu_manager.gd"
+UI="*res://UI/scripts/ui_autoload.gd"
 
 [display]
 
-window/size/viewport_width=1080
-window/size/viewport_height=720
-window/size/mode=2
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="viewport"
+mouse_cursor/custom_image="res://UI/MainMenu/v2 CURSOR A.png"
 
 [editor_plugins]
 
