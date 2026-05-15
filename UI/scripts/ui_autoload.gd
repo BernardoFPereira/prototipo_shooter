@@ -3,8 +3,8 @@ extends CanvasLayer
 #region SETTINGS
 const SETTINGS_FILE := "user://menu_settings.cfg"
 
-const MIN_DB: float = -80.0
-const MAX_DB: float = 6.0
+const MIN_DB: float = -100
+const MAX_DB: float = 0
 
 var resolutions: Dictionary = {
 	"1920x1080": Vector2i(1920,1080),
@@ -84,7 +84,7 @@ var sounds: Dictionary = {
 	
 	# Background Music
 	"soundtrack_1": {
-		"stream": preload("res://assets/sounds/music/soundtrack_1.wav"),
+		"stream": preload("uid://irff2xea5j5w"),
 		"bus": AudioBus.MUSIC,
 		"category": SoundCategory.MUSIC,
 		"volume_db": 0.0,
@@ -108,11 +108,10 @@ var current_music_player: AudioStreamPlayer = null
 #endregion
 
 func _ready() -> void:
-	# Initialize audio players for each bus
 	_setup_audio_players()
 	
-	# Load settings (which applies audio settings)
 	load_settings()
+	play_music("soundtrack_1", 0)
 
 func _setup_audio_players() -> void:
 	# Create audio players for each bus if they don't exist

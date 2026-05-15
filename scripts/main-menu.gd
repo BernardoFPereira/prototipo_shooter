@@ -49,9 +49,11 @@ func _ready() -> void:
 func _on_play_pressed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().change_scene_to_packed(level_scene)
+	UI.play_sound("confirm_button")
 
 func _on_quit_pressed() -> void:
 	UI.save_settings()
+	UI.play_sound("back_button")
 	get_tree().quit(0)
 
 #region CONFIGURATION
@@ -83,14 +85,17 @@ func setup_audio_buttons() -> void:
 	_on_sfx_slider_value_changed(sfx_slider_value)
 	_on_toggle_music_button_toggled(not UI.music_muted)
 	_on_toggle_sfx_button_toggled(not UI.sfx_muted)
+	
 
 func _on_config_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		config_group.visible = true
 		active_background.texture = config_background
+		UI.play_sound("confirm_button")
 	else:
 		config_group.visible = false
 		active_background.texture = null
+		UI.play_sound("back_button")
 		UI.save_settings()
 
 func _on_music_slider_value_changed(value: float) -> void:
@@ -101,6 +106,7 @@ func _on_music_slider_value_changed(value: float) -> void:
 	
 	if toggle_music_button.button_pressed:
 		UI.music_volume = mapped_db
+
 
 func _on_sfx_slider_value_changed(value: float) -> void:
 	var mapped_db = UI.slider_to_db(value)
@@ -115,22 +121,26 @@ func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		AudioServer.set_bus_volume_db(1, UI.music_volume)
 		toggle_music_button.icon = on_button_texture
+		UI.play_sound("confirm_button")
 		UI.music_muted = false
 	else:
 		UI.music_volume = AudioServer.get_bus_volume_db(1)
 		AudioServer.set_bus_volume_db(1, UI.MIN_DB)
 		toggle_music_button.icon = off_button_texture
+		UI.play_sound("back_button")
 		UI.music_muted = true
 
 func _on_toggle_sfx_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		AudioServer.set_bus_volume_db(2, UI.sfx_volume)
 		toggle_sfx_button.icon = on_button_texture
+		UI.play_sound("confirm_button")
 		UI.sfx_muted = false
 	else:
 		UI.sfx_volume = AudioServer.get_bus_volume_db(2)
 		AudioServer.set_bus_volume_db(2, UI.MIN_DB)
 		toggle_sfx_button.icon = off_button_texture
+		UI.play_sound("back_button")
 		UI.sfx_muted = true
 
 func _on_windowed_button_toggled(toggled_on: bool) -> void:
@@ -138,15 +148,23 @@ func _on_windowed_button_toggled(toggled_on: bool) -> void:
 		UI.is_fullscreen = false
 		get_window().mode = Window.MODE_WINDOWED
 		get_window().size = UI.current_resolution
+		UI.play_sound("confirm_button")
+		windowed_button.mouse_filter = MOUSE_FILTER_IGNORE
 		UI.center_window()
 		update_button_values()
 		set_resolution_buttons_enabled(true)
+	else:
+		windowed_button.mouse_filter = MOUSE_FILTER_PASS
 
 func _on_fullscreen_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		UI.is_fullscreen = true
+		UI.play_sound("confirm_button")
+		fullscreen_button.mouse_filter = MOUSE_FILTER_IGNORE
 		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 		set_resolution_buttons_enabled(false)
+	else:
+		fullscreen_button.mouse_filter = MOUSE_FILTER_PASS
 
 func _on_resolution_button_pressed(resolution_key: String) -> void:
 	if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
@@ -156,6 +174,7 @@ func _on_resolution_button_pressed(resolution_key: String) -> void:
 		UI.current_resolution = UI.resolutions[resolution_key]
 		get_window().size = UI.current_resolution
 		UI.center_window()
+		UI.play_sound("confirm_button")
 		update_button_values()
 
 func add_resolutions() -> void:
@@ -168,6 +187,7 @@ func add_resolutions() -> void:
 		new_button.name = "ResolutionButton" + str(index)
 		new_button.button_group = resolution_button_group
 		new_button.pressed.connect(_on_resolution_button_pressed.bind(r))
+		new_button.mouse_entered.connect(_on_button_hovered)
 		resolutions_list.add_child(new_button)
 		index += 1
 	update_button_values()
@@ -194,4 +214,7 @@ func set_resolution_buttons_enabled(enabled: bool) -> void:
 			button.mouse_filter = MOUSE_FILTER_PASS
 		else:
 			button.mouse_filter = MOUSE_FILTER_IGNORE
+
+func _on_button_hovered():
+	UI.play_sound("hover_button")
 #endregion

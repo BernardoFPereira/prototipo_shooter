@@ -310,7 +310,6 @@ theme_override_styles/slider = SubResource("StyleBoxEmpty_in1gq")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_jjdxh")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_ttuu8")
 max_value = 10.0
-value = 10.0
 
 [node name="SFXBar" type="TextureProgressBar" parent="Background/MainPanel/ConfigGroup"]
 layout_mode = 0
@@ -338,7 +337,6 @@ theme_override_styles/slider = SubResource("StyleBoxEmpty_in1gq")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_jjdxh")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_ttuu8")
 max_value = 10.0
-value = 10.0
 
 [node name="ToggleMusicButton" type="Button" parent="Background/MainPanel/ConfigGroup"]
 layout_mode = 0
@@ -384,10 +382,21 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
+[connection signal="mouse_entered" from="Background/MainPanel/PlayButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="Background/MainPanel/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="mouse_entered" from="Background/MainPanel/ConfigButton" to="." method="_on_button_hovered"]
 [connection signal="toggled" from="Background/MainPanel/ConfigButton" to="." method="_on_config_button_toggled"]
+[connection signal="mouse_entered" from="Background/MainPanel/ControlsButton" to="." method="_on_button_hovered"]
+[connection signal="mouse_entered" from="Background/MainPanel/CreditsButton" to="." method="_on_button_hovered"]
+[connection signal="mouse_entered" from="Background/MainPanel/QuitButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="Background/MainPanel/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/WindowedButton" to="." method="_on_button_hovered"]
+[connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/FullscreenButton" to="." method="_on_button_hovered"]
+[connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/MusicSlider" to="." method="_on_button_hovered"]
 [connection signal="value_changed" from="Background/MainPanel/ConfigGroup/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/SFXSlider" to="." method="_on_button_hovered"]
 [connection signal="value_changed" from="Background/MainPanel/ConfigGroup/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/ToggleMusicButton" to="." method="_on_button_hovered"]
 [connection signal="toggled" from="Background/MainPanel/ConfigGroup/ToggleMusicButton" to="." method="_on_toggle_music_button_toggled"]
+[connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/ToggleSFXButton" to="." method="_on_button_hovered"]
 [connection signal="toggled" from="Background/MainPanel/ConfigGroup/ToggleSFXButton" to="." method="_on_toggle_sfx_button_toggled"]
