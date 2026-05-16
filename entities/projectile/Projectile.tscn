@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cdu40asu3x8p7"]
 
-[ext_resource type="Script" path="res://entities/projectile/projectile.gd" id="1_htmmc"]
+[ext_resource type="Script" path="res://entities/projectile/projectile.gd" id="1_bpkli"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irntn"]
 albedo_color = Color(0.160784, 0.419608, 0.490196, 1)
@@ -49,7 +49,7 @@ radius = 4.0
 
 [node name="Projectile" type="Node3D"]
 transform = Transform3D(0.665466, 0, 0, 0, 0.665466, 0, 0, 0, 0.665466, 0, 0, 0)
-script = ExtResource("1_htmmc")
+script = ExtResource("1_bpkli")
 
 [node name="LifetimeTimer" type="Timer" parent="."]
 wait_time = 2.0

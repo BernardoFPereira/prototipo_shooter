@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://dyngooikjw5l6"]
 
-[ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
+[ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_h1e1e"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
 [ext_resource type="Material" uid="uid://c7oicl1hl28ur" path="res://entities/sword/swordstuckparticles.tres" id="2_usrfs"]
 [ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/sword/swordtipparticles.tres" id="4_i0gvs"]
@@ -182,7 +182,7 @@ size = Vector3(1.4668, 0.113037, 1.93603)
 size = Vector3(1.44922, 0.176025, 1.40137)
 
 [node name="Sword" type="Node3D"]
-script = ExtResource("1_3wp2a")
+script = ExtResource("1_h1e1e")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 process_mode = 4
