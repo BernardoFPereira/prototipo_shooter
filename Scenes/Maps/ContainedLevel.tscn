@@ -26537,11 +26537,24 @@ shadow_enabled = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573916, 7.46304, -32.5344)
 
 [node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -127, 27, 38)
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -125.239, 27, 45.3544)
 target = NodePath("../Player")
+patrol_route = NodePath("")
 
 [node name="EnemyRanged2" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -106, 15, 58)
+target = NodePath("../Player")
+
+[node name="EnemyRanged5" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
+transform = Transform3D(-0.96647, 0, -0.256779, 0, 1, 0, 0.256779, 0, -0.96647, -78.1297, 24.1187, 79.4423)
+target = NodePath("../Player")
+
+[node name="EnemyRanged6" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
+transform = Transform3D(-0.986965, 0, 0.160932, 0, 1, 0, -0.160932, 0, -0.986965, -78.1297, 24.049, 52.9066)
+target = NodePath("../Player")
+
+[node name="EnemyRanged7" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
+transform = Transform3D(-0.550043, 0, -0.835136, 0, 1, 0, 0.835136, 0, -0.550043, -98.2197, 24.1594, 43.8807)
 target = NodePath("../Player")
 
 [node name="EnemyRanged3" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
@@ -26589,6 +26602,14 @@ target = NodePath("../../Player")
 
 [node name="EnemyMelee6" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -115, 22.7816, 88)
+target = NodePath("../../Player")
+
+[node name="EnemyMelee12" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -96.3619, 22.7816, 59.317)
+target = NodePath("../../Player")
+
+[node name="EnemyMelee13" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
+transform = Transform3D(-0.799988, 0, -0.600015, 0, 1, 0, 0.600015, 0, -0.799988, -84.6225, 22.7816, 47.3098)
 target = NodePath("../../Player")
 
 [node name="EnemyMelee11" parent="Enemies" node_paths=PackedStringArray("target", "patrol_route") instance=ExtResource("2_qhont")]
@@ -28078,6 +28099,7 @@ light_size = 1.09
 light_bake_mode = 1
 shadow_enabled = true
 shadow_bias = 0.299
+shadow_blur = 0.0
 omni_range = 25.8225
 
 [node name="OmniLight3D11" type="OmniLight3D" parent="Lights"]
@@ -28088,6 +28110,7 @@ light_size = 1.09
 light_bake_mode = 1
 shadow_enabled = true
 shadow_bias = 0.299
+shadow_blur = 0.0
 omni_range = 25.8225
 
 [node name="OmniLight3D12" type="OmniLight3D" parent="Lights"]
@@ -28097,6 +28120,7 @@ light_size = 1.09
 light_bake_mode = 1
 shadow_enabled = true
 shadow_bias = 0.299
+shadow_blur = 0.0
 omni_range = 8.48777
 
 [node name="OmniLight3D8" type="OmniLight3D" parent="Lights"]
@@ -28107,6 +28131,7 @@ light_specular = 0.0
 light_bake_mode = 1
 shadow_enabled = true
 shadow_bias = 0.0
+shadow_blur = 0.0
 omni_range = 25.8225
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Lights"]
@@ -28114,6 +28139,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.36394, 8.95766, 29.6594)
 light_energy = 4.071
 light_indirect_energy = 1.485
 light_bake_mode = 1
+shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 4096.0
 
 [node name="OmniLight3D5" type="OmniLight3D" parent="Lights"]
@@ -28121,6 +28148,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.11976, 34.3071, 37.6622)
 light_energy = 4.071
 light_indirect_energy = 1.485
 light_bake_mode = 1
+shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 25.8225
 
 [node name="OmniLight3D6" type="OmniLight3D" parent="Lights"]
@@ -28128,6 +28157,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.8601, 31.3878, 37.6622)
 light_energy = 4.071
 light_indirect_energy = 1.485
 light_bake_mode = 1
+shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 25.8225
 
 [node name="OmniLight3D13" type="OmniLight3D" parent="Lights"]
@@ -28136,6 +28167,7 @@ light_energy = 4.071
 light_indirect_energy = 1.485
 light_bake_mode = 1
 shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 25.8225
 
 [node name="OmniLight3D7" type="OmniLight3D" parent="Lights"]
@@ -28143,17 +28175,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.9174, 34.4194, 37.6622)
 light_energy = 2.73
 light_indirect_energy = 1.485
 light_bake_mode = 1
+shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 30.878
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
 transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, -122, 10, 91)
 light_energy = 16.0
+shadow_enabled = true
+shadow_blur = 0.0
 spot_range = 62.0
 spot_angle = 60.7099
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
 transform = Transform3D(0.965926, 0.183013, 0.183013, -4.5302e-08, 0.707107, -0.707107, -0.258819, 0.683013, 0.683013, -57, 23, 101)
 light_energy = 16.0
+shadow_blur = 0.0
 spot_range = 62.0
 spot_angle = 60.7099
 
@@ -28161,14 +28198,30 @@ spot_angle = 60.7099
 transform = Transform3D(0.965926, 0.0669873, -0.25, 0.25, -0.491481, 0.834234, -0.0669873, -0.868308, -0.491481, -120, 36, 30)
 light_energy = 22.595
 shadow_enabled = true
+shadow_blur = 0.909
 spot_range = 50.0
 spot_angle = 61.1777
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.965926, 0.0669871, -0.25, 0.0856329, -0.99424, 0.0644551, -0.244242, -0.083667, -0.966098, -90.7539, 30.2635, 33.1211)
+light_color = Color(0.823529, 1, 0.870588, 1)
+light_energy = 50.0
+light_specular = 0.177
+light_bake_mode = 1
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 4.535
+shadow_transmittance_bias = -7.384
+shadow_blur = 0.0
+spot_range = 40.2993
+spot_angle = 60.7064
 
 [node name="SpotLight3D4" type="SpotLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, 0.212757, 0.977105, 0, -0.977105, 0.212757, -106.095, 30.399, 50.6306)
 light_energy = 16.0
 light_bake_mode = 1
 shadow_enabled = true
+shadow_blur = 0.0
 spot_range = 13.0685
 spot_angle = 65.7225
 
@@ -28176,12 +28229,14 @@ spot_angle = 65.7225
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.309, 21.3114, 21.6251)
 light_energy = 3.361
 shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 14.176
 
 [node name="OmniLight3D10" type="OmniLight3D" parent="Lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.309, 21.3114, 51.8257)
 light_energy = 3.361
 shadow_enabled = true
+shadow_blur = 0.0
 omni_range = 14.176
 
 [node name="scale" parent="." instance=ExtResource("16_8846d")]
