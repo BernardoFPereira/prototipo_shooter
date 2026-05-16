@@ -148,9 +148,9 @@ func _on_sword_entered(body):
 func set_current_state(new_state):
 	match new_state:
 		EnemyState.IDLE:
-			if current_health <= 0:
+			if current_state == EnemyState.DEAD:
 				return
-			nav_agent = null
+			
 			anim_player.play("idle")
 		
 		EnemyState.PATROLLING:
@@ -160,36 +160,40 @@ func set_current_state(new_state):
 			if !patrol_route.has_enemy:
 				patrol_route.has_enemy = true
 			
+			
 			nav_agent.max_speed = 2
 			anim_player.play("patrol")
 		
 		EnemyState.CHASING:
-			if current_health <= 0:
+			if current_state == EnemyState.DEAD:
 				return
 			
 			if get_parent() is PathFollow3D:
 				move_to_parent(get_tree().current_scene)
+			
 			
 			has_target = true
 			nav_agent.max_speed = 6
 			anim_player.play("chase")
 	
 		EnemyState.HIT:
-			if current_health <= 0:
+			
+			if current_state == EnemyState.DEAD:
 				return
-				
 			nav_agent.max_speed = 0
 			anim_player.play("hit")
 		
 		EnemyState.ATTACKING:
-			if current_health <= 0:
+			if current_state == EnemyState.DEAD:
 				return
-				
+			
 			linear_velocity = Vector3.ZERO
+			
 			anim_player.play("attack")
 		
 		EnemyState.DEAD:
 			nav_agent.set_avoidance_enabled(false)
+			
 			sword_collision_area.set_collision_mask_value(6, false)
 			nav_agent.max_speed = 0
 			anim_player.play("hit")

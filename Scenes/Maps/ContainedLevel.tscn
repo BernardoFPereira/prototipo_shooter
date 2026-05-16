@@ -1,4 +1,4 @@
-[gd_scene load_steps=2663 format=3 uid="uid://ij2y5aqlc1dt"]
+[gd_scene load_steps=2669 format=3 uid="uid://ij2y5aqlc1dt"]
 
 [ext_resource type="Script" path="res://scripts/contained_level.gd" id="1_2lcxo"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_42qho"]
@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://djriivifdcxl4" path="res://prefabs/button.tscn" id="4_7p5k2"]
 [ext_resource type="PackedScene" uid="uid://74a2p42vk65i" path="res://prefabs/ButtonSignal Objects/door3.tscn" id="5_jnl8x"]
 [ext_resource type="PackedScene" uid="uid://le0878p0jyqp" path="res://ST_cenarioPrefab/ST_monitorGrande2.tscn" id="6_olkgm"]
-[ext_resource type="PackedScene" uid="uid://cf6m544kturqc" path="res://prefabs/ButtonSignal Objects/door4.tscn" id="7_8wwxn"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="8_div0b"]
+[ext_resource type="PackedScene" uid="uid://bblapq6ow7iqr" path="res://prefabs/ButtonSignal Objects/TubePlat.tscn" id="9_2odu1"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_byte.gd" id="9_vaf52"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/data_vector_float.gd" id="10_td3so"]
 [ext_resource type="PackedScene" uid="uid://dg4uyhdc50re2" path="res://prefabs/ButtonSignal Objects/door5.tscn" id="10_xf5me"]
@@ -28,6 +28,10 @@
 [ext_resource type="PackedScene" uid="uid://uba6x51b8byj" path="res://ST_cenarioPrefab/ST_manilhaQuina.tscn" id="24_u5qd7"]
 [ext_resource type="PackedScene" uid="uid://ienb15lcaux2" path="res://ST_cenarioPrefab/ST_manilhaReta.tscn" id="25_cinj7"]
 [ext_resource type="PackedScene" uid="uid://bpkcwbi5plar1" path="res://ST_cenarioPrefab/ST_ficaoComSeparador_grp.tscn" id="26_awuxg"]
+[ext_resource type="PackedScene" uid="uid://db0txb362rcuv" path="res://ST_cenarioPrefab/ST_gancho.tscn" id="29_c0j7h"]
+[ext_resource type="PackedScene" uid="uid://fogy422ehwql" path="res://ST_cenarioPrefab/ST_caixaGrande.tscn" id="30_yuvfr"]
+[ext_resource type="PackedScene" uid="uid://c5cleirejcsqm" path="res://ST_cenarioPrefab/ST_caixaPequena.tscn" id="31_myp8r"]
+[ext_resource type="PackedScene" uid="uid://do5kuwgrh4tpt" path="res://ST_cenarioPrefab/ST_capsulaEncubadora01.tscn" id="32_j8678"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4604w"]
 size = Vector3(9.72485, 1.59436, 5.60504)
@@ -12617,7 +12621,7 @@ face_vertex_data = {
 "vertex_index": SubResource("Resource_unmcp")
 }
 
-[sub_resource type="Resource" id="Resource_3tvic"]
+[sub_resource type="Resource" id="Resource_lb4uf"]
 script = ExtResource("9_vaf52")
 data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 name = &"selected"
@@ -12625,15 +12629,7 @@ category = ""
 data_type = 0
 stride = 1
 
-[sub_resource type="Resource" id="Resource_52lnp"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-name = &"color"
-category = ""
-data_type = 4
-stride = 4
-
-[sub_resource type="Resource" id="Resource_l2a2r"]
+[sub_resource type="Resource" id="Resource_ok2qy"]
 script = ExtResource("11_kqjm5")
 data = PackedInt32Array(0, 0, 0, 0, 0, 0)
 name = &"material_index"
@@ -12641,23 +12637,7 @@ category = ""
 data_type = 1
 stride = 1
 
-[sub_resource type="Resource" id="Resource_tgb3w"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(0, 0, 0, 0, 0, 0)
-name = &"selected"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_3d0vj"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
-name = &"uv_transform"
-category = ""
-data_type = 8
-stride = 6
-
-[sub_resource type="Resource" id="Resource_eqrlc"]
+[sub_resource type="Resource" id="Resource_cxcgi"]
 script = ExtResource("9_vaf52")
 data = PackedByteArray(1, 1, 1, 1, 1, 1)
 name = &"visible"
@@ -12665,15 +12645,31 @@ category = ""
 data_type = 0
 stride = 1
 
-[sub_resource type="Resource" id="Resource_bebvs"]
+[sub_resource type="Resource" id="Resource_8v8tp"]
 script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
 name = &"color"
 category = ""
 data_type = 4
 stride = 4
 
-[sub_resource type="Resource" id="Resource_5tt1p"]
+[sub_resource type="Resource" id="Resource_ynyar"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
+name = &"uv_transform"
+category = ""
+data_type = 8
+stride = 6
+
+[sub_resource type="Resource" id="Resource_34mai"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(0, 0, 0, 0, 0, 0)
+name = &"selected"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_yobv4"]
 script = ExtResource("11_kqjm5")
 data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
 name = &"face_index"
@@ -12681,15 +12677,7 @@ category = ""
 data_type = 1
 stride = 1
 
-[sub_resource type="Resource" id="Resource_ydp8g"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(-1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1)
-name = &"normal"
-category = ""
-data_type = 6
-stride = 3
-
-[sub_resource type="Resource" id="Resource_urcr7"]
+[sub_resource type="Resource" id="Resource_3thj6"]
 script = ExtResource("11_kqjm5")
 data = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
 name = &"vertex_index"
@@ -12697,15 +12685,31 @@ category = ""
 data_type = 1
 stride = 1
 
-[sub_resource type="Resource" id="Resource_cuyyo"]
+[sub_resource type="Resource" id="Resource_p6ojh"]
 script = ExtResource("10_td3so")
-data = PackedFloat32Array(0, 3, 0, 0, 3, 2, 0, 0, 2, 0, 0, 0, 2, 3, 0, 2, 3, 2, 2, 0, 2, 2, 0, 0)
+data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+name = &"color"
+category = ""
+data_type = 4
+stride = 4
+
+[sub_resource type="Resource" id="Resource_bueys"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(-1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1)
+name = &"normal"
+category = ""
+data_type = 6
+stride = 3
+
+[sub_resource type="Resource" id="Resource_uau15"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(0, 3, 0, 0, 3, 2, 0, 1, 2, 0, 1, 0, 2, 3, 0, 2, 3, 2, 2, 1, 2, 2, 1, 0)
 name = &"position"
 category = ""
 data_type = 6
 stride = 3
 
-[sub_resource type="Resource" id="Resource_amypu"]
+[sub_resource type="Resource" id="Resource_6xsjo"]
 script = ExtResource("9_vaf52")
 data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
 name = &"selected"
@@ -12713,7 +12717,7 @@ category = ""
 data_type = 0
 stride = 1
 
-[sub_resource type="Resource" id="Resource_m8fls"]
+[sub_resource type="Resource" id="Resource_esp8j"]
 script = ExtResource("12_kxf0a")
 num_vertices = 8
 num_edges = 12
@@ -12728,24 +12732,24 @@ edge_face_indices = PackedInt32Array(0, 2, 0, 3, 0, 4, 0, 5, 1, 4, 1, 3, 1, 2, 1
 face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
 face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
 vertex_data = {
-"position": SubResource("Resource_cuyyo"),
-"selected": SubResource("Resource_amypu")
+"position": SubResource("Resource_uau15"),
+"selected": SubResource("Resource_6xsjo")
 }
 edge_data = {
-"selected": SubResource("Resource_3tvic")
+"selected": SubResource("Resource_lb4uf")
 }
 face_data = {
-"color": SubResource("Resource_52lnp"),
-"material_index": SubResource("Resource_l2a2r"),
-"selected": SubResource("Resource_tgb3w"),
-"uv_transform": SubResource("Resource_3d0vj"),
-"visible": SubResource("Resource_eqrlc")
+"color": SubResource("Resource_8v8tp"),
+"material_index": SubResource("Resource_ok2qy"),
+"selected": SubResource("Resource_34mai"),
+"uv_transform": SubResource("Resource_ynyar"),
+"visible": SubResource("Resource_cxcgi")
 }
 face_vertex_data = {
-"color": SubResource("Resource_bebvs"),
-"face_index": SubResource("Resource_5tt1p"),
-"normal": SubResource("Resource_ydp8g"),
-"vertex_index": SubResource("Resource_urcr7")
+"color": SubResource("Resource_p6ojh"),
+"face_index": SubResource("Resource_yobv4"),
+"normal": SubResource("Resource_bueys"),
+"vertex_index": SubResource("Resource_3thj6")
 }
 
 [sub_resource type="Resource" id="Resource_2jjoy"]
@@ -12878,6 +12882,12 @@ face_vertex_data = {
 "normal": SubResource("Resource_lb2be"),
 "vertex_index": SubResource("Resource_c3tom")
 }
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4flwr"]
+size = Vector3(12.3908, 2.07056, 7.25867)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6ijp"]
+size = Vector3(5.15576, 1, 5.41724)
 
 [sub_resource type="Resource" id="Resource_2pfiu"]
 script = ExtResource("9_vaf52")
@@ -20870,137 +20880,6 @@ face_vertex_data = {
 "vertex_index": SubResource("Resource_bhdeq")
 }
 
-[sub_resource type="Resource" id="Resource_ab0au"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-name = &"selected"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_0pm8l"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-name = &"color"
-category = ""
-data_type = 4
-stride = 4
-
-[sub_resource type="Resource" id="Resource_4l72h"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 0, 0)
-name = &"material_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_mivnd"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(1, 0, 0, 0, 0, 0)
-name = &"selected"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_gwcwh"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
-name = &"uv_transform"
-category = ""
-data_type = 8
-stride = 6
-
-[sub_resource type="Resource" id="Resource_bl6lj"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(1, 1, 1, 1, 1, 1)
-name = &"visible"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_23ku0"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-name = &"color"
-category = ""
-data_type = 4
-stride = 4
-
-[sub_resource type="Resource" id="Resource_1dh32"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
-name = &"face_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_8j883"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0)
-name = &"normal"
-category = ""
-data_type = 6
-stride = 3
-
-[sub_resource type="Resource" id="Resource_8xrgi"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 1, 2, 3, 4, 5, 3, 2, 6, 4, 2, 1, 7, 0, 3, 5, 7, 5, 4, 6, 7, 6, 1, 0)
-name = &"vertex_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_2n737"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(31, 0, 0, 31, 0, 6, 31, 1, 6, 31, 1, 0, 10.9994, 1, 6, 10.9994, 1, 0, 10.9994, 0, 6, 10.9994, 0, 0)
-name = &"position"
-category = ""
-data_type = 6
-stride = 3
-
-[sub_resource type="Resource" id="Resource_mdcs7"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
-name = &"selected"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_bwwmo"]
-script = ExtResource("12_kxf0a")
-num_vertices = 8
-num_edges = 12
-num_faces = 6
-num_face_vertices = 24
-active_vertex = -1
-active_edge = -1
-active_face = -1
-active_face_vertex = -1
-edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 4, 5, 5, 3, 2, 4, 6, 4, 1, 6, 7, 0, 5, 7, 6, 7)
-edge_face_indices = PackedInt32Array(0, 5, 0, 2, 0, 1, 0, 3, 1, 4, 1, 3, 1, 2, 2, 4, 2, 5, 3, 5, 3, 4, 4, 5)
-face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
-face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 4, 5, 3, 2, 6, 4, 2, 1, 7, 0, 3, 5, 7, 5, 4, 6, 7, 6, 1, 0)
-vertex_data = {
-"position": SubResource("Resource_2n737"),
-"selected": SubResource("Resource_mdcs7")
-}
-edge_data = {
-"selected": SubResource("Resource_ab0au")
-}
-face_data = {
-"color": SubResource("Resource_0pm8l"),
-"material_index": SubResource("Resource_4l72h"),
-"selected": SubResource("Resource_mivnd"),
-"uv_transform": SubResource("Resource_gwcwh"),
-"visible": SubResource("Resource_bl6lj")
-}
-face_vertex_data = {
-"color": SubResource("Resource_23ku0"),
-"face_index": SubResource("Resource_1dh32"),
-"normal": SubResource("Resource_8j883"),
-"vertex_index": SubResource("Resource_8xrgi")
-}
-
 [sub_resource type="Resource" id="Resource_llddy"]
 script = ExtResource("9_vaf52")
 data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -21263,137 +21142,6 @@ face_vertex_data = {
 "vertex_index": SubResource("Resource_i6y5y")
 }
 
-[sub_resource type="Resource" id="Resource_0la8c"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-name = &"selected"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_sjfbb"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-name = &"color"
-category = ""
-data_type = 4
-stride = 4
-
-[sub_resource type="Resource" id="Resource_jdc71"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 0, 0)
-name = &"material_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_pb0ny"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(0, 0, 0, 0, 0, 0)
-name = &"selected"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_dhka0"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
-name = &"uv_transform"
-category = ""
-data_type = 8
-stride = 6
-
-[sub_resource type="Resource" id="Resource_bybsa"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(1, 1, 1, 1, 1, 1)
-name = &"visible"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_4lrak"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-name = &"color"
-category = ""
-data_type = 4
-stride = 4
-
-[sub_resource type="Resource" id="Resource_nlx2y"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
-name = &"face_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_crq83"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(-1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1)
-name = &"normal"
-category = ""
-data_type = 6
-stride = 3
-
-[sub_resource type="Resource" id="Resource_3wht0"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
-name = &"vertex_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_6vqhr"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(0, 1, 0, 0, 1, 3, 0, 0, 3, 0, 0, 0, 4, 1, 0, 4, 1, 3, 4, 0, 3, 4, 0, 0)
-name = &"position"
-category = ""
-data_type = 6
-stride = 3
-
-[sub_resource type="Resource" id="Resource_o1oqn"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
-name = &"selected"
-category = ""
-data_type = 0
-stride = 1
-
-[sub_resource type="Resource" id="Resource_ildo1"]
-script = ExtResource("12_kxf0a")
-num_vertices = 8
-num_edges = 12
-num_faces = 6
-num_face_vertices = 24
-active_vertex = -1
-active_edge = -1
-active_face = -1
-active_face_vertex = -1
-edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 7, 6, 6, 5, 5, 4, 4, 7, 0, 4, 5, 1, 6, 2, 7, 3)
-edge_face_indices = PackedInt32Array(0, 2, 0, 3, 0, 4, 0, 5, 1, 4, 1, 3, 1, 2, 1, 5, 2, 5, 2, 3, 3, 4, 4, 5)
-face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
-face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
-vertex_data = {
-"position": SubResource("Resource_6vqhr"),
-"selected": SubResource("Resource_o1oqn")
-}
-edge_data = {
-"selected": SubResource("Resource_0la8c")
-}
-face_data = {
-"color": SubResource("Resource_sjfbb"),
-"material_index": SubResource("Resource_jdc71"),
-"selected": SubResource("Resource_pb0ny"),
-"uv_transform": SubResource("Resource_dhka0"),
-"visible": SubResource("Resource_bybsa")
-}
-face_vertex_data = {
-"color": SubResource("Resource_4lrak"),
-"face_index": SubResource("Resource_nlx2y"),
-"normal": SubResource("Resource_crq83"),
-"vertex_index": SubResource("Resource_3wht0")
-}
-
 [sub_resource type="Resource" id="Resource_b0iup"]
 script = ExtResource("9_vaf52")
 data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -21533,22 +21281,6 @@ category = ""
 data_type = 0
 stride = 1
 
-[sub_resource type="Resource" id="Resource_7t84q"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 0, 0)
-name = &"material_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_kpddx"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(1, 1, 1, 1, 1, 1)
-name = &"visible"
-category = ""
-data_type = 0
-stride = 1
-
 [sub_resource type="Resource" id="Resource_vxwla"]
 script = ExtResource("10_td3so")
 data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
@@ -21557,13 +21289,13 @@ category = ""
 data_type = 4
 stride = 4
 
-[sub_resource type="Resource" id="Resource_rhh4v"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
-name = &"uv_transform"
+[sub_resource type="Resource" id="Resource_7t84q"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 0, 0)
+name = &"material_index"
 category = ""
-data_type = 8
-stride = 6
+data_type = 1
+stride = 1
 
 [sub_resource type="Resource" id="Resource_04176"]
 script = ExtResource("9_vaf52")
@@ -21573,20 +21305,20 @@ category = ""
 data_type = 0
 stride = 1
 
-[sub_resource type="Resource" id="Resource_vlbyf"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
-name = &"face_index"
+[sub_resource type="Resource" id="Resource_rhh4v"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
+name = &"uv_transform"
 category = ""
-data_type = 1
-stride = 1
+data_type = 8
+stride = 6
 
-[sub_resource type="Resource" id="Resource_226nr"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
-name = &"vertex_index"
+[sub_resource type="Resource" id="Resource_kpddx"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(1, 1, 1, 1, 1, 1)
+name = &"visible"
 category = ""
-data_type = 1
+data_type = 0
 stride = 1
 
 [sub_resource type="Resource" id="Resource_prclr"]
@@ -21597,6 +21329,14 @@ category = ""
 data_type = 4
 stride = 4
 
+[sub_resource type="Resource" id="Resource_vlbyf"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
+name = &"face_index"
+category = ""
+data_type = 1
+stride = 1
+
 [sub_resource type="Resource" id="Resource_q27mk"]
 script = ExtResource("10_td3so")
 data = PackedFloat32Array(-1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1)
@@ -21604,6 +21344,14 @@ name = &"normal"
 category = ""
 data_type = 6
 stride = 3
+
+[sub_resource type="Resource" id="Resource_226nr"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+name = &"vertex_index"
+category = ""
+data_type = 1
+stride = 1
 
 [sub_resource type="Resource" id="Resource_n4fpk"]
 script = ExtResource("10_td3so")
@@ -21664,22 +21412,6 @@ category = ""
 data_type = 0
 stride = 1
 
-[sub_resource type="Resource" id="Resource_mkemv"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 0, 0)
-name = &"material_index"
-category = ""
-data_type = 1
-stride = 1
-
-[sub_resource type="Resource" id="Resource_r3mno"]
-script = ExtResource("9_vaf52")
-data = PackedByteArray(1, 1, 1, 1, 1, 1)
-name = &"visible"
-category = ""
-data_type = 0
-stride = 1
-
 [sub_resource type="Resource" id="Resource_c5ec5"]
 script = ExtResource("10_td3so")
 data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
@@ -21688,13 +21420,13 @@ category = ""
 data_type = 4
 stride = 4
 
-[sub_resource type="Resource" id="Resource_ogkrh"]
-script = ExtResource("10_td3so")
-data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
-name = &"uv_transform"
+[sub_resource type="Resource" id="Resource_mkemv"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 0, 0)
+name = &"material_index"
 category = ""
-data_type = 8
-stride = 6
+data_type = 1
+stride = 1
 
 [sub_resource type="Resource" id="Resource_71cvu"]
 script = ExtResource("9_vaf52")
@@ -21704,20 +21436,20 @@ category = ""
 data_type = 0
 stride = 1
 
-[sub_resource type="Resource" id="Resource_ugwmf"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
-name = &"face_index"
+[sub_resource type="Resource" id="Resource_ogkrh"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
+name = &"uv_transform"
 category = ""
-data_type = 1
-stride = 1
+data_type = 8
+stride = 6
 
-[sub_resource type="Resource" id="Resource_1bvkh"]
-script = ExtResource("11_kqjm5")
-data = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
-name = &"vertex_index"
+[sub_resource type="Resource" id="Resource_r3mno"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(1, 1, 1, 1, 1, 1)
+name = &"visible"
 category = ""
-data_type = 1
+data_type = 0
 stride = 1
 
 [sub_resource type="Resource" id="Resource_8rom0"]
@@ -21728,6 +21460,14 @@ category = ""
 data_type = 4
 stride = 4
 
+[sub_resource type="Resource" id="Resource_ugwmf"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
+name = &"face_index"
+category = ""
+data_type = 1
+stride = 1
+
 [sub_resource type="Resource" id="Resource_m23pt"]
 script = ExtResource("10_td3so")
 data = PackedFloat32Array(-1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1)
@@ -21735,6 +21475,14 @@ name = &"normal"
 category = ""
 data_type = 6
 stride = 3
+
+[sub_resource type="Resource" id="Resource_1bvkh"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+name = &"vertex_index"
+category = ""
+data_type = 1
+stride = 1
 
 [sub_resource type="Resource" id="Resource_2qfh7"]
 script = ExtResource("10_td3so")
@@ -26503,6 +26251,268 @@ face_vertex_data = {
 "vertex_index": SubResource("Resource_xrs15")
 }
 
+[sub_resource type="Resource" id="Resource_ab0au"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+name = &"selected"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_0pm8l"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+name = &"color"
+category = ""
+data_type = 4
+stride = 4
+
+[sub_resource type="Resource" id="Resource_4l72h"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 0, 0)
+name = &"material_index"
+category = ""
+data_type = 1
+stride = 1
+
+[sub_resource type="Resource" id="Resource_mivnd"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(1, 0, 0, 0, 0, 0)
+name = &"selected"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_gwcwh"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
+name = &"uv_transform"
+category = ""
+data_type = 8
+stride = 6
+
+[sub_resource type="Resource" id="Resource_bl6lj"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(1, 1, 1, 1, 1, 1)
+name = &"visible"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_23ku0"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+name = &"color"
+category = ""
+data_type = 4
+stride = 4
+
+[sub_resource type="Resource" id="Resource_1dh32"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
+name = &"face_index"
+category = ""
+data_type = 1
+stride = 1
+
+[sub_resource type="Resource" id="Resource_8j883"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0)
+name = &"normal"
+category = ""
+data_type = 6
+stride = 3
+
+[sub_resource type="Resource" id="Resource_8xrgi"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 1, 2, 3, 4, 5, 3, 2, 6, 4, 2, 1, 7, 0, 3, 5, 7, 5, 4, 6, 7, 6, 1, 0)
+name = &"vertex_index"
+category = ""
+data_type = 1
+stride = 1
+
+[sub_resource type="Resource" id="Resource_2n737"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(31, 0, 0, 31, 0, 6, 31, 1, 6, 31, 1, 0, 10.9994, 1, 6, 10.9994, 1, 0, 10.9994, 0, 6, 10.9994, 0, 0)
+name = &"position"
+category = ""
+data_type = 6
+stride = 3
+
+[sub_resource type="Resource" id="Resource_mdcs7"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
+name = &"selected"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_bwwmo"]
+script = ExtResource("12_kxf0a")
+num_vertices = 8
+num_edges = 12
+num_faces = 6
+num_face_vertices = 24
+active_vertex = -1
+active_edge = -1
+active_face = -1
+active_face_vertex = -1
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 4, 5, 5, 3, 2, 4, 6, 4, 1, 6, 7, 0, 5, 7, 6, 7)
+edge_face_indices = PackedInt32Array(0, 5, 0, 2, 0, 1, 0, 3, 1, 4, 1, 3, 1, 2, 2, 4, 2, 5, 3, 5, 3, 4, 4, 5)
+face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 4, 5, 3, 2, 6, 4, 2, 1, 7, 0, 3, 5, 7, 5, 4, 6, 7, 6, 1, 0)
+vertex_data = {
+"position": SubResource("Resource_2n737"),
+"selected": SubResource("Resource_mdcs7")
+}
+edge_data = {
+"selected": SubResource("Resource_ab0au")
+}
+face_data = {
+"color": SubResource("Resource_0pm8l"),
+"material_index": SubResource("Resource_4l72h"),
+"selected": SubResource("Resource_mivnd"),
+"uv_transform": SubResource("Resource_gwcwh"),
+"visible": SubResource("Resource_bl6lj")
+}
+face_vertex_data = {
+"color": SubResource("Resource_23ku0"),
+"face_index": SubResource("Resource_1dh32"),
+"normal": SubResource("Resource_8j883"),
+"vertex_index": SubResource("Resource_8xrgi")
+}
+
+[sub_resource type="Resource" id="Resource_0la8c"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+name = &"selected"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_sjfbb"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+name = &"color"
+category = ""
+data_type = 4
+stride = 4
+
+[sub_resource type="Resource" id="Resource_jdc71"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 0, 0)
+name = &"material_index"
+category = ""
+data_type = 1
+stride = 1
+
+[sub_resource type="Resource" id="Resource_pb0ny"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(0, 0, 0, 0, 0, 0)
+name = &"selected"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_dhka0"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0)
+name = &"uv_transform"
+category = ""
+data_type = 8
+stride = 6
+
+[sub_resource type="Resource" id="Resource_bybsa"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(1, 1, 1, 1, 1, 1)
+name = &"visible"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_4lrak"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+name = &"color"
+category = ""
+data_type = 4
+stride = 4
+
+[sub_resource type="Resource" id="Resource_nlx2y"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5)
+name = &"face_index"
+category = ""
+data_type = 1
+stride = 1
+
+[sub_resource type="Resource" id="Resource_crq83"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(-1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1)
+name = &"normal"
+category = ""
+data_type = 6
+stride = 3
+
+[sub_resource type="Resource" id="Resource_3wht0"]
+script = ExtResource("11_kqjm5")
+data = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+name = &"vertex_index"
+category = ""
+data_type = 1
+stride = 1
+
+[sub_resource type="Resource" id="Resource_6vqhr"]
+script = ExtResource("10_td3so")
+data = PackedFloat32Array(0, 1, 0, 0, 1, 3, 0, 0, 3, 0, 0, 0, 4, 1, 0, 4, 1, 3, 4, 0, 3, 4, 0, 0)
+name = &"position"
+category = ""
+data_type = 6
+stride = 3
+
+[sub_resource type="Resource" id="Resource_o1oqn"]
+script = ExtResource("9_vaf52")
+data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
+name = &"selected"
+category = ""
+data_type = 0
+stride = 1
+
+[sub_resource type="Resource" id="Resource_ildo1"]
+script = ExtResource("12_kxf0a")
+num_vertices = 8
+num_edges = 12
+num_faces = 6
+num_face_vertices = 24
+active_vertex = -1
+active_edge = -1
+active_face = -1
+active_face_vertex = -1
+edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 7, 6, 6, 5, 5, 4, 4, 7, 0, 4, 5, 1, 6, 2, 7, 3)
+edge_face_indices = PackedInt32Array(0, 2, 0, 3, 0, 4, 0, 5, 1, 4, 1, 3, 1, 2, 1, 5, 2, 5, 2, 3, 3, 4, 4, 5)
+face_vertex_count = PackedInt32Array(4, 4, 4, 4, 4, 4)
+face_vertex_indices = PackedInt32Array(0, 1, 2, 3, 7, 6, 5, 4, 1, 0, 4, 5, 2, 1, 5, 6, 3, 2, 6, 7, 0, 3, 7, 4)
+vertex_data = {
+"position": SubResource("Resource_6vqhr"),
+"selected": SubResource("Resource_o1oqn")
+}
+edge_data = {
+"selected": SubResource("Resource_0la8c")
+}
+face_data = {
+"color": SubResource("Resource_sjfbb"),
+"material_index": SubResource("Resource_jdc71"),
+"selected": SubResource("Resource_pb0ny"),
+"uv_transform": SubResource("Resource_dhka0"),
+"visible": SubResource("Resource_bybsa")
+}
+face_vertex_data = {
+"color": SubResource("Resource_4lrak"),
+"face_index": SubResource("Resource_nlx2y"),
+"normal": SubResource("Resource_crq83"),
+"vertex_index": SubResource("Resource_3wht0")
+}
+
 [sub_resource type="SystemFont" id="SystemFont_rqcrb"]
 font_names = PackedStringArray("Consolas")
 
@@ -26510,7 +26520,7 @@ font_names = PackedStringArray("Consolas")
 size = Vector3(3.65579, 10.0376, 1.32178)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nfqap"]
-size = Vector3(2.5784, 2.79191, 10.1918)
+size = Vector3(2.49946, 2.31034, 10.1918)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8nail"]
 size = Vector3(6.11328, 1, 1)
@@ -26539,7 +26549,6 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573
 [node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -125.239, 27, 45.3544)
 target = NodePath("../Player")
-patrol_route = NodePath("")
 
 [node name="EnemyRanged2" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -106, 15, 58)
@@ -26621,7 +26630,7 @@ patrol_route = NodePath("../PatrolRoute/PatrolRoutePath")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.4109, 13.8298, 47.923)
 
 [node name="PatrolRoutePath" parent="Enemies/PatrolRoute" index="0"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.11467, -0.00337219, -2.48933)
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -26649,9 +26658,9 @@ transform = Transform3D(0.000191996, 0, 1, 0, 1, 0, -1, 0, 0.000191996, -18.4709
 
 [node name="Button4" parent="Doors and Buttons" node_paths=PackedStringArray("linked_obj") instance=ExtResource("4_7p5k2")]
 transform = Transform3D(-1.37992, 0, 0.0146918, 0, 1.38, 0, -0.0146918, 0, -1.37992, -1.31054, 11.933, 45.773)
-linked_obj = NodePath("../Bridge")
+linked_obj = NodePath("../TubePlat")
 
-[node name="Bridge" parent="Doors and Buttons" instance=ExtResource("7_8wwxn")]
+[node name="TubePlat" parent="Doors and Buttons" instance=ExtResource("9_2odu1")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.97892, 18.2228, 42.4283)
 
 [node name="Button6" parent="Doors and Buttons" node_paths=PackedStringArray("linked_obj") instance=ExtResource("4_7p5k2")]
@@ -27337,7 +27346,7 @@ collision_layer = 17
 [node name="Block_105" type="Node3D" parent="Cyclops"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 18, 44)
 script = ExtResource("8_div0b")
-mesh_vector_data = SubResource("Resource_m8fls")
+mesh_vector_data = SubResource("Resource_esp8j")
 materials = Array[Material]([ExtResource("16_lt37l")])
 collision_layer = 17
 
@@ -27352,6 +27361,451 @@ collision_layer = 17
 navigation_mesh = ExtResource("13_nmh6p")
 
 [node name="Navmeshables" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom"]
+
+[node name="Node3D10" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables" instance=ExtResource("29_c0j7h")]
+transform = Transform3D(0.787172, 0.615561, 0.038016, 0, 0.0616408, -0.998098, -0.616734, 0.785675, 0.0485219, -20.8117, 15, 51.0997)
+
+[node name="Cubetrash" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables"]
+
+[node name="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6298, 15, 55.3738)
+
+[node name="Node3D7" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.94488, 0, 0.327416, 0, 1, 0, -0.327416, 0, 0.94488, -19.4219, 15, 55.3738)
+
+[node name="Node3D8" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.252677, 0, -0.967551, 0, 1, 0, 0.967551, 0, 0.252677, -18.9617, 15, 56.2624)
+
+[node name="Node3D2" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash" instance=ExtResource("31_myp8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.1536, 15, 54.6389)
+
+[node name="Node3D6" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.5834, 15, 54.6389)
+
+[node name="Node3D9" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.8075, 15, 56.3034)
+
+[node name="Cubetrash2" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables"]
+transform = Transform3D(0.974519, 0, -0.224305, 0, 1, 0, 0.224305, 0, 0.974519, 5.55896, 0, -28.9868)
+
+[node name="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash2" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6298, 15, 55.3738)
+
+[node name="Node3D7" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash2" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.94488, 0, 0.327416, 0, 1, 0, -0.327416, 0, 0.94488, -19.4219, 15, 55.3738)
+
+[node name="Node3D8" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash2" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.252677, 0, -0.967551, 0, 1, 0, 0.967551, 0, 0.252677, -18.9617, 15, 56.2624)
+
+[node name="Node3D2" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash2" instance=ExtResource("31_myp8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.1536, 15, 54.6389)
+
+[node name="Node3D6" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash2" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.5834, 15, 54.6389)
+
+[node name="Node3D9" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash2" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.8075, 15, 56.3034)
+
+[node name="Cubetrash3" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables"]
+transform = Transform3D(0.974519, 0, -0.224305, 0, 1, 0, 0.224305, 0, 0.974519, -15.7019, 0, -26.8266)
+
+[node name="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash3" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6298, 15, 55.3738)
+
+[node name="Node3D7" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash3" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.94488, 0, 0.327416, 0, 1, 0, -0.327416, 0, 0.94488, -19.4219, 15, 55.3738)
+
+[node name="Node3D8" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash3" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.252677, 0, -0.967551, 0, 1, 0, 0.967551, 0, 0.252677, -18.9617, 15, 56.2624)
+
+[node name="Node3D2" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash3" instance=ExtResource("31_myp8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.1536, 15, 54.6389)
+
+[node name="Node3D6" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash3" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.5834, 15, 54.6389)
+
+[node name="Node3D9" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash3" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.8075, 15, 56.3034)
+
+[node name="Cubetrash4" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables"]
+transform = Transform3D(0.974519, 0, -0.224305, 0, 1, 0, 0.224305, 0, 0.974519, -10.8881, 0, 5.45357)
+
+[node name="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6298, 15, 55.3738)
+
+[node name="Node3D7" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.94488, 0, 0.327416, 0, 1, 0, -0.327416, 0, 0.94488, -19.4219, 15, 55.3738)
+
+[node name="Node3D8" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.252677, 0, -0.967551, 0, 1, 0, 0.967551, 0, 0.252677, -18.9617, 15, 56.2624)
+
+[node name="Node3D2" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.1536, 15, 54.6389)
+
+[node name="Node3D6" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.5834, 15, 54.6389)
+
+[node name="Node3D9" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.714851, 0, 0.699277, 0, 1, 0, -0.699277, 0, 0.714851, -19.8075, 15, 56.3034)
+
+[node name="Node3D3" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.955025, 0, 0.296525, 0, 1, 0, -0.296525, 0, 0.955025, -21.0345, 15, 55.7838)
+
+[node name="Node3D10" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.805297, 0, 0.592871, 0, 1, 0, -0.592871, 0, 0.805297, -21.7911, 15, 56.0187)
+
+[node name="Node3D11" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.528216, 0, -0.84911, 0, 1, 0, 0.84911, 0, 0.528216, -21.0881, 15, 56.7308)
+
+[node name="Node3D4" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.955025, 0, 0.296525, 0, 1, 0, -0.296525, 0, 0.955025, -20.7977, 15, 54.9407)
+
+[node name="Node3D12" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.475348, 0, 0.879798, 0, 1, 0, -0.879798, 0, 0.475348, -22.1632, 15, 55.3647)
+
+[node name="Node3D13" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.475348, 0, 0.879798, 0, 1, 0, -0.879798, 0, 0.475348, -21.8836, 15, 57.0208)
+
+[node name="Node3D5" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.955024, 0, 0.296525, 0, 1, 0, -0.296525, 0, 0.955024, -20.2726, 15, 36.1746)
+
+[node name="Node3D14" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.805297, 0, 0.592871, 0, 1, 0, -0.592871, 0, 0.805297, -21.0291, 15, 36.4095)
+
+[node name="Node3D15" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.528216, 0, -0.849109, 0, 1, 0, 0.849109, 0, 0.528216, -20.3261, 15, 37.1216)
+
+[node name="Node3D16" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.955024, 0, 0.296525, 0, 1, 0, -0.296525, 0, 0.955024, -20.0357, 15, 35.3315)
+
+[node name="Node3D17" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.475348, 0, 0.879798, 0, 1, 0, -0.879798, 0, 0.475348, -21.4012, 15, 35.7554)
+
+[node name="Node3D18" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.475348, 0, 0.879798, 0, 1, 0, -0.879798, 0, 0.475348, -21.1217, 15, 37.4116)
+
+[node name="Node3D19" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.701282, 0, -0.712883, 0, 1, 0, 0.712883, 0, 0.701282, -18.716, 15, 36.285)
+
+[node name="Node3D20" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.896037, 0, -0.443978, 0, 1, 0, 0.443978, 0, 0.896037, -19.2715, 15, 35.7203)
+
+[node name="Node3D21" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.512552, 0, -0.858655, 0, 1, 0, 0.858655, 0, -0.512552, -19.5822, 15, 36.6715)
+
+[node name="Node3D22" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.701282, 0, -0.712883, 0, 1, 0, 0.712883, 0, 0.701282, -17.8581, 15, 36.1091)
+
+[node name="Node3D23" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.999815, 0, -0.0192148, 0, 1, 0, 0.0192148, 0, 0.999815, -18.8608, 15, 35.0898)
+
+[node name="Node3D24" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.999815, 0, -0.0192148, 0, 1, 0, 0.0192148, 0, 0.999815, -20.2046, 15, 36.0973)
+
+[node name="Node3D25" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.825792, 0, 0.563972, 0, 1, 0, -0.563972, 0, -0.825792, -19.0847, 15, 37.5755)
+
+[node name="Node3D26" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.964929, 0, 0.262509, 0, 1, 0, -0.262509, 0, -0.964929, -18.4305, 15, 38.0222)
+
+[node name="Node3D27" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.337013, 0, 0.941499, 0, 1, 0, -0.941499, 0, 0.337013, -18.3094, 15, 37.0289)
+
+[node name="Node3D28" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.825792, 0, 0.563972, 0, 1, 0, -0.563972, 0, -0.825792, -19.8924, 15, 37.9139)
+
+[node name="Node3D29" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.984692, 0, -0.174301, 0, 1, 0, 0.174301, 0, -0.984692, -18.7117, 15, 38.7202)
+
+[node name="Node3D30" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.984692, 0, -0.174301, 0, 1, 0, 0.174301, 0, -0.984692, -17.5878, 15, 37.472)
+
+[node name="Node3D31" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.825792, 0, 0.563972, 0, 1, 0, -0.563972, 0, -0.825792, -14.8743, 15, 33.0459)
+
+[node name="Node3D32" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.964928, 0, 0.262509, 0, 1, 0, -0.262509, 0, -0.964928, -14.2201, 15, 33.4926)
+
+[node name="Node3D33" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.337013, 0, 0.941499, 0, 1, 0, -0.941499, 0, 0.337013, -14.099, 15, 32.4993)
+
+[node name="Node3D34" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.825792, 0, 0.563972, 0, 1, 0, -0.563972, 0, -0.825792, -15.682, 15, 33.3843)
+
+[node name="Node3D35" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.984692, 0, -0.174301, 0, 1, 0, 0.174301, 0, -0.984692, -14.5013, 15, 34.1906)
+
+[node name="Node3D36" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.984692, 0, -0.174301, 0, 1, 0, 0.174301, 0, -0.984692, -13.3775, 15, 32.9424)
+
+[node name="Node3D37" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.825792, 0, 0.563972, 0, 1, 0, -0.563972, 0, -0.825792, -13.453, 15, 39.2208)
+
+[node name="Node3D38" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.964928, 0, 0.262509, 0, 1, 0, -0.262509, 0, -0.964928, -12.7989, 15, 39.6675)
+
+[node name="Node3D39" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.337013, 0, 0.941499, 0, 1, 0, -0.941499, 0, 0.337013, -12.6778, 15, 38.6742)
+
+[node name="Node3D49" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.910734, 0, -0.412993, 0, 1, 0, 0.412993, 0, 0.910734, -13.7776, 15, 38.2512)
+
+[node name="Node3D50" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.810307, 0, -0.586004, 0, 1, 0, 0.586004, 0, -0.810307, -12.7466, 15, 33.5221)
+
+[node name="Node3D40" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.825792, 0, 0.563972, 0, 1, 0, -0.563972, 0, -0.825792, -14.2607, 15, 39.5591)
+
+[node name="Node3D41" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.984692, 0, -0.174301, 0, 1, 0, 0.174301, 0, -0.984692, -13.08, 15, 40.3655)
+
+[node name="Node3D42" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.984692, 0, -0.174301, 0, 1, 0, 0.174301, 0, -0.984692, -11.9562, 15, 39.1173)
+
+[node name="Node3D43" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.998888, 0, -0.0471065, 0, 1, 0, 0.0471065, 0, -0.998888, -12.988, 15, 41.7283)
+
+[node name="Node3D44" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.928407, 0, -0.371562, 0, 1, 0, 0.371562, 0, -0.928407, -12.1968, 15, 41.691)
+
+[node name="Node3D45" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.297975, 0, 0.954573, 0, 1, 0, -0.954573, 0, -0.297975, -12.6983, 15, 40.8251)
+
+[node name="Node3D46" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.998888, 0, -0.0471065, 0, 1, 0, 0.0471065, 0, -0.998888, -13.429, 15, 42.4849)
+
+[node name="Node3D47" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.681117, 0, -0.732174, 0, 1, 0, 0.732174, 0, -0.681117, -12.0008, 15, 42.4176)
+
+[node name="Node3D48" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.681117, 0, -0.732174, 0, 1, 0, 0.732174, 0, -0.681117, -11.8554, 15, 40.7443)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4"]
+transform = Transform3D(0.999999, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 0.999999, -13.7134, 14.7234, 37.7682)
+collision_layer = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4/StaticBody3D"]
+transform = Transform3D(0.989775, 0, -0.142646, 0, 1, 0, 0.142646, 0, 0.989775, -0.90135, 0.535278, -1.37567)
+shape = SubResource("BoxShape3D_4flwr")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4"]
+transform = Transform3D(0.999999, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 0.999999, -13.7134, 14.7234, 37.7682)
+collision_layer = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4/StaticBody3D2"]
+transform = Transform3D(-0.133467, 0, -0.991054, 0, 1, 0, 0.991054, 0, -0.133467, 1.46873, 0.535278, 1.73554)
+shape = SubResource("BoxShape3D_4flwr")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4"]
+transform = Transform3D(0.999999, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, 0.999999, 1.25492, 14.7234, 47.7926)
+collision_layer = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash4/StaticBody3D3"]
+transform = Transform3D(-0.133467, 0, -0.991054, 0, 1, 0, 0.991054, 0, -0.133467, 1.34699, 0.535278, -0.857559)
+shape = SubResource("BoxShape3D_m6ijp")
+
+[node name="Cubetrash5" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables"]
+transform = Transform3D(0.974519, 0, -0.224305, 0, 1, 0, 0.224305, 0, 0.974519, -10.8881, 0, 5.45357)
+
+[node name="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.708352, 0, -0.705859, 0, 1, 0, 0.705859, 0, 0.708352, -27.7135, 15, 50.5865)
+
+[node name="Node3D7" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.900417, 0, -0.435027, 0, 1, 0, 0.435027, 0, 0.900417, -28.2746, 15, 50.0273)
+
+[node name="Node3D8" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.50397, 0, -0.863721, 0, 1, 0, 0.863721, 0, -0.50397, -28.5758, 15, 50.9816)
+
+[node name="Node3D2" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.708352, 0, -0.705859, 0, 1, 0, 0.705859, 0, 0.708352, -26.8574, 15, 50.402)
+
+[node name="Node3D6" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.999957, 0, -0.00925012, 0, 1, 0, 0.00925012, 0, 0.999957, -27.8702, 15, 49.3927)
+
+[node name="Node3D9" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.999957, 0, -0.00925012, 0, 1, 0, 0.00925012, 0, 0.999957, -29.2039, 15, 50.4136)
+
+[node name="Node3D3" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.885799, 0, -0.464069, 0, 1, 0, 0.464069, 0, 0.885799, -29.7063, 15, 49.1795)
+
+[node name="Node3D10" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.988917, 0, -0.148465, 0, 1, 0, 0.148465, 0, 0.988917, -30.408, 15, 48.8119)
+
+[node name="Node3D11" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.225189, 0, -0.974315, 0, 1, 0, 0.974315, 0, -0.225189, -30.4127, 15, 49.8125)
+
+[node name="Node3D4" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.885799, 0, -0.464069, 0, 1, 0, 0.464069, 0, 0.885799, -28.9434, 15, 48.7494)
+
+[node name="Node3D12" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.957727, 0, 0.287678, 0, 1, 0, -0.287678, 0, 0.957727, -30.2099, 15, 48.0859)
+
+[node name="Node3D13" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.957727, 0, 0.287678, 0, 1, 0, -0.287678, 0, 0.957727, -31.1809, 15, 49.4564)
+
+[node name="Node3D5" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.885798, 0, -0.464069, 0, 1, 0, 0.464069, 0, 0.885798, -15.3252, 15, 35.8271)
+
+[node name="Node3D14" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.988917, 0, -0.148465, 0, 1, 0, 0.148465, 0, 0.988917, -16.0269, 15, 35.4595)
+
+[node name="Node3D15" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.225189, 0, -0.974314, 0, 1, 0, 0.974314, 0, -0.225189, -16.0316, 15, 36.4601)
+
+[node name="Node3D16" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.885798, 0, -0.464069, 0, 1, 0, 0.464069, 0, 0.885798, -14.5623, 15, 35.397)
+
+[node name="Node3D17" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.957727, 0, 0.287678, 0, 1, 0, -0.287678, 0, 0.957727, -15.8289, 15, 34.7335)
+
+[node name="Node3D18" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.957727, 0, 0.287678, 0, 1, 0, -0.287678, 0, 0.957727, -16.7998, 15, 36.104)
+
+[node name="Node3D19" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.00644016, 0, -0.999978, 0, 1, 0, 0.999978, 0, -0.00644016, -14.3005, 15, 37.004)
+
+[node name="Node3D20" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.321324, 0, -0.946968, 0, 1, 0, 0.946968, 0, 0.321324, -14.2954, 15, 36.2119)
+
+[node name="Node3D21" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.969157, 0, -0.246441, 0, 1, 0, 0.246441, 0, -0.969157, -15.1869, 15, 36.6664)
+
+[node name="Node3D22" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.00644016, 0, -0.999978, 0, 1, 0, 0.999978, 0, -0.00644016, -13.5686, 15, 37.4849)
+
+[node name="Node3D23" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.694658, 0, -0.71934, 0, 1, 0, 0.71934, 0, 0.694658, -13.5594, 15, 36.0552)
+
+[node name="Node3D24" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.694658, 0, -0.71934, 0, 1, 0, 0.71934, 0, 0.694658, -15.2225, 15, 35.8203)
+
+[node name="Node3D25" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.186867, 0, 0.982384, 0, 1, 0, -0.982384, 0, -0.186867, -15.4726, 15, 37.6579)
+
+[node name="Node3D26" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.498215, 0, 0.867052, 0, 1, 0, -0.867052, 0, -0.498215, -15.3246, 15, 38.4361)
+
+[node name="Node3D27" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.90329, 0, 0.429029, 0, 1, 0, -0.429029, 0, 0.90329, -14.5376, 15, 37.818)
+
+[node name="Node3D28" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.186867, 0, 0.982384, 0, 1, 0, -0.982384, 0, -0.186867, -16.2836, 15, 37.3274)
+
+[node name="Node3D29" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.820541, 0, 0.571587, 0, 1, 0, -0.571587, 0, -0.820541, -16.0164, 15, 38.732)
+
+[node name="Node3D49" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.185152, 0, 0.982709, 0, 1, 0, -0.982709, 0, -0.185152, 5.57992, 15, 31.8662)
+
+[node name="Node3D50" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.468222, 0, 0.883609, 0, 1, 0, -0.883609, 0, -0.468222, -12.1728, 15, 37.3673)
+
+[node name="Node3D51" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.731722, 0, 0.681602, 0, 1, 0, -0.681602, 0, -0.731722, -11.8019, 15, 38.0672)
+
+[node name="Node3D52" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.468222, 0, 0.883609, 0, 1, 0, -0.883609, 0, -0.468222, -13.0452, 15, 37.2906)
+
+[node name="Node3D53" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.952597, 0, 0.304233, 0, 1, 0, -0.304233, 0, -0.952597, -12.3757, 15, 38.5541)
+
+[node name="Node3D54" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.952597, 0, 0.304233, 0, 1, 0, -0.304233, 0, -0.952597, -10.8, 15, 37.9727)
+
+[node name="Node3D55" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.570713, 0, 0.821148, 0, 1, 0, -0.821148, 0, 0.570713, -12.3525, 15, 35.8172)
+
+[node name="Node3D56" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.270398, 0, 0.962747, 0, 1, 0, -0.962747, 0, 0.270398, -12.8045, 15, 36.4676)
+
+[node name="Node3D57" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.938709, 0, -0.344708, 0, 1, 0, 0.344708, 0, 0.938709, -11.8123, 15, 36.5969)
+
+[node name="Node3D58" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.570713, 0, 0.821148, 0, 1, 0, -0.821148, 0, 0.570713, -12.6842, 15, 35.0067)
+
+[node name="Node3D59" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.166235, 0, 0.986085, 0, 1, 0, -0.986085, 0, -0.166235, -13.5002, 15, 36.1808)
+
+[node name="Node3D60" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.166235, 0, 0.986085, 0, 1, 0, -0.986085, 0, -0.166235, -12.2613, 15, 37.3148)
+
+[node name="Node3D61" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.401324, 0, -0.915935, 0, 1, 0, 0.915935, 0, -0.401324, -11.016, 15, 35.9405)
+
+[node name="Node3D62" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.987619, 0, 0.156865, 0, 1, 0, -0.156865, 0, -0.987619, -11.6967, 15, 35.2799)
+
+[node name="Node3D63" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(0.353605, 0, -0.935394, 0, 1, 0, 0.935394, 0, 0.353605, -9.96017, 15, 35.3621)
+
+[node name="Node3D30" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.820541, 0, 0.571587, 0, 1, 0, -0.571587, 0, -0.820541, -14.3393, 15, 38.6412)
+
+[node name="Node3D31" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.186867, 0, 0.982383, 0, 1, 0, -0.982383, 0, -0.186867, -9.29292, 15, 37.4213)
+
+[node name="Node3D32" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.498215, 0, 0.867052, 0, 1, 0, -0.867052, 0, -0.498215, -9.14489, 15, 38.1995)
+
+[node name="Node3D33" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.903289, 0, 0.429029, 0, 1, 0, -0.429029, 0, 0.903289, -8.35795, 15, 37.5813)
+
+[node name="Node3D34" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.186867, 0, 0.982383, 0, 1, 0, -0.982383, 0, -0.186867, -10.1039, 15, 37.0908)
+
+[node name="Node3D35" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.820541, 0, 0.571587, 0, 1, 0, -0.571587, 0, -0.820541, -9.83671, 15, 38.4954)
+
+[node name="Node3D36" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.820541, 0, 0.571587, 0, 1, 0, -0.571587, 0, -0.820541, -8.15961, 15, 38.4045)
+
+[node name="Node3D37" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.186867, 0, 0.982383, 0, 1, 0, -0.982383, 0, -0.186867, -12.6447, 15, 42.7985)
+
+[node name="Node3D38" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.498215, 0, 0.867052, 0, 1, 0, -0.867052, 0, -0.498215, -12.4967, 15, 43.5767)
+
+[node name="Node3D39" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.903289, 0, 0.429029, 0, 1, 0, -0.429029, 0, 0.903289, -11.7098, 15, 42.9585)
+
+[node name="Node3D40" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.186867, 0, 0.982383, 0, 1, 0, -0.982383, 0, -0.186867, -13.4557, 15, 42.468)
+
+[node name="Node3D41" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.82054, 0, 0.571587, 0, 1, 0, -0.571587, 0, -0.82054, -13.1885, 15, 43.8726)
+
+[node name="Node3D42" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.82054, 0, 0.571587, 0, 1, 0, -0.571587, 0, -0.82054, -11.5114, 15, 43.7817)
+
+[node name="Node3D43" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.740815, 0, 0.671706, 0, 1, 0, -0.671706, 0, -0.740815, -14.0853, 15, 44.903)
+
+[node name="Node3D44" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(-0.919909, 0, 0.392128, 0, 1, 0, -0.392128, 0, -0.919909, -13.4985, 15, 45.435)
+
+[node name="Node3D45" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("30_yuvfr")]
+transform = Transform3D(0.462723, 0, 0.886501, 0, 1, 0, -0.886501, 0, 0.462723, -13.2426, 15, 44.4677)
+
+[node name="Node3D46" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.740815, 0, 0.671706, 0, 1, 0, -0.671706, 0, -0.740815, -14.9318, 15, 45.1276)
+
+[node name="Node3D47" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.999282, 0, -0.0378647, 0, 1, 0, 0.0378647, 0, -0.999282, -13.8726, 15, 46.088)
+
+[node name="Node3D48" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Cubetrash5" instance=ExtResource("31_myp8r")]
+transform = Transform3D(-0.999282, 0, -0.0378647, 0, 1, 0, 0.0378647, 0, -0.999282, -12.5885, 15, 45.0054)
+
+[node name="Capstack" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables"]
+
+[node name="Node3D3" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Capstack" instance=ExtResource("32_j8678")]
+transform = Transform3D(0.0140669, -0.999901, 0, 0.999901, 0.0140669, 0, 0, 0, 1, -18.2874, 15, 52.0371)
+
+[node name="Node3D5" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Capstack" instance=ExtResource("32_j8678")]
+transform = Transform3D(0.00563437, -0.400501, -0.916279, 0.999901, 0.0140669, 0, 0.0128892, -0.916188, 0.400541, -18.7677, 15, 51.5209)
+
+[node name="Node3D4" parent="Cyclops/NavmeshFirstFightRoom/Navmeshables/Capstack" instance=ExtResource("32_j8678")]
+transform = Transform3D(0.354161, -0.694981, 0.625757, 0.749808, 0.610909, 0.254121, -0.55889, 0.379198, 0.737463, -18.2874, 15, 51.4161)
 
 [node name="Block_47" type="Node3D" parent="Cyclops/NavmeshFirstFightRoom"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1, 46)
@@ -27784,13 +28238,6 @@ mesh_vector_data = SubResource("Resource_gik8h")
 materials = Array[Material]([ExtResource("16_lt37l")])
 collision_layer = 17
 
-[node name="Block_6" type="Node3D" parent="Cyclops/NavmeshContainedBasement"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115, 23, 85)
-script = ExtResource("8_div0b")
-mesh_vector_data = SubResource("Resource_bwwmo")
-materials = Array[Material]([ExtResource("16_lt37l")])
-collision_layer = 17
-
 [node name="Block_7" type="Node3D" parent="Cyclops/NavmeshContainedBasement"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.0006, 10.0668, 81.9968)
 script = ExtResource("8_div0b")
@@ -27802,13 +28249,6 @@ collision_layer = 17
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.0006, 10.0668, 81.9968)
 script = ExtResource("8_div0b")
 mesh_vector_data = SubResource("Resource_y8ccb")
-materials = Array[Material]([ExtResource("15_wsp6e")])
-collision_layer = 17
-
-[node name="Block_9" type="Node3D" parent="Cyclops/NavmeshContainedBasement"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.001, 23.0668, 81.9968)
-script = ExtResource("8_div0b")
-mesh_vector_data = SubResource("Resource_ildo1")
 materials = Array[Material]([ExtResource("15_wsp6e")])
 collision_layer = 17
 
@@ -28056,36 +28496,50 @@ mesh_vector_data = SubResource("Resource_0v5mp")
 materials = Array[Material]([ExtResource("16_lt37l")])
 collision_layer = 17
 
-[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="Cyclops"]
+[node name="NavimeshWatchroom" type="NavigationRegion3D" parent="Cyclops"]
 navigation_mesh = ExtResource("23_t38sd")
 
-[node name="SeparateArea Ground" type="Node3D" parent="Cyclops/NavigationRegion3D2"]
+[node name="SeparateArea Ground" type="Node3D" parent="Cyclops/NavimeshWatchroom"]
 
-[node name="Block_90" type="Node3D" parent="Cyclops/NavigationRegion3D2/SeparateArea Ground"]
+[node name="Block_90" type="Node3D" parent="Cyclops/NavimeshWatchroom/SeparateArea Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66, 23, 44)
 script = ExtResource("8_div0b")
 mesh_vector_data = SubResource("Resource_ybint")
 materials = Array[Material]([ExtResource("15_wsp6e")])
 collision_layer = 17
 
-[node name="Block_4" type="Node3D" parent="Cyclops/NavigationRegion3D2/SeparateArea Ground"]
+[node name="Block_4" type="Node3D" parent="Cyclops/NavimeshWatchroom/SeparateArea Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111, 23, 70)
 script = ExtResource("8_div0b")
 mesh_vector_data = SubResource("Resource_r0iqs")
 materials = Array[Material]([ExtResource("15_wsp6e")])
 collision_layer = 17
 
-[node name="Block_47" type="Node3D" parent="Cyclops/NavigationRegion3D2/SeparateArea Ground"]
+[node name="Block_47" type="Node3D" parent="Cyclops/NavimeshWatchroom/SeparateArea Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102, 23, 29)
 script = ExtResource("8_div0b")
 mesh_vector_data = SubResource("Resource_oujqw")
 materials = Array[Material]([ExtResource("15_wsp6e")])
 collision_layer = 17
 
-[node name="Block_78" type="Node3D" parent="Cyclops/NavigationRegion3D2/SeparateArea Ground"]
+[node name="Block_78" type="Node3D" parent="Cyclops/NavimeshWatchroom/SeparateArea Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103, 23, 67)
 script = ExtResource("8_div0b")
 mesh_vector_data = SubResource("Resource_e3f8d")
+materials = Array[Material]([ExtResource("15_wsp6e")])
+collision_layer = 17
+
+[node name="Block_6" type="Node3D" parent="Cyclops/NavimeshWatchroom/SeparateArea Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.999, 22.9332, 85.0032)
+script = ExtResource("8_div0b")
+mesh_vector_data = SubResource("Resource_bwwmo")
+materials = Array[Material]([ExtResource("16_lt37l")])
+collision_layer = 17
+
+[node name="Block_9" type="Node3D" parent="Cyclops/NavimeshWatchroom/SeparateArea Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101, 23, 82)
+script = ExtResource("8_div0b")
+mesh_vector_data = SubResource("Resource_ildo1")
 materials = Array[Material]([ExtResource("15_wsp6e")])
 collision_layer = 17
 
@@ -28182,7 +28636,6 @@ omni_range = 30.878
 [node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
 transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, -122, 10, 91)
 light_energy = 16.0
-shadow_enabled = true
 shadow_blur = 0.0
 spot_range = 62.0
 spot_angle = 60.7099
@@ -28352,6 +28805,132 @@ transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114
 [node name="Node3D2" parent="Floating Labels/Tubos/Node3D5/Node3D4" instance=ExtResource("25_cinj7")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
 
+[node name="Tubos3" type="Node3D" parent="Floating Labels"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -87.8491, 12.4526, 92.7953)
+
+[node name="Node3D" parent="Floating Labels/Tubos3" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, 3.16875, -6, 3.44111)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos3/Node3D/Node3D2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D/Node3D2" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, 6.9801, -6, -1.62525)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D2" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 1.91192, 0.167046)
+
+[node name="Node3D" parent="Floating Labels/Tubos3/Node3D2/Node3D2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D2/Node3D2" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D6" parent="Floating Labels/Tubos3" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, 2.90754, -4.97352, -3.70141)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D6" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 4.86685, 2.75245, 3.83077)
+
+[node name="Node3D" parent="Floating Labels/Tubos3/Node3D6/Node3D2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D6/Node3D2" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D3" parent="Floating Labels/Tubos3" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, 4.8032, -6, 3.44111)
+
+[node name="Node3D4" parent="Floating Labels/Tubos3/Node3D3" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos3/Node3D3/Node3D4" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D3/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D4" parent="Floating Labels/Tubos3" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, 4.8032, -2.46348, -1.3326)
+
+[node name="Node3D4" parent="Floating Labels/Tubos3/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos3/Node3D4/Node3D4" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D4/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D5" parent="Floating Labels/Tubos3" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, 2.96959, -2.46348, -1.3326)
+
+[node name="Node3D4" parent="Floating Labels/Tubos3/Node3D5" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos3/Node3D5/Node3D4" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos3/Node3D5/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Tubos2" type="Node3D" parent="Floating Labels"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.1366, 33.5002, 67.9196)
+
+[node name="Node3D" parent="Floating Labels/Tubos2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(0.903268, 0, -0.429077, 0, 1, 0, 0.429077, 0, 0.903268, -1.25314, -3.35334, -21.7552)
+
+[node name="Node3D2" parent="Floating Labels/Tubos2/Node3D" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos2/Node3D/Node3D2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos2/Node3D/Node3D2" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D3" parent="Floating Labels/Tubos2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(0.788311, 0, 0.615276, 0, 1, 0, -0.615276, 0, 0.788311, 4.8032, -6, -36.5455)
+
+[node name="Node3D4" parent="Floating Labels/Tubos2/Node3D3" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos2/Node3D3/Node3D4" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos2/Node3D3/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D4" parent="Floating Labels/Tubos2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, 4.8032, -2.46348, -28.9752)
+
+[node name="Node3D4" parent="Floating Labels/Tubos2/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos2/Node3D4/Node3D4" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos2/Node3D4/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
+[node name="Node3D5" parent="Floating Labels/Tubos2" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(-0.0255314, 0, 0.999674, 0, 1, 0, -0.999674, 0, -0.0255314, -4.86008, -2.46348, -28.9752)
+
+[node name="Node3D4" parent="Floating Labels/Tubos2/Node3D5" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-0.0255314, -0.999674, 4.36971e-08, 0, -4.37114e-08, -1, 0.999674, -0.0255314, 1.11601e-09, 9.46582, 2.75245, 0.167048)
+
+[node name="Node3D" parent="Floating Labels/Tubos2/Node3D5/Node3D4" instance=ExtResource("24_u5qd7")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -1.86258, -2.77329)
+
+[node name="Node3D2" parent="Floating Labels/Tubos2/Node3D5/Node3D4" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.022459, -1.97093, -10.3228)
+
 [node name="WallDetail" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.8996, -6.04238, -12.0486)
 
@@ -28412,6 +28991,36 @@ transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 
 [node name="Node3D11" parent="WallDetail/VerticalTube2" instance=ExtResource("25_cinj7")]
 transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 3.20623, 2.32953, -0.0867376)
 
+[node name="VerticalTube6" type="Node3D" parent="WallDetail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.2949, 37.7998, 19.7707)
+
+[node name="Node3D8" parent="WallDetail/VerticalTube6" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 3.20623, 13.7925, -0.00168514)
+
+[node name="Node3D9" parent="WallDetail/VerticalTube6" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 3.20623, 13.1726, -0.0867357)
+
+[node name="Node3D10" parent="WallDetail/VerticalTube6" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 3.20623, 9.33331, -0.00168896)
+
+[node name="Node3D11" parent="WallDetail/VerticalTube6" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, 1, 8.74228e-08, 0, -8.74228e-08, 1, 3.20623, -5.90052, 0.0192432)
+
+[node name="VerticalTube7" type="Node3D" parent="WallDetail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.2949, 37.7998, 17.9641)
+
+[node name="Node3D8" parent="WallDetail/VerticalTube7" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 3.20623, 13.7925, -0.00168514)
+
+[node name="Node3D9" parent="WallDetail/VerticalTube7" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 3.20623, 13.1726, -0.0867357)
+
+[node name="Node3D10" parent="WallDetail/VerticalTube7" instance=ExtResource("25_cinj7")]
+transform = Transform3D(-4.37114e-08, -8.74228e-08, -1, 0, -1, 8.74228e-08, -1, 3.82137e-15, 4.37114e-08, 3.20623, 9.33331, -0.00168896)
+
+[node name="Node3D11" parent="WallDetail/VerticalTube7" instance=ExtResource("25_cinj7")]
+transform = Transform3D(1, 0, 0, 0, 1, 8.74228e-08, 0, -8.74228e-08, 1, 3.20623, -5.90052, 0.0192432)
+
 [node name="VerticalTube3" type="Node3D" parent="WallDetail"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.20314, 0, 0.214277)
 
@@ -28445,7 +29054,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.07765, 7.85524, 6.55789)
 collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallDetail/VerticalTube4/Node3D3/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.753929, -1.84132, 2.00125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7934, -2.0821, 2.00125)
 shape = SubResource("BoxShape3D_nfqap")
 
 [node name="Node3D" parent="WallDetail/VerticalTube4" instance=ExtResource("24_u5qd7")]

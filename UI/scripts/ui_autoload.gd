@@ -111,7 +111,7 @@ func _ready() -> void:
 	_setup_audio_players()
 	
 	load_settings()
-	play_music("soundtrack_1", 0)
+	#play_music("soundtrack_1", 0)
 
 func _setup_audio_players() -> void:
 	# Create audio players for each bus if they don't exist
