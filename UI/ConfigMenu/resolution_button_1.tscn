@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjlxctidiwjf3"]
+
+[ext_resource type="FontFile" uid="uid://bd7hb4xsg7u2n" path="res://UI/Fonts/PixeloidMono.otf" id="1_pdfjm"]
+[ext_resource type="Texture2D" uid="uid://cev240nhyxski" path="res://UI/ConfigMenu/v2_btn_res_selection.png" id="2_0g3od"]
+[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/v2_btn_bar.png" id="3_bo436"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gedyv"]
+texture = ExtResource("2_0g3od")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ublkx"]
+texture = ExtResource("2_0g3od")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_53fcw"]
+texture = ExtResource("3_bo436")
+modulate_color = Color(0, 0.886275, 0.0470588, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evu1h"]
+texture = ExtResource("2_0g3od")
+
+[node name="ResolutionButton0" type="Button"]
+custom_minimum_size = Vector2(384, 66)
+theme_override_colors/font_color = Color(0, 0.886275, 0.0470588, 1)
+theme_override_colors/font_pressed_color = Color(0.00784314, 0.819608, 0.054902, 1)
+theme_override_colors/font_hover_color = Color(0.00784314, 0.819608, 0.054902, 1)
+theme_override_colors/font_focus_color = Color(0, 0.886275, 0.0470588, 1)
+theme_override_colors/font_disabled_color = Color(0, 0.784314, 0.00392157, 1)
+theme_override_fonts/font = ExtResource("1_pdfjm")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/hover = SubResource("StyleBoxTexture_gedyv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ublkx")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_53fcw")
+theme_override_styles/focus = SubResource("StyleBoxTexture_evu1h")
+text = "3840x2160"
+icon_alignment = 1

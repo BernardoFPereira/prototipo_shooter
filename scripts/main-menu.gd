@@ -1,87 +1,220 @@
+class_name MainMenu
 extends Control
 
-#const PORT := 8081
+#region MAIN MENU VARIABLES
+const plain_background: Texture2D = preload("uid://d3cmexsyvqeow")
+@onready var active_background = $Background/MainPanel/ActiveBackground
+@onready var play_button = $Background/MainPanel/PlayButton
+@onready var config_button = $Background/MainPanel/ConfigButton
+@onready var controls_button = $Background/MainPanel/ControlsButton
+@onready var credits_button = $Background/MainPanel/CreditsButton
+@onready var quit_button = $Background/MainPanel/QuitButton
+#endregion
 
-@onready var play_button = $VBoxContainer/PlayButton
-@onready var quit_button = $VBoxContainer/QuitButton
+#region CONFIGURATION VARIABLES
+const config_background = preload("uid://b732oopmq8wra")
+const res_button_selected_texture = preload("uid://cev240nhyxski")
+const off_button_texture = preload("uid://campufmmt0owc")
+const on_button_texture = preload("uid://cvk73i8luq6xc")
+const res_button = preload("uid://bjlxctidiwjf3")
 
-var level_scene:PackedScene = load("uid://ij2y5aqlc1dt")
+@onready var config_group = $Background/MainPanel/ConfigGroup
+@onready var windowed_button = $Background/MainPanel/ConfigGroup/WindowedButton
+@onready var fullscreen_button = $Background/MainPanel/ConfigGroup/FullscreenButton
+@onready var music_bar = $Background/MainPanel/ConfigGroup/MusicBar
+@onready var music_slider = $Background/MainPanel/ConfigGroup/MusicSlider
+@onready var toggle_music_button = $Background/MainPanel/ConfigGroup/ToggleMusicButton
+@onready var toggle_sfx_button = $Background/MainPanel/ConfigGroup/ToggleSFXButton
+@onready var sfx_bar = $Background/MainPanel/ConfigGroup/SFXBar
+@onready var sfx_slider = $Background/MainPanel/ConfigGroup/SFXSlider
+@onready var resolutions_list = $Background/MainPanel/ConfigGroup/ResolutionOptions/ResolutionVBox
+#endregion
 
-#var peer = NodeTunnelPeer.new()
-#var connected_players: Dictionary = {}
-#var peer_username: String
+var level_scene: PackedScene = load("uid://ij2y5aqlc1dt")
+var resolution_button_group: ButtonGroup
 
 func _ready() -> void:
-	play_button.pressed.connect(_on_play_pressed)
-	quit_button.pressed.connect(_on_quit_pressed)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	#peer.error.connect(
-		#func(error_msg):
-			#push_error("NodeTunnel Error: ", error_msg)
-	#)
-	#
-	#peer.connect_to_relay("us_east.nodetunnel.io:8080", "kowqnsa2y2l4fot")
-	#peer.connect_to_relay("oriean.space:4224", "kwopmaderer777")
-	#
-	#host_button.pressed.connect(_on_host_pressed)
-	#join_button.pressed.connect(_on_join_pressed)
-	#multiplayer.connected_to_server.connect(_on_connected_to_server)
-	#
-	#multiplayer.multiplayer_peer = peer
-	#
-	#print("Authenticating...")
-	#await peer.authenticated
-	#print("Authenticated!")
+	
+	active_background.texture = null
+	
+	add_resolutions()
+	update_button_values()
+	
+	setup_window_mode_buttons()
+	setup_audio_buttons()
+	
+	config_group.visible = false
 
 func _on_play_pressed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().change_scene_to_packed(level_scene)
-	#var entered = username_field.text.strip_edges()
-	#peer_username = entered if not entered.is_empty() else "Host"
-	#
-	#connected_players[multiplayer.get_unique_id()] = peer_username
-	#
-	#peer.host_room(false, "")
-	#print("Hosting room...")
-	#await peer.room_connected
-	#print("Connected to room: ", peer.room_id)
-	#
-	#room_id = peer.room_id
-	#
-	#DisplayServer.clipboard_set(str(peer.room_id))
-	
-	#multiplayer.multiplayer_peer = peer
-	
+	UI.play_sound("confirm_button")
 
 func _on_quit_pressed() -> void:
+	UI.save_settings()
+	UI.play_sound("back_button")
 	get_tree().quit(0)
-	#var entered = username_field.text.strip_edges()
-	#peer_username = entered if not entered.is_empty() else "Player"
-	#
-	#peer.join_room(room_id.text)
-	#
-	#connected_players[multiplayer.get_unique_id()] = peer_username
-	#
-	#print("Joining room...")
-	#await peer.room_connected
-	#print("Connected to room: ", room_id.text)
-	#
-	#multiplayer_menu.hide()
-	#
-	#_send_username.rpc_id(1, peer_username)
-	#
-	#multiplayer.multiplayer_peer = peer
-#
-#func _on_connected_to_server() -> void:
-	#get_tree().change_scene_to_packed(level_scene)
-#
-#@rpc("any_peer", "reliable")
-#func _send_username(desired: String):
-	#if not multiplayer.is_server():
-		#return
-		#
-	#var sender = multiplayer.get_remote_sender_id()
-	#var clean = desired.strip_edges().substr(0, 20)
-	#if clean == "": clean = "Anon" + str(sender)
-	#
-	#multiplayer_spawner.spawn({"peer_id": sender, "username": clean})
+
+#region CONFIGURATION
+func setup_window_mode_buttons() -> void:
+	var window_mode_group = ButtonGroup.new()
+	windowed_button.button_group = window_mode_group
+	fullscreen_button.button_group = window_mode_group
+	
+	# Set initial state from UI autoload
+	windowed_button.button_pressed = not UI.is_fullscreen
+	fullscreen_button.button_pressed = UI.is_fullscreen
+	
+	windowed_button.toggled.connect(_on_windowed_button_toggled)
+	fullscreen_button.toggled.connect(_on_fullscreen_button_toggled)
+
+func setup_audio_buttons() -> void:
+	# Set initial values from UI autoload
+	var music_slider_value = UI.db_to_slider(UI.music_volume if not UI.music_muted else UI.MIN_DB)
+	var sfx_slider_value = UI.db_to_slider(UI.sfx_volume if not UI.sfx_muted else UI.MIN_DB)
+	
+	music_slider.value = music_slider_value
+	sfx_slider.value = sfx_slider_value
+	
+	toggle_music_button.button_pressed = not UI.music_muted
+	toggle_sfx_button.button_pressed = not UI.sfx_muted
+	
+	# Trigger updates
+	_on_music_slider_value_changed(music_slider_value)
+	_on_sfx_slider_value_changed(sfx_slider_value)
+	_on_toggle_music_button_toggled(not UI.music_muted)
+	_on_toggle_sfx_button_toggled(not UI.sfx_muted)
+	
+
+func _on_config_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		config_group.visible = true
+		active_background.texture = config_background
+		UI.play_sound("confirm_button")
+	else:
+		config_group.visible = false
+		active_background.texture = null
+		UI.play_sound("back_button")
+		UI.save_settings()
+
+func _on_music_slider_value_changed(value: float) -> void:
+	var mapped_db = UI.slider_to_db(value)
+	
+	music_bar.value = value
+	AudioServer.set_bus_volume_db(1, mapped_db)
+	
+	if toggle_music_button.button_pressed:
+		UI.music_volume = mapped_db
+
+
+func _on_sfx_slider_value_changed(value: float) -> void:
+	var mapped_db = UI.slider_to_db(value)
+	
+	sfx_bar.value = value
+	AudioServer.set_bus_volume_db(2, mapped_db)
+	
+	if toggle_sfx_button.button_pressed:
+		UI.sfx_volume = mapped_db
+
+func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		AudioServer.set_bus_volume_db(1, UI.music_volume)
+		toggle_music_button.icon = on_button_texture
+		UI.play_sound("confirm_button")
+		UI.music_muted = false
+	else:
+		UI.music_volume = AudioServer.get_bus_volume_db(1)
+		AudioServer.set_bus_volume_db(1, UI.MIN_DB)
+		toggle_music_button.icon = off_button_texture
+		UI.play_sound("back_button")
+		UI.music_muted = true
+
+func _on_toggle_sfx_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		AudioServer.set_bus_volume_db(2, UI.sfx_volume)
+		toggle_sfx_button.icon = on_button_texture
+		UI.play_sound("confirm_button")
+		UI.sfx_muted = false
+	else:
+		UI.sfx_volume = AudioServer.get_bus_volume_db(2)
+		AudioServer.set_bus_volume_db(2, UI.MIN_DB)
+		toggle_sfx_button.icon = off_button_texture
+		UI.play_sound("back_button")
+		UI.sfx_muted = true
+
+func _on_windowed_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		UI.is_fullscreen = false
+		get_window().mode = Window.MODE_WINDOWED
+		get_window().size = UI.current_resolution
+		UI.play_sound("confirm_button")
+		windowed_button.mouse_filter = MOUSE_FILTER_IGNORE
+		UI.center_window()
+		update_button_values()
+		set_resolution_buttons_enabled(true)
+	else:
+		windowed_button.mouse_filter = MOUSE_FILTER_PASS
+
+func _on_fullscreen_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		UI.is_fullscreen = true
+		UI.play_sound("confirm_button")
+		fullscreen_button.mouse_filter = MOUSE_FILTER_IGNORE
+		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+		set_resolution_buttons_enabled(false)
+	else:
+		fullscreen_button.mouse_filter = MOUSE_FILTER_PASS
+
+func _on_resolution_button_pressed(resolution_key: String) -> void:
+	if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+		return
+	
+	if UI.resolutions.has(resolution_key):
+		UI.current_resolution = UI.resolutions[resolution_key]
+		get_window().size = UI.current_resolution
+		UI.center_window()
+		UI.play_sound("confirm_button")
+		update_button_values()
+
+func add_resolutions() -> void:
+	resolution_button_group = ButtonGroup.new()
+	
+	var index = 0
+	for r in UI.resolutions:
+		var new_button = res_button.instantiate()
+		new_button.text = r
+		new_button.name = "ResolutionButton" + str(index)
+		new_button.button_group = resolution_button_group
+		new_button.pressed.connect(_on_resolution_button_pressed.bind(r))
+		new_button.mouse_entered.connect(_on_button_hovered)
+		resolutions_list.add_child(new_button)
+		index += 1
+	update_button_values()
+	set_resolution_buttons_enabled(!UI.is_fullscreen)
+
+func update_button_values() -> void:
+	var window_size_str = str(get_window().size.x, "x", get_window().size.y)
+	var resolutions_index = UI.resolutions.keys().find(window_size_str)
+	
+	if resolutions_index == -1:
+		window_size_str = "1920x1080"
+		resolutions_index = UI.resolutions.keys().find(window_size_str)
+
+	var button_name = "ResolutionButton" + str(resolutions_index)
+	var selected_button = resolutions_list.get_node(button_name)
+	
+	if selected_button:
+		selected_button.button_pressed = true
+
+func set_resolution_buttons_enabled(enabled: bool) -> void:
+	for button in resolutions_list.get_children():
+		button.disabled = not enabled
+		if enabled:
+			button.mouse_filter = MOUSE_FILTER_PASS
+		else:
+			button.mouse_filter = MOUSE_FILTER_IGNORE
+
+func _on_button_hovered():
+	UI.play_sound("hover_button")
+#endregion
