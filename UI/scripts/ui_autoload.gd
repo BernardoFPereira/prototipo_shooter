@@ -3,7 +3,7 @@ extends CanvasLayer
 #region SETTINGS
 const SETTINGS_FILE := "user://menu_settings.cfg"
 
-const MIN_DB: float = -100
+const MIN_DB: float = -50
 const MAX_DB: float = 0
 
 var resolutions: Dictionary = {
@@ -38,21 +38,21 @@ enum SoundCategory {
 var sounds: Dictionary = {
 	# UI Sounds
 	"hover_button": {
-		"stream": preload("uid://bsyrvpekg5hr1"),
+		"stream": preload("res://assets/sounds/sfx/hover_button.wav"),
 		"bus": AudioBus.SFX,
 		"category": SoundCategory.SFX,
 		"volume_db": 0.0,
 		"pitch_scale": 1.0
 	},
 	"confirm_button": {
-		"stream": preload("uid://b0u28r3efrtiw"),
+		"stream": preload("res://assets/sounds/sfx/confirm_button.wav"),
 		"bus": AudioBus.SFX,
 		"category": SoundCategory.SFX,
 		"volume_db": 0.0,
 		"pitch_scale": 1.0
 	},
 	"back_button": {
-		"stream": preload("uid://cfw67125uhk2b"),
+		"stream": preload("res://assets/sounds/sfx/back_button.wav"),
 		"bus": AudioBus.SFX,
 		"category": SoundCategory.SFX,
 		"volume_db": 0.0,
@@ -219,10 +219,15 @@ func center_window() -> void:
 	get_window().set_position(screen_center - window_size / 2)
 
 func slider_to_db(value: float) -> float:
-	return MIN_DB + (value / 10.0) * (MAX_DB - MIN_DB)
+	if value <= 0:
+		return MIN_DB
+	
+	var db = MIN_DB + (value / 10.0) * (MAX_DB - MIN_DB)
+	return db
 
 func db_to_slider(db: float) -> float:
-	return (db - MIN_DB) / (MAX_DB - MIN_DB) * 10.0
+	var value = (db - MIN_DB) / (MAX_DB - MIN_DB) * 10.0
+	return clamp(value, 0.0, 10.0)
 
 func apply_settings() -> void:
 	if not is_fullscreen:

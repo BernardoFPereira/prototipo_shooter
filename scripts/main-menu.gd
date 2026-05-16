@@ -70,9 +70,8 @@ func setup_window_mode_buttons() -> void:
 	fullscreen_button.toggled.connect(_on_fullscreen_button_toggled)
 
 func setup_audio_buttons() -> void:
-	# Set initial values from UI autoload
-	var music_slider_value = UI.db_to_slider(UI.music_volume if not UI.music_muted else UI.MIN_DB)
-	var sfx_slider_value = UI.db_to_slider(UI.sfx_volume if not UI.sfx_muted else UI.MIN_DB)
+	var music_slider_value = UI.db_to_slider(UI.music_volume) if not UI.music_muted else 0
+	var sfx_slider_value = UI.db_to_slider(UI.sfx_volume) if not UI.sfx_muted else 0
 	
 	music_slider.value = music_slider_value
 	sfx_slider.value = sfx_slider_value
@@ -80,11 +79,8 @@ func setup_audio_buttons() -> void:
 	toggle_music_button.button_pressed = not UI.music_muted
 	toggle_sfx_button.button_pressed = not UI.sfx_muted
 	
-	# Trigger updates
 	_on_music_slider_value_changed(music_slider_value)
 	_on_sfx_slider_value_changed(sfx_slider_value)
-	_on_toggle_music_button_toggled(not UI.music_muted)
-	_on_toggle_sfx_button_toggled(not UI.sfx_muted)
 	
 
 func _on_config_button_toggled(toggled_on: bool) -> void:
@@ -102,46 +98,78 @@ func _on_music_slider_value_changed(value: float) -> void:
 	var mapped_db = UI.slider_to_db(value)
 	
 	music_bar.value = value
-	AudioServer.set_bus_volume_db(1, mapped_db)
 	
-	if toggle_music_button.button_pressed:
-		UI.music_volume = mapped_db
-
+	if value <= 0:
+		if not UI.music_muted:
+			toggle_music_button.button_pressed = false
+			_on_toggle_music_button_toggled(false)
+	else:
+		if UI.music_muted:
+			toggle_music_button.button_pressed = true
+			_on_toggle_music_button_toggled(true)
+		
+		if toggle_music_button.button_pressed:
+			UI.music_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, mapped_db)
+		else:
+			UI.music_volume = mapped_db
 
 func _on_sfx_slider_value_changed(value: float) -> void:
 	var mapped_db = UI.slider_to_db(value)
 	
 	sfx_bar.value = value
-	AudioServer.set_bus_volume_db(2, mapped_db)
 	
-	if toggle_sfx_button.button_pressed:
-		UI.sfx_volume = mapped_db
+	if value <= 0:
+		if not UI.sfx_muted:
+			toggle_sfx_button.button_pressed = false
+			_on_toggle_sfx_button_toggled(false)
+	else:
+		if UI.sfx_muted:
+			toggle_sfx_button.button_pressed = true
+			_on_toggle_sfx_button_toggled(true)
+		
+		if toggle_sfx_button.button_pressed:
+			UI.sfx_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.SFX, mapped_db)
+		else:
+			UI.sfx_volume = mapped_db
 
 func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		AudioServer.set_bus_volume_db(1, UI.music_volume)
+		var current_slider_value = music_slider.value
+		if current_slider_value <= 0:
+			music_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, UI.slider_to_db(current_slider_value))
 		toggle_music_button.icon = on_button_texture
-		UI.play_sound("confirm_button")
 		UI.music_muted = false
+		UI.play_sound("confirm_button")
 	else:
-		UI.music_volume = AudioServer.get_bus_volume_db(1)
-		AudioServer.set_bus_volume_db(1, UI.MIN_DB)
+		# Mutar
+		UI.music_volume = AudioServer.get_bus_volume_db(UI.AudioBus.MUSIC)
+		AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, UI.MIN_DB)
 		toggle_music_button.icon = off_button_texture
-		UI.play_sound("back_button")
 		UI.music_muted = true
+		UI.play_sound("back_button")
 
 func _on_toggle_sfx_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		AudioServer.set_bus_volume_db(2, UI.sfx_volume)
+		var current_slider_value = sfx_slider.value
+		if current_slider_value <= 0:
+			sfx_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.SFX, UI.slider_to_db(current_slider_value))
 		toggle_sfx_button.icon = on_button_texture
-		UI.play_sound("confirm_button")
 		UI.sfx_muted = false
+		UI.play_sound("confirm_button")
 	else:
-		UI.sfx_volume = AudioServer.get_bus_volume_db(2)
-		AudioServer.set_bus_volume_db(2, UI.MIN_DB)
+		UI.sfx_volume = AudioServer.get_bus_volume_db(UI.AudioBus.SFX)
+		AudioServer.set_bus_volume_db(UI.AudioBus.SFX, UI.MIN_DB)
 		toggle_sfx_button.icon = off_button_texture
-		UI.play_sound("back_button")
 		UI.sfx_muted = true
+		UI.play_sound("back_button")
 
 func _on_windowed_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
