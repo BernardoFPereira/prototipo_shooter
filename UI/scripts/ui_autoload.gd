@@ -3,9 +3,6 @@ extends CanvasLayer
 #region SETTINGS
 const SETTINGS_FILE := "user://menu_settings.cfg"
 
-const MIN_DB: float = -50
-const MAX_DB: float = 0
-
 var resolutions: Dictionary = {
 	"1920x1080": Vector2i(1920,1080),
 	"1600x900": Vector2i(1600,900),
@@ -223,16 +220,37 @@ func center_window() -> void:
 	var window_size = get_window().get_size_with_decorations()
 	get_window().set_position(screen_center - window_size / 2)
 
+#region VOLUME MAPPING FUNCTIONS
+const MIN_DB: float = -80
+const MAX_DB: float = -5
+
+const VOLUME_CURVE_POWER: float = 0.4
+
 func slider_to_db(value: float) -> float:
+	
 	if value <= 0:
 		return MIN_DB
 	
-	var db = MIN_DB + (value / 10.0) * (MAX_DB - MIN_DB)
+	var normalized = value / 10.0
+	
+	var curve = pow(normalized, VOLUME_CURVE_POWER)
+	
+	var db = MIN_DB + (curve * (MAX_DB - MIN_DB))
+	
 	return db
 
 func db_to_slider(db: float) -> float:
-	var value = (db - MIN_DB) / (MAX_DB - MIN_DB) * 10.0
+	if db <= MIN_DB:
+		return 0.0
+	
+	var normalized = (db - MIN_DB) / (MAX_DB - MIN_DB)
+	
+	var curve = pow(normalized, 1.0 / VOLUME_CURVE_POWER)
+	
+	var value = curve * 10.0
+	
 	return clamp(value, 0.0, 10.0)
+#endregion
 
 func apply_settings() -> void:
 	if not is_fullscreen:

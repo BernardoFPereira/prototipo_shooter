@@ -587,6 +587,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_1n0ys")
 
 [node name="NextButton" type="Button" parent="NextLevelHUD/NLPanel"]
 custom_minimum_size = Vector2(504, 108)
+layout_mode = 0
 offset_left = 708.0
 offset_top = 573.0
 offset_right = 1212.0
@@ -600,6 +601,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_hkcj3")
 
 [node name="MenuButton" type="Button" parent="NextLevelHUD/NLPanel"]
 custom_minimum_size = Vector2(504, 108)
+layout_mode = 0
 offset_left = 708.0
 offset_top = 723.0
 offset_right = 1212.0
