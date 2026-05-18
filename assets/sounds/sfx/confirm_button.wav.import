@@ -2,7 +2,7 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://b0u28r3efrtiw"
+uid="uid://6h7pgvoy3fae"
 path="res://.godot/imported/confirm_button.wav-430f759ac1f1f1c06601e8495fea5def.sample"
 
 [deps]
@@ -17,7 +17,7 @@ force/mono=true
 force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
-edit/normalize=true
+edit/normalize=false
 edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1

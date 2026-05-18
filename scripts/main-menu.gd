@@ -3,12 +3,17 @@ extends Control
 
 #region MAIN MENU VARIABLES
 const plain_background: Texture2D = preload("uid://d3cmexsyvqeow")
+const credits_background: Texture2D = preload("uid://cr6rlefuxcgye")
+const quit_background: Texture2D = preload("uid://doesa2icl3m3e")
+@onready var quit_group = $Background/MainPanel/QuitGroup
 @onready var active_background = $Background/MainPanel/ActiveBackground
 @onready var play_button = $Background/MainPanel/PlayButton
 @onready var config_button = $Background/MainPanel/ConfigButton
-@onready var controls_button = $Background/MainPanel/ControlsButton
+@onready var ctrls_button = $Background/MainPanel/ControlsButton
 @onready var credits_button = $Background/MainPanel/CreditsButton
 @onready var quit_button = $Background/MainPanel/QuitButton
+@onready var really_quit_button = $Background/MainPanel/QuitGroup/Yes
+
 #endregion
 
 #region CONFIGURATION VARIABLES
@@ -30,6 +35,14 @@ const res_button = preload("uid://bjlxctidiwjf3")
 @onready var resolutions_list = $Background/MainPanel/ConfigGroup/ResolutionOptions/ResolutionVBox
 #endregion
 
+#region CONTROLS VARIABLES
+const ctrls_key_background = preload("uid://bm4vv33qdo54t")
+const ctrls_joy_background = preload("uid://nb4doc1n4fhh")
+@onready var ctrls_group = $Background/MainPanel/ControlsGroup
+@onready var keyboard_button = $Background/MainPanel/ControlsGroup/KeyboardButton
+@onready var joystick_button = $Background/MainPanel/ControlsGroup/JoystickButton
+#endregion
+
 var level_scene: PackedScene = load("uid://ij2y5aqlc1dt")
 var resolution_button_group: ButtonGroup
 
@@ -45,6 +58,7 @@ func _ready() -> void:
 	setup_audio_buttons()
 	
 	config_group.visible = false
+	ctrls_group.visible = false
 
 func _on_play_pressed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -62,7 +76,6 @@ func setup_window_mode_buttons() -> void:
 	windowed_button.button_group = window_mode_group
 	fullscreen_button.button_group = window_mode_group
 	
-	# Set initial state from UI autoload
 	windowed_button.button_pressed = not UI.is_fullscreen
 	fullscreen_button.button_pressed = UI.is_fullscreen
 	
@@ -70,9 +83,8 @@ func setup_window_mode_buttons() -> void:
 	fullscreen_button.toggled.connect(_on_fullscreen_button_toggled)
 
 func setup_audio_buttons() -> void:
-	# Set initial values from UI autoload
-	var music_slider_value = UI.db_to_slider(UI.music_volume if not UI.music_muted else UI.MIN_DB)
-	var sfx_slider_value = UI.db_to_slider(UI.sfx_volume if not UI.sfx_muted else UI.MIN_DB)
+	var music_slider_value = UI.db_to_slider(UI.music_volume) if not UI.music_muted else 0
+	var sfx_slider_value = UI.db_to_slider(UI.sfx_volume) if not UI.sfx_muted else 0
 	
 	music_slider.value = music_slider_value
 	sfx_slider.value = sfx_slider_value
@@ -80,16 +92,17 @@ func setup_audio_buttons() -> void:
 	toggle_music_button.button_pressed = not UI.music_muted
 	toggle_sfx_button.button_pressed = not UI.sfx_muted
 	
-	# Trigger updates
 	_on_music_slider_value_changed(music_slider_value)
 	_on_sfx_slider_value_changed(sfx_slider_value)
-	_on_toggle_music_button_toggled(not UI.music_muted)
-	_on_toggle_sfx_button_toggled(not UI.sfx_muted)
-	
 
 func _on_config_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		config_group.visible = true
+		ctrls_group.visible = false
+		ctrls_button.button_pressed = false
+		credits_button.button_pressed = false
+		quit_group.visible = false
+		quit_button.button_pressed = false
 		active_background.texture = config_background
 		UI.play_sound("confirm_button")
 	else:
@@ -102,46 +115,77 @@ func _on_music_slider_value_changed(value: float) -> void:
 	var mapped_db = UI.slider_to_db(value)
 	
 	music_bar.value = value
-	AudioServer.set_bus_volume_db(1, mapped_db)
 	
-	if toggle_music_button.button_pressed:
-		UI.music_volume = mapped_db
-
+	if value <= 0:
+		if not UI.music_muted:
+			toggle_music_button.button_pressed = false
+			_on_toggle_music_button_toggled(false)
+	else:
+		if UI.music_muted:
+			toggle_music_button.button_pressed = true
+			_on_toggle_music_button_toggled(true)
+		
+		if toggle_music_button.button_pressed:
+			UI.music_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, mapped_db)
+		else:
+			UI.music_volume = mapped_db
 
 func _on_sfx_slider_value_changed(value: float) -> void:
 	var mapped_db = UI.slider_to_db(value)
 	
 	sfx_bar.value = value
-	AudioServer.set_bus_volume_db(2, mapped_db)
 	
-	if toggle_sfx_button.button_pressed:
-		UI.sfx_volume = mapped_db
+	if value <= 0:
+		if not UI.sfx_muted:
+			toggle_sfx_button.button_pressed = false
+			_on_toggle_sfx_button_toggled(false)
+	else:
+		if UI.sfx_muted:
+			toggle_sfx_button.button_pressed = true
+			_on_toggle_sfx_button_toggled(true)
+		
+		if toggle_sfx_button.button_pressed:
+			UI.sfx_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.SFX, mapped_db)
+		else:
+			UI.sfx_volume = mapped_db
 
 func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		AudioServer.set_bus_volume_db(1, UI.music_volume)
+		var current_slider_value = music_slider.value
+		if current_slider_value <= 0:
+			music_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, UI.slider_to_db(current_slider_value))
 		toggle_music_button.icon = on_button_texture
-		UI.play_sound("confirm_button")
 		UI.music_muted = false
+		UI.play_sound("confirm_button")
 	else:
-		UI.music_volume = AudioServer.get_bus_volume_db(1)
-		AudioServer.set_bus_volume_db(1, UI.MIN_DB)
+		UI.music_volume = AudioServer.get_bus_volume_db(UI.AudioBus.MUSIC)
+		AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, UI.MIN_DB)
 		toggle_music_button.icon = off_button_texture
-		UI.play_sound("back_button")
 		UI.music_muted = true
+		UI.play_sound("back_button")
 
 func _on_toggle_sfx_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		AudioServer.set_bus_volume_db(2, UI.sfx_volume)
+		var current_slider_value = sfx_slider.value
+		if current_slider_value <= 0:
+			sfx_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.SFX, UI.slider_to_db(current_slider_value))
 		toggle_sfx_button.icon = on_button_texture
-		UI.play_sound("confirm_button")
 		UI.sfx_muted = false
+		UI.play_sound("confirm_button")
 	else:
-		UI.sfx_volume = AudioServer.get_bus_volume_db(2)
-		AudioServer.set_bus_volume_db(2, UI.MIN_DB)
+		UI.sfx_volume = AudioServer.get_bus_volume_db(UI.AudioBus.SFX)
+		AudioServer.set_bus_volume_db(UI.AudioBus.SFX, UI.MIN_DB)
 		toggle_sfx_button.icon = off_button_texture
-		UI.play_sound("back_button")
 		UI.sfx_muted = true
+		UI.play_sound("back_button")
 
 func _on_windowed_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
@@ -217,4 +261,55 @@ func set_resolution_buttons_enabled(enabled: bool) -> void:
 
 func _on_button_hovered():
 	UI.play_sound("hover_button")
+#endregion
+
+#region CONTROLS
+func _on_ctrls_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		ctrls_group.visible = true
+		config_group.visible = false
+		config_button.button_pressed = false
+		credits_button.button_pressed = false
+		quit_group.visible = false
+		quit_button.button_pressed = false
+		active_background.texture = ctrls_key_background
+		UI.play_sound("confirm_button")
+	else:
+		ctrls_group.visible = true
+		active_background.texture = null
+		UI.play_sound("back_button")
+#endregion
+
+#region CREDITS
+func _on_credits_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		config_group.visible = false
+		config_button.button_pressed = false
+		ctrls_group.visible = false
+		ctrls_button.button_pressed = false
+		quit_group.visible = false
+		quit_button.button_pressed = false
+		active_background.texture = credits_background
+		UI.play_sound("confirm_button")
+	else:
+		active_background.texture = null
+		UI.play_sound("back_button")
+#endregion
+
+#region QUIT
+func _on_quit_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		quit_group.visible = true
+		config_group.visible = false
+		config_button.button_pressed = false
+		ctrls_group.visible = false
+		ctrls_button.button_pressed = false
+		credits_button.button_pressed = false
+		active_background.texture = quit_background
+		UI.play_sound("confirm_button")
+	else:
+		quit_group.visible = false
+		active_background.texture = null
+		UI.play_sound("back_button")
+		UI.save_settings()
 #endregion

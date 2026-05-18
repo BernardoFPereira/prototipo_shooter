@@ -3,9 +3,6 @@ extends CanvasLayer
 #region SETTINGS
 const SETTINGS_FILE := "user://menu_settings.cfg"
 
-const MIN_DB: float = -100
-const MAX_DB: float = 0
-
 var resolutions: Dictionary = {
 	"1920x1080": Vector2i(1920,1080),
 	"1600x900": Vector2i(1600,900),
@@ -21,6 +18,10 @@ var music_muted: bool = false
 var sfx_muted: bool = false
 #endregion
 
+#region CONTROLS
+var is_keyboard: bool = true
+#endregion
+
 #region AUDIO MANAGEMENT
 enum AudioBus {
 	MASTER = 0,
@@ -28,31 +29,28 @@ enum AudioBus {
 	SFX = 2
 }
 
-# Sound categories
 enum SoundCategory {
 	SFX,
 	MUSIC
 }
 
-# Dictionary of all game sounds
 var sounds: Dictionary = {
-	# UI Sounds
 	"hover_button": {
-		"stream": preload("uid://bsyrvpekg5hr1"),
+		"stream": preload("res://assets/sounds/sfx/hover_button.wav"),
 		"bus": AudioBus.SFX,
 		"category": SoundCategory.SFX,
 		"volume_db": 0.0,
 		"pitch_scale": 1.0
 	},
 	"confirm_button": {
-		"stream": preload("uid://b0u28r3efrtiw"),
+		"stream": preload("res://assets/sounds/sfx/confirm_button.wav"),
 		"bus": AudioBus.SFX,
 		"category": SoundCategory.SFX,
 		"volume_db": 0.0,
 		"pitch_scale": 1.0
 	},
 	"back_button": {
-		"stream": preload("uid://cfw67125uhk2b"),
+		"stream": preload("res://assets/sounds/sfx/back_button.wav"),
 		"bus": AudioBus.SFX,
 		"category": SoundCategory.SFX,
 		"volume_db": 0.0,
@@ -82,7 +80,6 @@ var sounds: Dictionary = {
 		#"pitch_scale": 1.0
 	#},
 	
-	# Background Music
 	"soundtrack_1": {
 		"stream": preload("uid://irff2xea5j5w"),
 		"bus": AudioBus.MUSIC,
@@ -101,7 +98,6 @@ var sounds: Dictionary = {
 	#}
 }
 
-# Audio players for each bus
 var audio_players: Dictionary = {}
 var current_music: String = ""
 var current_music_player: AudioStreamPlayer = null
@@ -110,21 +106,24 @@ var current_music_player: AudioStreamPlayer = null
 func _ready() -> void:
 	_setup_audio_players()
 	
+	play_music("soundtrack_1", 0)
 	load_settings()
-	#play_music("soundtrack_1", 0)
 
 func _setup_audio_players() -> void:
-	# Create audio players for each bus if they don't exist
 	for bus in AudioBus.values():
 		var player = AudioStreamPlayer.new()
 		player.bus = AudioServer.get_bus_name(bus)
 		add_child(player)
 		audio_players[bus] = player
 	
-	# Special player for looping music
 	current_music_player = AudioStreamPlayer.new()
 	current_music_player.bus = AudioServer.get_bus_name(AudioBus.MUSIC)
-	add_child(current_music_player)
+	
+	current_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	self.add_child(current_music_player)
+	
+	current_music_player.name = "GlobalMusicPlayer"
 
 #region AUDIO PLAYBACK
 func play_sound(sound_name: String) -> void:
@@ -132,16 +131,13 @@ func play_sound(sound_name: String) -> void:
 	var sound_data = sounds[sound_name]
 	var player = audio_players[sound_data.bus]
 	
-	# Check if sound is muted based on category
 	if sound_data.category == SoundCategory.MUSIC and music_muted:
 		return
 	if sound_data.category == SoundCategory.SFX and sfx_muted:
 		return
 	
-	# Configure and play
 	player.stream = sound_data.stream
 	
-	# Handle looping for music
 	if sound_data.category == SoundCategory.MUSIC and sound_data.get("loop", false):
 		player.finished.connect(_on_music_finished.bind(player, sound_data.stream), CONNECT_ONE_SHOT)
 	
@@ -155,6 +151,9 @@ func play_music(music_name: String, fade_in: float = 0.0) -> void:
 	if music_muted:
 		return
 	
+	if not is_instance_valid(current_music_player):
+		_setup_audio_players()
+	
 	var sound_data = sounds[music_name]
 	current_music = music_name
 	
@@ -166,6 +165,9 @@ func play_music(music_name: String, fade_in: float = 0.0) -> void:
 		current_music_player.play()
 
 func stop_music(fade_out: float = 0.0) -> void:
+	if not is_instance_valid(current_music_player):
+		return
+		
 	if fade_out > 0:
 		_fade_out_music(fade_out)
 	else:
@@ -218,11 +220,37 @@ func center_window() -> void:
 	var window_size = get_window().get_size_with_decorations()
 	get_window().set_position(screen_center - window_size / 2)
 
+#region VOLUME MAPPING FUNCTIONS
+const MIN_DB: float = -80
+const MAX_DB: float = -5
+
+const VOLUME_CURVE_POWER: float = 0.4
+
 func slider_to_db(value: float) -> float:
-	return MIN_DB + (value / 10.0) * (MAX_DB - MIN_DB)
+	
+	if value <= 0:
+		return MIN_DB
+	
+	var normalized = value / 10.0
+	
+	var curve = pow(normalized, VOLUME_CURVE_POWER)
+	
+	var db = MIN_DB + (curve * (MAX_DB - MIN_DB))
+	
+	return db
 
 func db_to_slider(db: float) -> float:
-	return (db - MIN_DB) / (MAX_DB - MIN_DB) * 10.0
+	if db <= MIN_DB:
+		return 0.0
+	
+	var normalized = (db - MIN_DB) / (MAX_DB - MIN_DB)
+	
+	var curve = pow(normalized, 1.0 / VOLUME_CURVE_POWER)
+	
+	var value = curve * 10.0
+	
+	return clamp(value, 0.0, 10.0)
+#endregion
 
 func apply_settings() -> void:
 	if not is_fullscreen:
@@ -281,3 +309,7 @@ func load_settings() -> void:
 	apply_settings()
 	print("Settings loaded from: ", SETTINGS_FILE)
 #endregion
+
+func _exit_tree() -> void:
+	if is_instance_valid(current_music_player):
+		current_music_player.queue_free()

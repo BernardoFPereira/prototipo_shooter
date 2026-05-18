@@ -1,10 +1,28 @@
-[gd_scene load_steps=21 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=68 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_cgxxp"]
 [ext_resource type="Texture2D" uid="uid://bfyp8hyjap7gw" path="res://textures/crosshairs/Crosshair3.png" id="3_5hn21"]
 [ext_resource type="Script" path="res://scripts/camera_effects.gd" id="3_x4mog"]
+[ext_resource type="Script" path="res://scripts/pause_input_handler.gd" id="4_dv2id"]
+[ext_resource type="Texture2D" uid="uid://djjgieyr1aiax" path="res://UI/PauseMenu/v2 JOGO PAUSADO BASE.png" id="4_lawv2"]
 [ext_resource type="Material" uid="uid://bbdqc4m63071q" path="res://materials/shadermaterials/vignette.tres" id="5_2w87f"]
+[ext_resource type="Texture2D" uid="uid://cxa5rnrt6v587" path="res://UI/PauseMenu/v2_btn_retomar.png" id="5_nf3sg"]
+[ext_resource type="Texture2D" uid="uid://b5cxv35w7mhv4" path="res://UI/PauseMenu/v2_btn_retomar_selected.png" id="6_s1r04"]
+[ext_resource type="Texture2D" uid="uid://1fdrh1ckrstk" path="res://UI/PauseMenu/v2_btn_reiniciar.png" id="7_7noov"]
+[ext_resource type="Texture2D" uid="uid://culuhhe61t1q4" path="res://UI/PauseMenu/v2_btn_reiniciar_selected.png" id="8_a3ilq"]
+[ext_resource type="Texture2D" uid="uid://bgyl7phxaenil" path="res://UI/PauseMenu/v2_btn_sair.png" id="9_410rx"]
+[ext_resource type="Texture2D" uid="uid://bkra0iv8634j" path="res://UI/PauseMenu/v2_btn_sair_selected.png" id="10_5cgrm"]
+[ext_resource type="Texture2D" uid="uid://dvxsrorlk4hen" path="res://UI/GameOver/v2 GAMEOVER BASE 2.0.png" id="13_ejqfy"]
+[ext_resource type="Texture2D" uid="uid://d11ku73422civ" path="res://UI/GameOver/v2_btn_sim_vermelho.png" id="14_lrrbe"]
+[ext_resource type="Texture2D" uid="uid://cqajtmav5x7g2" path="res://UI/GameOver/v2_btn_sim_vermelho_selected.png" id="15_5mrkd"]
+[ext_resource type="Texture2D" uid="uid://i0bmeqyekqyl" path="res://UI/GameOver/v2_btn_não_vermelho.png" id="16_b6bef"]
+[ext_resource type="Texture2D" uid="uid://chk7nggky8tp4" path="res://UI/GameOver/v2_btn_não_vermelho_selected.png" id="17_8mjer"]
+[ext_resource type="Texture2D" uid="uid://ci4qqpqgo2utt" path="res://UI/NextLevel/v2 NÍVEL CONCLUIDO BASE.png" id="19_fllbx"]
+[ext_resource type="Texture2D" uid="uid://b0cqpwoqvbjm7" path="res://UI/NextLevel/v2_btn_continuar.png" id="20_nb2tc"]
+[ext_resource type="Texture2D" uid="uid://ddm1ovqo68r7g" path="res://UI/NextLevel/v2_btn_continuar_selected.png" id="21_q4su2"]
+[ext_resource type="Texture2D" uid="uid://dsbvhxar6mq30" path="res://UI/NextLevel/v2_btn_sair.png" id="22_3wg4i"]
+[ext_resource type="Texture2D" uid="uid://cwcecrhgtc106" path="res://UI/NextLevel/v2_btn_sair_selected.png" id="23_3a37p"]
 
 [sub_resource type="Animation" id="Animation_x4mkt"]
 length = 0.001
@@ -215,11 +233,105 @@ size = Vector3(0.89, 1, 1.495)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuyju"]
-bg_color = Color(0.443137, 0, 0, 0.490196)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0m2c6"]
+texture = ExtResource("4_lawv2")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnlr8"]
-bg_color = Color(2.07564e-07, 0.191309, 0.00721884, 0.490196)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rm64v"]
+texture = ExtResource("5_nf3sg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_isqmn"]
+texture = ExtResource("6_s1r04")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ya1ol"]
+texture = ExtResource("6_s1r04")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j71k6"]
+texture = ExtResource("6_s1r04")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dh441"]
+texture = ExtResource("7_7noov")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovx23"]
+texture = ExtResource("8_a3ilq")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dbx8o"]
+texture = ExtResource("8_a3ilq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gh1h5"]
+texture = ExtResource("8_a3ilq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bap88"]
+texture = ExtResource("9_410rx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_74low"]
+texture = ExtResource("10_5cgrm")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ywuo7"]
+texture = ExtResource("10_5cgrm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_adn62"]
+texture = ExtResource("10_5cgrm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1wo7r"]
+texture = ExtResource("13_ejqfy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rbsye"]
+texture = ExtResource("14_lrrbe")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ib3i2"]
+texture = ExtResource("15_5mrkd")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4nc2e"]
+texture = ExtResource("15_5mrkd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_stc5y"]
+texture = ExtResource("15_5mrkd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_no3di"]
+texture = ExtResource("16_b6bef")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ary3h"]
+texture = ExtResource("17_8mjer")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_glvff"]
+texture = ExtResource("17_8mjer")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cfi3m"]
+texture = ExtResource("17_8mjer")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1n0ys"]
+texture = ExtResource("19_fllbx")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwd7i"]
+texture = ExtResource("20_nb2tc")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cmsp4"]
+texture = ExtResource("21_q4su2")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_choi6"]
+texture = ExtResource("21_q4su2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hkcj3"]
+texture = ExtResource("21_q4su2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_na22m"]
+texture = ExtResource("22_3wg4i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5g4p2"]
+texture = ExtResource("23_3a37p")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jd7jn"]
+texture = ExtResource("23_3a37p")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ohyrs"]
+texture = ExtResource("23_3a37p")
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice")]
 collision_layer = 260
@@ -302,54 +414,66 @@ shape = SubResource("SphereShape3D_k5oyn")
 [node name="MenuHUD" type="CanvasLayer" parent="."]
 process_mode = 3
 visible = false
+script = ExtResource("4_dv2id")
 
-[node name="PanelContainer" type="PanelContainer" parent="MenuHUD"]
+[node name="Panel" type="Panel" parent="MenuHUD"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="PanelContainer" type="Panel" parent="MenuHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0m2c6")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuHUD/PanelContainer"]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+offset_left = 339.0
+offset_top = 432.0
+offset_right = 843.0
+offset_bottom = 840.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 15
-
-[node name="Label" type="Label" parent="MenuHUD/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Pause Menu"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="MenuHUD/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 42
+alignment = 1
 
 [node name="ResumeButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(504, 108)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Resumir"
+theme_override_styles/normal = SubResource("StyleBoxTexture_rm64v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_isqmn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ya1ol")
+theme_override_styles/focus = SubResource("StyleBoxTexture_j71k6")
 
 [node name="RetryButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(504, 108)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Tentar Novamente"
+theme_override_styles/normal = SubResource("StyleBoxTexture_dh441")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ovx23")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dbx8o")
+theme_override_styles/focus = SubResource("StyleBoxTexture_gh1h5")
 
 [node name="MenuButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(504, 108)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Voltar ao Menu"
+theme_override_styles/normal = SubResource("StyleBoxTexture_bap88")
+theme_override_styles/hover = SubResource("StyleBoxTexture_74low")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ywuo7")
+theme_override_styles/focus = SubResource("StyleBoxTexture_adn62")
 
 [node name="GameHUD" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="HitVignette" type="ColorRect" parent="GameHUD"]
 visible = false
@@ -398,103 +522,110 @@ horizontal_alignment = 1
 [node name="GameOverHUD" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="PanelContainer" type="PanelContainer" parent="GameOverHUD"]
+[node name="Panel" type="Panel" parent="GameOverHUD"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_wuyju")
 
-[node name="Label" type="Label" parent="GameOverHUD/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 26
-text = "Você Morreu!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOverHUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -77.0
-offset_top = 44.0
-offset_right = 77.0
-offset_bottom = 116.0
+[node name="GOPanel" type="Panel" parent="GameOverHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 10
+theme_override_styles/panel = SubResource("StyleBoxTexture_1wo7r")
 
-[node name="RetryButton" type="Button" parent="GameOverHUD/VBoxContainer"]
+[node name="RetryButton" type="Button" parent="GameOverHUD/GOPanel"]
+custom_minimum_size = Vector2(207, 102)
 layout_mode = 2
+offset_left = 690.0
+offset_top = 717.0
+offset_right = 897.0
+offset_bottom = 819.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Tentar Novamente"
+theme_override_styles/normal = SubResource("StyleBoxTexture_rbsye")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ib3i2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4nc2e")
+theme_override_styles/focus = SubResource("StyleBoxTexture_stc5y")
 
-[node name="MenuButton" type="Button" parent="GameOverHUD/VBoxContainer"]
+[node name="MenuButton" type="Button" parent="GameOverHUD/GOPanel"]
+custom_minimum_size = Vector2(207, 102)
 layout_mode = 2
+offset_left = 1023.0
+offset_top = 717.0
+offset_right = 1230.0
+offset_bottom = 819.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Voltar ao Menu"
+theme_override_styles/normal = SubResource("StyleBoxTexture_no3di")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ary3h")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_glvff")
+theme_override_styles/focus = SubResource("StyleBoxTexture_cfi3m")
 
 [node name="NextLevelHUD" type="CanvasLayer" parent="."]
 visible = false
 
-[node name="PanelContainer" type="PanelContainer" parent="NextLevelHUD"]
+[node name="Panel" type="Panel" parent="NextLevelHUD"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_dnlr8")
 
-[node name="Label" type="Label" parent="NextLevelHUD/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 26
-text = "Nível concluído!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="NextLevelHUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -77.0
-offset_top = 44.0
-offset_right = 77.0
-offset_bottom = 116.0
+[node name="NLPanel" type="Panel" parent="NextLevelHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1n0ys")
+
+[node name="NextButton" type="Button" parent="NextLevelHUD/NLPanel"]
+custom_minimum_size = Vector2(504, 108)
+layout_mode = 0
+offset_left = 708.0
+offset_top = 573.0
+offset_right = 1212.0
+offset_bottom = 681.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 10
+theme_override_styles/normal = SubResource("StyleBoxTexture_vwd7i")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cmsp4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_choi6")
+theme_override_styles/focus = SubResource("StyleBoxTexture_hkcj3")
 
-[node name="NextButton" type="Button" parent="NextLevelHUD/VBoxContainer"]
-layout_mode = 2
+[node name="MenuButton" type="Button" parent="NextLevelHUD/NLPanel"]
+custom_minimum_size = Vector2(504, 108)
+layout_mode = 0
+offset_left = 708.0
+offset_top = 723.0
+offset_right = 1212.0
+offset_bottom = 831.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Próximo Nível"
+theme_override_styles/normal = SubResource("StyleBoxTexture_na22m")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5g4p2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jd7jn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_ohyrs")
 
-[node name="RetryButton" type="Button" parent="NextLevelHUD/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Tentar Novamente"
-
+[connection signal="mouse_entered" from="MenuHUD/PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="mouse_entered" from="MenuHUD/PanelContainer/VBoxContainer/RetryButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="mouse_entered" from="MenuHUD/PanelContainer/VBoxContainer/MenuButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="GameOverHUD/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
-[connection signal="pressed" from="GameOverHUD/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
-[connection signal="pressed" from="NextLevelHUD/VBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
-[connection signal="pressed" from="NextLevelHUD/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="mouse_entered" from="GameOverHUD/GOPanel/RetryButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="GameOverHUD/GOPanel/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="mouse_entered" from="GameOverHUD/GOPanel/MenuButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="GameOverHUD/GOPanel/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="mouse_entered" from="NextLevelHUD/NLPanel/NextButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="NextLevelHUD/NLPanel/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="mouse_entered" from="NextLevelHUD/NLPanel/MenuButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="NextLevelHUD/NLPanel/MenuButton" to="." method="_on_menu_button_pressed"]
 
 [editable path="Head/Weapon/sword"]

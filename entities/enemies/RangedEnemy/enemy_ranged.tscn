@@ -120,8 +120,7 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25
 script = ExtResource("1_ixay4")
-max_health = 70.0
-attack_range = 65.0
+attack_range = 75.0
 
 [node name="Armature" type="Node3D" parent="."]
 
@@ -283,7 +282,7 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="SightCollision" type="CollisionShape3D" parent="SightArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
 shape = SubResource("SphereShape3D_cg7ux")
 
 [node name="GroundRaycast" type="RayCast3D" parent="."]

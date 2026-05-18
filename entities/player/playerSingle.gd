@@ -126,25 +126,10 @@ func _unhandled_input(event):
 	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		input_mouse = event.relative
-		
+
 func _input(event):
 	if is_dead or is_next_level:
 		return
-		
-	
-	if Input.is_action_just_pressed("ui_cancel"):
-		match Input.mouse_mode:
-			Input.MOUSE_MODE_VISIBLE:
-				get_tree().paused = false
-				menu_canvas.visible = false
-				game_hud_canvas.visible = true
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			Input.MOUSE_MODE_CAPTURED:
-				get_tree().paused = true
-				menu_canvas.visible = true
-				game_hud_canvas.visible = false
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		
 		
 	if Input.is_action_just_pressed("attack"):
 		try_attack()
@@ -170,6 +155,18 @@ func _input(event):
 		
 	if Input.is_action_just_pressed("jump_joystick"):
 		try_jump_joystick()
+
+func _toggle_pause_menu():
+	if get_tree().paused:
+		get_tree().paused = false
+		menu_canvas.visible = false
+		game_hud_canvas.visible = true
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	else:
+		get_tree().paused = true
+		menu_canvas.visible = true
+		game_hud_canvas.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func release_mouse_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -369,3 +366,6 @@ func _on_resume_button_pressed():
 	menu_canvas.visible = false
 	game_hud_canvas.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_button_hovered():
+	UI.play_sound("hover_button")

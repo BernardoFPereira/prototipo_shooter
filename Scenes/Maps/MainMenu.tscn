@@ -1,13 +1,13 @@
-[gd_scene load_steps=62 format=3 uid="uid://d2rqkagxvdfhw"]
+[gd_scene load_steps=77 format=3 uid="uid://d2rqkagxvdfhw"]
 
 [ext_resource type="Script" path="res://scripts/main-menu.gd" id="1_r7vcy"]
 [ext_resource type="Texture2D" uid="uid://d3cmexsyvqeow" path="res://UI/MainMenu/v2 BACKGROUND PLACEHOLDER.png" id="2_0y4yr"]
 [ext_resource type="Texture2D" uid="uid://cfursn0icplci" path="res://UI/MainMenu/v2 MAIN MENU BASE.png" id="3_htg1d"]
+[ext_resource type="Texture2D" uid="uid://brob1jialo5sh" path="res://UI/QuitGame/v2 SAIR DO JOGO GUIDELINES.png" id="4_cedao"]
 [ext_resource type="Texture2D" uid="uid://8kntnfi82wuk" path="res://UI/MainMenu/v2_btn_jogar.png" id="4_s0htf"]
 [ext_resource type="Texture2D" uid="uid://blxsj4sfhnpuf" path="res://UI/MainMenu/v2_btn_jogar_selected.png" id="5_cr8y1"]
 [ext_resource type="Texture2D" uid="uid://drcqo7g0cws5l" path="res://UI/MainMenu/v2_btn_config.png" id="6_gpc3v"]
 [ext_resource type="Texture2D" uid="uid://don0vk2h3qb7t" path="res://UI/MainMenu/v2_btn_config_selected.png" id="7_s4lgg"]
-[ext_resource type="Texture2D" uid="uid://b732oopmq8wra" path="res://UI/ConfigMenu/v2 CONFIG BASE (COMPLETA).png" id="8_ptymj"]
 [ext_resource type="Texture2D" uid="uid://bd5swod4mubmo" path="res://UI/ConfigMenu/v2_btn_tick.png" id="9_bjvla"]
 [ext_resource type="Texture2D" uid="uid://campufmmt0owc" path="res://UI/ConfigMenu/v2_btn_off.png" id="10_5ukes"]
 [ext_resource type="Texture2D" uid="uid://cvk73i8luq6xc" path="res://UI/ConfigMenu/v2_btn_on.png" id="11_16ew2"]
@@ -18,6 +18,12 @@
 [ext_resource type="Texture2D" uid="uid://dk6qv2u1da34u" path="res://UI/MainMenu/v2_btn_creditos_selected.png" id="16_ba7gd"]
 [ext_resource type="Texture2D" uid="uid://cko0ykpc0h1mv" path="res://UI/MainMenu/v2_btn_sair.png" id="17_xck8j"]
 [ext_resource type="Texture2D" uid="uid://dnuj5ppvqjjwb" path="res://UI/MainMenu/v2_btn_sair_selected.png" id="18_1gwoq"]
+[ext_resource type="Texture2D" uid="uid://c6p36nodbvmie" path="res://UI/Controls/v2_btn_controle_a.png" id="19_6ql17"]
+[ext_resource type="Texture2D" uid="uid://i2v4u0juydu0" path="res://UI/Controls/v2_btn_controle_a_selected.png" id="20_g6bm4"]
+[ext_resource type="Texture2D" uid="uid://cxoq684337wnk" path="res://UI/Controls/v2_btn_controle_b.png" id="21_isthu"]
+[ext_resource type="Texture2D" uid="uid://btoqts0rijsgy" path="res://UI/Controls/v2_btn_controle_b_selected.png" id="22_a37s7"]
+[ext_resource type="Texture2D" uid="uid://b6hrltm0e3y5y" path="res://UI/QuitGame/v2_btn_sim.png" id="23_h2fus"]
+[ext_resource type="Texture2D" uid="uid://bwedln4sgf5xj" path="res://UI/QuitGame/v2_btn_sim_selected.png" id="24_uday5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6b80g"]
 texture = ExtResource("2_0y4yr")
@@ -47,24 +53,24 @@ modulate_color = Color(1, 1, 1, 0.686275)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_autvy"]
 texture = ExtResource("7_s4lgg")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0gkdy"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m1aei"]
 texture = ExtResource("13_ethxt")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t42g6"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65ajf"]
 texture = ExtResource("14_bwkss")
 modulate_color = Color(1, 1, 1, 0.686275)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c2b7i"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j1bsd"]
 texture = ExtResource("14_bwkss")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4xiad"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qjxdp"]
 texture = ExtResource("15_0j7iu")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bnboe"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t5ghq"]
 texture = ExtResource("16_ba7gd")
 modulate_color = Color(1, 1, 1, 0.686275)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hvwvs"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqxi5"]
 texture = ExtResource("16_ba7gd")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x8vw2"]
@@ -136,6 +142,35 @@ VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_7sr33")
 VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_c0twd")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_b8y7e")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mly1r"]
+texture = ExtResource("19_6ql17")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pi0xn"]
+texture = ExtResource("20_g6bm4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i0qvk"]
+texture = ExtResource("21_isthu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7dd2f"]
+texture = ExtResource("22_a37s7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3kw3f"]
+texture = ExtResource("21_isthu")
+modulate_color = Color(1, 1, 1, 0.25098)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ib23t"]
+texture = ExtResource("23_h2fus")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1y67o"]
+texture = ExtResource("24_uday5")
+modulate_color = Color(1, 1, 1, 0.686275)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gso2j"]
+texture = ExtResource("24_uday5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_trlh8"]
+texture = ExtResource("24_uday5")
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -173,7 +208,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("8_ptymj")
+texture = ExtResource("4_cedao")
 stretch_mode = 5
 
 [node name="PlayButton" type="Button" parent="Background/MainPanel"]
@@ -215,10 +250,12 @@ offset_bottom = 690.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxTexture_0gkdy")
-theme_override_styles/hover = SubResource("StyleBoxTexture_t42g6")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_c2b7i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_m1aei")
+theme_override_styles/hover = SubResource("StyleBoxTexture_65ajf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_j1bsd")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mrurx")
+toggle_mode = true
+icon_alignment = 1
 
 [node name="CreditsButton" type="Button" parent="Background/MainPanel"]
 layout_mode = 2
@@ -229,10 +266,12 @@ offset_bottom = 840.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxTexture_4xiad")
-theme_override_styles/hover = SubResource("StyleBoxTexture_bnboe")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_hvwvs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qjxdp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_t5ghq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lqxi5")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mrurx")
+toggle_mode = true
+icon_alignment = 1
 
 [node name="QuitButton" type="Button" parent="Background/MainPanel"]
 layout_mode = 2
@@ -247,8 +286,10 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_x8vw2")
 theme_override_styles/hover = SubResource("StyleBoxTexture_qcadb")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_wh3n3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_mrurx")
+toggle_mode = true
 
 [node name="ConfigGroup" type="Control" parent="Background/MainPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -382,14 +423,82 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
+[node name="ControlsGroup" type="Control" parent="Background/MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="KeyboardButton" type="Button" parent="Background/MainPanel/ControlsGroup"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1518.0
+offset_top = 129.0
+offset_right = -201.0
+offset_bottom = -855.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_mly1r")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pi0xn")
+toggle_mode = true
+button_pressed = true
+
+[node name="JoystickButton" type="Button" parent="Background/MainPanel/ControlsGroup"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1737.0
+offset_top = 129.0
+offset_right = -51.0
+offset_bottom = -855.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_i0qvk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7dd2f")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_3kw3f")
+disabled = true
+toggle_mode = true
+
+[node name="QuitGroup" type="Control" parent="Background/MainPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Yes" type="Button" parent="Background/MainPanel/QuitGroup"]
+custom_minimum_size = Vector2(342, 102)
+layout_mode = 0
+offset_left = 1101.0
+offset_top = 765.0
+offset_right = 1443.0
+offset_bottom = 867.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_ib23t")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1y67o")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gso2j")
+theme_override_styles/focus = SubResource("StyleBoxTexture_trlh8")
+
 [connection signal="mouse_entered" from="Background/MainPanel/PlayButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="Background/MainPanel/PlayButton" to="." method="_on_play_pressed"]
 [connection signal="mouse_entered" from="Background/MainPanel/ConfigButton" to="." method="_on_button_hovered"]
 [connection signal="toggled" from="Background/MainPanel/ConfigButton" to="." method="_on_config_button_toggled"]
 [connection signal="mouse_entered" from="Background/MainPanel/ControlsButton" to="." method="_on_button_hovered"]
+[connection signal="toggled" from="Background/MainPanel/ControlsButton" to="." method="_on_ctrls_button_toggled"]
 [connection signal="mouse_entered" from="Background/MainPanel/CreditsButton" to="." method="_on_button_hovered"]
+[connection signal="toggled" from="Background/MainPanel/CreditsButton" to="." method="_on_credits_button_toggled"]
 [connection signal="mouse_entered" from="Background/MainPanel/QuitButton" to="." method="_on_button_hovered"]
-[connection signal="pressed" from="Background/MainPanel/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="toggled" from="Background/MainPanel/QuitButton" to="." method="_on_quit_button_toggled"]
 [connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/WindowedButton" to="." method="_on_button_hovered"]
 [connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/FullscreenButton" to="." method="_on_button_hovered"]
 [connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/MusicSlider" to="." method="_on_button_hovered"]
@@ -400,3 +509,5 @@ theme_override_constants/separation = 0
 [connection signal="toggled" from="Background/MainPanel/ConfigGroup/ToggleMusicButton" to="." method="_on_toggle_music_button_toggled"]
 [connection signal="mouse_entered" from="Background/MainPanel/ConfigGroup/ToggleSFXButton" to="." method="_on_button_hovered"]
 [connection signal="toggled" from="Background/MainPanel/ConfigGroup/ToggleSFXButton" to="." method="_on_toggle_sfx_button_toggled"]
+[connection signal="mouse_entered" from="Background/MainPanel/QuitGroup/Yes" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="Background/MainPanel/QuitGroup/Yes" to="." method="_on_quit_pressed"]
