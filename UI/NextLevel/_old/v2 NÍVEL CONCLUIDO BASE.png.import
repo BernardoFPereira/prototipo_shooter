@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh2bvd808wtx2"
-path="res://.godot/imported/MAIN CONFIG BASE.png-77a9866de720a4ed1452f7dd2e45cca4.ctex"
+uid="uid://ci4qqpqgo2utt"
+path="res://.godot/imported/v2 NÍVEL CONCLUIDO BASE.png-776d86850e3ba481f6c6db99d22a28e1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ConfigMenu/MAIN CONFIG BASE.png"
-dest_files=["res://.godot/imported/MAIN CONFIG BASE.png-77a9866de720a4ed1452f7dd2e45cca4.ctex"]
+source_file="res://UI/NextLevel/_old/v2 NÍVEL CONCLUIDO BASE.png"
+dest_files=["res://.godot/imported/v2 NÍVEL CONCLUIDO BASE.png-776d86850e3ba481f6c6db99d22a28e1.ctex"]
 
 [params]
 

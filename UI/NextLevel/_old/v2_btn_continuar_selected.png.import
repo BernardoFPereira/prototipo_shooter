@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwcecrhgtc106"
-path="res://.godot/imported/v2_btn_sair_selected.png-546a396c308307b55478abc660999d75.ctex"
+uid="uid://ddm1ovqo68r7g"
+path="res://.godot/imported/v2_btn_continuar_selected.png-0df51bd68868de9b6b30da75a4c43533.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/NextLevel/v2_btn_sair_selected.png"
-dest_files=["res://.godot/imported/v2_btn_sair_selected.png-546a396c308307b55478abc660999d75.ctex"]
+source_file="res://UI/NextLevel/_old/v2_btn_continuar_selected.png"
+dest_files=["res://.godot/imported/v2_btn_continuar_selected.png-0df51bd68868de9b6b30da75a4c43533.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8j3phrx7p5fy"
-path="res://.godot/imported/v2 NÍVEL CONCLUIDO GUIDELINES.png-d33ca522faf4e2a7554f879bbb72e874.ctex"
+uid="uid://bbq5mgjbu7nfa"
+path="res://.godot/imported/v2 JOGO PAUSADO GUIDELINES.png-a8c6bee5192c9197d72a074cd5d4b439.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/NextLevel/v2 NÍVEL CONCLUIDO GUIDELINES.png"
-dest_files=["res://.godot/imported/v2 NÍVEL CONCLUIDO GUIDELINES.png-d33ca522faf4e2a7554f879bbb72e874.ctex"]
+source_file="res://UI/PauseMenu/_old/v2 JOGO PAUSADO GUIDELINES.png"
+dest_files=["res://.godot/imported/v2 JOGO PAUSADO GUIDELINES.png-a8c6bee5192c9197d72a074cd5d4b439.ctex"]
 
 [params]
 

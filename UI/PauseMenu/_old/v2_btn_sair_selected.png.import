@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djjgieyr1aiax"
-path="res://.godot/imported/v2 JOGO PAUSADO BASE.png-d0a53143c6508b940ddb975efa6527d3.ctex"
+uid="uid://bkra0iv8634j"
+path="res://.godot/imported/v2_btn_sair_selected.png-bee7a8336081cdfb37876451e2c676c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/PauseMenu/v2 JOGO PAUSADO BASE.png"
-dest_files=["res://.godot/imported/v2 JOGO PAUSADO BASE.png-d0a53143c6508b940ddb975efa6527d3.ctex"]
+source_file="res://UI/PauseMenu/_old/v2_btn_sair_selected.png"
+dest_files=["res://.godot/imported/v2_btn_sair_selected.png-bee7a8336081cdfb37876451e2c676c0.ctex"]
 
 [params]
 

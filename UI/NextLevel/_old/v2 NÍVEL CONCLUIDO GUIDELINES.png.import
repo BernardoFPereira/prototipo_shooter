@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddm1ovqo68r7g"
-path="res://.godot/imported/v2_btn_continuar_selected.png-de8561c9a992a13842060c0f5231a8cf.ctex"
+uid="uid://b8j3phrx7p5fy"
+path="res://.godot/imported/v2 NÍVEL CONCLUIDO GUIDELINES.png-ea797298512e9d809d2bce9e68dc38c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/NextLevel/v2_btn_continuar_selected.png"
-dest_files=["res://.godot/imported/v2_btn_continuar_selected.png-de8561c9a992a13842060c0f5231a8cf.ctex"]
+source_file="res://UI/NextLevel/_old/v2 NÍVEL CONCLUIDO GUIDELINES.png"
+dest_files=["res://.godot/imported/v2 NÍVEL CONCLUIDO GUIDELINES.png-ea797298512e9d809d2bce9e68dc38c5.ctex"]
 
 [params]
 

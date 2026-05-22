@@ -17,7 +17,7 @@ const quit_background: Texture2D = preload("uid://doesa2icl3m3e")
 #endregion
 
 #region CONFIGURATION VARIABLES
-const config_background = preload("uid://bh1odcdk50i8y")
+const config_background = preload("uid://bxbngh005uvx6")
 const res_button_selected_texture = preload("uid://cev240nhyxski")
 const off_button_texture = preload("uid://cp8sjbs1efomi")
 const on_button_texture = preload("uid://bo5sjwobb2r68")

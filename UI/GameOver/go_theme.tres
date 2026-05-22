@@ -1,3 +1,39 @@
-[gd_resource type="Theme" format=3 uid="uid://j7ift28l2na3"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://j7ift28l2na3"]
+
+[ext_resource type="FontFile" uid="uid://bd7hb4xsg7u2n" path="res://UI/Fonts/PixeloidMono.otf" id="1_wjhen"]
+[ext_resource type="Texture2D" uid="uid://b61xjpji2gc7k" path="res://UI/GameOver/BOTÃO C 1.png" id="2_lh2hq"]
+[ext_resource type="Texture2D" uid="uid://c5w8o7kin6crw" path="res://UI/GameOver/BOTÃO C 2.png" id="3_4thja"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hedqm"]
+texture = ExtResource("2_lh2hq")
+modulate_color = Color(1, 1, 1, 0.529412)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k72c3"]
+texture = ExtResource("3_4thja")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_om0v6"]
+texture = ExtResource("3_4thja")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_udhvy"]
+texture = ExtResource("2_lh2hq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1hs74"]
+texture = ExtResource("3_4thja")
+modulate_color = Color(1, 1, 1, 0.529412)
 
 [resource]
+Button/colors/font_color = Color(0.886275, 0.0470588, 0, 1)
+Button/colors/font_focus_color = Color(0.882353, 0.0470588, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 0.505882)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 0.505882)
+Button/colors/font_pressed_color = Color(0, 0, 0, 0.505882)
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 54
+Button/fonts/font = ExtResource("1_wjhen")
+Button/styles/disabled = SubResource("StyleBoxTexture_hedqm")
+Button/styles/focus = SubResource("StyleBoxTexture_k72c3")
+Button/styles/hover = SubResource("StyleBoxTexture_om0v6")
+Button/styles/normal = SubResource("StyleBoxTexture_udhvy")
+Button/styles/pressed = SubResource("StyleBoxTexture_1hs74")

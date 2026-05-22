@@ -1,28 +1,28 @@
-[gd_scene load_steps=68 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=72 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_cgxxp"]
 [ext_resource type="Texture2D" uid="uid://bfyp8hyjap7gw" path="res://textures/crosshairs/Crosshair3.png" id="3_5hn21"]
 [ext_resource type="Script" path="res://scripts/camera_effects.gd" id="3_x4mog"]
 [ext_resource type="Script" path="res://scripts/pause_input_handler.gd" id="4_dv2id"]
-[ext_resource type="Texture2D" uid="uid://djjgieyr1aiax" path="res://UI/PauseMenu/v2 JOGO PAUSADO BASE.png" id="4_lawv2"]
 [ext_resource type="Material" uid="uid://bbdqc4m63071q" path="res://materials/shadermaterials/vignette.tres" id="5_2w87f"]
-[ext_resource type="Texture2D" uid="uid://cxa5rnrt6v587" path="res://UI/PauseMenu/v2_btn_retomar.png" id="5_nf3sg"]
-[ext_resource type="Texture2D" uid="uid://b5cxv35w7mhv4" path="res://UI/PauseMenu/v2_btn_retomar_selected.png" id="6_s1r04"]
-[ext_resource type="Texture2D" uid="uid://1fdrh1ckrstk" path="res://UI/PauseMenu/v2_btn_reiniciar.png" id="7_7noov"]
-[ext_resource type="Texture2D" uid="uid://culuhhe61t1q4" path="res://UI/PauseMenu/v2_btn_reiniciar_selected.png" id="8_a3ilq"]
-[ext_resource type="Texture2D" uid="uid://bgyl7phxaenil" path="res://UI/PauseMenu/v2_btn_sair.png" id="9_410rx"]
-[ext_resource type="Texture2D" uid="uid://bkra0iv8634j" path="res://UI/PauseMenu/v2_btn_sair_selected.png" id="10_5cgrm"]
-[ext_resource type="Texture2D" uid="uid://dtb7wg2tpdayi" path="res://UI/GameOver/GAMEOVER GUIDE.png" id="14_ckyto"]
-[ext_resource type="Texture2D" uid="uid://d11ku73422civ" path="res://UI/GameOver/_old/v2_btn_sim_vermelho.png" id="14_lrrbe"]
-[ext_resource type="Texture2D" uid="uid://cqajtmav5x7g2" path="res://UI/GameOver/_old/v2_btn_sim_vermelho_selected.png" id="15_5mrkd"]
-[ext_resource type="Texture2D" uid="uid://i0bmeqyekqyl" path="res://UI/GameOver/_old/v2_btn_não_vermelho.png" id="16_b6bef"]
-[ext_resource type="Texture2D" uid="uid://chk7nggky8tp4" path="res://UI/GameOver/_old/v2_btn_não_vermelho_selected.png" id="17_8mjer"]
-[ext_resource type="Texture2D" uid="uid://ci4qqpqgo2utt" path="res://UI/NextLevel/v2 NÍVEL CONCLUIDO BASE.png" id="19_fllbx"]
-[ext_resource type="Texture2D" uid="uid://b0cqpwoqvbjm7" path="res://UI/NextLevel/v2_btn_continuar.png" id="20_nb2tc"]
-[ext_resource type="Texture2D" uid="uid://ddm1ovqo68r7g" path="res://UI/NextLevel/v2_btn_continuar_selected.png" id="21_q4su2"]
-[ext_resource type="Texture2D" uid="uid://dsbvhxar6mq30" path="res://UI/NextLevel/v2_btn_sair.png" id="22_3wg4i"]
-[ext_resource type="Texture2D" uid="uid://cwcecrhgtc106" path="res://UI/NextLevel/v2_btn_sair_selected.png" id="23_3a37p"]
+[ext_resource type="Texture2D" uid="uid://bxbngh005uvx6" path="res://UI/ConfigMenu/F_CONFIG PAUSE.png" id="5_ch7xe"]
+[ext_resource type="Theme" uid="uid://cv0m0qgxplmjs" path="res://UI/ConfigMenu/config_theme.tres" id="8_n6bql"]
+[ext_resource type="Texture2D" uid="uid://bonlo65jd4ge2" path="res://UI/ConfigMenu/COLCHETE 1.png" id="9_slx6m"]
+[ext_resource type="Texture2D" uid="uid://c14smyuarc2o6" path="res://UI/ConfigMenu/COLCHETE 2.png" id="10_vmsi3"]
+[ext_resource type="Texture2D" uid="uid://cj1vv6u8c37p7" path="res://UI/ConfigMenu/v2_btn_tick.png" id="11_d86lc"]
+[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/_old/v2_btn_bar.png" id="12_rlhsb"]
+[ext_resource type="Texture2D" uid="uid://cp8sjbs1efomi" path="res://UI/ConfigMenu/BOTÃO OFF.png" id="13_xodqh"]
+[ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="14_8vx3h"]
+[ext_resource type="Texture2D" uid="uid://bo5sjwobb2r68" path="res://UI/ConfigMenu/BOTÃO ON.png" id="14_yv16d"]
+[ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="15_8te5u"]
+[ext_resource type="Theme" uid="uid://j7ift28l2na3" path="res://UI/GameOver/go_theme.tres" id="15_bfdfs"]
+[ext_resource type="Texture2D" uid="uid://c6p36nodbvmie" path="res://UI/Controls/_old/v2_btn_controle_a.png" id="15_ojo0g"]
+[ext_resource type="Texture2D" uid="uid://i2v4u0juydu0" path="res://UI/Controls/_old/v2_btn_controle_a_selected.png" id="16_g6n13"]
+[ext_resource type="Texture2D" uid="uid://c882uw1ums67c" path="res://UI/GameOver/BOTÃO D 1.png" id="16_trshw"]
+[ext_resource type="Texture2D" uid="uid://cxoq684337wnk" path="res://UI/Controls/_old/v2_btn_controle_b.png" id="17_baac6"]
+[ext_resource type="Theme" uid="uid://d2qhleumc8smy" path="res://UI/MainMenu/menu_theme.tres" id="18_40mg7"]
+[ext_resource type="Texture2D" uid="uid://btoqts0rijsgy" path="res://UI/Controls/_old/v2_btn_controle_b_selected.png" id="18_akbla"]
 
 [sub_resource type="Animation" id="Animation_x4mkt"]
 length = 0.001
@@ -233,105 +233,100 @@ size = Vector3(0.89, 1, 1.495)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0m2c6"]
-texture = ExtResource("4_lawv2")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_idfdn"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rm64v"]
-texture = ExtResource("5_nf3sg")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l2w7q"]
+texture = ExtResource("11_d86lc")
+modulate_color = Color(1, 1, 1, 0.529412)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_isqmn"]
-texture = ExtResource("6_s1r04")
-modulate_color = Color(1, 1, 1, 0.686275)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_knhep"]
+texture = ExtResource("11_d86lc")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ya1ol"]
-texture = ExtResource("6_s1r04")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8dhhq"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j71k6"]
-texture = ExtResource("6_s1r04")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rjjg1"]
+texture = ExtResource("11_d86lc")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dh441"]
-texture = ExtResource("7_7noov")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_npruj"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ovx23"]
-texture = ExtResource("8_a3ilq")
-modulate_color = Color(1, 1, 1, 0.686275)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o6dv1"]
+texture = ExtResource("11_d86lc")
+modulate_color = Color(1, 1, 1, 0.529412)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dbx8o"]
-texture = ExtResource("8_a3ilq")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bt241"]
+texture = ExtResource("11_d86lc")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gh1h5"]
-texture = ExtResource("8_a3ilq")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ki22g"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bap88"]
-texture = ExtResource("9_410rx")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5vsc7"]
+texture = ExtResource("11_d86lc")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_74low"]
-texture = ExtResource("10_5cgrm")
-modulate_color = Color(1, 1, 1, 0.686275)
+[sub_resource type="ButtonGroup" id="ButtonGroup_eex6n"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ywuo7"]
-texture = ExtResource("10_5cgrm")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g1d6s"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_adn62"]
-texture = ExtResource("10_5cgrm")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xsft0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7sr33"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c0twd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b8y7e"]
+
+[sub_resource type="Theme" id="Theme_u4awm"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_g1d6s")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_xsft0")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_7sr33")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_c0twd")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_b8y7e")
+
+[sub_resource type="ImageTexture" id="ImageTexture_o66l0"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_7qwge"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_tymra"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_28igr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w0dep"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e6mpq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_atgls"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fycuo"]
+texture = ExtResource("13_xodqh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y5miy"]
+texture = ExtResource("14_yv16d")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8sr2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fesp6"]
+texture = ExtResource("15_ojo0g")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3xxxw"]
+texture = ExtResource("16_g6n13")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pwaee"]
+texture = ExtResource("17_baac6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vcexa"]
+texture = ExtResource("18_akbla")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nb32k"]
+texture = ExtResource("17_baac6")
+modulate_color = Color(1, 1, 1, 0.25098)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1wo7r"]
-texture = ExtResource("14_ckyto")
+texture = ExtResource("14_8vx3h")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rbsye"]
-texture = ExtResource("14_lrrbe")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l1c13"]
+texture = ExtResource("16_trshw")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ib3i2"]
-texture = ExtResource("15_5mrkd")
-modulate_color = Color(1, 1, 1, 0.686275)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4nc2e"]
-texture = ExtResource("15_5mrkd")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_stc5y"]
-texture = ExtResource("15_5mrkd")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_no3di"]
-texture = ExtResource("16_b6bef")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ary3h"]
-texture = ExtResource("17_8mjer")
-modulate_color = Color(1, 1, 1, 0.686275)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_glvff"]
-texture = ExtResource("17_8mjer")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cfi3m"]
-texture = ExtResource("17_8mjer")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1n0ys"]
-texture = ExtResource("19_fllbx")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwd7i"]
-texture = ExtResource("20_nb2tc")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cmsp4"]
-texture = ExtResource("21_q4su2")
-modulate_color = Color(1, 1, 1, 0.686275)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_choi6"]
-texture = ExtResource("21_q4su2")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hkcj3"]
-texture = ExtResource("21_q4su2")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_na22m"]
-texture = ExtResource("22_3wg4i")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5g4p2"]
-texture = ExtResource("23_3a37p")
-modulate_color = Color(1, 1, 1, 0.686275)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jd7jn"]
-texture = ExtResource("23_3a37p")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ohyrs"]
-texture = ExtResource("23_3a37p")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4jhr4"]
+texture = ExtResource("16_trshw")
+modulate_color = Color(1, 1, 1, 0.529412)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice")]
 collision_layer = 260
@@ -413,7 +408,6 @@ shape = SubResource("SphereShape3D_k5oyn")
 
 [node name="MenuHUD" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 script = ExtResource("4_dv2id")
 
 [node name="Panel" type="Panel" parent="MenuHUD"]
@@ -423,54 +417,574 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="Panel" parent="MenuHUD"]
+[node name="ActiveBackground" type="TextureRect" parent="MenuHUD/Panel"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_0m2c6")
+texture = ExtResource("5_ch7xe")
+stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuHUD/PanelContainer"]
+[node name="PauseLabel" type="Label" parent="MenuHUD/Panel"]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 85.0
+offset_right = 630.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0.0313726, 0.85098, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("15_8te5u")
+theme_override_font_sizes/font_size = 81
+text = "JOGO
+PAUSADO"
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuHUD/Panel"]
 layout_mode = 2
-offset_left = 339.0
-offset_top = 432.0
-offset_right = 843.0
-offset_bottom = 840.0
+offset_left = 132.0
+offset_top = 282.0
+offset_right = 636.0
+offset_bottom = 990.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 42
 alignment = 1
 
-[node name="ResumeButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="MenuHUD/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(504, 108)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_rm64v")
-theme_override_styles/hover = SubResource("StyleBoxTexture_isqmn")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ya1ol")
-theme_override_styles/focus = SubResource("StyleBoxTexture_j71k6")
+theme = ExtResource("18_40mg7")
+text = "RETOMAR"
 
-[node name="RetryButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
+[node name="RetryButton" type="Button" parent="MenuHUD/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(504, 108)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_dh441")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ovx23")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_dbx8o")
-theme_override_styles/focus = SubResource("StyleBoxTexture_gh1h5")
+theme = ExtResource("18_40mg7")
+text = "REINICIAR"
 
-[node name="MenuButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
+[node name="ConfigButton" type="Button" parent="MenuHUD/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(504, 108)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_bap88")
-theme_override_styles/hover = SubResource("StyleBoxTexture_74low")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ywuo7")
-theme_override_styles/focus = SubResource("StyleBoxTexture_adn62")
+theme = ExtResource("18_40mg7")
+text = "CONFIGURAÇÕES"
+
+[node name="ControlsButton" type="Button" parent="MenuHUD/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(504, 108)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("18_40mg7")
+text = "CONTROLES"
+
+[node name="MenuButton" type="Button" parent="MenuHUD/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(504, 108)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("18_40mg7")
+text = "SAIR"
+
+[node name="ConfigGroup" type="Control" parent="MenuHUD/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="WindowMode" type="Control" parent="MenuHUD/Panel/ConfigGroup"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+custom_minimum_size = Vector2(399, 54)
+layout_mode = 0
+offset_left = 822.0
+offset_top = 105.0
+offset_right = 1221.0
+offset_bottom = 159.0
+theme = ExtResource("8_n6bql")
+text = "MODO DE EXIBIÇÃO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Option1" type="Label" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+custom_minimum_size = Vector2(347, 70)
+layout_mode = 0
+offset_left = 797.0
+offset_top = 217.0
+offset_right = 1144.0
+offset_bottom = 287.0
+theme = ExtResource("8_n6bql")
+theme_override_font_sizes/font_size = 36
+text = "janela"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Option2" type="Label" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+custom_minimum_size = Vector2(347, 70)
+layout_mode = 0
+offset_left = 797.0
+offset_top = 331.0
+offset_right = 1144.0
+offset_bottom = 401.0
+theme = ExtResource("8_n6bql")
+theme_override_font_sizes/font_size = 36
+text = "tela cheia"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ColcheteA" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 795.0
+offset_top = 102.0
+offset_right = 825.0
+offset_bottom = 162.0
+texture = ExtResource("9_slx6m")
+
+[node name="ColcheteB" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1218.0
+offset_top = 102.0
+offset_right = 1248.0
+offset_bottom = 162.0
+texture = ExtResource("10_vmsi3")
+
+[node name="ColcheteC" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1143.0
+offset_top = 225.0
+offset_right = 1173.0
+offset_bottom = 285.0
+texture = ExtResource("10_vmsi3")
+
+[node name="ColcheteD" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1143.0
+offset_top = 339.0
+offset_right = 1173.0
+offset_bottom = 399.0
+texture = ExtResource("10_vmsi3")
+
+[node name="WindowedButton" type="Button" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+layout_mode = 0
+offset_left = 1197.0
+offset_top = 234.0
+offset_right = 1239.0
+offset_bottom = 276.0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_idfdn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l2w7q")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_knhep")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8dhhq")
+theme_override_styles/focus = SubResource("StyleBoxTexture_rjjg1")
+toggle_mode = true
+
+[node name="FullscreenButton" type="Button" parent="MenuHUD/Panel/ConfigGroup/WindowMode"]
+layout_mode = 0
+offset_left = 1197.0
+offset_top = 348.0
+offset_right = 1239.0
+offset_bottom = 390.0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_npruj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o6dv1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bt241")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ki22g")
+theme_override_styles/focus = SubResource("StyleBoxTexture_5vsc7")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_eex6n")
+
+[node name="Resolution" type="Control" parent="MenuHUD/Panel/ConfigGroup"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="MenuHUD/Panel/ConfigGroup/Resolution"]
+custom_minimum_size = Vector2(399, 54)
+layout_mode = 0
+offset_left = 822.0
+offset_top = 426.0
+offset_right = 1221.0
+offset_bottom = 480.0
+theme = ExtResource("8_n6bql")
+text = "RESOLUÇÃO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColcheteA" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Resolution"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 795.0
+offset_top = 423.0
+offset_right = 825.0
+offset_bottom = 483.0
+texture = ExtResource("9_slx6m")
+
+[node name="ColcheteB" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Resolution"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1215.0
+offset_top = 423.0
+offset_right = 1245.0
+offset_bottom = 483.0
+texture = ExtResource("10_vmsi3")
+
+[node name="ResolutionOptions" type="ScrollContainer" parent="MenuHUD/Panel/ConfigGroup/Resolution"]
+custom_minimum_size = Vector2(384, 219)
+layout_mode = 0
+offset_left = 816.0
+offset_top = 516.0
+offset_right = 1200.0
+offset_bottom = 735.0
+theme = SubResource("Theme_u4awm")
+horizontal_scroll_mode = 0
+
+[node name="ResolutionVBox" type="VBoxContainer" parent="MenuHUD/Panel/ConfigGroup/Resolution/ResolutionOptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Audio" type="Control" parent="MenuHUD/Panel/ConfigGroup"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label1" type="Label" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(364, 54)
+layout_mode = 0
+offset_left = 1352.0
+offset_top = 105.0
+offset_right = 1716.0
+offset_bottom = 159.0
+theme = ExtResource("8_n6bql")
+text = "MÚSICA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColcheteA1" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1325.0
+offset_top = 102.0
+offset_right = 1355.0
+offset_bottom = 162.0
+texture = ExtResource("9_slx6m")
+
+[node name="ColcheteB1" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1713.0
+offset_top = 102.0
+offset_right = 1743.0
+offset_bottom = 162.0
+texture = ExtResource("10_vmsi3")
+
+[node name="Label2" type="Label" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(364, 54)
+layout_mode = 0
+offset_left = 1352.0
+offset_top = 315.0
+offset_right = 1716.0
+offset_bottom = 369.0
+theme = ExtResource("8_n6bql")
+text = "EFEITOS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColcheteA2" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1325.0
+offset_top = 312.0
+offset_right = 1355.0
+offset_bottom = 372.0
+texture = ExtResource("9_slx6m")
+
+[node name="ColcheteB2" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1713.0
+offset_top = 312.0
+offset_right = 1743.0
+offset_bottom = 372.0
+texture = ExtResource("10_vmsi3")
+
+[node name="MusicBar" type="TextureProgressBar" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+layout_mode = 0
+offset_left = 1482.0
+offset_top = 195.0
+offset_right = 1725.0
+offset_bottom = 249.0
+max_value = 10.0
+value = 10.0
+texture_progress = ExtResource("12_rlhsb")
+
+[node name="MusicSlider" type="HSlider" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(243, 54)
+layout_mode = 0
+offset_left = 1482.0
+offset_top = 195.0
+offset_right = 1725.0
+offset_bottom = 249.0
+mouse_filter = 1
+theme_override_icons/grabber = SubResource("ImageTexture_o66l0")
+theme_override_icons/grabber_highlight = SubResource("ImageTexture_7qwge")
+theme_override_icons/grabber_disabled = SubResource("ImageTexture_tymra")
+theme_override_icons/tick = SubResource("ImageTexture_28igr")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_w0dep")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_e6mpq")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_atgls")
+max_value = 10.0
+
+[node name="SFXBar" type="TextureProgressBar" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+layout_mode = 0
+offset_left = 1482.0
+offset_top = 405.0
+offset_right = 1725.0
+offset_bottom = 459.0
+max_value = 10.0
+value = 10.0
+texture_progress = ExtResource("12_rlhsb")
+
+[node name="SFXSlider" type="HSlider" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(243, 54)
+layout_mode = 0
+offset_left = 1482.0
+offset_top = 405.0
+offset_right = 1725.0
+offset_bottom = 459.0
+mouse_filter = 1
+theme_override_icons/grabber = SubResource("ImageTexture_o66l0")
+theme_override_icons/grabber_highlight = SubResource("ImageTexture_7qwge")
+theme_override_icons/grabber_disabled = SubResource("ImageTexture_tymra")
+theme_override_icons/tick = SubResource("ImageTexture_28igr")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_w0dep")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_e6mpq")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_atgls")
+max_value = 10.0
+
+[node name="ToggleMusicButton" type="Button" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+layout_mode = 0
+offset_left = 1317.0
+offset_top = 177.0
+offset_right = 1449.0
+offset_bottom = 267.0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_fycuo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y5miy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_k8sr2")
+toggle_mode = true
+flat = true
+icon_alignment = 1
+
+[node name="ToggleSFXButton" type="Button" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+layout_mode = 0
+offset_left = 1317.0
+offset_top = 387.0
+offset_right = 1449.0
+offset_bottom = 477.0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_fycuo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y5miy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_k8sr2")
+toggle_mode = true
+flat = true
+icon_alignment = 1
+
+[node name="MouseSens" type="Control" parent="MenuHUD/Panel/ConfigGroup"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="MenuHUD/Panel/ConfigGroup/MouseSens"]
+custom_minimum_size = Vector2(457, 54)
+layout_mode = 0
+offset_left = 822.0
+offset_top = 777.0
+offset_right = 1279.0
+offset_bottom = 831.0
+theme = ExtResource("8_n6bql")
+text = "SENSIBILIDADE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColcheteA" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/MouseSens"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 795.0
+offset_top = 774.0
+offset_right = 825.0
+offset_bottom = 834.0
+texture = ExtResource("9_slx6m")
+
+[node name="ColcheteB" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/MouseSens"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1276.0
+offset_top = 774.0
+offset_right = 1306.0
+offset_bottom = 834.0
+texture = ExtResource("10_vmsi3")
+
+[node name="SensBar" type="TextureProgressBar" parent="MenuHUD/Panel/ConfigGroup/MouseSens"]
+layout_mode = 2
+offset_left = 822.0
+offset_top = 861.0
+offset_right = 1065.0
+offset_bottom = 915.0
+max_value = 10.0
+value = 10.0
+texture_progress = ExtResource("12_rlhsb")
+
+[node name="SensSlider" type="HSlider" parent="MenuHUD/Panel/ConfigGroup/MouseSens"]
+custom_minimum_size = Vector2(243, 54)
+layout_mode = 2
+offset_left = 822.0
+offset_top = 861.0
+offset_right = 1065.0
+offset_bottom = 915.0
+mouse_filter = 1
+theme_override_icons/grabber = SubResource("ImageTexture_o66l0")
+theme_override_icons/grabber_highlight = SubResource("ImageTexture_7qwge")
+theme_override_icons/grabber_disabled = SubResource("ImageTexture_tymra")
+theme_override_icons/tick = SubResource("ImageTexture_28igr")
+theme_override_styles/slider = SubResource("StyleBoxEmpty_w0dep")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_e6mpq")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_atgls")
+max_value = 10.0
+
+[node name="ControlsGroup" type="Control" parent="MenuHUD/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MoveLabel" type="Label" parent="MenuHUD/Panel/ControlsGroup"]
+custom_minimum_size = Vector2(537, 66)
+layout_mode = 0
+offset_left = 1302.0
+offset_top = 285.0
+offset_right = 1802.0
+offset_bottom = 335.0
+theme = ExtResource("8_n6bql")
+text = "mover-se"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JumpLabel" type="Label" parent="MenuHUD/Panel/ControlsGroup"]
+custom_minimum_size = Vector2(537, 66)
+layout_mode = 0
+offset_left = 1302.0
+offset_top = 408.0
+offset_right = 1839.0
+offset_bottom = 474.0
+theme = ExtResource("8_n6bql")
+text = "pular"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShoveLabel" type="Label" parent="MenuHUD/Panel/ControlsGroup"]
+custom_minimum_size = Vector2(537, 66)
+layout_mode = 0
+offset_left = 1302.0
+offset_top = 534.0
+offset_right = 1839.0
+offset_bottom = 600.0
+theme = ExtResource("8_n6bql")
+text = "empurrar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireLabel" type="Label" parent="MenuHUD/Panel/ControlsGroup"]
+custom_minimum_size = Vector2(537, 66)
+layout_mode = 0
+offset_left = 1302.0
+offset_top = 670.0
+offset_right = 1839.0
+offset_bottom = 736.0
+theme = ExtResource("8_n6bql")
+text = "lançar braço"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LookLabel" type="Label" parent="MenuHUD/Panel/ControlsGroup"]
+custom_minimum_size = Vector2(537, 66)
+layout_mode = 0
+offset_left = 1302.0
+offset_top = 756.0
+offset_right = 1839.0
+offset_bottom = 822.0
+theme = ExtResource("8_n6bql")
+text = "mover câmera"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThrowLabel" type="Label" parent="MenuHUD/Panel/ControlsGroup"]
+custom_minimum_size = Vector2(537, 66)
+layout_mode = 0
+offset_left = 1302.0
+offset_top = 843.0
+offset_right = 1839.0
+offset_bottom = 909.0
+theme = ExtResource("8_n6bql")
+text = "disparar canhão"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyboardButton" type="Button" parent="MenuHUD/Panel/ControlsGroup"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1518.0
+offset_top = 129.0
+offset_right = -201.0
+offset_bottom = -855.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_fesp6")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3xxxw")
+toggle_mode = true
+button_pressed = true
+
+[node name="JoystickButton" type="Button" parent="MenuHUD/Panel/ControlsGroup"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1737.0
+offset_top = 129.0
+offset_right = -51.0
+offset_bottom = -855.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_pwaee")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vcexa")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_nb32k")
+disabled = true
+toggle_mode = true
 
 [node name="GameHUD" type="CanvasLayer" parent="."]
 visible = false
@@ -520,6 +1034,7 @@ text = "100"
 horizontal_alignment = 1
 
 [node name="GameOverHUD" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Panel" type="Panel" parent="GameOverHUD"]
 anchors_preset = 15
@@ -536,6 +1051,30 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_1wo7r")
 
+[node name="GOLabel" type="Label" parent="GameOverHUD/GOPanel"]
+layout_mode = 0
+offset_top = 372.0
+offset_right = 1920.0
+offset_bottom = 504.0
+theme_override_colors/font_color = Color(0.886275, 0.0470588, 0, 1)
+theme_override_fonts/font = ExtResource("15_8te5u")
+theme_override_font_sizes/font_size = 128
+text = "VOCÊ MORREU..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RetryLabel" type="Label" parent="GameOverHUD/GOPanel"]
+layout_mode = 0
+offset_top = 514.0
+offset_right = 1920.0
+offset_bottom = 574.0
+theme_override_colors/font_color = Color(0.886275, 0.0470588, 0, 1)
+theme_override_fonts/font = ExtResource("15_8te5u")
+theme_override_font_sizes/font_size = 58
+text = "TENTAR NOVAMENTE?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="RetryButton" type="Button" parent="GameOverHUD/GOPanel"]
 custom_minimum_size = Vector2(207, 102)
 layout_mode = 2
@@ -545,10 +1084,8 @@ offset_right = 897.0
 offset_bottom = 819.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_rbsye")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ib3i2")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_4nc2e")
-theme_override_styles/focus = SubResource("StyleBoxTexture_stc5y")
+theme = ExtResource("15_bfdfs")
+text = "SIM"
 
 [node name="MenuButton" type="Button" parent="GameOverHUD/GOPanel"]
 custom_minimum_size = Vector2(207, 102)
@@ -559,10 +1096,10 @@ offset_right = 1230.0
 offset_bottom = 819.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_no3di")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ary3h")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_glvff")
-theme_override_styles/focus = SubResource("StyleBoxTexture_cfi3m")
+theme = ExtResource("15_bfdfs")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1c13")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_4jhr4")
+text = "NÃO"
 
 [node name="NextLevelHUD" type="CanvasLayer" parent="."]
 visible = false
@@ -574,57 +1111,57 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NLPanel" type="Panel" parent="NextLevelHUD"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_1n0ys")
+[node name="NextLabel" type="Label" parent="NextLevelHUD/Panel"]
+layout_mode = 0
+offset_top = 418.0
+offset_right = 1920.0
+offset_bottom = 538.0
+theme_override_colors/font_color = Color(0.0313726, 0.85098, 0.0745098, 1)
+theme_override_fonts/font = ExtResource("15_8te5u")
+theme_override_font_sizes/font_size = 120
+text = "NÍVEL CONCLUÍDO!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="NextButton" type="Button" parent="NextLevelHUD/NLPanel"]
+[node name="NextButton" type="Button" parent="NextLevelHUD/Panel"]
 custom_minimum_size = Vector2(504, 108)
 layout_mode = 0
 offset_left = 708.0
-offset_top = 573.0
+offset_top = 583.0
 offset_right = 1212.0
-offset_bottom = 681.0
+offset_bottom = 691.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_vwd7i")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cmsp4")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_choi6")
-theme_override_styles/focus = SubResource("StyleBoxTexture_hkcj3")
+theme = ExtResource("18_40mg7")
+text = "CONTINUAR"
 
-[node name="MenuButton" type="Button" parent="NextLevelHUD/NLPanel"]
+[node name="MenuButton" type="Button" parent="NextLevelHUD/Panel"]
 custom_minimum_size = Vector2(504, 108)
 layout_mode = 0
 offset_left = 708.0
-offset_top = 723.0
+offset_top = 733.0
 offset_right = 1212.0
-offset_bottom = 831.0
+offset_bottom = 841.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/normal = SubResource("StyleBoxTexture_na22m")
-theme_override_styles/hover = SubResource("StyleBoxTexture_5g4p2")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jd7jn")
-theme_override_styles/focus = SubResource("StyleBoxTexture_ohyrs")
+theme = ExtResource("18_40mg7")
+text = "SAIR"
 
-[connection signal="mouse_entered" from="MenuHUD/PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_button_hovered"]
-[connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="mouse_entered" from="MenuHUD/PanelContainer/VBoxContainer/RetryButton" to="." method="_on_button_hovered"]
-[connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
-[connection signal="mouse_entered" from="MenuHUD/PanelContainer/VBoxContainer/MenuButton" to="." method="_on_button_hovered"]
-[connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/RetryButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="MenuHUD/Panel/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/ConfigButton" to="." method="_on_button_hovered"]
+[connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/ControlsButton" to="." method="_on_button_hovered"]
+[connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/MenuButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="MenuHUD/Panel/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="mouse_entered" from="GameOverHUD/GOPanel/RetryButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="GameOverHUD/GOPanel/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="mouse_entered" from="GameOverHUD/GOPanel/MenuButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="GameOverHUD/GOPanel/MenuButton" to="." method="_on_menu_button_pressed"]
-[connection signal="mouse_entered" from="NextLevelHUD/NLPanel/NextButton" to="." method="_on_button_hovered"]
-[connection signal="pressed" from="NextLevelHUD/NLPanel/NextButton" to="." method="_on_next_button_pressed"]
-[connection signal="mouse_entered" from="NextLevelHUD/NLPanel/MenuButton" to="." method="_on_button_hovered"]
-[connection signal="pressed" from="NextLevelHUD/NLPanel/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="mouse_entered" from="NextLevelHUD/Panel/NextButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="NextLevelHUD/Panel/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="mouse_entered" from="NextLevelHUD/Panel/MenuButton" to="." method="_on_button_hovered"]
+[connection signal="pressed" from="NextLevelHUD/Panel/MenuButton" to="." method="_on_menu_button_pressed"]
 
 [editable path="Head/Weapon/sword"]

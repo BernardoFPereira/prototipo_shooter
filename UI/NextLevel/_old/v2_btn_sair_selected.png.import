@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh1odcdk50i8y"
-path="res://.godot/imported/MAIN CONFIG NO TEXT BASE.png-3a72849695f469fb4cca68e94d3cf8bf.ctex"
+uid="uid://cwcecrhgtc106"
+path="res://.godot/imported/v2_btn_sair_selected.png-9a66975def5cce4cf4574b8f2e3a6e64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ConfigMenu/MAIN CONFIG NO TEXT BASE.png"
-dest_files=["res://.godot/imported/MAIN CONFIG NO TEXT BASE.png-3a72849695f469fb4cca68e94d3cf8bf.ctex"]
+source_file="res://UI/NextLevel/_old/v2_btn_sair_selected.png"
+dest_files=["res://.godot/imported/v2_btn_sair_selected.png-9a66975def5cce4cf4574b8f2e3a6e64.ctex"]
 
 [params]
 

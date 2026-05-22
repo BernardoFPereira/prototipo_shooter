@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsbvhxar6mq30"
-path="res://.godot/imported/v2_btn_sair.png-72519cc94ab779339213d0746c764640.ctex"
+uid="uid://bgetox1s41l5v"
+path="res://.godot/imported/NÍVEL CONCLUÍDO GUIDE.png-080dd99d9bc9efdfe69fbd72a30fad6a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/NextLevel/v2_btn_sair.png"
-dest_files=["res://.godot/imported/v2_btn_sair.png-72519cc94ab779339213d0746c764640.ctex"]
+source_file="res://UI/NextLevel/NÍVEL CONCLUÍDO GUIDE.png"
+dest_files=["res://.godot/imported/NÍVEL CONCLUÍDO GUIDE.png-080dd99d9bc9efdfe69fbd72a30fad6a.ctex"]
 
 [params]
 

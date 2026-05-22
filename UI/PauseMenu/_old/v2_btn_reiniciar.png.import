@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgyl7phxaenil"
-path="res://.godot/imported/v2_btn_sair.png-a891147038d21bf15a999e322a3b9c3c.ctex"
+uid="uid://1fdrh1ckrstk"
+path="res://.godot/imported/v2_btn_reiniciar.png-6a7b77efec572dd45cfdf83edc30ce48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/PauseMenu/v2_btn_sair.png"
-dest_files=["res://.godot/imported/v2_btn_sair.png-a891147038d21bf15a999e322a3b9c3c.ctex"]
+source_file="res://UI/PauseMenu/_old/v2_btn_reiniciar.png"
+dest_files=["res://.godot/imported/v2_btn_reiniciar.png-6a7b77efec572dd45cfdf83edc30ce48.ctex"]
 
 [params]
 

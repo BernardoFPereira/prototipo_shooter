@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cut4mnsob4vbm"
-path="res://.godot/imported/MAIN CONFIG GUIDE.png-326e7fe5e55bdc909aa7d7da36b4424d.ctex"
+uid="uid://bxbngh005uvx6"
+path="res://.godot/imported/F_CONFIG PAUSE.png-414e996f4d68d4df1a34d433ea6bf282.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ConfigMenu/MAIN CONFIG GUIDE.png"
-dest_files=["res://.godot/imported/MAIN CONFIG GUIDE.png-326e7fe5e55bdc909aa7d7da36b4424d.ctex"]
+source_file="res://UI/ConfigMenu/F_CONFIG PAUSE.png"
+dest_files=["res://.godot/imported/F_CONFIG PAUSE.png-414e996f4d68d4df1a34d433ea6bf282.ctex"]
 
 [params]
 
