@@ -17,7 +17,7 @@ const quit_background: Texture2D = preload("uid://doesa2icl3m3e")
 #endregion
 
 #region CONFIGURATION VARIABLES
-const config_background = preload("uid://bxbngh005uvx6")
+const config_background = preload("uid://dg6ppk1tadlyx")
 const res_button_selected_texture = preload("uid://cev240nhyxski")
 const off_button_texture = preload("uid://cp8sjbs1efomi")
 const on_button_texture = preload("uid://bo5sjwobb2r68")
@@ -32,6 +32,9 @@ const res_button = preload("uid://bjlxctidiwjf3")
 @onready var sfx_bar = $Background/MainPanel/ConfigGroup/Audio/SFXBar
 @onready var sfx_slider = $Background/MainPanel/ConfigGroup/Audio/SFXSlider
 @onready var toggle_sfx_button = $Background/MainPanel/ConfigGroup/Audio/ToggleSFXButton
+@onready var hud_bar = $Background/MainPanel/ConfigGroup/Audio/HUDBar
+@onready var hud_slider = $Background/MainPanel/ConfigGroup/Audio/HUDSlider
+@onready var toggle_hudsfx_button = $Background/MainPanel/ConfigGroup/Audio/ToggleHUDSFXButton
 @onready var resolutions_list = $Background/MainPanel/ConfigGroup/Resolution/ResolutionOptions/ResolutionVBox
 @onready var sens_bar = $Background/MainPanel/ConfigGroup/MouseSens/SensBar
 @onready var sens_slider = $Background/MainPanel/ConfigGroup/MouseSens/SensSlider
@@ -67,6 +70,7 @@ func _on_play_pressed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().change_scene_to_packed(level_scene)
 	UI.play_sound("confirm_button")
+	UI.save_settings()
 
 func _on_quit_pressed() -> void:
 	UI.save_settings()
@@ -88,15 +92,19 @@ func setup_window_mode_buttons() -> void:
 func setup_audio_buttons() -> void:
 	var music_slider_value = UI.db_to_slider(UI.music_volume) if not UI.music_muted else 0
 	var sfx_slider_value = UI.db_to_slider(UI.sfx_volume) if not UI.sfx_muted else 0
+	var hud_slider_value = UI.db_to_slider(UI.hud_volume) if not UI.hud_muted else 0
 	
 	music_slider.value = music_slider_value
 	sfx_slider.value = sfx_slider_value
+	hud_slider.value = hud_slider_value
 	
 	toggle_music_button.button_pressed = not UI.music_muted
 	toggle_sfx_button.button_pressed = not UI.sfx_muted
+	toggle_hudsfx_button.button_pressed = not UI.hud_muted
 	
 	_on_music_slider_value_changed(music_slider_value)
 	_on_sfx_slider_value_changed(sfx_slider_value)
+	_on_hud_slider_value_changed(hud_slider_value)
 
 func _on_config_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
@@ -154,6 +162,27 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 		else:
 			UI.sfx_volume = mapped_db
 
+func _on_hud_slider_value_changed(value: float) -> void:
+	var mapped_db = UI.slider_to_db(value)
+	
+	hud_bar.value = value
+	
+	if value <= 0:
+		if not UI.hud_muted:
+			toggle_hudsfx_button.button_pressed = false
+			_on_toggle_hudsfx_button_toggled(false)
+	else:
+		if UI.hud_muted:
+			toggle_hudsfx_button.button_pressed = true
+			_on_toggle_hudsfx_button_toggled(true)
+		
+		if toggle_hudsfx_button.button_pressed:
+			UI.hud_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.HUD, mapped_db)
+		else:
+			UI.hud_volume = mapped_db
+
+
 func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		var current_slider_value = music_slider.value
@@ -189,6 +218,25 @@ func _on_toggle_sfx_button_toggled(toggled_on: bool) -> void:
 		toggle_sfx_button.icon = off_button_texture
 		UI.sfx_muted = true
 		UI.play_sound("back_button")
+
+func _on_toggle_hudsfx_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		var current_slider_value = hud_slider.value
+		if current_slider_value <= 0:
+			hud_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.HUD, UI.slider_to_db(current_slider_value))
+		toggle_hudsfx_button.icon = on_button_texture
+		UI.hud_muted = false
+		UI.play_sound("confirm_button")
+	else:
+		UI.hud_volume = AudioServer.get_bus_volume_db(UI.AudioBus.HUD)
+		AudioServer.set_bus_volume_db(UI.AudioBus.HUD, UI.MIN_DB)
+		toggle_hudsfx_button.icon = off_button_texture
+		UI.hud_muted = true
+		UI.play_sound("back_button")
+
 
 func _on_windowed_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:

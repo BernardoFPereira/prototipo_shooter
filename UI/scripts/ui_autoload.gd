@@ -14,8 +14,10 @@ var current_resolution: Vector2i = Vector2i(1920, 1080)
 var is_fullscreen: bool = false
 var music_volume: float = 0.0
 var sfx_volume: float = 0.0
+var hud_volume: float = 0.0
 var music_muted: bool = false
 var sfx_muted: bool = false
+var hud_muted: bool = false
 #endregion
 
 #region CONTROLS
@@ -26,59 +28,38 @@ var is_keyboard: bool = true
 enum AudioBus {
 	MASTER = 0,
 	MUSIC = 1,
-	SFX = 2
+	SFX = 2,
+	HUD = 3
 }
 
 enum SoundCategory {
 	SFX,
-	MUSIC
+	MUSIC,
+	HUD
 }
 
 var sounds: Dictionary = {
 	"hover_button": {
-		"stream": preload("res://assets/sounds/sfx/hover_button.wav"),
-		"bus": AudioBus.SFX,
-		"category": SoundCategory.SFX,
+		"stream": preload("res://assets/sounds/hud/hover_button.wav"),
+		"bus": AudioBus.HUD,
+		"category": SoundCategory.HUD,
 		"volume_db": 0.0,
 		"pitch_scale": 1.0
 	},
 	"confirm_button": {
-		"stream": preload("res://assets/sounds/sfx/confirm_button.wav"),
-		"bus": AudioBus.SFX,
-		"category": SoundCategory.SFX,
+		"stream": preload("res://assets/sounds/hud/confirm_button.wav"),
+		"bus": AudioBus.HUD,
+		"category": SoundCategory.HUD,
 		"volume_db": 0.0,
 		"pitch_scale": 1.0
 	},
 	"back_button": {
-		"stream": preload("res://assets/sounds/sfx/back_button.wav"),
-		"bus": AudioBus.SFX,
-		"category": SoundCategory.SFX,
+		"stream": preload("res://assets/sounds/hud/back_button.wav"),
+		"bus": AudioBus.HUD,
+		"category": SoundCategory.HUD,
 		"volume_db": 0.0,
 		"pitch_scale": 1.0
 	},
-	
-	## Gameplay SFX
-	#"jump": {
-		##"stream": preload("res://assets/sounds/sfx/jump.wav"),
-		#"bus": AudioBus.SFX,
-		#"category": SoundCategory.SFX,
-		#"volume_db": 0.0,
-		#"pitch_scale": 1.0
-	#},
-	#"damage": {
-		##"stream": preload("res://assets/sounds/sfx/damage.wav"),
-		#"bus": AudioBus.SFX,
-		#"category": SoundCategory.SFX,
-		#"volume_db": 0.0,
-		#"pitch_scale": 1.0
-	#},
-	#"death": {
-		##"stream": preload("res://assets/sounds/sfx/death.wav"),
-		#"bus": AudioBus.SFX,
-		#"category": SoundCategory.SFX,
-		#"volume_db": 0.0,
-		#"pitch_scale": 1.0
-	#},
 	
 	"soundtrack_1": {
 		"stream": preload("uid://irff2xea5j5w"),
@@ -88,14 +69,6 @@ var sounds: Dictionary = {
 		"pitch_scale": 1.0,
 		"loop": true
 	},
-	#"level_music": {
-		##"stream": preload("res://assets/sounds/music/level.ogg"),
-		#"bus": AudioBus.MUSIC,
-		#"category": SoundCategory.MUSIC,
-		#"volume_db": 0.0,
-		#"pitch_scale": 1.0,
-		#"loop": true
-	#}
 }
 
 var audio_players: Dictionary = {}
@@ -134,6 +107,8 @@ func play_sound(sound_name: String) -> void:
 	if sound_data.category == SoundCategory.MUSIC and music_muted:
 		return
 	if sound_data.category == SoundCategory.SFX and sfx_muted:
+		return
+	if sound_data.category == SoundCategory.HUD and hud_muted:
 		return
 	
 	player.stream = sound_data.stream
@@ -199,6 +174,11 @@ func set_sfx_volume_db(volume: float) -> void:
 	if not sfx_muted:
 		AudioServer.set_bus_volume_db(AudioBus.SFX, sfx_volume)
 
+func set_hud_volume_db(volume: float) -> void:
+	hud_volume = clamp(volume, MIN_DB, MAX_DB)
+	if not hud_muted:
+		AudioServer.set_bus_volume_db(AudioBus.HUD, hud_volume)
+
 func set_music_muted(muted: bool) -> void:
 	music_muted = muted
 	if muted:
@@ -212,6 +192,14 @@ func set_sfx_muted(muted: bool) -> void:
 		AudioServer.set_bus_volume_db(AudioBus.SFX, MIN_DB)
 	else:
 		AudioServer.set_bus_volume_db(AudioBus.SFX, sfx_volume)
+
+func set_hud_muted(muted: bool) -> void:
+	hud_muted = muted
+	if muted:
+		AudioServer.set_bus_volume_db(AudioBus.HUD, MIN_DB)
+	else:
+		AudioServer.set_bus_volume_db(AudioBus.HUD, hud_volume)
+
 #endregion
 
 #region WINDOW MANAGEMENT
@@ -263,8 +251,10 @@ func apply_settings() -> void:
 	
 	set_music_volume_db(music_volume)
 	set_sfx_volume_db(sfx_volume)
+	set_hud_volume_db(hud_volume)
 	set_music_muted(music_muted)
 	set_sfx_muted(sfx_muted)
+	set_hud_muted(hud_muted)
 
 func save_settings() -> void:
 	var config = ConfigFile.new()
@@ -274,8 +264,10 @@ func save_settings() -> void:
 	
 	config.set_value("audio", "music_volume", music_volume)
 	config.set_value("audio", "sfx_volume", sfx_volume)
+	config.set_value("audio", "hud_volume", hud_volume)
 	config.set_value("audio", "music_muted", music_muted)
 	config.set_value("audio", "sfx_muted", sfx_muted)
+	config.set_value("audio", "hud_muted", hud_muted)
 	
 	config.save(SETTINGS_FILE)
 	print("Settings saved to: ", SETTINGS_FILE)
@@ -288,8 +280,10 @@ func load_settings() -> void:
 		is_fullscreen = false
 		music_volume = 0.0
 		sfx_volume = 0.0
+		hud_volume = 0.0
 		music_muted = false
 		sfx_muted = false
+		hud_muted = false
 		apply_settings()
 		return
 	
@@ -303,8 +297,10 @@ func load_settings() -> void:
 	
 	music_volume = config.get_value("audio", "music_volume", 0.0)
 	sfx_volume = config.get_value("audio", "sfx_volume", 0.0)
+	hud_volume = config.get_value("audio", "hud_volume", 0.0)
 	music_muted = config.get_value("audio", "music_muted", false)
 	sfx_muted = config.get_value("audio", "sfx_muted", false)
+	hud_muted = config.get_value("audio", "hud_muted", false)
 	
 	apply_settings()
 	print("Settings loaded from: ", SETTINGS_FILE)
