@@ -17,26 +17,29 @@ const quit_background: Texture2D = preload("uid://doesa2icl3m3e")
 #endregion
 
 #region CONFIGURATION VARIABLES
-const config_background = preload("uid://b732oopmq8wra")
+const config_background = preload("uid://bh1odcdk50i8y")
 const res_button_selected_texture = preload("uid://cev240nhyxski")
-const off_button_texture = preload("uid://campufmmt0owc")
-const on_button_texture = preload("uid://cvk73i8luq6xc")
+const off_button_texture = preload("uid://cp8sjbs1efomi")
+const on_button_texture = preload("uid://bo5sjwobb2r68")
 const res_button = preload("uid://bjlxctidiwjf3")
 
 @onready var config_group = $Background/MainPanel/ConfigGroup
-@onready var windowed_button = $Background/MainPanel/ConfigGroup/WindowedButton
-@onready var fullscreen_button = $Background/MainPanel/ConfigGroup/FullscreenButton
-@onready var music_bar = $Background/MainPanel/ConfigGroup/MusicBar
-@onready var music_slider = $Background/MainPanel/ConfigGroup/MusicSlider
-@onready var toggle_music_button = $Background/MainPanel/ConfigGroup/ToggleMusicButton
-@onready var toggle_sfx_button = $Background/MainPanel/ConfigGroup/ToggleSFXButton
-@onready var sfx_bar = $Background/MainPanel/ConfigGroup/SFXBar
-@onready var sfx_slider = $Background/MainPanel/ConfigGroup/SFXSlider
-@onready var resolutions_list = $Background/MainPanel/ConfigGroup/ResolutionOptions/ResolutionVBox
+@onready var windowed_button = $Background/MainPanel/ConfigGroup/WindowMode/WindowedButton
+@onready var fullscreen_button = $Background/MainPanel/ConfigGroup/WindowMode/FullscreenButton
+@onready var music_bar = $Background/MainPanel/ConfigGroup/Audio/MusicBar
+@onready var music_slider = $Background/MainPanel/ConfigGroup/Audio/MusicSlider
+@onready var toggle_music_button = $Background/MainPanel/ConfigGroup/Audio/ToggleMusicButton
+@onready var sfx_bar = $Background/MainPanel/ConfigGroup/Audio/SFXBar
+@onready var sfx_slider = $Background/MainPanel/ConfigGroup/Audio/SFXSlider
+@onready var toggle_sfx_button = $Background/MainPanel/ConfigGroup/Audio/ToggleSFXButton
+@onready var resolutions_list = $Background/MainPanel/ConfigGroup/Resolution/ResolutionOptions/ResolutionVBox
+@onready var sens_bar = $Background/MainPanel/ConfigGroup/MouseSens/SensBar
+@onready var sens_slider = $Background/MainPanel/ConfigGroup/MouseSens/SensSlider
+
 #endregion
 
 #region CONTROLS VARIABLES
-const ctrls_key_background = preload("uid://bm4vv33qdo54t")
+const ctrls_key_background = preload("uid://4yexgr2qbd41")
 const ctrls_joy_background = preload("uid://nb4doc1n4fhh")
 @onready var ctrls_group = $Background/MainPanel/ControlsGroup
 @onready var keyboard_button = $Background/MainPanel/ControlsGroup/KeyboardButton
@@ -259,6 +262,9 @@ func set_resolution_buttons_enabled(enabled: bool) -> void:
 		else:
 			button.mouse_filter = MOUSE_FILTER_IGNORE
 
+func _on_sens_slider_value_changed(value):
+	sens_bar.value = value
+
 func _on_button_hovered():
 	UI.play_sound("hover_button")
 #endregion
@@ -275,7 +281,7 @@ func _on_ctrls_button_toggled(toggled_on: bool) -> void:
 		active_background.texture = ctrls_key_background
 		UI.play_sound("confirm_button")
 	else:
-		ctrls_group.visible = true
+		ctrls_group.visible = false
 		active_background.texture = null
 		UI.play_sound("back_button")
 #endregion
@@ -313,3 +319,5 @@ func _on_quit_button_toggled(toggled_on: bool) -> void:
 		UI.play_sound("back_button")
 		UI.save_settings()
 #endregion
+
+

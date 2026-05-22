@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlamuopq1e5lo"
-path="res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"
+uid="uid://4yexgr2qbd41"
+path="res://.godot/imported/MAIN MENU CONTROLE A BASE.png-a68368936701d8c1663684470d3014b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ConfigMenu/v2_btn_bar.png"
-dest_files=["res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"]
+source_file="res://UI/Controls/MAIN MENU CONTROLE A BASE.png"
+dest_files=["res://.godot/imported/MAIN MENU CONTROLE A BASE.png-a68368936701d8c1663684470d3014b8.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlamuopq1e5lo"
-path="res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"
+uid="uid://c14smyuarc2o6"
+path="res://.godot/imported/COLCHETE 2.png-f8af1f6bf673f788f484921029f15f06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ConfigMenu/v2_btn_bar.png"
-dest_files=["res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"]
+source_file="res://UI/ConfigMenu/COLCHETE 2.png"
+dest_files=["res://.godot/imported/COLCHETE 2.png-f8af1f6bf673f788f484921029f15f06.ctex"]
 
 [params]
 

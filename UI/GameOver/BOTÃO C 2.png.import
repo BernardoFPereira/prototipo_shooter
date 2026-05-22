@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlamuopq1e5lo"
-path="res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"
+uid="uid://c5w8o7kin6crw"
+path="res://.godot/imported/BOTÃO C 2.png-56b6d55f9c60ba8e7ef6fede094722fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ConfigMenu/v2_btn_bar.png"
-dest_files=["res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"]
+source_file="res://UI/GameOver/BOTÃO C 2.png"
+dest_files=["res://.godot/imported/BOTÃO C 2.png-56b6d55f9c60ba8e7ef6fede094722fc.ctex"]
 
 [params]
 

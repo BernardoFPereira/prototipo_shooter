@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlamuopq1e5lo"
-path="res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"
+uid="uid://8kntnfi82wuk"
+path="res://.godot/imported/v2_btn_jogar.png-8575f1255c95ca1523074cb15e997c1b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ConfigMenu/v2_btn_bar.png"
-dest_files=["res://.godot/imported/v2_btn_bar.png-e4fde316515475058d89b0b7d5d71190.ctex"]
+source_file="res://UI/MainMenu/_old/v2_btn_jogar.png"
+dest_files=["res://.godot/imported/v2_btn_jogar.png-8575f1255c95ca1523074cb15e997c1b.ctex"]
 
 [params]
 

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjlxctidiwjf3"]
+
+[ext_resource type="Theme" uid="uid://cv0m0qgxplmjs" path="res://UI/ConfigMenu/config_theme.tres" id="1_8o1yw"]
+
+[node name="ResolutionButton0" type="Button"]
+custom_minimum_size = Vector2(384, 66)
+theme = ExtResource("1_8o1yw")
+theme_override_colors/font_color = Color(0, 0.886275, 0.0470588, 1)
+theme_override_colors/font_pressed_color = Color(0.00784314, 0.819608, 0.054902, 1)
+theme_override_colors/font_hover_color = Color(0.00784314, 0.819608, 0.054902, 1)
+theme_override_colors/font_focus_color = Color(0, 0.886275, 0.0470588, 1)
+theme_override_colors/font_disabled_color = Color(0, 0.784314, 0.00392157, 1)
+text = "3840x2160"
+icon_alignment = 1
