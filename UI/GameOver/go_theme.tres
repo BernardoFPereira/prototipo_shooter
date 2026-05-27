@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://j7ift28l2na3"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://iecf6gm1i2b2"]
 
 [ext_resource type="FontFile" uid="uid://bd7hb4xsg7u2n" path="res://UI/Fonts/PixeloidMono.otf" id="1_wjhen"]
 [ext_resource type="Texture2D" uid="uid://b61xjpji2gc7k" path="res://UI/GameOver/BOTÃO C 1.png" id="2_lh2hq"]
