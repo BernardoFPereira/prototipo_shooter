@@ -539,6 +539,7 @@ shape = SubResource("SphereShape3D_k5oyn")
 
 [node name="MenuHUD" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 script = ExtResource("4_dv2id")
 
 [node name="Panel" type="Panel" parent="MenuHUD"]
@@ -1361,7 +1362,8 @@ text = "SAIR"
 
 [node name="Idle" parent="SFX" instance=ExtResource("24_mrbwe")]
 stream = ExtResource("25_8jerd")
-volume_db = -2.0
+volume_db = -22.0
+pitch_scale = 1.3
 autoplay = true
 bus = &"SFX"
 

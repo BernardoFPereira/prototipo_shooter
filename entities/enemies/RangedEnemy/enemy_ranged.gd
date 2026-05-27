@@ -11,6 +11,15 @@ extends RigidBody3D
 @onready var ground_raycast = $GroundRaycast
 @onready var muzzle_point = $Armature/Skeleton3D/BoneAttachment3D/MuzzlePoint
 
+#Sounds
+@onready var idle_sfx = $SFX/Idle
+@onready var hit_sfx = $SFX/Hit
+@export var idle_sound_interval: float = 2.0
+@export var idle_sound_variation: float = 1.5
+@export var enable_idle_sounds: bool = true
+var _idle_timer: Timer
+var _is_idle_sounds_enabled: bool = true
+
 var player_in_sight_area: bool = false
 
 var blood_particles_scene = preload("uid://dauurgt5mibfk")
@@ -47,14 +56,16 @@ func _ready():
 	sword_collision_area.body_entered.connect(_on_sword_entered)
 	sight_area.body_entered.connect(_on_sight_area_body_entered)
 	sight_area.body_exited.connect(_on_sight_area_body_exited)
-
+	
 	#var enemies = get_tree().get_nodes_in_group("Enemies")
 	#for enemy in enemies:
 		#if enemy is EnemyMelee:
 			#add_collision_exception_with(enemy)
 		#elif enemy is EnemyRanged:
 			#add_collision_exception_with(enemy)
-
+	
+	_setup_idle_sound_timer()
+	
 	current_health = max_health
 
 func _process(delta):
@@ -86,7 +97,7 @@ func _physics_process(delta):
 		EnemyState.CHASING:
 			nav_agent.target_position = target.position
 			var next_path_pos: Vector3 = nav_agent.get_next_path_position()
-			var direction = global_position.direction_to(Vector3(next_path_pos.x, 0, next_path_pos.z))
+			var direction = global_position.direction_to(next_path_pos)
 			if nav_agent.avoidance_enabled:
 				nav_agent.velocity = direction * chase_speed
 			else:
@@ -148,10 +159,10 @@ func _on_sword_entered(body):
 func set_current_state(new_state):
 	match new_state:
 		EnemyState.IDLE:
-			if current_health <= 0:
+			if current_state == EnemyState.DEAD:
 				return
-			nav_agent = null
 			anim_player.play("idle")
+			resume_idle_sounds()
 		
 		EnemyState.PATROLLING:
 			if get_parent() != patrol_route and patrol_route != null:
@@ -162,7 +173,8 @@ func set_current_state(new_state):
 			
 			nav_agent.max_speed = 2
 			anim_player.play("patrol")
-		
+			resume_idle_sounds()
+	
 		EnemyState.CHASING:
 			if current_health <= 0:
 				return
@@ -173,13 +185,17 @@ func set_current_state(new_state):
 			has_target = true
 			nav_agent.max_speed = 6
 			anim_player.play("chase")
-	
+			if _idle_timer:
+				_idle_timer.wait_time = idle_sound_interval / 2
+		
 		EnemyState.HIT:
 			if current_health <= 0:
 				return
 				
 			nav_agent.max_speed = 0
 			anim_player.play("hit")
+			pause_idle_sounds()
+			hit_sfx.play()
 		
 		EnemyState.ATTACKING:
 			if current_health <= 0:
@@ -187,12 +203,14 @@ func set_current_state(new_state):
 				
 			linear_velocity = Vector3.ZERO
 			anim_player.play("attack")
+			pause_idle_sounds()
 		
 		EnemyState.DEAD:
 			nav_agent.set_avoidance_enabled(false)
 			sword_collision_area.set_collision_mask_value(6, false)
 			nav_agent.max_speed = 0
 			anim_player.play("hit")
+			stop_idle_sounds()
 	
 	current_state = new_state
 
@@ -264,10 +282,10 @@ func move_to_parent(new_parent: Node):
 	
 	var current_global_position = global_position
 	
-	get_parent().call_deferred("remove_child", self)
-	#get_parent().remove_child(self)
-	new_parent.call_deferred("add_child", self)
-	#new_parent.add_child(self)
+	#get_parent().call_deferred("remove_child", self)
+	get_parent().remove_child(self)
+	#new_parent.call_deferred("add_child", self)
+	new_parent.add_child(self)
 	
 	global_position = current_global_position
 
@@ -302,3 +320,55 @@ func _on_sight_area_body_exited(body):
 func _on_velocity_computed(safe_velocity):
 	if current_state == EnemyState.CHASING:
 		linear_velocity = safe_velocity
+
+#region SOUNDS
+func _setup_idle_sound_timer():
+	_idle_timer = Timer.new()
+	_idle_timer.one_shot = false
+	_idle_timer.timeout.connect(_on_idle_sound_timeout)
+	
+	idle_sfx.add_child(_idle_timer)
+	
+	_set_next_idle_interval()
+	
+	if enable_idle_sounds and current_state != EnemyState.DEAD:
+		_idle_timer.start()
+
+func _set_next_idle_interval():
+	var min_interval = max(0.5, idle_sound_interval - idle_sound_variation)
+	var max_interval = idle_sound_interval + idle_sound_variation
+	_idle_timer.wait_time = randf_range(min_interval, max_interval)
+
+func _on_idle_sound_timeout():
+	if not enable_idle_sounds or not _is_idle_sounds_enabled:
+		return
+	
+	match current_state:
+		EnemyState.IDLE, EnemyState.PATROLLING:
+			if not idle_sfx.playing:
+				idle_sfx.play()
+		
+		EnemyState.DEAD:
+			stop_idle_sounds()
+	
+	_set_next_idle_interval()
+
+func start_idle_sounds():
+	enable_idle_sounds = true
+	_is_idle_sounds_enabled = true
+	if _idle_timer and not _idle_timer.is_stopped():
+		_idle_timer.start()
+		_set_next_idle_interval()
+
+func stop_idle_sounds():
+	_is_idle_sounds_enabled = false
+	if _idle_timer:
+		_idle_timer.stop()
+
+func pause_idle_sounds():
+	_is_idle_sounds_enabled = false
+
+func resume_idle_sounds():
+	_is_idle_sounds_enabled = true
+
+#endregion

@@ -24173,11 +24173,19 @@ transform = Transform3D(0.953843, 0.179311, -0.240897, 0.295664, -0.420235, 0.85
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_42qho")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573916, 7.46304, -32.5344)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6.80534, -33.0034)
 
-[node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -127, 27, 38)
+[node name="EnemyRanged" parent="." node_paths=PackedStringArray("target", "patrol_route") groups=["Enemies"] instance=ExtResource("3_sckar")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.075, 27, 44.5213)
 target = NodePath("../Player")
+patrol_route = NodePath("../PatrolRoute/PatrolRoutePath")
+
+[node name="PatrolRoute" parent="." instance=ExtResource("4_0u1x5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.075, 27, 44.5213)
+
+[node name="PatrolRoutePath" parent="PatrolRoute" index="0"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+use_model_front = true
 
 [node name="EnemyRanged2" parent="." node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -106, 15, 58)
@@ -26262,4 +26270,5 @@ shape = SubResource("BoxShape3D_8nail")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 
+[editable path="PatrolRoute"]
 [editable path="Enemies/PatrolRoute"]

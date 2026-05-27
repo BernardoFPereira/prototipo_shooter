@@ -419,8 +419,6 @@ func setup_window_mode_buttons() -> void:
 	windowed_button.button_pressed = not UI.is_fullscreen
 	fullscreen_button.button_pressed = UI.is_fullscreen
 	
-	windowed_button.toggled.connect(_on_windowed_button_toggled)
-	fullscreen_button.toggled.connect(_on_fullscreen_button_toggled)
 
 func setup_audio_buttons() -> void:
 	var music_slider_value = UI.db_to_slider(UI.music_volume) if not UI.music_muted else 0
