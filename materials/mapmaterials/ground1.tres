@@ -3,4 +3,5 @@
 [ext_resource type="Texture2D" uid="uid://cft1vxtp0ww4s" path="res://textures/cyclopstextures/block_mtl_BaseColor.1001.png" id="1_htssf"]
 
 [resource]
+albedo_color = Color(0.6, 0.588235, 0.596078, 1)
 albedo_texture = ExtResource("1_htssf")

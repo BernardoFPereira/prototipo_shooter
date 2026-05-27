@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bbrc4dc6nn4mg"]
+
+[ext_resource type="Texture2D" uid="uid://b3piqk8iqdrba" path="res://textures/cyclopstextures/rustbucket1.png" id="1_5he2c"]
+
+[resource]
+albedo_texture = ExtResource("1_5he2c")

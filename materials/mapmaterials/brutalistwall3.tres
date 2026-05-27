@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dxs4bwm2v5kfy"]
+
+[ext_resource type="Texture2D" uid="uid://c61ye0hn0pt16" path="res://textures/cyclopstextures/brutalistwall3.png" id="1_p8p4n"]
+
+[resource]
+albedo_texture = ExtResource("1_p8p4n")
