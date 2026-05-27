@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b4e5hrbqpicxu"
+path="res://.godot/imported/metal_footsteps 9-walk_metal.wav-b341efecdebbf422c4ccf2fa7f817ce6.sample"
+
+[deps]
+
+source_file="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 9-walk_metal.wav"
+dest_files=["res://.godot/imported/metal_footsteps 9-walk_metal.wav-b341efecdebbf422c4ccf2fa7f817ce6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

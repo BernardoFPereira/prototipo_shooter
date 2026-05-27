@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://plitcowfsvtp"]
+
+[ext_resource type="Script" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.gd" id="1_t3qti"]
+
+[node name="SpatialAudioPlayer3d" type="AudioStreamPlayer3D"]
+script = ExtResource("1_t3qti")
+
+[node name="RaycastDown" type="RayCast3D" parent="."]
+target_position = Vector3(0, -100, 0)
+collision_mask = 16
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="RaycastLeft" type="RayCast3D" parent="."]
+target_position = Vector3(100, 0, 0)
+collision_mask = 16
+debug_shape_custom_color = Color(1, 0.516667, 0, 1)
+
+[node name="RaycastRight" type="RayCast3D" parent="."]
+target_position = Vector3(-100, 0, 0)
+collision_mask = 16
+debug_shape_custom_color = Color(1, 0.816667, 0, 1)
+
+[node name="RaycastForward" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, 100)
+collision_mask = 16
+debug_shape_custom_color = Color(0.533333, 1, 0, 1)
+
+[node name="RaycastForwardLeft" type="RayCast3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(0, 0, 100)
+collision_mask = 16
+debug_shape_custom_color = Color(0.0666666, 1, 0, 1)
+
+[node name="RaycastForwardRight" type="RayCast3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(0, 0, 100)
+collision_mask = 16
+debug_shape_custom_color = Color(0, 1, 0.616667, 1)
+
+[node name="RaycastBackwardRight" type="RayCast3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(0, 0, -100)
+collision_mask = 16
+debug_shape_custom_color = Color(0, 0.666667, 1, 1)
+
+[node name="RaycastBackwardLeft" type="RayCast3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(0, 0, -100)
+collision_mask = 16
+debug_shape_custom_color = Color(0, 0.15, 1, 1)
+
+[node name="RaycastBackward" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -100)
+collision_mask = 16
+debug_shape_custom_color = Color(0.6, 0, 1, 1)
+
+[node name="RaycastUp" type="RayCast3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(0, 100, 0)
+collision_mask = 16
+debug_shape_custom_color = Color(1, 0, 0.533333, 1)
+
+[node name="RaycastPlayer" type="RayCast3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+target_position = Vector3(0, 100, 0)
+collision_mask = 16
+debug_shape_custom_color = Color(1, 0, 0.533333, 1)
