@@ -1,16 +1,37 @@
 class_name Player
 extends CharacterBody3D
 
-var move_speed := 22
-var drag := 25
-var gravity := 42
+#region EXPORT VARS
+@export_category("Move and Look Properties")
+@export var camera_juice : camera_effects
+@export var fall_velocity_threshhold : float = -5.0
+@export var move_speed := 22
+@export var drag := 25
+@export var gravity := 42
 
-#sensibilidade da camera pelo joystick
-var look_sensitivity_horizontal : = 75
-var look_sensitivity_vertical : = 30
+var current_fall_velocity : float
+var mouse_sensitivity := 0.001
+var input_mouse: Vector2
+var movement_vector: Vector2
 
 const JUMP_VELOCITY := 16
 const JUMP_JOYSTICK_VELOCITY: = 5
+
+@export_category("Combat Properties")
+@export var max_health: float = 100.0
+@export var melee_damage: float = 10.0
+@export var sword_impact_strength: int = 250
+var current_health: float
+
+##sensibilidade da camera pelo joystick
+#var look_sensitivity_horizontal : = 75
+#var look_sensitivity_vertical : = 30
+
+#region STATE_MACHINE
+var is_disarmed: bool
+var is_dead: bool = false
+var is_next_level
+
 
 enum PlayerStates {
 	IDLE,
@@ -20,16 +41,18 @@ enum PlayerStates {
 	ATTACK,
 	BLOCK,
 }
+#endregion
 
+#region SCENE VARIABLES
 @onready var get_sword_area = $GetSwordArea
 @onready var sword_hit_area = $Head/SwordHitArea
 
 @onready var head: Node3D = $Head
 @onready var camera = $Head/Camera3D
 @onready var weapon = $Head/Weapon
-@onready var muzzle = $Head/Cannon/Muzzle
+@onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
 @onready var game_hud_canvas = $GameHUD
 @onready var dead_canvas = $GameOverHUD
 @onready var next_level_canvas = $NextLevelHUD
@@ -37,13 +60,14 @@ enum PlayerStates {
 @onready var health_label = $GameHUD/HealthLabel
 @onready var activation_timer = $ActivationTimer
 
-var menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
+const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
+const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
+const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
 var next_level_scene: PackedScene
+var thrown_sword: Sword
+#endregion
 
-var mouse_sensitivity := 0.001
-var input_mouse: Vector2
-var movement_vector: Vector2
-
+#region UI VARIABLES
 const config_background = preload("uid://beg6jpulxo7uw")
 const on_button_texture = preload("uid://bo5sjwobb2r68")
 const off_button_texture = preload("uid://cp8sjbs1efomi")
@@ -78,27 +102,8 @@ var resolution_button_group: ButtonGroup
 
 const ctrls_key_background = preload("uid://bmu1oequesbqo")
 const quit_background = preload("uid://dmel4nekr0nx4")
+#endregion
 
-var sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
-var projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
-
-var is_blocking: bool
-var is_disarmed: bool
-var is_dead: bool = false
-var is_next_level
-var thrown_sword: Sword
-
-@export_category("Camera Properties")
-@export var camera_juice : camera_effects
-@export var fall_velocity_threshhold : float = -5.0
-var current_fall_velocity : float
-
-@export_category("Combat Properties")
-var current_health: float
-@export var max_health: float = 100.0
-@export var melee_damage: float = 50.0
-
-@export var sword_impact_strength: int = 250
 
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
@@ -128,7 +133,7 @@ func _process(delta):
 	
 	_rotate_camera()
 	#vinculando rotate da câmera com joystick
-	_rotate_camera_joystick()
+	#_rotate_camera_joystick()
 	if global_position.y <= -70: # if que coloca o player na area inicial do mapa
 		global_position = Vector3.ZERO
 
@@ -181,13 +186,6 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("fire"):
 		try_fire()
-	
-	if Input.is_action_just_pressed("block"):
-		if !is_blocking:
-			try_block()
-		
-	if Input.is_action_just_released("block"):
-		release_block()
 		
 	if Input.is_action_just_pressed("throw_sword"): 
 		if !is_disarmed:
@@ -198,8 +196,8 @@ func _input(event):
 	if Input.is_action_just_pressed("jump"):
 		try_jump()
 		
-	if Input.is_action_just_pressed("jump_joystick"):
-		try_jump_joystick()
+	#if Input.is_action_just_pressed("jump_joystick"):
+		#try_jump_joystick()
 
 func _toggle_pause_menu():
 	if get_tree().paused:
@@ -244,32 +242,18 @@ func try_throw_sword():
 	weapon.visible = false
 
 func try_attack():
-	if animation_player.current_animation != "attack" and !is_disarmed:
-		animation_player.play("attack")
+	if animation_player.current_animation != "push" and !is_disarmed:
+		animation_player.play("push")
 		print("Attacking!")
 
 func try_fire():
-	if animation_player.current_animation != "fire":
+	if animation_player.current_animation != "fire" and animation_player.current_animation != "push":
 		var projectile = projectile_scene.instantiate() as Projectile
 		projectile.transform = muzzle.global_transform
 		get_parent().add_child(projectile, true)
 		projectile.start(-head.global_transform.basis.z)
 		animation_player.play("fire")
 		print("Firing gun!")
-
-func try_block():
-	if animation_player.current_animation == "idle":
-		animation_player.play("block")
-		print("Blocking!")
-	
-	is_blocking = true
-
-func release_block():
-	#if animation_player.current_animation == "block":
-	animation_player.play("idle")
-	print("Stopped blocking!")
-		
-	is_blocking = false
 
 func try_jump():
 	if !is_on_floor():
@@ -278,12 +262,12 @@ func try_jump():
 	print("Jumping!")
 	velocity.y += JUMP_VELOCITY
 
-func try_jump_joystick():
-	if !is_on_floor():
-		return
-		
-	print("Jumping!")
-	velocity.y += JUMP_JOYSTICK_VELOCITY
+#func try_jump_joystick():
+	#if !is_on_floor():
+		#return
+		#
+	#print("Jumping!")
+	#velocity.y += JUMP_JOYSTICK_VELOCITY
 
 #mais uma func do camera juice
 func check_fall_speed() -> bool:
@@ -293,7 +277,6 @@ func check_fall_speed() -> bool:
 	else:
 		current_fall_velocity = 0.0
 		return false
-		
 		
 
 #Camera Juice pra quando o player cair, por favor implementem se conseguirem organizar a state machine
@@ -307,10 +290,12 @@ func check_fall_speed() -> bool:
 
 func _on_animation_finished(anim_name):
 	match anim_name:
-		"attack":
+		"push":
 			animation_player.play("idle")
-		_:
-			pass
+		"fire":
+			animation_player.play("idle")
+		"jump":
+			animation_player.play("idle")
 
 func _on_sword_hit():
 	print(sword_hit_area.collision_result)
@@ -353,29 +338,30 @@ func take_damage(amount: float):
 			game_hud_canvas.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func _rotate_camera_joystick():
-	
-	#______________________________
-	#Código para vincular visão do player com L3 do joystick
-	
-	var look_x = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
-	var look_y = Input.get_action_strength("look_down") - Input.get_action_strength("look_up")
-	
-	var look_delta = Vector2(look_x, look_y)
-	
-	if look_delta.length() > 0:
-		# --- Yaw (left/right) ---
-		rotate_y(-look_delta.x * mouse_sensitivity * look_sensitivity_horizontal)
+#func _rotate_camera_joystick():
+	#
+	##______________________________
+	##Código para vincular visão do player com L3 do joystick
+	#
+	#var look_x = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
+	#var look_y = Input.get_action_strength("look_down") - Input.get_action_strength("look_up")
+	#
+	#var look_delta = Vector2(look_x, look_y)
+	#
+	#if look_delta.length() > 0:
+		## --- Yaw (left/right) ---
+		#rotate_y(-look_delta.x * mouse_sensitivity * look_sensitivity_horizontal)
+#
+		## --- Pitch (up/down) ---
+		#head.rotate_x(-look_delta.y * mouse_sensitivity * look_sensitivity_vertical)
+		#head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+#
+		## --- Roll (optional tilt) ---
+		#head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
+	#
+	##_______________________________
 
-		# --- Pitch (up/down) ---
-		head.rotate_x(-look_delta.y * mouse_sensitivity * look_sensitivity_vertical)
-		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-
-		# --- Roll (optional tilt) ---
-		head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
-	
-	#_______________________________
-
+#region UI _ SCRIPTS
 func next_level(level_scene: PackedScene):
 	get_tree().paused = false
 	next_level_canvas.visible = true
@@ -692,5 +678,4 @@ func play_fire_sound():
 
 #endregion
 
-
-
+#endregion
