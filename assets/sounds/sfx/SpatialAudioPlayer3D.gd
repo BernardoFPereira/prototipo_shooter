@@ -3,9 +3,9 @@ extends AudioStreamPlayer3D
 
 @export var max_raycast_distance: float = 30.0
 @export var update_frequency_seconds: float = 0.3
-@export var max_reverb_wetness: float = 0.25  # REDUZIDO de 0.5
-@export var wall_lowpass_amount: int = 600   # AUMENTADO para menos filtragem
-@export var fade_in_time: float = 1.5        # Tempo para fade-in
+@export var max_reverb_wetness: float = 0.25
+@export var wall_lowpass_amount: int = 400   
+@export var fade_in_time: float = 1.0   
 
 var _raycast_array: Array = []
 var _distance_array: Array = [0,0,0,0,0,0,0,0,0,0]
@@ -24,23 +24,18 @@ var _target_reverb_room_size: float = 0.0
 var _target_volume_db: float = 0.0
 
 func _ready():
-	# Configurar bus uma única vez (evitar duplicação)
 	_setup_audio_effects()
 	
-	# Configurar raycasts
 	_setup_raycasts()
 	
-	# Iniciar com volume zero e fade-in
 	_target_volume_db = volume_db
-	volume_db = -80  # Mais silencioso que -60
+	volume_db = -80
 	_fade_timer = 0.0
 	_is_fading_in = true
 
 func _setup_audio_effects():
-	# Verificar se já existe o efeito para não adicionar múltiplas vezes
 	var sfx_bus_idx = AudioServer.get_bus_index("SFX")
 	
-	# Buscar ou criar efeito de reverb
 	var reverb_exists = false
 	var lowpass_exists = false
 	
@@ -62,8 +57,7 @@ func _setup_audio_effects():
 		AudioServer.add_bus_effect(sfx_bus_idx, AudioEffectLowPassFilter.new(), lowpass_index)
 		_lowpass_filter = AudioServer.get_bus_effect(sfx_bus_idx, lowpass_index)
 	
-	# Configurar valores iniciais seguros
-	_reverb_effect.wet = 0.0  # COMEÇA COM ZERO
+	_reverb_effect.wet = 0.0
 	_reverb_effect.room_size = 0.0
 	_lowpass_filter.cutoff_hz = 20000
 
@@ -96,32 +90,31 @@ func _on_update_raycast_distance(raycast: RayCast3D, raycast_index: int):
 
 func _on_update_spatial_audio(player: Node3D):
 	_on_update_lowpass_filter(player)
-	_on_update_reverb(player)  # Reverb por último
+	_on_update_reverb(player)
 
 func _on_update_reverb(_player: Node3D):
 	if _reverb_effect != null:
-		# CORREÇÃO: Quanto mais paredes próximas, MENOS reverb
+		
 		var open_space_ratio = 0.0
 		var walls_detected = 0
 		
 		for dist in _distance_array:
 			if dist >= 0:
 				walls_detected += 1
-				# Espaço aberto = distância máxima (mais longe da parede)
+				
 				open_space_ratio += (dist / max_raycast_distance)
 		
 		if walls_detected > 0:
 			open_space_ratio /= float(walls_detected)
 		else:
-			open_space_ratio = 1.0  # Espaço completamente aberto
-		
-		# Reverb aumenta em espaços abertos, diminui em espaços fechados
+			open_space_ratio = 1.0
+			
 		_target_reverb_wetness = (1.0 - open_space_ratio) * max_reverb_wetness
 		_target_reverb_room_size = 1.0 - open_space_ratio
 
 func _on_update_lowpass_filter(player: Node3D):
 	if _lowpass_filter != null:
-		# Atualizar direção do raycast para o player
+		
 		var direction = (player.global_position - global_position).normalized()
 		$RaycastPlayer.target_position = direction * max_raycast_distance
 		$RaycastPlayer.force_raycast_update()
@@ -134,16 +127,15 @@ func _on_update_lowpass_filter(player: Node3D):
 			var ray_distance = global_position.distance_to(hit_point)
 			var distance_to_player = global_position.distance_to(player.global_position)
 			
-			# CORREÇÃO: Só aplica filtro se a parede está entre a fonte e o player
 			if ray_distance < distance_to_player and distance_to_player > 0.1:
 				var wall_ratio = ray_distance / distance_to_player
-				# Quanto mais grossa a parede, mais filtragem
+				
 				lowpass_cutoff = max(wall_lowpass_amount, 2000) * (1.0 - wall_ratio) + 2000
 		
 		_target_lowpass_cutoff = clamp(lowpass_cutoff, 200.0, 20000.0)
 
 func _lerp_paramaters(delta):
-	# Fade-in suave para evitar estouros
+	
 	if _is_fading_in:
 		_fade_timer += delta
 		var fade_progress = _fade_timer / fade_in_time
@@ -151,16 +143,14 @@ func _lerp_paramaters(delta):
 			_is_fading_in = false
 			volume_db = _target_volume_db
 		else:
-			# Curva de fade-in suave (ease out)
+			
 			var ease_value = 1.0 - pow(1.0 - fade_progress, 2)
 			volume_db = lerp(-80.0, _target_volume_db, ease_value)
 	else:
 		volume_db = lerp(volume_db, _target_volume_db, delta * 5.0)
 	
-	# Limitar valores máximos para evitar distorção
 	_lowpass_filter.cutoff_hz = lerp(_lowpass_filter.cutoff_hz, _target_lowpass_cutoff, delta * 8.0)
 	
-	# Limitar reverb para não estourar
 	var target_wet = clamp(_target_reverb_wetness, 0.0, max_reverb_wetness)
 	_reverb_effect.wet = lerp(_reverb_effect.wet, target_wet, delta * 8.0)
 	_reverb_effect.room_size = lerp(_reverb_effect.room_size, _target_reverb_room_size, delta * 8.0)
@@ -184,7 +174,6 @@ func _physics_process(delta):
 	
 	_lerp_paramaters(delta)
 
-# Opção para debug (opcional)
 func _input(event):
 	if event.is_action_pressed("ui_home") and OS.is_debug_build():
 		print("=== Audio Debug ===")

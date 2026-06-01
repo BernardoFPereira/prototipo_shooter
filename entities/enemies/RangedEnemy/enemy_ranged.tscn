@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8bw8al37q20m"]
+[gd_scene load_steps=51 format=3 uid="uid://b8bw8al37q20m"]
 
 [ext_resource type="Script" path="res://entities/enemies/RangedEnemy/enemy_ranged.gd" id="1_ixay4"]
 [ext_resource type="Texture2D" uid="uid://cojkuuhu36hkc" path="res://textures/enemies/grunt01v2_standardSurface1_BaseColor.1001.png" id="2_lur2i"]
@@ -9,6 +9,35 @@
 [ext_resource type="Animation" uid="uid://bktfs7mlb546e" path="res://entities/enemies/RangedEnemy/SavedToFile/attack_anim.res" id="6_jcol3"]
 [ext_resource type="Animation" uid="uid://d57f7g16cna5" path="res://entities/enemies/RangedEnemy/SavedToFile/hit_anim.res" id="7_0l2wd"]
 [ext_resource type="Animation" uid="uid://c2sm7fujx0j0t" path="res://entities/enemies/RangedEnemy/SavedToFile/dead_anim.res" id="8_wopjh"]
+[ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="10_l2fey"]
+[ext_resource type="AudioStream" uid="uid://cmacwenxd08jo" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienDeath.wav" id="11_741p6"]
+[ext_resource type="AudioStream" uid="uid://bxifhxutmnuva" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 2-walk_metal.wav" id="11_w6trp"]
+[ext_resource type="AudioStream" uid="uid://cd6vbk3j0hxhk" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice1.wav" id="12_d4dno"]
+[ext_resource type="AudioStream" uid="uid://ck6kbnqdxyj5g" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 3-walk_metal.wav" id="12_seqmi"]
+[ext_resource type="AudioStream" uid="uid://p2f6xapnl6xj" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 12-walk_metal.wav" id="13_lg5uy"]
+[ext_resource type="AudioStream" uid="uid://c2ds2g6ghkmlr" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice2.wav" id="13_ruaf2"]
+[ext_resource type="AudioStream" uid="uid://bio3cpc2o7fu4" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 4-walk_metal.wav" id="14_b83kl"]
+[ext_resource type="AudioStream" uid="uid://bbaawhp5l6w7v" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice3.wav" id="14_tbg6g"]
+[ext_resource type="AudioStream" uid="uid://btnp87kjokjts" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 5-walk_metal.wav" id="15_dv6k0"]
+[ext_resource type="AudioStream" uid="uid://dx8516o71u5ax" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice4.wav" id="15_xvnn4"]
+[ext_resource type="AudioStream" uid="uid://dvnqgy8lwimax" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 6-walk_metal.wav" id="16_dijdc"]
+[ext_resource type="AudioStream" uid="uid://drkp7ccemksgb" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice5.wav" id="16_wurxr"]
+[ext_resource type="AudioStream" uid="uid://cfw7asdmma2lq" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 7-walk_metal.wav" id="17_5wuu5"]
+[ext_resource type="AudioStream" uid="uid://b1rmtoatxt62k" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice6.wav" id="17_uups7"]
+[ext_resource type="AudioStream" uid="uid://nbuddortarv6" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice7.wav" id="18_2cpak"]
+[ext_resource type="AudioStream" uid="uid://dxe3gkrkptdbw" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 8-walk_metal.wav" id="18_123rt"]
+[ext_resource type="AudioStream" uid="uid://b4e5hrbqpicxu" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 9-walk_metal.wav" id="19_agqse"]
+[ext_resource type="AudioStream" uid="uid://llaku5axdr7g" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice8.wav" id="19_jakc3"]
+[ext_resource type="AudioStream" uid="uid://b4cbb1r3ve2nn" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 10-walk_metal.wav" id="20_3cc33"]
+[ext_resource type="AudioStream" uid="uid://butelu0i8vjpw" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice9.wav" id="20_ty2la"]
+[ext_resource type="AudioStream" uid="uid://cowcfscnu61ul" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 11-walk_metal.wav" id="21_5r4ti"]
+[ext_resource type="AudioStream" uid="uid://cdwhh3ypo0qw5" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienVoice10.wav" id="21_f4a2i"]
+[ext_resource type="AudioStream" uid="uid://dytymnyj674ml" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienHit1.wav" id="22_rgjqg"]
+[ext_resource type="AudioStream" uid="uid://bjqgdy4wqstb5" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienHit2.wav" id="23_68kcb"]
+[ext_resource type="AudioStream" uid="uid://bp246mnuqit2i" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienHit3.wav" id="24_mgjv8"]
+[ext_resource type="AudioStream" uid="uid://bs1rpqrjs6afh" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienHit4.wav" id="25_lw80h"]
+[ext_resource type="AudioStream" uid="uid://cxwxoao8070qu" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienHit5.wav" id="26_5547f"]
+[ext_resource type="AudioStream" uid="uid://beqw0vmwi8bm3" path="res://assets/sounds/sfx/enemies/vocals/Alien AlienHit6.wav" id="27_l3k3h"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cstil"]
 transparency = 2
@@ -114,12 +143,86 @@ height = 2.2
 [sub_resource type="SphereShape3D" id="SphereShape3D_cg7ux"]
 radius = 50.0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1p3hs"]
+random_pitch = 1.1
+streams_count = 11
+stream_0/stream = ExtResource("11_w6trp")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("12_seqmi")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("14_b83kl")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("15_dv6k0")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("16_dijdc")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("17_5wuu5")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("18_123rt")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("19_agqse")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("20_3cc33")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("21_5r4ti")
+stream_9/weight = 1.0
+stream_10/stream = ExtResource("13_lg5uy")
+stream_10/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_gs2i7"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 10
+stream_0/stream = ExtResource("12_d4dno")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("13_ruaf2")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("14_tbg6g")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("15_xvnn4")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("16_wurxr")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("17_uups7")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("18_2cpak")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("19_jakc3")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("20_ty2la")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("21_f4a2i")
+stream_9/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h4xej"]
+streams_count = 6
+stream_0/stream = ExtResource("22_rgjqg")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("23_68kcb")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("24_mgjv8")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("25_lw80h")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("26_5547f")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("27_l3k3h")
+stream_5/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_eptq5"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("11_741p6")
+stream_0/weight = 1.0
+
 [node name="EnemyRanged" type="RigidBody3D"]
 collision_layer = 528640
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25
 script = ExtResource("1_ixay4")
+idle_sound_interval = 4.0
 attack_range = 75.0
 
 [node name="Armature" type="Node3D" parent="."]
@@ -136,106 +239,106 @@ bones/1/name = "pelvis"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, -4.76837e-07, -4.12481e-07, 0.501711, -0.865035, 2.39234e-07, 0.865035, 0.501711, 8.96321e-18, 0.747971, -0.211332)
 bones/1/enabled = true
-bones/1/position = Vector3(8.96321e-18, 0.747971, -0.211332)
-bones/1/rotation = Quaternion(0.499144, -2.06594e-07, -1.19005e-07, 0.866519)
+bones/1/position = Vector3(1.10834e-16, 0.691706, -0.170411)
+bones/1/rotation = Quaternion(0.389219, 0.0156272, 0.0396275, 0.92016)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "body"
 bones/2/parent = 1
 bones/2/rest = Transform3D(1, -3.33786e-07, -1.36308e-07, 3.33786e-07, 0.714142, 0.700001, -1.36307e-07, -0.700001, 0.714142, -5.20185e-08, 0.190205, -0.109091)
 bones/2/enabled = true
 bones/2/position = Vector3(-5.20185e-08, 0.190205, -0.109091)
-bones/2/rotation = Quaternion(-0.37806, -1.5404e-13, 1.80273e-07, 0.925781)
+bones/2/rotation = Quaternion(-0.310283, 0.0821337, -0.0671922, 0.944703)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "head"
 bones/3/parent = 2
 bones/3/rest = Transform3D(1, -4.16692e-09, -1.81288e-11, 4.16692e-09, 0.999962, 0.00873864, -1.82851e-11, -0.00873865, 0.999962, 4.00922e-08, 0.452164, 0.0840795)
 bones/3/enabled = true
 bones/3/position = Vector3(4.00922e-08, 0.452164, 0.0840795)
-bones/3/rotation = Quaternion(-0.00436936, 3.90803e-14, 2.08348e-09, 0.99999)
+bones/3/rotation = Quaternion(0.108253, -0.0929397, 0.00732808, 0.989742)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "upperArm.L"
 bones/4/parent = 2
 bones/4/rest = Transform3D(0.0477872, 0.623175, -0.780621, -0.666705, -0.562046, -0.489499, -0.743788, 0.543836, 0.388615, 0.192336, 0.257007, -0.0959935)
 bones/4/enabled = true
 bones/4/position = Vector3(0.192336, 0.257007, -0.0959935)
-bones/4/rotation = Quaternion(-0.552544, 0.0196951, 0.689723, -0.467535)
+bones/4/rotation = Quaternion(-0.505343, -0.289505, 0.81289, -0.00512144)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "lowerArm.L"
 bones/5/parent = 4
 bones/5/rest = Transform3D(0.948215, -0.312143, -0.0587752, 0.274615, 0.898633, -0.34212, 0.159608, 0.308262, 0.937816, 2.23517e-08, 0.312448, -9.47621e-08)
 bones/5/enabled = true
 bones/5/position = Vector3(2.23517e-08, 0.312448, -9.47621e-08)
-bones/5/rotation = Quaternion(0.167157, -0.0561274, 0.150805, 0.972711)
+bones/5/rotation = Quaternion(0.156911, -0.0831493, 0.315065, 0.932309)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "upperArm.R"
 bones/6/parent = 2
 bones/6/rest = Transform3D(0.0477879, -0.623175, 0.780621, 0.666705, -0.562046, -0.489499, 0.743788, 0.543836, 0.388615, -0.192336, 0.257007, -0.0959933)
 bones/6/enabled = true
 bones/6/position = Vector3(-0.192336, 0.257007, -0.0959933)
-bones/6/rotation = Quaternion(0.552544, 0.0196954, 0.689723, 0.467535)
+bones/6/rotation = Quaternion(0.578048, 0.0519016, 0.690942, 0.431005)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "lowerArm.R"
 bones/7/parent = 6
 bones/7/rest = Transform3D(0.948215, 0.312143, 0.0587751, -0.274615, 0.898633, -0.34212, -0.159607, 0.308262, 0.937817, -5.86733e-08, 0.312448, -4.88944e-09)
 bones/7/enabled = true
 bones/7/position = Vector3(-5.86733e-08, 0.312448, -4.88944e-09)
-bones/7/rotation = Quaternion(0.167157, 0.0561273, -0.150805, 0.972711)
+bones/7/rotation = Quaternion(0.160666, 0.0744078, -0.262762, 0.948476)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "upperLeg.L"
 bones/8/parent = 1
 bones/8/rest = Transform3D(0.822669, 0.156839, -0.546458, -0.559635, 0.0541359, -0.826969, -0.100118, 0.986139, 0.132309, 0.140096, 0.137088, -0.0932333)
 bones/8/enabled = true
 bones/8/position = Vector3(0.140096, 0.137088, -0.0932333)
-bones/8/rotation = Quaternion(0.639953, -0.157118, -0.251766, 0.708793)
+bones/8/rotation = Quaternion(0.657756, -0.211286, -0.293382, 0.660789)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "lowerLeg.L"
 bones/9/parent = 8
 bones/9/rest = Transform3D(0.915266, 0.382046, -0.127787, -0.381615, 0.72061, -0.578871, -0.129071, 0.578586, 0.805344, -2.04891e-08, 0.317937, -1.11759e-08)
 bones/9/enabled = true
 bones/9/position = Vector3(-2.04891e-08, 0.317937, -1.11759e-08)
-bones/9/rotation = Quaternion(0.311974, 0.000345971, -0.205833, 0.927526)
+bones/9/rotation = Quaternion(0.220549, 0.000359751, -0.145513, 0.96446)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "upperLeg.R"
 bones/10/parent = 1
 bones/10/rest = Transform3D(0.822669, -0.156838, 0.546459, 0.559635, 0.054136, -0.826969, 0.100117, 0.98614, 0.132308, -0.140096, 0.137088, -0.0932332)
 bones/10/enabled = true
 bones/10/position = Vector3(-0.140096, 0.137088, -0.0932332)
-bones/10/rotation = Quaternion(0.638578, 0.15831, 0.255284, 0.70851)
+bones/10/rotation = Quaternion(0.851796, -0.055157, 0.43471, 0.287104)
 bones/10/scale = Vector3(1, 1, 1)
 bones/11/name = "lowerLeg.R"
 bones/11/parent = 10
 bones/11/rest = Transform3D(0.915265, -0.382046, 0.127787, 0.381615, 0.72061, -0.578871, 0.129071, 0.578586, 0.805344, 1.67638e-08, 0.317937, 2.04891e-08)
 bones/11/enabled = true
 bones/11/position = Vector3(1.67638e-08, 0.317937, 2.04891e-08)
-bones/11/rotation = Quaternion(0.311974, -0.000345977, 0.205833, 0.927526)
+bones/11/rotation = Quaternion(0.297493, -0.000348488, 0.196279, 0.93433)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "IK_Leg.L"
 bones/12/parent = -1
 bones/12/rest = Transform3D(0.706453, 0, -0.70776, 0.70776, 0, 0.706453, 0, -1, 0, 0.254073, 0.0720614, -0.0765591)
 bones/12/enabled = true
-bones/12/position = Vector3(0.254073, 0.0720614, -0.0765591)
+bones/12/position = Vector3(0.238728, 0.072573, 0.191982)
 bones/12/rotation = Quaternion(-0.653156, -0.2709, 0.2709, 0.653156)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/name = "Leg_Pole.L"
 bones/13/parent = -1
 bones/13/rest = Transform3D(0.877032, -1.49012e-08, -0.480432, -0.480432, -1.19209e-07, -0.877032, -1.49012e-08, 1, -1.19209e-07, 0.189961, 0.634821, 0.505197)
 bones/13/enabled = true
-bones/13/position = Vector3(0.189961, 0.634821, 0.505197)
-bones/13/rotation = Quaternion(0.685024, -0.175334, -0.175334, 0.685024)
+bones/13/position = Vector3(0.22433, 0.634821, 0.490902)
+bones/13/rotation = Quaternion(0.678571, -0.151608, -0.198852, 0.690663)
 bones/13/scale = Vector3(1, 1, 1)
 bones/14/name = "IK_Leg.R"
 bones/14/parent = -1
 bones/14/rest = Transform3D(0.706453, 0, 0.70776, -0.70776, 0, 0.706453, 0, -1, 0, -0.254073, 0.0720614, -0.0765591)
 bones/14/enabled = true
-bones/14/position = Vector3(-0.254073, 0.0720614, -0.0765591)
+bones/14/position = Vector3(-0.261745, 0.240859, -0.715942)
 bones/14/rotation = Quaternion(-0.653156, 0.2709, -0.2709, 0.653156)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/name = "Leg_Pole.R"
 bones/15/parent = -1
 bones/15/rest = Transform3D(0.877032, 1.49012e-08, 0.480432, 0.480432, -1.19209e-07, -0.877032, 1.49012e-08, 1, -1.19209e-07, -0.189961, 0.634821, 0.505197)
 bones/15/enabled = true
-bones/15/position = Vector3(-0.189961, 0.634821, 0.505197)
-bones/15/rotation = Quaternion(0.685024, 0.175334, 0.175334, 0.685024)
+bones/15/position = Vector3(-0.277797, 0.634821, 0.46275)
+bones/15/rotation = Quaternion(0.666375, 0.112709, 0.236524, 0.698066)
 bones/15/scale = Vector3(1, 1, 1)
 
 [node name="ranged_enemy_01_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
@@ -244,7 +347,7 @@ mesh = SubResource("ArrayMesh_024hr")
 skin = SubResource("Skin_pgcwt")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.0918532, -0.304453, 0.948088, 0.701715, -0.655745, -0.278558, 0.706512, 0.690875, 0.153407, -0.387046, 0.996512, -0.00858069)
+transform = Transform3D(0.149644, 0.0139352, 0.988642, 0.896724, -0.423138, -0.129767, 0.416524, 0.905958, -0.0758162, -0.353223, 0.936075, 0.0528081)
 bone_name = "lowerArm.R"
 bone_idx = 7
 
@@ -289,5 +392,38 @@ shape = SubResource("SphereShape3D_cg7ux")
 target_position = Vector3(0, -0.5, 0)
 collision_mask = 17
 hit_from_inside = true
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="Walk" parent="SFX" instance=ExtResource("10_l2fey")]
+visible = false
+stream = SubResource("AudioStreamRandomizer_1p3hs")
+attenuation_model = 1
+volume_db = -5.0
+pitch_scale = 1.2
+bus = &"SFX"
+
+[node name="Idle" parent="SFX" instance=ExtResource("10_l2fey")]
+visible = false
+stream = SubResource("AudioStreamRandomizer_gs2i7")
+attenuation_model = 1
+volume_db = 5.0
+pitch_scale = 1.2
+bus = &"SFX"
+
+[node name="Hit" parent="SFX" instance=ExtResource("10_l2fey")]
+visible = false
+stream = SubResource("AudioStreamRandomizer_h4xej")
+attenuation_model = 1
+volume_db = -10.0
+pitch_scale = 1.2
+bus = &"SFX"
+
+[node name="Death" parent="SFX" instance=ExtResource("10_l2fey")]
+visible = false
+stream = SubResource("AudioStreamRandomizer_eptq5")
+attenuation_model = 1
+pitch_scale = 1.2
+bus = &"SFX"
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
