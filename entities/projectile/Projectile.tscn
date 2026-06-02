@@ -1,17 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://cdu40asu3x8p7"]
 
 [ext_resource type="Script" path="res://entities/projectile/projectile.gd" id="1_bpkli"]
+[ext_resource type="Material" uid="uid://b6e5ht1idg1gu" path="res://entities/projectile/ProjectileMat.tres" id="2_spcdd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irntn"]
-albedo_color = Color(0.160784, 0.419608, 0.490196, 1)
-emission_enabled = true
-emission = Color(0.341176, 0.831373, 1, 1)
-emission_energy_multiplier = 2.9
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_64x7p"]
-material = SubResource("StandardMaterial3D_irntn")
-radius = 0.17
-height = 0.855
+[sub_resource type="SphereMesh" id="SphereMesh_rmglx"]
+material = ExtResource("2_spcdd")
+radius = 0.2
+height = 0.4
+radial_segments = 16
+rings = 8
 
 [sub_resource type="Curve" id="Curve_nkxa6"]
 _data = [Vector2(0, 0.176602), 0.0, 0.279352, 0, 0, Vector2(0.618182, 0.108793), -0.516477, -0.516477, 0, 0, Vector2(1, 0), -0.172131, 0.0, 0, 0]
@@ -42,7 +39,7 @@ material = SubResource("ORMMaterial3D_e2liw")
 size = Vector3(0.22, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hfops"]
-size = Vector3(0.404297, 0.407227, 0.951172)
+size = Vector3(0.541016, 0.407227, 0.595703)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_t8u5j"]
 radius = 4.0
@@ -61,14 +58,14 @@ one_shot = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_64x7p")
+mesh = SubResource("SphereMesh_rmglx")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0113652, 0.165778)
+transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0113652, -0.0140504)
 amount = 250
 explosiveness = 0.18
 randomness = 0.24
-visibility_aabb = AABB(-1.90855, -2.54887, -3.00871, 3.8171, 4.7032, 6.01741)
+visibility_aabb = AABB(-1.90855, -2.54887, -3.0087, 3.8171, 4.7032, 6.01741)
 process_material = SubResource("ParticleProcessMaterial_uokkp")
 draw_pass_1 = SubResource("BoxMesh_o3wa0")
 

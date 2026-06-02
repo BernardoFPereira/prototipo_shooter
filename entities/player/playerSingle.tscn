@@ -13,25 +13,25 @@
 [ext_resource type="Animation" uid="uid://bcmm8f7t1i82e" path="res://models/player/anims/jump.res" id="6_ibnpt"]
 [ext_resource type="Animation" uid="uid://bcceims4vqmdj" path="res://models/player/anims/fire.res" id="7_5umrl"]
 [ext_resource type="Animation" uid="uid://6qgdls5t5xq3" path="res://models/player/anims/push.res" id="8_bsqsa"]
-[ext_resource type="Theme" uid="uid://cv0m0qgxplmjs" path="res://UI/ConfigMenu/config_theme.tres" id="8_n6bql"]
+[ext_resource type="Theme" uid="uid://y11r1ylhlp4c" path="res://UI/ConfigMenu/config_theme.tres" id="8_n6bql"]
 [ext_resource type="Texture2D" uid="uid://bonlo65jd4ge2" path="res://UI/ConfigMenu/COLCHETE 1.png" id="9_slx6m"]
 [ext_resource type="Animation" uid="uid://c5bbs2k8ap622" path="res://models/player/anims/a_pose.res" id="9_y8pmy"]
 [ext_resource type="Animation" uid="uid://doejvdoyqsmui" path="res://models/player/anims/walk.res" id="10_uvuu5"]
 [ext_resource type="Texture2D" uid="uid://c14smyuarc2o6" path="res://UI/ConfigMenu/COLCHETE 2.png" id="10_vmsi3"]
-[ext_resource type="Texture2D" uid="uid://cj1vv6u8c37p7" path="res://UI/ConfigMenu/v2_btn_tick.png" id="11_d86lc"]
-[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/_old/v2_btn_bar.png" id="12_rlhsb"]
+[ext_resource type="Texture2D" uid="uid://bd5swod4mubmo" path="res://UI/ConfigMenu/v2_btn_tick.png" id="11_d86lc"]
+[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/v2_btn_bar.png" id="12_rlhsb"]
 [ext_resource type="Texture2D" uid="uid://cp8sjbs1efomi" path="res://UI/ConfigMenu/BOTÃO OFF.png" id="13_xodqh"]
 [ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="14_8vx3h"]
 [ext_resource type="Texture2D" uid="uid://bo5sjwobb2r68" path="res://UI/ConfigMenu/BOTÃO ON.png" id="14_yv16d"]
 [ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="15_8te5u"]
-[ext_resource type="Theme" uid="uid://j7ift28l2na3" path="res://UI/GameOver/go_theme.tres" id="15_bfdfs"]
+[ext_resource type="Theme" uid="uid://iecf6gm1i2b2" path="res://UI/GameOver/go_theme.tres" id="15_bfdfs"]
 [ext_resource type="Texture2D" uid="uid://c6p36nodbvmie" path="res://UI/Controls/_old/v2_btn_controle_a.png" id="15_ojo0g"]
 [ext_resource type="Texture2D" uid="uid://i2v4u0juydu0" path="res://UI/Controls/_old/v2_btn_controle_a_selected.png" id="16_g6n13"]
 [ext_resource type="Texture2D" uid="uid://c882uw1ums67c" path="res://UI/GameOver/BOTÃO D 1.png" id="16_trshw"]
 [ext_resource type="Texture2D" uid="uid://cxoq684337wnk" path="res://UI/Controls/_old/v2_btn_controle_b.png" id="17_baac6"]
-[ext_resource type="Theme" uid="uid://d2qhleumc8smy" path="res://UI/MainMenu/menu_theme.tres" id="18_40mg7"]
+[ext_resource type="Theme" uid="uid://b7pmgihcajosw" path="res://UI/MainMenu/menu_theme.tres" id="18_40mg7"]
 [ext_resource type="Texture2D" uid="uid://btoqts0rijsgy" path="res://UI/Controls/_old/v2_btn_controle_b_selected.png" id="18_akbla"]
-[ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="24_mrbwe"]
+[ext_resource type="PackedScene" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="24_mrbwe"]
 [ext_resource type="AudioStream" uid="uid://dxr7hi71peiey" path="res://assets/sounds/sfx/player/breathing.wav" id="25_8jerd"]
 [ext_resource type="AudioStream" uid="uid://dpwfecnw5s7fj" path="res://assets/sounds/sfx/player/jump_f.wav" id="37_re1qd"]
 [ext_resource type="AudioStream" uid="uid://com4jw17vfb74" path="res://assets/sounds/sfx/player/cannon_blast.wav" id="38_aldgl"]
@@ -624,7 +624,7 @@ bones/6/parent = 5
 bones/6/rest = Transform3D(0.99991, -0.0134318, 0.000384948, 0.013428, 0.99774, -0.0658364, 0.000500223, 0.0658356, 0.99783, -1.27948e-08, 0.341065, 8.84756e-09)
 bones/6/enabled = true
 bones/6/position = Vector3(-1.27948e-08, 0.341065, 8.84756e-09)
-bones/6/rotation = Quaternion(0.476143, -0.270023, -0.151876, 0.822988)
+bones/6/rotation = Quaternion(0.476143, -0.270022, -0.151876, 0.822988)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "hand.R"
 bones/7/parent = 6
@@ -638,7 +638,7 @@ bones/8/parent = 7
 bones/8/rest = Transform3D(0.944595, -0.271413, 0.184597, 0.32765, 0.746003, -0.579762, 0.0196451, 0.608123, 0.793599, -0.0144997, 0.0249085, 0.0496645)
 bones/8/enabled = true
 bones/8/position = Vector3(-0.0144997, 0.0249085, 0.0496645)
-bones/8/rotation = Quaternion(0.279018, -0.00306523, 0.287024, 0.916383)
+bones/8/rotation = Quaternion(0.279018, -0.00306521, 0.287024, 0.916383)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "thumb02.R"
 bones/9/parent = 8
@@ -729,7 +729,7 @@ bones/21/parent = 20
 bones/21/rest = Transform3D(0.977049, -0.209727, -0.037285, 0.209562, 0.97776, -0.00831242, 0.0381991, 0.000308102, 0.99927, -8.9407e-08, 0.0447267, 7.45058e-08)
 bones/21/enabled = true
 bones/21/position = Vector3(-8.9407e-08, 0.0447267, 7.45058e-08)
-bones/21/rotation = Quaternion(-0.000424901, -0.019099, 0.239211, 0.97078)
+bones/21/rotation = Quaternion(-0.000424902, -0.019099, 0.239211, 0.97078)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/name = "pinky03.R"
 bones/22/parent = 21
@@ -779,7 +779,7 @@ mesh = SubResource("ArrayMesh_5rrhx")
 skin = SubResource("Skin_4l2pa")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Head/Weapon/PlayerArmature/Armature/Skeleton3D"]
-transform = Transform3D(0.982409, 0.0300994, 0.184298, -0.183427, -0.0295452, 0.982589, 0.0350207, -0.99911, -0.0235044, -0.387337, -0.153944, -0.343691)
+transform = Transform3D(0.982409, 0.0300993, 0.184298, -0.183427, -0.0295459, 0.982589, 0.0350206, -0.99911, -0.023505, -0.387337, -0.153944, -0.343691)
 bone_name = "cannonBase"
 bone_idx = 3
 

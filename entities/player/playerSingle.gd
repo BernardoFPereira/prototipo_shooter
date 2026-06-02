@@ -49,7 +49,14 @@ enum PlayerStates {
 
 @onready var head: Node3D = $Head
 @onready var camera = $Head/Camera3D
-@onready var weapon = $Head/Weapon
+#braço 
+@onready var index_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/index_geo
+@onready var middle_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/middle_geo
+@onready var pinky_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/pinky_geo
+@onready var ring_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/ring_geo
+@onready var thumb_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/thumb_geo
+@onready var forearm_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/Forearm_geo
+
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
 @onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
@@ -239,7 +246,12 @@ func try_throw_sword():
 	thrown_sword = sword
 	activation_timer.start()
 	
-	weapon.visible = false
+	index_geo.visible = false
+	middle_geo.visible = false
+	pinky_geo.visible = false
+	ring_geo.visible = false
+	thumb_geo.visible = false
+	forearm_geo.visible = false
 
 func try_attack():
 	if animation_player.current_animation != "push" and !is_disarmed:
@@ -321,7 +333,12 @@ func _on_sword_back(body):
 	if sword is Sword and sword.sword_owner == self:
 		is_disarmed = false
 		body.get_parent().register_impact()
-		weapon.visible = true
+		index_geo.visible = true
+		middle_geo.visible = true
+		pinky_geo.visible = true
+		ring_geo.visible = true
+		thumb_geo.visible = true
+		forearm_geo.visible = true
 
 func take_damage(amount: float):
 	if current_health > 0:
