@@ -27951,7 +27951,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53, 14, 25)
 script = ExtResource("8_div0b")
 mesh_vector_data = SubResource("Resource_ba5xx")
 materials = Array[Material]([ExtResource("15_wsp6e")])
-collision_layer = 17
 
 [node name="Block_136" type="Node3D" parent="Cyclops"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.999, 22.9332, 85.0032)
