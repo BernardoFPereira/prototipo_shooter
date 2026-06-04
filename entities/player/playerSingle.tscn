@@ -1,7 +1,8 @@
-[gd_scene load_steps=117 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=118 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="2_6hu70"]
+[ext_resource type="PackedScene" uid="uid://jkhhtxq7n4px" path="res://entities/sword/arm_projectile.tscn" id="2_pwkxa"]
 [ext_resource type="Texture2D" uid="uid://bfyp8hyjap7gw" path="res://textures/crosshairs/Crosshair3.png" id="3_5hn21"]
 [ext_resource type="Texture2D" uid="uid://8acna15ax3dq" path="res://models/player/PlayerArmature_cannontex.png" id="3_v6m5b"]
 [ext_resource type="Script" path="res://scripts/camera_effects.gd" id="3_x4mog"]
@@ -328,7 +329,7 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_we5c5"]
-size = Vector3(0.89, 1, 1.495)
+size = Vector3(1.36, 1, 0.895)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
@@ -548,6 +549,8 @@ collision_layer = 260
 collision_mask = 3
 script = ExtResource("1_wj731")
 camera_juice = NodePath("Head/Camera3D")
+move_speed = 16
+arm_projectile_scene = ExtResource("2_pwkxa")
 
 [node name="ActivationTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -624,7 +627,7 @@ bones/6/parent = 5
 bones/6/rest = Transform3D(0.99991, -0.0134318, 0.000384948, 0.013428, 0.99774, -0.0658364, 0.000500223, 0.0658356, 0.99783, -1.27948e-08, 0.341065, 8.84756e-09)
 bones/6/enabled = true
 bones/6/position = Vector3(-1.27948e-08, 0.341065, 8.84756e-09)
-bones/6/rotation = Quaternion(0.476143, -0.270023, -0.151876, 0.822988)
+bones/6/rotation = Quaternion(0.476143, -0.270022, -0.151876, 0.822988)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "hand.R"
 bones/7/parent = 6
@@ -638,7 +641,7 @@ bones/8/parent = 7
 bones/8/rest = Transform3D(0.944595, -0.271413, 0.184597, 0.32765, 0.746003, -0.579762, 0.0196451, 0.608123, 0.793599, -0.0144997, 0.0249085, 0.0496645)
 bones/8/enabled = true
 bones/8/position = Vector3(-0.0144997, 0.0249085, 0.0496645)
-bones/8/rotation = Quaternion(0.279018, -0.00306523, 0.287024, 0.916383)
+bones/8/rotation = Quaternion(0.279018, -0.00306521, 0.287024, 0.916383)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "thumb02.R"
 bones/9/parent = 8
@@ -680,7 +683,7 @@ bones/14/parent = 7
 bones/14/rest = Transform3D(0.947319, -0.306194, -0.093978, 0.306123, 0.951865, -0.0155262, 0.0942085, -0.0140606, 0.995453, -0.0192392, 0.200768, 0.0109263)
 bones/14/enabled = true
 bones/14/position = Vector3(-0.0192392, 0.200768, 0.0109263)
-bones/14/rotation = Quaternion(0.0322132, -0.0492207, 0.366845, 0.92842)
+bones/14/rotation = Quaternion(0.0322131, -0.0492207, 0.366845, 0.92842)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/name = "middle02.R"
 bones/15/parent = 14
@@ -729,7 +732,7 @@ bones/21/parent = 20
 bones/21/rest = Transform3D(0.977049, -0.209727, -0.037285, 0.209562, 0.97776, -0.00831242, 0.0381991, 0.000308102, 0.99927, -8.9407e-08, 0.0447267, 7.45058e-08)
 bones/21/enabled = true
 bones/21/position = Vector3(-8.9407e-08, 0.0447267, 7.45058e-08)
-bones/21/rotation = Quaternion(-0.000424901, -0.019099, 0.239211, 0.97078)
+bones/21/rotation = Quaternion(-0.000424902, -0.019099, 0.239211, 0.97078)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/name = "pinky03.R"
 bones/22/parent = 21
@@ -779,12 +782,12 @@ mesh = SubResource("ArrayMesh_5rrhx")
 skin = SubResource("Skin_4l2pa")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Head/Weapon/PlayerArmature/Armature/Skeleton3D"]
-transform = Transform3D(0.982409, 0.0300994, 0.184298, -0.183427, -0.0295452, 0.982589, 0.0350207, -0.99911, -0.0235044, -0.387337, -0.153944, -0.343691)
+transform = Transform3D(0.982409, 0.0300993, 0.184298, -0.183427, -0.0295459, 0.982589, 0.0350206, -0.99911, -0.023505, -0.387337, -0.153944, -0.343691)
 bone_name = "cannonBase"
 bone_idx = 3
 
 [node name="Muzzle" type="Marker3D" parent="Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D"]
-transform = Transform3D(1, 2.23517e-08, 8.37026e-08, 2.23517e-08, 1, 7.45058e-09, 1.04774e-09, 1.86265e-09, 1, 0.00865227, 0.676941, 0.000325084)
+transform = Transform3D(0.983515, -0.177035, 0.0368673, 0.0321494, -0.0294463, -0.99905, 0.177952, 0.983765, -0.0232694, 0.00865227, 0.676941, 0.000325084)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Head/Weapon/PlayerArmature"]
 libraries = {
@@ -802,7 +805,7 @@ visible = false
 target_position = Vector3(0, 0, -15)
 
 [node name="SwordHitArea" type="ShapeCast3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.64012, -0.972419)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.64012, -0.683178)
 shape = SubResource("BoxShape3D_we5c5")
 target_position = Vector3(0, 0, -0.68)
 collision_mask = 4096

@@ -9,10 +9,11 @@ enum SwordState {
 
 @onready var animation_player = $AnimationPlayer
 @onready var collision_area = $CollisionArea
-@onready var stuck_collision = $CollisionArea/StuckCollision
+#@onready var stuck_collision = $CollisionArea/StuckCollision
 @onready var flying_collision = $CollisionArea/FlyingCollision
 
-@onready var sword_model = $sword
+@onready var sword_model = $ArmProjectile
+@onready var impact_particles = $ArmProjectile/Armature/Impact
 
 var state = SwordState.THROWN
 
@@ -42,14 +43,14 @@ func start(dir) -> void:
 func set_state(new_state: SwordState):
 	match new_state:
 		SwordState.THROWN:
-			stuck_collision.disabled = true
+			#stuck_collision.disabled = true
 			flying_collision.disabled = false
 			collision_area.set_collision_layer_value(2, false)
 			collision_area.set_collision_layer_value(4, false)
 			collision_area.set_collision_layer_value(10, false)
 			
 		SwordState.PULLED_BACK:
-			stuck_collision.disabled = true
+			#stuck_collision.disabled = true
 			flying_collision.disabled = false
 			collision_area.set_collision_mask_value(5, false)
 			collision_area.set_collision_layer_value(2, false)
@@ -63,7 +64,7 @@ func set_state(new_state: SwordState):
 			animation_player.play("flying")
 			
 		SwordState.STUCK:
-			stuck_collision.disabled = false
+			#stuck_collision.disabled = false
 			flying_collision.disabled = true
 			collision_area.set_collision_layer_value(2, true)
 			collision_area.set_collision_layer_value(4, false)
@@ -83,11 +84,12 @@ func _on_sword_impact(body):
 			print(sword_owner)
 			collision_area.set_collision_layer_value(4, true)
 		return
-	
-	var collision_result: KinematicCollision3D = collision_area.move_and_collide(global_position)
+		
+	var forward_motion = -global_transform.basis.z# * 0.5
+	var collision_result: KinematicCollision3D = collision_area.move_and_collide(forward_motion)
 	if collision_result:
 		var collision_parent = collision_result.get_collider().get_parent()
-		if collision_parent is SwordButton: #abre as portas linkadas nos botões
+		if collision_parent is SwordButton: # Checa se o pai do objeto colidido é um Botao
 			print("parent detected")
 			collision_parent.set_state(collision_parent.button_states.PRESSED)
 			is_on_button = true
@@ -96,13 +98,16 @@ func _on_sword_impact(body):
 			print("no parent detected")
 		var collision_normal = collision_result.get_normal()
 		var collision_pos = collision_result.get_position()
+		
 		print(collision_pos)
 		print(collision_result.get_collider())
-		global_position = collision_pos + collision_normal
+		
+		global_position = collision_pos + (collision_normal / 4)
 		look_at(global_position + collision_normal)
+		impact_particles.emitting = true
 		#sword_model.look_at(collision_pos)
-		sword_model.transform = stuck_collision.transform
-		sword_model.rotate_z(deg_to_rad(90))
+		#sword_model.transform = flying_collision.transform
+		#sword_model.rotate_z(deg_to_rad(90))
 	
 	#print("-----> Thrown sword hit something!")
 	#print("-----> Should STUCK!")

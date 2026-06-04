@@ -13,6 +13,7 @@ var current_fall_velocity : float
 var mouse_sensitivity := 0.001
 var input_mouse: Vector2
 var movement_vector: Vector2
+var direction: Vector3
 
 const JUMP_VELOCITY := 16
 const JUMP_JOYSTICK_VELOCITY: = 5
@@ -38,8 +39,9 @@ enum PlayerStates {
 	RUN,
 	JUMP,
 	FALL,
-	ATTACK,
-	BLOCK,
+	#FIRE,
+	PUSH,
+	LAUNCH,
 }
 #endregion
 
@@ -50,6 +52,14 @@ enum PlayerStates {
 @onready var head: Node3D = $Head
 @onready var camera = $Head/Camera3D
 @onready var weapon = $Head/Weapon
+
+@onready var forearm_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/Forearm_geo
+@onready var index_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/index_geo
+@onready var middle_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/middle_geo
+@onready var pinky_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/pinky_geo
+@onready var ring_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/ring_geo
+@onready var thumb_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/thumb_geo
+
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
 @onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
@@ -60,6 +70,7 @@ enum PlayerStates {
 @onready var health_label = $GameHUD/HealthLabel
 @onready var activation_timer = $ActivationTimer
 
+@export var arm_projectile_scene: PackedScene
 const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
@@ -71,6 +82,7 @@ var thrown_sword: Sword
 const config_background = preload("uid://beg6jpulxo7uw")
 const on_button_texture = preload("uid://bo5sjwobb2r68")
 const off_button_texture = preload("uid://cp8sjbs1efomi")
+
 @onready var active_background = $MenuHUD/Panel/ActiveBackground
 @onready var config_group = $MenuHUD/Panel/ConfigGroup
 @onready var ctrls_group = $MenuHUD/Panel/ControlsGroup
@@ -104,6 +116,7 @@ const ctrls_key_background = preload("uid://bmu1oequesbqo")
 const quit_background = preload("uid://dmel4nekr0nx4")
 #endregion
 
+@export var state: PlayerStates = PlayerStates.IDLE
 
 func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
@@ -126,6 +139,7 @@ func _ready():
 	
 	config_group.visible = false
 	ctrls_group.visible = false
+	
 
 func _process(delta):
 	if is_dead or is_next_level:
@@ -136,26 +150,101 @@ func _process(delta):
 	#_rotate_camera_joystick()
 	if global_position.y <= -70: # if que coloca o player na area inicial do mapa
 		global_position = Vector3.ZERO
+	
+	handle_input()
+
+func set_state(new_state: PlayerStates):
+	match new_state:
+		PlayerStates.IDLE:
+			pass
+		PlayerStates.RUN:
+			pass
+		PlayerStates.JUMP:
+			try_jump()
+			pass
+		PlayerStates.FALL:
+			pass
+		PlayerStates.LAUNCH:
+			pass
+	
+	state = new_state
+
+func handle_input():
+	if is_dead or is_next_level:
+		return
+	
+	if Input.is_action_just_pressed("attack"):
+		try_attack()
+	
+	if Input.is_action_just_pressed("fire"):
+		try_fire()
+		
+	if Input.is_action_just_pressed("throw_sword"): 
+		if !is_disarmed:
+			try_throw_sword()
+		else:
+			try_pull_sword()
+		
+	if Input.is_action_just_pressed("jump"):
+		set_state(PlayerStates.JUMP)
 
 func _physics_process(delta):
 	if is_dead or is_next_level:
 		return
-	
-	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-	var direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
-	if movement_vector:
-		velocity.z = lerpf(direction.z * move_speed, 0, delta * move_speed)
-		velocity.x = lerpf(direction.x * move_speed, 0, delta * move_speed)
-	else:
-		velocity.z = move_toward(velocity.z, 0, delta * (drag * 4))
-		velocity.x = move_toward(velocity.x, 0, delta * (drag * 4))
 		
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+	velocity.y -= gravity * delta
+	handle_states(delta)
+	move_and_slide()
+
+func handle_states(delta):
+	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
+	
+	var horizontal_velocity = Vector3(velocity.x, 0 , velocity.z)
+	var target_velocity = Vector3.ZERO
+	
+	match state:
+		PlayerStates.IDLE:
+			if movement_vector:
+				set_state(PlayerStates.RUN)
+				
+			if !is_on_floor():
+				set_state(PlayerStates.FALL)
+				
+			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
+			
+		PlayerStates.RUN:
+			if !direction:
+				set_state(PlayerStates.IDLE)
+			
+			target_velocity = direction * move_speed
+			horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
+			
+		PlayerStates.JUMP:
+			if velocity.y <= 0:
+				set_state(PlayerStates.FALL)
+			
+			if movement_vector:
+				target_velocity = direction * move_speed
+				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
+			else:
+				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
+				
+		PlayerStates.FALL:
+			if is_on_floor():
+				print(is_on_floor())
+				set_state(PlayerStates.IDLE)
+				
+			if movement_vector:
+				target_velocity = direction * move_speed
+				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
+			else:
+				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
+		
+	velocity.x = horizontal_velocity.x
+	velocity.z = horizontal_velocity.z
 	
 	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag, delta * 6)
-	
-	move_and_slide()
 
 func _rotate_camera():
 	if is_dead or is_next_level:
@@ -177,24 +266,24 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		input_mouse = event.relative
 
-func _input(event):
-	if is_dead or is_next_level:
-		return
-		
-	if Input.is_action_just_pressed("attack"):
-		try_attack()
-	
-	if Input.is_action_just_pressed("fire"):
-		try_fire()
-		
-	if Input.is_action_just_pressed("throw_sword"): 
-		if !is_disarmed:
-			try_throw_sword()
-		else:
-			try_pull_sword()
-		
-	if Input.is_action_just_pressed("jump"):
-		try_jump()
+#func _input(event):
+	#if is_dead or is_next_level:
+		#return
+		#
+	#if Input.is_action_just_pressed("attack"):
+		#try_attack()
+	#
+	#if Input.is_action_just_pressed("fire"):
+		#try_fire()
+		#
+	#if Input.is_action_just_pressed("throw_sword"): 
+		#if !is_disarmed:
+			#try_throw_sword()
+		#else:
+			#try_pull_sword()
+		#
+	#if Input.is_action_just_pressed("jump"):
+		#try_jump()
 		
 	#if Input.is_action_just_pressed("jump_joystick"):
 		#try_jump_joystick()
@@ -239,7 +328,13 @@ func try_throw_sword():
 	thrown_sword = sword
 	activation_timer.start()
 	
-	weapon.visible = false
+	forearm_geo.visible = false
+	index_geo.visible = false
+	middle_geo.visible = false
+	pinky_geo.visible = false
+	ring_geo.visible = false
+	thumb_geo.visible = false
+	#weapon.visible = false
 
 func try_attack():
 	if animation_player.current_animation != "push" and !is_disarmed:
@@ -251,6 +346,7 @@ func try_fire():
 		var projectile = projectile_scene.instantiate() as Projectile
 		projectile.transform = muzzle.global_transform
 		get_parent().add_child(projectile, true)
+		
 		projectile.start(-head.global_transform.basis.z)
 		animation_player.play("fire")
 		print("Firing gun!")
@@ -260,7 +356,8 @@ func try_jump():
 		return
 		
 	print("Jumping!")
-	velocity.y += JUMP_VELOCITY
+	velocity.y = JUMP_VELOCITY
+	#set_state(PlayerStates.JUMP)
 
 #func try_jump_joystick():
 	#if !is_on_floor():
@@ -310,6 +407,7 @@ func _on_sword_hit():
 				enemy.receive_sword_impact(melee_damage, global_position, sword_impact_strength)
 				
 			elif collision.collider is EnemyRanged:
+				print("Enemy hit")
 				var enemy = collision.collider as EnemyRanged
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
@@ -321,7 +419,14 @@ func _on_sword_back(body):
 	if sword is Sword and sword.sword_owner == self:
 		is_disarmed = false
 		body.get_parent().register_impact()
-		weapon.visible = true
+		
+		forearm_geo.visible = true
+		index_geo.visible = true
+		middle_geo.visible = true
+		pinky_geo.visible = true
+		ring_geo.visible = true
+		thumb_geo.visible = true
+		#weapon.visible = true
 
 func take_damage(amount: float):
 	if current_health > 0:
@@ -370,13 +475,11 @@ func next_level(level_scene: PackedScene):
 	next_level_scene = level_scene
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-
 func _on_menu_button_pressed():
 	get_tree().paused = false
 	UI.save_settings()
 	get_tree().change_scene_to_packed(menu_scene)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
 
 func _on_retry_button_pressed():
 	get_tree().paused = false
@@ -384,11 +487,9 @@ func _on_retry_button_pressed():
 	get_tree().reload_current_scene()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-
 func _on_next_button_pressed():
 	get_tree().change_scene_to_packed(next_level_scene)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 
 func _on_resume_button_pressed():
 	get_tree().paused = false

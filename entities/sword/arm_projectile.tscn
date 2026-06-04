@@ -1,177 +1,13 @@
-[gd_scene load_steps=46 format=3 uid="uid://dyngooikjw5l6"]
+[gd_scene load_steps=27 format=3 uid="uid://jkhhtxq7n4px"]
 
-[ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
-[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
-[ext_resource type="Material" uid="uid://c7oicl1hl28ur" path="res://entities/sword/swordstuckparticles.tres" id="2_usrfs"]
-[ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="3_0q1b2"]
-[ext_resource type="Texture2D" uid="uid://8acna15ax3dq" path="res://models/player/PlayerArmature_cannontex.png" id="4_6mdsy"]
-[ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/sword/swordtipparticles.tres" id="4_i0gvs"]
-[ext_resource type="Texture2D" uid="uid://cm42np5vcb2pa" path="res://models/player/PlayerArmature_John_RocketArms_Mecharms_mtl_BaseColor.png" id="5_p00k7"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
-properties/0/path = NodePath(".:global_position")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 0
-properties/2/path = NodePath(".:state")
-properties/2/spawn = true
-properties/2/replication_mode = 2
-
-[sub_resource type="Animation" id="Animation_pc11p"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sword:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -1.52716, -1.5708)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("sword/Sword_grp/attachplates_geo:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 0.14, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sword/Sword_grp/PlaneEffect_geo:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 0.14, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_3dbqs"]
-resource_name = "flying"
-length = 0.2
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0.386387), Vector3(-0.379933, 0, 0.0147901), Vector3(0, 0, -0.356806), Vector3(0.338992, 0, 0.0147901)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sword:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 1.5708, -1.5708), Vector3(0, -1.52716, -1.5708), Vector3(0, -4.77348, -1.5708)]
-}
-
-[sub_resource type="Animation" id="Animation_epnd4"]
-resource_name = "stuck"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("sword:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, -0.745147)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sword:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -1.5708, -1.5708)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("sword/Sword_grp/attachplates_geo:scale")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(1, 0.14, 1), Vector3(1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sword/Sword_grp/PlaneEffect_geo:scale")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(1, 0.14, 1), Vector3(1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_44j61"]
-_data = {
-"RESET": SubResource("Animation_pc11p"),
-"flying": SubResource("Animation_3dbqs"),
-"stuck": SubResource("Animation_epnd4")
-}
-
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8k2t4"]
-albedo_color = Color(0.3773, 0.77, 0.48202, 0.803922)
-
-[sub_resource type="BoxMesh" id="BoxMesh_fbjm6"]
-lightmap_size_hint = Vector2i(5, 8)
-material = SubResource("ORMMaterial3D_8k2t4")
-custom_aabb = AABB(2.22, 1.375, 0, 0, 53.035, 0)
-flip_faces = true
-size = Vector3(0.165, 0.135, 0.23)
+[ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="1_6w5fl"]
+[ext_resource type="Texture2D" uid="uid://8acna15ax3dq" path="res://models/player/PlayerArmature_cannontex.png" id="2_bk3o6"]
+[ext_resource type="Texture2D" uid="uid://cm42np5vcb2pa" path="res://models/player/PlayerArmature_John_RocketArms_Mecharms_mtl_BaseColor.png" id="3_jr1a2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46sd6"]
 resource_name = "arms_mat.1001"
 cull_mode = 2
-albedo_texture = ExtResource("3_0q1b2")
+albedo_texture = ExtResource("1_6w5fl")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_db8qp"]
 resource_name = "PlayerArmature_Mesh_004"
@@ -273,7 +109,7 @@ bind/23/pose = Transform3D(1, 8.74223e-08, -6.51683e-07, -6.51683e-07, -7.45061e
 resource_name = "cannon_mat"
 transparency = 4
 cull_mode = 2
-albedo_texture = ExtResource("4_6mdsy")
+albedo_texture = ExtResource("2_bk3o6")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_d1hxs"]
 resource_name = "PlayerArmature_Mesh_003"
@@ -298,7 +134,7 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uoe8d"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
-albedo_texture = ExtResource("5_p00k7")
+albedo_texture = ExtResource("3_jr1a2")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ko5k2"]
 resource_name = "PlayerArmature_Mesh_005"
@@ -323,7 +159,7 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc4bk"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
-albedo_texture = ExtResource("5_p00k7")
+albedo_texture = ExtResource("3_jr1a2")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_fwo3v"]
 resource_name = "PlayerArmature_Mesh_022"
@@ -348,7 +184,7 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkdnv"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
-albedo_texture = ExtResource("5_p00k7")
+albedo_texture = ExtResource("3_jr1a2")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cvmia"]
 resource_name = "PlayerArmature_Mesh_009"
@@ -373,7 +209,7 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_la5vf"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
-albedo_texture = ExtResource("5_p00k7")
+albedo_texture = ExtResource("3_jr1a2")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_t0wsv"]
 resource_name = "PlayerArmature_Mesh_017"
@@ -398,7 +234,7 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ann7"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
-albedo_texture = ExtResource("5_p00k7")
+albedo_texture = ExtResource("3_jr1a2")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gnn0h"]
 resource_name = "PlayerArmature_Mesh_013"
@@ -423,7 +259,7 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wep08"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
-albedo_texture = ExtResource("5_p00k7")
+albedo_texture = ExtResource("3_jr1a2")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ls12v"]
 resource_name = "PlayerArmature_Mesh_020"
@@ -463,37 +299,6 @@ initial_velocity_max = 2.24
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_iq2sv")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xo4kw"]
-albedo_color = Color(0, 1.321, 0.169, 1)
-emission_enabled = true
-emission = Color(0, 0.865427, 0.190953, 1)
-emission_operator = 1
-
-[sub_resource type="BoxMesh" id="BoxMesh_x4phe"]
-material = SubResource("StandardMaterial3D_xo4kw")
-size = Vector3(0.05, 0.05, 0.05)
-
-[sub_resource type="Curve" id="Curve_4gamt"]
-_data = [Vector2(0, 1), 0.0, 0.645766, 0, 0, Vector2(1, 0), -3.81844, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_lm5oh"]
-curve = SubResource("Curve_4gamt")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bk7b2"]
-direction = Vector3(0, 40, 1)
-spread = 180.0
-flatness = 1.0
-initial_velocity_min = 2.2
-initial_velocity_max = 2.67
-gravity = Vector3(0, 0, 0)
-damping_min = 2.365
-damping_max = 3.431
-scale_max = 6.0
-scale_curve = SubResource("CurveTexture_lm5oh")
-turbulence_noise_scale = 1.603
-turbulence_noise_speed = Vector3(0, 2.475, 0)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ax7ua"]
 albedo_color = Color(0.698881, 0.609502, 0.508305, 1)
 
@@ -501,51 +306,15 @@ albedo_color = Color(0.698881, 0.609502, 0.508305, 1)
 material = SubResource("StandardMaterial3D_ax7ua")
 size = Vector3(0.025, 0.025, 0.025)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_txg58"]
-albedo_color = Color(0.2, 0.631373, 0.317647, 1)
-emission_enabled = true
-emission = Color(1.73271e-06, 0.62358, 0.102244, 1)
-emission_energy_multiplier = 2.51
+[sub_resource type="BoxShape3D" id="BoxShape3D_vu3i8"]
+size = Vector3(0.435547, 0.424072, 0.476685)
 
-[sub_resource type="BoxMesh" id="BoxMesh_v26st"]
-material = SubResource("StandardMaterial3D_txg58")
-size = Vector3(0.058, 0.016, 0.052)
+[node name="ArmProjectile" type="Node3D"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_shfns"]
-size = Vector3(0.445557, 0.338135, 0.391368)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_yxbm2"]
-radius = 0.292478
-
-[node name="Sword" type="Node3D"]
-script = ExtResource("1_3wp2a")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-process_mode = 4
-replication_config = SubResource("SceneReplicationConfig_3aojy")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_44j61")
-}
-autoplay = "flying"
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="AnimationPlayer"]
-transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0613556, 0.165778)
-emitting = false
-amount = 250
-explosiveness = 0.18
-randomness = 0.24
-visibility_aabb = AABB(-1.90855, -2.54887, -3.00871, 3.8171, 4.7032, 6.01741)
-process_material = ExtResource("2_usrfs")
-draw_pass_1 = SubResource("BoxMesh_fbjm6")
-
-[node name="ArmProjectile" type="Node3D" parent="."]
-
-[node name="Armature" type="Node3D" parent="ArmProjectile"]
+[node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0.303703, -0.0142094, -0.587892)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="ArmProjectile/Armature"]
+[node name="Skeleton3D" type="Skeleton3D" parent="Armature"]
 bones/0/name = "root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(-1, 3.25839e-07, -1.49124e-07, -1.50995e-07, -0.00575113, 0.999984, 3.24976e-07, 0.999983, 0.00575101, -4.34857e-09, 0, -0.0994837)
@@ -715,41 +484,41 @@ bones/23/position = Vector3(-1.99847e-08, 0.0987241, 0.132354)
 bones/23/rotation = Quaternion(0.00287559, -1.19208e-07, 9.13701e-11, 0.999996)
 bones/23/scale = Vector3(1, 1, 1)
 
-[node name="Arm_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="Arm_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 visible = false
 mesh = SubResource("ArrayMesh_db8qp")
 skin = SubResource("Skin_bik2k")
 
-[node name="cannon_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="cannon_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 visible = false
 mesh = SubResource("ArrayMesh_d1hxs")
 skin = SubResource("Skin_bik2k")
 
-[node name="Forearm_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="Forearm_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_ko5k2")
 skin = SubResource("Skin_bik2k")
 
-[node name="index_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="index_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_fwo3v")
 skin = SubResource("Skin_bik2k")
 
-[node name="middle_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="middle_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_cvmia")
 skin = SubResource("Skin_bik2k")
 
-[node name="pinky_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="pinky_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_t0wsv")
 skin = SubResource("Skin_bik2k")
 
-[node name="ring_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="ring_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_gnn0h")
 skin = SubResource("Skin_bik2k")
 
-[node name="thumb_geo" type="MeshInstance3D" parent="ArmProjectile/Armature/Skeleton3D"]
+[node name="thumb_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
 mesh = SubResource("ArrayMesh_ls12v")
 skin = SubResource("Skin_bik2k")
 
-[node name="ArmThruster" type="GPUParticles3D" parent="ArmProjectile/Armature"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Armature"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306935, -0.0246889, -0.429968)
 amount = 200
 lifetime = 0.29
@@ -757,58 +526,10 @@ explosiveness = 0.2
 randomness = 1.0
 visibility_aabb = AABB(-0.417526, -0.314789, -0.453413, 0.835052, 0.629578, 0.906826)
 process_material = SubResource("ParticleProcessMaterial_mggty")
-draw_pass_1 = SubResource("BoxMesh_x4phe")
-
-[node name="Impact" type="GPUParticles3D" parent="ArmProjectile/Armature"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306935, 0.0828195, -0.792135)
-emitting = false
-amount = 100
-lifetime = 0.73
-one_shot = true
-explosiveness = 1.0
-randomness = 0.67
-visibility_aabb = AABB(-0.417526, -0.314789, -0.453413, 0.835052, 0.629578, 0.906826)
-process_material = SubResource("ParticleProcessMaterial_bk7b2")
 draw_pass_1 = SubResource("BoxMesh_mn1r2")
 
-[node name="sword" parent="." instance=ExtResource("2_kqb88")]
-transform = Transform3D(-1.57913e-07, 0.0436224, -0.999048, -1, -3.61999e-06, 0, -3.61654e-06, 0.999048, 0.0436224, 0, 0, 0)
-visible = false
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
 
-[node name="attachplates_geo" parent="sword/Sword_grp" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.14, 0, 0, 0, 1, -1.23099, 0.847151, -93.9703)
-
-[node name="PlaneEffect_geo" parent="sword/Sword_grp" index="2"]
-transform = Transform3D(1, 0, 0, 0, 0.14, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="Swordtrail Particles2" type="GPUParticles3D" parent="sword"]
-transform = Transform3D(8.15703e-12, -0.615086, 2.22661e-06, -2.24262e-06, -2.22661e-06, -0.615087, 0.615087, -7.99266e-14, -2.24262e-06, 0.00124277, 1.02372, -0.00915593)
-amount = 400
-lifetime = 0.45
-visibility_aabb = AABB(-1.90861, -0.133851, -1.67127, 3.81722, 0.267701, 3.34253)
-process_material = ExtResource("4_i0gvs")
-draw_pass_1 = SubResource("BoxMesh_v26st")
-
-[node name="CollisionArea" type="RigidBody3D" parent="."]
-collision_layer = 32
-collision_mask = 16
-axis_lock_linear_x = true
-axis_lock_linear_y = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
-max_contacts_reported = 12
-contact_monitor = true
-
-[node name="StuckCollision" type="CollisionShape3D" parent="CollisionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129761, 0)
-visible = false
-shape = SubResource("BoxShape3D_shfns")
-disabled = true
-
-[node name="FlyingCollision" type="CollisionShape3D" parent="CollisionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0647321, 0.0611652)
-shape = SubResource("SphereShape3D_yxbm2")
-
-[editable path="sword"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0937805, 0.0108032)
+shape = SubResource("BoxShape3D_vu3i8")
