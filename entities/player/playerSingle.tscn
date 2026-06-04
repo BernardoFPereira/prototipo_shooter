@@ -549,8 +549,15 @@ collision_layer = 260
 collision_mask = 3
 script = ExtResource("1_wj731")
 camera_juice = NodePath("Head/Camera3D")
+fall_velocity_threshhold = null
 move_speed = 16
+drag = null
+gravity = null
+max_health = null
+melee_damage = null
+sword_impact_strength = null
 arm_projectile_scene = ExtResource("2_pwkxa")
+state = null
 
 [node name="ActivationTimer" type="Timer" parent="."]
 wait_time = 0.5

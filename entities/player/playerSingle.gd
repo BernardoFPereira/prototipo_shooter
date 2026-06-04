@@ -321,8 +321,8 @@ func try_throw_sword():
 	
 	sword.transform = head.global_transform
 	get_parent().add_child(sword, true)
-	sword.start(-head.global_transform.basis.z)
-	sword.sword_owner = self
+	#sword.sword_owner = self
+	sword.start(self, -head.global_transform.basis.z)
 	
 	is_disarmed = true
 	thrown_sword = sword

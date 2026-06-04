@@ -24174,6 +24174,13 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_42qho")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6.80534, -33.0034)
+fall_velocity_threshhold = null
+drag = null
+gravity = null
+max_health = null
+melee_damage = null
+sword_impact_strength = null
+state = null
 
 [node name="EnemyRanged" parent="." node_paths=PackedStringArray("target", "patrol_route") groups=["Enemies"] instance=ExtResource("3_sckar")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.075, 27, 44.5213)
