@@ -1,6 +1,6 @@
 [gd_scene load_steps=41 format=3 uid="uid://dyngooikjw5l6"]
 
-[ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
+[ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_h1e1e"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
 [ext_resource type="Material" uid="uid://c7oicl1hl28ur" path="res://entities/sword/swordstuckparticles.tres" id="2_usrfs"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="3_0q1b2"]
@@ -493,7 +493,7 @@ size = Vector3(0.445557, 0.338135, 0.391368)
 radius = 0.292478
 
 [node name="Sword" type="Node3D"]
-script = ExtResource("1_3wp2a")
+script = ExtResource("1_h1e1e")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 process_mode = 4
