@@ -338,7 +338,7 @@ func try_throw_sword():
 
 func try_attack():
 	if animation_player.current_animation != "push" and !is_disarmed:
-		animation_player.play("push")
+		animation_player.play("fast_push")
 		print("Attacking!")
 
 func try_fire():
@@ -394,7 +394,7 @@ func _on_animation_finished(anim_name):
 		"jump":
 			animation_player.play("idle")
 
-func _on_sword_hit():
+func _on_attack_hit():
 	print(sword_hit_area.collision_result)
 	if sword_hit_area.collision_result:
 		for collision in sword_hit_area.collision_result:
