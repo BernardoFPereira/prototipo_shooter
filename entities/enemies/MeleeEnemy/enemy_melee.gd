@@ -204,7 +204,6 @@ func set_current_state(new_state):
 				return
 			
 			linear_velocity = Vector3.ZERO
-			attack_area.set_collision_mask_value(10, true)
 			anim_player.play("attack")
 			pause_idle_sounds()
 		
@@ -217,6 +216,12 @@ func set_current_state(new_state):
 			stop_idle_sounds()
 	
 	current_state = new_state
+
+func turn_attack_collision_on():
+	attack_area.set_collision_mask_value(10, true)
+
+func turn_attack_collision_off():
+	attack_area.set_collision_mask_value(10, false)
 
 func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int):
 	if current_state == EnemyState.DEAD:
