@@ -1,4 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://74a2p42vk65i"]
+[gd_scene load_steps=10 format=3 uid="uid://74a2p42vk65i"]
+
+[ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="1_5gnvy"]
+[ext_resource type="AudioStream" uid="uid://c2fjlpf3mqdhg" path="res://assets/sounds/sfx/Props/door_open.wav" id="2_mikgx"]
+[ext_resource type="AudioStream" uid="uid://fpd72o8ew0vp" path="res://assets/sounds/sfx/Props/door_close.wav" id="3_wilpn"]
 
 [sub_resource type="Animation" id="Animation_kc1v3"]
 length = 0.001
@@ -111,3 +115,13 @@ transform = Transform3D(1, 0, 0, 0, 0.999433, 0.0336785, 0, -0.0336785, 0.999433
 layers = 18
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="Open" parent="SFX" instance=ExtResource("1_5gnvy")]
+stream = ExtResource("2_mikgx")
+bus = &"SFX"
+
+[node name="Close" parent="SFX" instance=ExtResource("1_5gnvy")]
+stream = ExtResource("3_wilpn")
+bus = &"SFX"

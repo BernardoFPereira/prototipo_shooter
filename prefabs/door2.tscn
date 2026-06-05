@@ -1,4 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkob43at1gw1n"]
+[gd_scene load_steps=25 format=3 uid="uid://bkob43at1gw1n"]
+
+[ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="1_o4sxv"]
+[ext_resource type="AudioStream" uid="uid://dxr7hi71peiey" path="res://assets/sounds/sfx/player/breathing.wav" id="2_d4ynl"]
+[ext_resource type="AudioStream" uid="uid://bxifhxutmnuva" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 2-walk_metal.wav" id="3_ajn7q"]
+[ext_resource type="AudioStream" uid="uid://ck6kbnqdxyj5g" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 3-walk_metal.wav" id="4_qga81"]
+[ext_resource type="AudioStream" uid="uid://p2f6xapnl6xj" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 12-walk_metal.wav" id="5_wmq4r"]
+[ext_resource type="AudioStream" uid="uid://bio3cpc2o7fu4" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 4-walk_metal.wav" id="6_fld4r"]
+[ext_resource type="AudioStream" uid="uid://btnp87kjokjts" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 5-walk_metal.wav" id="7_pa8it"]
+[ext_resource type="AudioStream" uid="uid://dvnqgy8lwimax" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 6-walk_metal.wav" id="8_mplws"]
+[ext_resource type="AudioStream" uid="uid://cfw7asdmma2lq" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 7-walk_metal.wav" id="9_u0i68"]
+[ext_resource type="AudioStream" uid="uid://dxe3gkrkptdbw" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 8-walk_metal.wav" id="10_ob4gb"]
+[ext_resource type="AudioStream" uid="uid://b4e5hrbqpicxu" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 9-walk_metal.wav" id="11_f1vj6"]
+[ext_resource type="AudioStream" uid="uid://b4cbb1r3ve2nn" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 10-walk_metal.wav" id="12_s5yem"]
+[ext_resource type="AudioStream" uid="uid://cowcfscnu61ul" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 11-walk_metal.wav" id="13_wt77o"]
+[ext_resource type="AudioStream" uid="uid://dpwfecnw5s7fj" path="res://assets/sounds/sfx/player/jump_f.wav" id="14_j3gyk"]
+[ext_resource type="AudioStream" uid="uid://scdrwgxxkfq0" path="res://assets/sounds/sfx/player/firing_arm-1.wav" id="15_fq47m"]
 
 [sub_resource type="Animation" id="Animation_abxyq"]
 length = 0.001
@@ -117,6 +133,42 @@ size = Vector3(1.68, 2.57, 0.485)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_h1cab"]
 points = PackedVector3Array(-0.84, -1.285, -0.2425, -0.84, -1.285, 0.2425, -0.84, 1.28475, -0.2425, 0.84, -1.285, -0.2425, 0.84, -1.285, 0.2425, -0.84, 1.28475, 0.2425, 0.84, 1.28475, -0.2425, 0.84, 1.28475, 0.2425)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_klka5"]
+streams_count = 11
+stream_0/stream = ExtResource("3_ajn7q")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("4_qga81")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_fld4r")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("7_pa8it")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("8_mplws")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("9_u0i68")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("10_ob4gb")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("11_f1vj6")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("12_s5yem")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("13_wt77o")
+stream_9/weight = 1.0
+stream_10/stream = ExtResource("5_wmq4r")
+stream_10/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l7h7p"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("14_j3gyk")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_h1knl"]
+streams_count = 1
+stream_0/stream = ExtResource("15_fq47m")
+stream_0/weight = 1.0
+
 [node name="Bridge" type="Node3D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -157,3 +209,31 @@ transform = Transform3D(1, 0, 0, 0, 0.999433, 0.0336785, 0, -0.0336785, 0.999433
 layers = 18
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="Idle" parent="SFX" instance=ExtResource("1_o4sxv")]
+stream = ExtResource("2_d4ynl")
+volume_db = -22.0
+pitch_scale = 1.3
+autoplay = true
+bus = &"SFX"
+
+[node name="Walk" parent="SFX" instance=ExtResource("1_o4sxv")]
+stream = SubResource("AudioStreamRandomizer_klka5")
+pitch_scale = 0.8
+bus = &"SFX"
+
+[node name="Jump" parent="SFX" instance=ExtResource("1_o4sxv")]
+stream = SubResource("AudioStreamRandomizer_l7h7p")
+bus = &"SFX"
+
+[node name="Fire" parent="SFX" instance=ExtResource("1_o4sxv")]
+stream = SubResource("AudioStreamRandomizer_h1knl")
+volume_db = -3.0
+bus = &"SFX"
+
+[node name="ArmThrow" parent="SFX" instance=ExtResource("1_o4sxv")]
+stream = SubResource("AudioStreamRandomizer_h1knl")
+volume_db = -3.0
+bus = &"SFX"

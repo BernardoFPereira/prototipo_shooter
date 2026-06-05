@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dyngooikjw5l6"]
+[gd_scene load_steps=50 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_3wp2a"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://8acna15ax3dq" path="res://models/player/PlayerArmature_cannontex.png" id="4_6mdsy"]
 [ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/sword/swordtipparticles.tres" id="4_i0gvs"]
 [ext_resource type="Texture2D" uid="uid://cm42np5vcb2pa" path="res://models/player/PlayerArmature_John_RocketArms_Mecharms_mtl_BaseColor.png" id="5_p00k7"]
+[ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="8_nltak"]
+[ext_resource type="AudioStream" uid="uid://q3wb4eexmtl1" path="res://assets/sounds/sfx/player/arm_flying_loop.wav" id="9_kicew"]
+[ext_resource type="AudioStream" uid="uid://dqub51bdg3ynw" path="res://assets/sounds/sfx/player/arm_impact.wav" id="10_4t87q"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -517,6 +520,13 @@ size = Vector3(0.445557, 0.338135, 0.391368)
 [sub_resource type="SphereShape3D" id="SphereShape3D_yxbm2"]
 radius = 0.292478
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_yvmbh"]
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 1
+stream_0/stream = ExtResource("10_4t87q")
+stream_0/weight = 1.0
+
 [node name="Sword" type="Node3D"]
 script = ExtResource("1_3wp2a")
 
@@ -810,5 +820,18 @@ disabled = true
 [node name="FlyingCollision" type="CollisionShape3D" parent="CollisionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0647321, 0.0611652)
 shape = SubResource("SphereShape3D_yxbm2")
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="Flying" parent="SFX" instance=ExtResource("8_nltak")]
+stream = ExtResource("9_kicew")
+volume_db = -8.0
+bus = &"SFX"
+
+[node name="Impact" parent="SFX" instance=ExtResource("8_nltak")]
+stream = SubResource("AudioStreamRandomizer_yvmbh")
+volume_db = -8.0
+pitch_scale = 1.3
+bus = &"SFX"
 
 [editable path="sword"]

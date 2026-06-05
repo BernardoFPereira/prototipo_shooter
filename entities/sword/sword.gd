@@ -15,6 +15,9 @@ enum SwordState {
 @onready var sword_model = $ArmProjectile
 @onready var impact_particles = $ArmProjectile/Armature/Impact
 
+@onready var flying_sfx = $SFX/Flying
+@onready var impact_sfx = $SFX/Impact
+
 #var state = SwordState.THROWN
 var state: SwordState
 
@@ -68,6 +71,7 @@ func set_state(new_state: SwordState):
 			collision_area.set_collision_layer_value(2, false)
 			collision_area.set_collision_layer_value(4, false)
 			collision_area.set_collision_layer_value(10, false)
+			flying_sfx.play()
 			
 		SwordState.PULLED_BACK:
 			#if sword_owner:
@@ -78,10 +82,12 @@ func set_state(new_state: SwordState):
 			collision_area.set_collision_layer_value(2, false)
 			collision_area.set_collision_layer_value(4, true)
 			collision_area.set_collision_layer_value(10, false)
+			flying_sfx.play()
 			if is_on_button:
 				pressed_button.set_state(pressed_button.button_states.UNPRESSED)
 				pressed_button = null
 				is_on_button = false
+				pressed_button
 			
 			animation_player.play("flying")
 			
@@ -91,6 +97,8 @@ func set_state(new_state: SwordState):
 			collision_area.set_collision_layer_value(2, true)
 			collision_area.set_collision_layer_value(4, false)
 			collision_area.set_collision_layer_value(10, true)
+			impact_sfx.play()
+			flying_sfx.stop()
 			
 			animation_player.play("stuck")
 		
@@ -105,6 +113,7 @@ func _on_sword_impact(result: KinematicCollision3D):
 	if collider is Player and state == SwordState.PULLED_BACK:
 		if sword_owner == collider:
 			collision_area.set_collision_layer_value(4, true)
+			flying_sfx.stop()
 		return
 
 	# 2. Logic for Buttons/Environment
