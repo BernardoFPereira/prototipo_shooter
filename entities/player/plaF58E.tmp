@@ -1,0 +1,496 @@
+[gd_scene load_steps=21 format=3 uid="uid://dumkd0qt2sxvx"]
+
+[ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
+[ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_cgxxp"]
+[ext_resource type="Texture2D" uid="uid://bfyp8hyjap7gw" path="res://textures/crosshairs/Crosshair3.png" id="3_5hn21"]
+[ext_resource type="Script" path="res://scripts/camera_effects.gd" id="3_x4mog"]
+[ext_resource type="Material" uid="uid://bbdqc4m63071q" path="res://materials/shadermaterials/vignette.tres" id="5_2w87f"]
+
+[sub_resource type="Animation" id="Animation_x4mkt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Weapon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.951, -0.597, -1.045)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0994838, 0.0715585, -0.0942478)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Head/Cannon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/Cannon:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_33soh"]
+resource_name = "attack"
+length = 0.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Weapon:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.951, -0.517, -1.045), Vector3(0.951, 0.136, -0.88), Vector3(-0.808, -0.878, -1.134), Vector3(0.951, -0.517, -1.045)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Weapon:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.00341804), Vector3(0.378166, -0.47618, -0.268085), Vector3(-0.363693, 2.52047, -1.70112), Vector3(0, 0, -0.00341804)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.15),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_sword_hit"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_xockt"]
+resource_name = "block"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Weapon:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.951, -0.592, -1.045), Vector3(0.897, 0.139, -0.887)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Weapon:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -0.00341804), Vector3(-0.905273, -2.00465, 3.02293)]
+}
+
+[sub_resource type="Animation" id="Animation_mjtu2"]
+resource_name = "fire"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Cannon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0578976, 0, 0.125444), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Cannon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.084545, 0.0573121, 0.00484495), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ptllg"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Weapon:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.951, -0.597, -1.045), Vector3(0.951, -0.707, -1.045), Vector3(0.951, -0.597, -1.045)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Weapon:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.056394, 0.00237615, 0.0421323), Vector3(-0.0251363, -0.0126189, 0.0131763)]
+}
+
+[sub_resource type="Animation" id="Animation_pmpnh"]
+resource_name = "release_block"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x7c7m"]
+_data = {
+"RESET": SubResource("Animation_x4mkt"),
+"attack": SubResource("Animation_33soh"),
+"block": SubResource("Animation_xockt"),
+"fire": SubResource("Animation_mjtu2"),
+"idle": SubResource("Animation_ptllg"),
+"release_block": SubResource("Animation_pmpnh")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8esgh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ycpcb"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hbx61"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3367n"]
+size = Vector3(0.24, 0.28, 0.935)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_we5c5"]
+size = Vector3(0.89, 1, 1.495)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
+radius = 0.7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wuyju"]
+bg_color = Color(0.443137, 0, 0, 0.490196)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnlr8"]
+bg_color = Color(2.07564e-07, 0.191309, 0.00721884, 0.490196)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice")]
+collision_layer = 260
+collision_mask = 3
+script = ExtResource("1_wj731")
+camera_juice = NodePath("Head/Camera3D")
+
+[node name="ActivationTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x7c7m")
+}
+autoplay = "idle"
+
+[node name="HitBoxArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 512
+collision_mask = 0
+
+[node name="PlayerHitbox" type="CollisionShape3D" parent="HitBoxArea"]
+shape = SubResource("CapsuleShape3D_8esgh")
+
+[node name="MovementCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_ycpcb")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_hbx61")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Weapon" type="Node3D" parent="Head"]
+transform = Transform3D(0.993682, 0.0867977, 0.0711437, -0.093643, 0.990637, 0.0993195, -0.0618572, -0.105354, 0.992506, 0.951, -0.597, -1.045)
+
+[node name="sword" parent="Head/Weapon" instance=ExtResource("2_cgxxp")]
+transform = Transform3D(1, 2.51457e-08, 1.49012e-08, -2.51457e-08, 1, -8.88179e-16, -1.49012e-08, 5.13479e-16, 1, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" node_paths=PackedStringArray("player_controller")]
+script = ExtResource("3_x4mog")
+player_controller = NodePath("../..")
+
+[node name="SpecterAimCast" type="RayCast3D" parent="Head"]
+visible = false
+target_position = Vector3(0, 0, -15)
+
+[node name="Cannon" type="Node3D" parent="Head"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head/Cannon"]
+transform = Transform3D(0.662102, 0, 0, 0, 0.65483, 0.0978649, 0, -0.0978649, 0.65483, -0.4414, 0.256545, -0.423315)
+mesh = SubResource("BoxMesh_3367n")
+
+[node name="Muzzle" type="Marker3D" parent="Head/Cannon"]
+transform = Transform3D(1, 2.6921e-10, -1.30385e-08, -3.63798e-11, 1, 1.02445e-08, -9.31323e-10, -9.31323e-09, 1, -0.449911, 0.217413, -0.796732)
+
+[node name="SwordHitArea" type="ShapeCast3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.64012, -0.972419)
+shape = SubResource("BoxShape3D_we5c5")
+target_position = Vector3(0, 0, -0.68)
+collision_mask = 4096
+
+[node name="GetSwordArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GetSwordArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
+shape = SubResource("SphereShape3D_k5oyn")
+
+[node name="MenuHUD" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="MenuHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuHUD/PanelContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="MenuHUD/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pause Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MenuHUD/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ResumeButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Resumir"
+
+[node name="RetryButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Tentar Novamente"
+
+[node name="MenuButton" type="Button" parent="MenuHUD/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Voltar ao Menu"
+
+[node name="GameHUD" type="CanvasLayer" parent="."]
+
+[node name="HitVignette" type="ColorRect" parent="GameHUD"]
+visible = false
+material = ExtResource("5_2w87f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="GameHUD"]
+texture_filter = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_5hn21")
+
+[node name="HealthLabel" type="Label" parent="GameHUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -82.0
+offset_right = 61.0
+offset_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.00109, 1)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverHUD" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOverHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wuyju")
+
+[node name="Label" type="Label" parent="GameOverHUD/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+text = "Você Morreu!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverHUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = 44.0
+offset_right = 77.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="RetryButton" type="Button" parent="GameOverHUD/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Tentar Novamente"
+
+[node name="MenuButton" type="Button" parent="GameOverHUD/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Voltar ao Menu"
+
+[node name="NextLevelHUD" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="NextLevelHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnlr8")
+
+[node name="Label" type="Label" parent="NextLevelHUD/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+text = "Nível concluído!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NextLevelHUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = 44.0
+offset_right = 77.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="NextButton" type="Button" parent="NextLevelHUD/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Próximo Nível"
+
+[node name="RetryButton" type="Button" parent="NextLevelHUD/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Tentar Novamente"
+
+[connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="MenuHUD/PanelContainer/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="GameOverHUD/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="GameOverHUD/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="NextLevelHUD/VBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="NextLevelHUD/VBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]

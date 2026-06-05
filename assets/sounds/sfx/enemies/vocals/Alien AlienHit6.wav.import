@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://beqw0vmwi8bm3"
+path="res://.godot/imported/Alien AlienHit6.wav-190378eda2bf4e531ad86c8becc8f392.sample"
+
+[deps]
+
+source_file="res://assets/sounds/sfx/enemies/vocals/Alien AlienHit6.wav"
+dest_files=["res://.godot/imported/Alien AlienHit6.wav-190378eda2bf4e531ad86c8becc8f392.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

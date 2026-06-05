@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://le0878p0jyqp"]
+
+[ext_resource type="PackedScene" uid="uid://b4n46p3r01a41" path="res://ST_assetsCenario_imported/ST_monitorGrande.glb" id="1_mbyko"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eorbe"]
+size = Vector3(5.97046, 3.90344, 0.36377)
+
+[node name="ComputerGrande" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="ST_monitorGrande2" parent="StaticBody3D" instance=ExtResource("1_mbyko")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.04846, 1.97841, 0.194484)
+shape = SubResource("BoxShape3D_eorbe")

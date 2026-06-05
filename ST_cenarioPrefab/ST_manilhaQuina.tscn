@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://uba6x51b8byj"]
+
+[ext_resource type="PackedScene" uid="uid://cfmlppvpbyquj" path="res://ST_assetsCenario_imported/ST_manilhaQuina.glb" id="1_goe0g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t2wvc"]
+size = Vector3(1.84766, 3.59094, 1.9043)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u8kiu"]
+size = Vector3(2.59882, 1.55261, 1.75879)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="ST_manilhaQuina" parent="StaticBody3D" instance=ExtResource("1_goe0g")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.074707, 1.74242, 0)
+shape = SubResource("BoxShape3D_t2wvc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.799408, 2.79633, 0)
+shape = SubResource("BoxShape3D_u8kiu")

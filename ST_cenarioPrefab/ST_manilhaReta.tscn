@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ienb15lcaux2"]
+
+[ext_resource type="PackedScene" uid="uid://d255tru6vqmk" path="res://ST_assetsCenario_imported/ST_manilhaReta.glb" id="1_c5rsb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_w6h5y"]
+size = Vector3(1.6333, 7.72131, 1.60547)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="ST_manilhaReta" parent="StaticBody3D" instance=ExtResource("1_c5rsb")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0102125, 3.84546, -0.0170512)
+shape = SubResource("BoxShape3D_w6h5y")

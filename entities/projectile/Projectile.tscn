@@ -1,0 +1,86 @@
+[gd_scene load_steps=11 format=3 uid="uid://cdu40asu3x8p7"]
+
+[ext_resource type="Script" path="res://entities/projectile/projectile.gd" id="1_htmmc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irntn"]
+albedo_color = Color(0.160784, 0.419608, 0.490196, 1)
+emission_enabled = true
+emission = Color(0.341176, 0.831373, 1, 1)
+emission_energy_multiplier = 2.9
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_64x7p"]
+material = SubResource("StandardMaterial3D_irntn")
+radius = 0.17
+height = 0.855
+
+[sub_resource type="Curve" id="Curve_nkxa6"]
+_data = [Vector2(0, 0.176602), 0.0, 0.279352, 0, 0, Vector2(0.618182, 0.108793), -0.516477, -0.516477, 0, 0, Vector2(1, 0), -0.172131, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2cuv0"]
+curve = SubResource("Curve_nkxa6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uokkp"]
+direction = Vector3(0, 0, 0)
+spread = 53.273
+initial_velocity_min = 0.85
+initial_velocity_max = 2.44
+orbit_velocity_max = 0.225
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -9.6
+radial_accel_max = -5.05
+scale_curve = SubResource("CurveTexture_2cuv0")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_e2liw"]
+albedo_color = Color(0.230919, 0.433051, 0.468154, 1)
+emission_enabled = true
+emission = Color(0.27451, 0.729412, 1, 1)
+emission_energy_multiplier = 4.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_o3wa0"]
+material = SubResource("ORMMaterial3D_e2liw")
+size = Vector3(0.22, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hfops"]
+size = Vector3(0.404297, 0.407227, 0.951172)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t8u5j"]
+radius = 4.0
+
+[node name="Projectile" type="Node3D"]
+transform = Transform3D(0.665466, 0, 0, 0, 0.665466, 0, 0, 0, 0.665466, 0, 0, 0)
+script = ExtResource("1_htmmc")
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_64x7p")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0113652, 0.165778)
+amount = 250
+explosiveness = 0.18
+randomness = 0.24
+visibility_aabb = AABB(-1.90855, -2.54887, -3.00871, 3.8171, 4.7032, 6.01741)
+process_material = SubResource("ParticleProcessMaterial_uokkp")
+draw_pass_1 = SubResource("BoxMesh_o3wa0")
+
+[node name="CollisionArea" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 524304
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionArea"]
+shape = SubResource("BoxShape3D_hfops")
+
+[node name="ExplosionArea" type="ShapeCast3D" parent="."]
+shape = SubResource("SphereShape3D_t8u5j")
+target_position = Vector3(0, 0, 0)
+collision_mask = 256
+collide_with_areas = true

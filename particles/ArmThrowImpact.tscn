@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6v2dvvgckrgt"]
+
+[ext_resource type="Script" path="res://particles/particle_self_destruct.gd" id="1_lrdfu"]
+
+[sub_resource type="Curve" id="Curve_4gamt"]
+_data = [Vector2(0, 1), 0.0, 0.645766, 0, 0, Vector2(1, 0), -3.81844, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lm5oh"]
+curve = SubResource("Curve_4gamt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bk7b2"]
+direction = Vector3(0, 40, 1)
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 2.2
+initial_velocity_max = 2.67
+gravity = Vector3(0, 0, 0)
+damping_min = 2.365
+damping_max = 3.431
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_lm5oh")
+turbulence_noise_scale = 1.603
+turbulence_noise_speed = Vector3(0, 2.475, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ax7ua"]
+albedo_color = Color(0.698881, 0.609502, 0.508305, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mn1r2"]
+material = SubResource("StandardMaterial3D_ax7ua")
+size = Vector3(0.025, 0.025, 0.025)
+
+[node name="Impact" type="GPUParticles3D"]
+emitting = false
+amount = 100
+lifetime = 0.73
+one_shot = true
+explosiveness = 1.0
+randomness = 0.67
+visibility_aabb = AABB(-0.417526, -0.314789, -0.453413, 0.835052, 0.629578, 0.906826)
+process_material = SubResource("ParticleProcessMaterial_bk7b2")
+draw_pass_1 = SubResource("BoxMesh_mn1r2")
+script = ExtResource("1_lrdfu")
