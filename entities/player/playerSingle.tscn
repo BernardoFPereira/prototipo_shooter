@@ -14,7 +14,7 @@
 [ext_resource type="Animation" uid="uid://bcmm8f7t1i82e" path="res://models/player/anims/jump.res" id="6_ibnpt"]
 [ext_resource type="Animation" uid="uid://bcceims4vqmdj" path="res://models/player/anims/fire.res" id="7_5umrl"]
 [ext_resource type="Animation" uid="uid://6qgdls5t5xq3" path="res://models/player/anims/push.res" id="8_bsqsa"]
-[ext_resource type="Theme" uid="uid://cv0m0qgxplmjs" path="res://UI/ConfigMenu/config_theme.tres" id="8_n6bql"]
+[ext_resource type="Theme" uid="uid://y11r1ylhlp4c" path="res://UI/ConfigMenu/config_theme.tres" id="8_n6bql"]
 [ext_resource type="Texture2D" uid="uid://bonlo65jd4ge2" path="res://UI/ConfigMenu/COLCHETE 1.png" id="9_slx6m"]
 [ext_resource type="Animation" uid="uid://c5bbs2k8ap622" path="res://models/player/anims/a_pose.res" id="9_y8pmy"]
 [ext_resource type="Animation" uid="uid://doejvdoyqsmui" path="res://models/player/anims/walk.res" id="10_uvuu5"]
@@ -26,12 +26,12 @@
 [ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="14_8vx3h"]
 [ext_resource type="Texture2D" uid="uid://bo5sjwobb2r68" path="res://UI/ConfigMenu/BOTÃO ON.png" id="14_yv16d"]
 [ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="15_8te5u"]
-[ext_resource type="Theme" uid="uid://j7ift28l2na3" path="res://UI/GameOver/go_theme.tres" id="15_bfdfs"]
+[ext_resource type="Theme" uid="uid://iecf6gm1i2b2" path="res://UI/GameOver/go_theme.tres" id="15_bfdfs"]
 [ext_resource type="Texture2D" uid="uid://c6p36nodbvmie" path="res://UI/Controls/_old/v2_btn_controle_a.png" id="15_ojo0g"]
 [ext_resource type="Texture2D" uid="uid://i2v4u0juydu0" path="res://UI/Controls/_old/v2_btn_controle_a_selected.png" id="16_g6n13"]
 [ext_resource type="Texture2D" uid="uid://c882uw1ums67c" path="res://UI/GameOver/BOTÃO D 1.png" id="16_trshw"]
 [ext_resource type="Texture2D" uid="uid://cxoq684337wnk" path="res://UI/Controls/_old/v2_btn_controle_b.png" id="17_baac6"]
-[ext_resource type="Theme" uid="uid://d2qhleumc8smy" path="res://UI/MainMenu/menu_theme.tres" id="18_40mg7"]
+[ext_resource type="Theme" uid="uid://b7pmgihcajosw" path="res://UI/MainMenu/menu_theme.tres" id="18_40mg7"]
 [ext_resource type="Texture2D" uid="uid://btoqts0rijsgy" path="res://UI/Controls/_old/v2_btn_controle_b_selected.png" id="18_akbla"]
 [ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="24_mrbwe"]
 [ext_resource type="AudioStream" uid="uid://dxr7hi71peiey" path="res://assets/sounds/sfx/player/breathing.wav" id="25_8jerd"]
@@ -930,7 +930,7 @@ mesh = SubResource("ArrayMesh_5rrhx")
 skin = SubResource("Skin_4l2pa")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Head/Weapon/PlayerArmature/Armature/Skeleton3D"]
-transform = Transform3D(0.910989, 0.212119, 0.353699, -0.381377, 0.106792, 0.91823, 0.157001, -0.971391, 0.178184, -0.401578, -0.136564, -0.299789)
+transform = Transform3D(0.910989, 0.212119, 0.3537, -0.381377, 0.106792, 0.91823, 0.157001, -0.971391, 0.178184, -0.401578, -0.136564, -0.299789)
 bone_name = "cannonBase"
 bone_idx = 3
 
