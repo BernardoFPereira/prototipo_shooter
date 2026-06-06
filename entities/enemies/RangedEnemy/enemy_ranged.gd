@@ -14,6 +14,8 @@ extends RigidBody3D
 #Sounds
 @onready var idle_sfx = $SFX/Idle
 @onready var hit_sfx = $SFX/Hit
+@onready var shot_sfx = $SFX/Shot
+
 @export var idle_sound_interval: float = 2.0
 @export var idle_sound_variation: float = 1.5
 @export var enable_idle_sounds: bool = true
@@ -245,6 +247,7 @@ func finished_get_hit():
 		set_current_state(EnemyState.HIT)
 	
 	if current_health <= 0:
+		set_collision_layer_value(20, false)
 		anim_player.play("dead")
 
 func finished_dead():
@@ -277,6 +280,7 @@ func spawn_projectile():
 	get_parent().add_child(projectile, true)
 	projectile.transform = muzzle_point.global_transform
 	projectile.start(global_position.direction_to(target.global_position))
+	shot_sfx.play()
 
 func move_to_parent(new_parent: Node):
 	

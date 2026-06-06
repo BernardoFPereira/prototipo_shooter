@@ -7,6 +7,7 @@ extends Node3D
 @onready var explosion_timer = $ExplosionTimer
 @onready var particles = $GPUParticles3D
 @onready var mesh = $MeshInstance3D
+@onready var impact_sfx = $ImpactSFX
 
 var speed: int = 35
 var direction: Vector3
@@ -33,7 +34,7 @@ func explode():
 	particles.emitting = false
 	collision_area.set_deferred("monitoring", false)
 	collision_area.set_deferred("monitorable", false)
-	
+	impact_sfx.play()
 	print(explosion_area.collision_result)
 	
 	var explosion = preload("res://entities/projectile/ProjectileExplosion.tscn").instantiate()

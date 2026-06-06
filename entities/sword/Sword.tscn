@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dyngooikjw5l6"]
+[gd_scene load_steps=43 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_h1e1e"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://8acna15ax3dq" path="res://models/player/PlayerArmature_cannontex.png" id="4_6mdsy"]
 [ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/sword/swordtipparticles.tres" id="4_i0gvs"]
 [ext_resource type="Texture2D" uid="uid://cm42np5vcb2pa" path="res://models/player/PlayerArmature_John_RocketArms_Mecharms_mtl_BaseColor.png" id="5_p00k7"]
+[ext_resource type="AudioStream" uid="uid://q3wb4eexmtl1" path="res://assets/sounds/sfx/player/arm_flying_loop.wav" id="8_01ftu"]
+[ext_resource type="AudioStream" uid="uid://dqub51bdg3ynw" path="res://assets/sounds/sfx/player/arm_impact.wav" id="9_cefh6"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -774,5 +776,15 @@ disabled = true
 [node name="FlyingCollision" type="CollisionShape3D" parent="CollisionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0647321, 0.0611652)
 shape = SubResource("SphereShape3D_yxbm2")
+
+[node name="SFX" type="Node3D" parent="."]
+
+[node name="Flying" type="AudioStreamPlayer3D" parent="SFX"]
+stream = ExtResource("8_01ftu")
+volume_db = -27.211
+autoplay = true
+
+[node name="Impact" type="AudioStreamPlayer3D" parent="SFX"]
+stream = ExtResource("9_cefh6")
 
 [editable path="sword"]

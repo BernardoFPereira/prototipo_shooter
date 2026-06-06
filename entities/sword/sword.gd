@@ -7,6 +7,9 @@ enum SwordState {
 	STUCK,
 }
 
+@onready var flying_sfx = $SFX/Flying
+@onready var impact_sfx = $SFX/Impact
+
 @onready var animation_player = $AnimationPlayer
 @onready var collision_area = $CollisionArea
 #@onready var stuck_collision = $CollisionArea/StuckCollision
@@ -63,6 +66,7 @@ func set_state(new_state: SwordState):
 			collision_area.set_collision_layer_value(4, false)
 			collision_area.set_collision_layer_value(10, false)
 			
+			
 		SwordState.PULLED_BACK:
 			#stuck_collision.disabled = true
 			flying_collision.disabled = false
@@ -96,6 +100,7 @@ func _on_sword_impact(result: KinematicCollision3D):
 	if collider is Player and state == SwordState.PULLED_BACK:
 		if sword_owner == collider:
 			collision_area.set_collision_layer_value(4, true)
+			flying_sfx.stop()
 		return
 	
 	var collision_parent = collider.get_parent()
@@ -119,6 +124,7 @@ func _on_sword_impact(result: KinematicCollision3D):
 	var impact_particle_instance = impact_particles.instantiate()
 	impact_particle_instance.global_transform = impact_particle_marker.global_transform
 	impact_particle_instance.emitting = true
+	impact_sfx.play()
 	get_tree().root.add_child(impact_particle_instance)
 	
 	set_state(SwordState.STUCK)

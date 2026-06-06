@@ -21,7 +21,7 @@ const JUMP_JOYSTICK_VELOCITY: = 5
 @export_category("Combat Properties")
 @export var max_health: float = 100.0
 @export var melee_damage: float = 10.0
-@export var sword_impact_strength: int = 250
+@export var impact_strength: int = 250
 var current_health: float
 
 ##sensibilidade da camera pelo joystick
@@ -44,6 +44,14 @@ enum PlayerStates {
 	LAUNCH,
 }
 #endregion
+
+#region SFX Nodes
+@onready var idle_sfx = $SFX/Idle
+@onready var walk_sfx = $SFX/Walk
+@onready var jump_sfx = $SFX/Jump
+@onready var fire_sfx = $SFX/Fire
+@onready var arm_throw_sfx = $SFX/ArmThrow
+@onready var arm_back_sfx = $SFX/ArmBack
 
 #region SCENE VARIABLES
 @onready var get_sword_area = $GetSwordArea
@@ -156,6 +164,10 @@ func _process(delta):
 func set_state(new_state: PlayerStates):
 	match new_state:
 		PlayerStates.IDLE:
+			#if state == PlayerStates.FALL:
+				#animation_player.play("extra_anims/land")
+			#else:
+				#animation_player.play("idle")
 			pass
 		PlayerStates.RUN:
 			pass
@@ -163,6 +175,7 @@ func set_state(new_state: PlayerStates):
 			try_jump()
 			pass
 		PlayerStates.FALL:
+			#animation_player.play("extra_anims/air")
 			pass
 		PlayerStates.LAUNCH:
 			pass
@@ -335,6 +348,8 @@ func try_throw_sword():
 	ring_geo.visible = false
 	thumb_geo.visible = false
 	#weapon.visible = false
+	arm_throw_sfx.play()
+	#animation_player.play("extra_anims/throw")
 
 func try_attack():
 	if animation_player.current_animation != "push" and !is_disarmed:
@@ -349,6 +364,7 @@ func try_fire():
 		
 		projectile.start(-head.global_transform.basis.z)
 		animation_player.play("fire")
+		fire_sfx.play()
 		print("Firing gun!")
 
 func try_jump():
@@ -357,6 +373,8 @@ func try_jump():
 		
 	print("Jumping!")
 	velocity.y = JUMP_VELOCITY
+	jump_sfx.play()
+	#animation_player.play("extra_anims/jump")
 	#set_state(PlayerStates.JUMP)
 
 #func try_jump_joystick():
@@ -404,7 +422,7 @@ func _on_attack_hit():
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
 				enemy.spawn_blood(collision.point)
-				enemy.receive_sword_impact(melee_damage, global_position, sword_impact_strength)
+				enemy.receive_sword_impact(melee_damage, global_position, impact_strength)
 				
 			elif collision.collider is EnemyRanged:
 				print("Enemy hit")
@@ -412,7 +430,7 @@ func _on_attack_hit():
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
 				enemy.spawn_blood(collision.point)
-				enemy.receive_sword_impact(melee_damage, global_position, sword_impact_strength)
+				enemy.receive_sword_impact(melee_damage, global_position, impact_strength)
 
 func _on_sword_back(body):
 	var sword: Sword = body.get_parent()
@@ -427,6 +445,7 @@ func _on_sword_back(body):
 		ring_geo.visible = true
 		thumb_geo.visible = true
 		#weapon.visible = true
+		arm_back_sfx.play()
 
 func take_damage(amount: float):
 	if current_health > 0:
@@ -436,6 +455,10 @@ func take_damage(amount: float):
 		game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
 		await get_tree().create_timer(.47).timeout # define o tempo antes de desligar o efeito
 		game_hud_canvas.find_child("HitVignette").visible = false
+		
+		if current_health <= max_health/3:
+			idle_sfx.play()
+		
 		if current_health <= 0:
 			current_health = 0
 			is_dead = true
