@@ -931,7 +931,7 @@ mesh = SubResource("ArrayMesh_5rrhx")
 skin = SubResource("Skin_4l2pa")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Head/Weapon/PlayerArmature/Armature/Skeleton3D"]
-transform = Transform3D(0.985952, 0.0141173, 0.16643, -0.165641, -0.045472, 0.985137, 0.0214753, -0.998866, -0.0424947, -0.396102, -0.200563, -0.300796)
+transform = Transform3D(0.985952, 0.0141178, 0.166429, -0.16564, -0.0454719, 0.985137, 0.0214759, -0.998866, -0.0424945, -0.396102, -0.200564, -0.300796)
 bone_name = "cannonBase"
 bone_idx = 3
 
@@ -1292,6 +1292,24 @@ offset_right = 1743.0
 offset_bottom = 372.0
 texture = ExtResource("10_vmsi3")
 
+[node name="ColcheteA3" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1325.0
+offset_top = 522.0
+offset_right = 1355.0
+offset_bottom = 582.0
+texture = ExtResource("9_slx6m")
+
+[node name="ColcheteB3" type="TextureRect" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(30, 60)
+layout_mode = 0
+offset_left = 1713.0
+offset_top = 522.0
+offset_right = 1743.0
+offset_bottom = 582.0
+texture = ExtResource("10_vmsi3")
+
 [node name="MusicBar" type="TextureProgressBar" parent="MenuHUD/Panel/ConfigGroup/Audio"]
 layout_mode = 0
 offset_left = 1482.0
@@ -1345,6 +1363,18 @@ theme_override_styles/slider = SubResource("StyleBoxEmpty_w0dep")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_e6mpq")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_atgls")
 max_value = 10.0
+
+[node name="Label3" type="Label" parent="MenuHUD/Panel/ConfigGroup/Audio"]
+custom_minimum_size = Vector2(364, 54)
+layout_mode = 0
+offset_left = 1352.0
+offset_top = 526.0
+offset_right = 1716.0
+offset_bottom = 580.0
+theme = ExtResource("8_n6bql")
+text = "INTERFACE"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HUDBar" type="TextureProgressBar" parent="MenuHUD/Panel/ConfigGroup/Audio"]
 layout_mode = 0
@@ -1457,7 +1487,7 @@ offset_top = 861.0
 offset_right = 1284.0
 offset_bottom = 915.0
 min_value = 1.0
-value = 100.0
+value = 20.0
 nine_patch_stretch = true
 stretch_margin_left = 9
 stretch_margin_top = 3
