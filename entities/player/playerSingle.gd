@@ -752,6 +752,7 @@ func set_resolution_buttons_enabled(enabled: bool) -> void:
 
 func _on_sens_slider_value_changed(value):
 	sens_bar.value = value
+	mouse_sensitivity = value * 0.0001
 #endregion
 
 func _on_button_hovered():
