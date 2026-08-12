@@ -693,8 +693,8 @@ streams_count = 1
 stream_0/stream = ExtResource("49_t5wby")
 stream_0/weight = 1.0
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice")]
-collision_layer = 260
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice") groups=["targetable"]]
+collision_layer = 1284
 collision_mask = 3
 script = ExtResource("1_wj731")
 camera_juice = NodePath("Head/Camera3D")

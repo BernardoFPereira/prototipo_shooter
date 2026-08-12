@@ -11,7 +11,6 @@ func _ready():
 func _process(delta):
 	pass
 
-
 func _on_area_3d_area_entered(area):
 	var parent = area.get_parent()
 	print(area)

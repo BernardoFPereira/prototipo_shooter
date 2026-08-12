@@ -48,8 +48,8 @@ func explode():
 			var player = collision.collider as Player
 			player.velocity += (global_position.direction_to(player.global_position) * knockback)
 		
-		if collision.collider is EnemyMelee:
-			var enemy = collision.collider as EnemyMelee
+		if collision.collider is MeleeAgent:
+			var enemy = collision.collider as MeleeAgent
 			enemy.receive_rocket_impact(global_position, damage)
 		
 		if collision.collider is EnemyRanged:

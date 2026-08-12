@@ -416,9 +416,9 @@ func _on_attack_hit():
 	print(sword_hit_area.collision_result)
 	if sword_hit_area.collision_result:
 		for collision in sword_hit_area.collision_result:
-			if collision.collider is EnemyMelee:
+			if collision.collider is MeleeAgent:
 				print("Enemy hit")
-				var enemy = collision.collider as EnemyMelee
+				var enemy = collision.collider as MeleeAgent
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
 				enemy.spawn_blood(collision.point)

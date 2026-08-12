@@ -3,4 +3,3 @@
 [resource]
 vertices = PackedVector3Array(-120.499, 24.0132, 85.5032, -120.499, 24.0132, 90.5032, -84.4994, 24.0132, 90.5032, -84.4994, 24.0132, 85.5032)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-cell_height = 0.06
