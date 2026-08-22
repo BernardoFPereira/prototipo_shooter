@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5cleirejcsqm"]
+[gd_scene load_steps=6 format=3 uid="uid://c5cleirejcsqm"]
+
+[ext_resource type="Material" uid="uid://8fsus6swkwlf" path="res://materials/mapmaterials/ground3.tres" id="1_24psq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gxvxg"]
 size = Vector3(0.728516, 0.719238, 0.709961)
@@ -52,5 +54,6 @@ shape = SubResource("BoxShape3D_gxvxg")
 
 [node name="caixaMenor_cenario" type="MeshInstance3D" parent="StaticBody3D/ST_caixaPequena"]
 transform = Transform3D(0.7, 0, 0, 0, 0, -0.7, 0, 0.7, 0, 0, 0.345, 0)
+material_override = ExtResource("1_24psq")
 mesh = SubResource("ArrayMesh_tyh3o")
 skeleton = NodePath("")

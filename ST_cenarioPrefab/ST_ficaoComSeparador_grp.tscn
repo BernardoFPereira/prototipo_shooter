@@ -1,4 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpkcwbi5plar1"]
+[gd_scene load_steps=8 format=3 uid="uid://bpkcwbi5plar1"]
+
+[ext_resource type="Material" uid="uid://b30evicab87h" path="res://materials/mapmaterials/scanlines2.tres" id="1_nb5ib"]
+[ext_resource type="Material" uid="uid://dkcy8lxdcxo2c" path="res://materials/mapmaterials/scanlines1.tres" id="2_11w6i"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wnfcm"]
 resource_name = "standardSurface1.004"
@@ -79,10 +82,12 @@ shadow_mesh = SubResource("ArrayMesh_ousdv")
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
 
 [node name="canosFiacaoLongo" type="MeshInstance3D" parent="ST_ficaoComSeparador_grp/fiacaoLonga_grp"]
+material_override = ExtResource("1_nb5ib")
 mesh = SubResource("ArrayMesh_fr2e8")
 skeleton = NodePath("")
 
 [node name="fixadorCanosLongos" type="MeshInstance3D" parent="ST_ficaoComSeparador_grp/fiacaoLonga_grp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.3761, -224.097)
+material_override = ExtResource("2_11w6i")
 mesh = SubResource("ArrayMesh_r8nsq")
 skeleton = NodePath("")

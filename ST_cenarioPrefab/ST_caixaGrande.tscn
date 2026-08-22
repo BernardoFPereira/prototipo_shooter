@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://fogy422ehwql"]
+[gd_scene load_steps=6 format=3 uid="uid://fogy422ehwql"]
+
+[ext_resource type="Material" uid="uid://b2orx7ld6kvnx" path="res://materials/mapmaterials/rustbucket3.tres" id="1_c0e1n"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vspg6"]
 resource_name = "standardSurface1.002"
@@ -50,6 +52,7 @@ size = Vector3(0.731445, 1.4093, 0.703125)
 
 [node name="caixaMaior_cenario" type="MeshInstance3D" parent="StaticBody3D/ST_caixaGrande"]
 transform = Transform3D(0.7, 0, 0, 0, 0, -1.4, 0, 0.7, 0, 0, 0.695, 0)
+material_override = ExtResource("1_c0e1n")
 mesh = SubResource("ArrayMesh_ntkkn")
 skeleton = NodePath("")
 

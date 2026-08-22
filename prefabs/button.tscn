@@ -1,12 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://djriivifdcxl4"]
+[gd_scene load_steps=6 format=3 uid="uid://djriivifdcxl4"]
 
-[ext_resource type="Material" uid="uid://d4fdteuscil61" path="res://materials/testmats/testmat4.tres" id="1_obhs3"]
 [ext_resource type="Script" path="res://scripts/button.gd" id="1_q8bb1"]
-[ext_resource type="Material" uid="uid://cq0pket5afcw0" path="res://materials/testmats/testmat2.tres" id="2_kgc1c"]
+[ext_resource type="Material" uid="uid://bsyyacaunw8i4" path="res://materials/mapmaterials/glassmat.tres" id="2_gcu5s"]
+[ext_resource type="Material" uid="uid://co062au7mgba1" path="res://textures/objtextures/monitor3.tres" id="3_5nx30"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1fwao"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vamuk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_42yw5"]
 size = Vector3(2.01166, 1.97571, 0.903259)
@@ -17,13 +15,12 @@ script = ExtResource("1_q8bb1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.025, 0, 0, 0, 1.923, 0, 0, 0, 0.345, 0, 0.490442, 0)
-material_override = ExtResource("1_obhs3")
+material_override = ExtResource("2_gcu5s")
 mesh = SubResource("BoxMesh_1fwao")
-surface_material_override/0 = SubResource("StandardMaterial3D_vamuk")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.46, 0, 0, 0, 2.248, 0, 0, 0, 0.345, 0, 0.490442, -0.184556)
-material_override = ExtResource("2_kgc1c")
+material_override = ExtResource("3_5nx30")
 mesh = SubResource("BoxMesh_1fwao")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

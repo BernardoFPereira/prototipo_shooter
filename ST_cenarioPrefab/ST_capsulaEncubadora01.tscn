@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://do5kuwgrh4tpt"]
+[gd_scene load_steps=6 format=3 uid="uid://do5kuwgrh4tpt"]
+
+[ext_resource type="Material" uid="uid://d27g86vke7lpg" path="res://materials/mapmaterials/ground1.tres" id="1_jis6k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1tvh7"]
 size = Vector3(1.33594, 2.6983, 1.10919)
@@ -55,5 +57,6 @@ shape = SubResource("BoxShape3D_1tvh7")
 
 [node name="ST_capsulaEncubadora01" type="MeshInstance3D" parent="StaticBody3D/ST_capsulaEncubadora012"]
 transform = Transform3D(0.143126, 0, 0, 0, 5.11859e-08, -0.143126, 0, 0.143126, 5.11859e-08, 0, 0, 0)
+material_override = ExtResource("1_jis6k")
 mesh = SubResource("ArrayMesh_06ceo")
 skeleton = NodePath("")
