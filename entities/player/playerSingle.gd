@@ -456,7 +456,7 @@ func take_damage(amount: float):
 		await get_tree().create_timer(.47).timeout # define o tempo antes de desligar o efeito
 		game_hud_canvas.find_child("HitVignette").visible = false
 		
-		if current_health <= max_health/3:
+		if current_health <= 40:
 			idle_sfx.play()
 		
 		if current_health <= 0:

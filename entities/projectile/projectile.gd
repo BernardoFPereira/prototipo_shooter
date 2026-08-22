@@ -9,7 +9,7 @@ extends Node3D
 @onready var mesh = $MeshInstance3D
 @onready var impact_sfx = $ImpactSFX
 
-var speed: int = 35
+var speed: int = 45
 var direction: Vector3
 var knockback: int = 16
 var damage: int = 25

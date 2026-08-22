@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cf6m544kturqc"]
+[gd_scene load_steps=11 format=3 uid="uid://cf6m544kturqc"]
 
+[ext_resource type="Material" uid="uid://bsyyacaunw8i4" path="res://materials/mapmaterials/glassmat.tres" id="1_0bw6p"]
 [ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="1_76no0"]
 [ext_resource type="AudioStream" uid="uid://c2fjlpf3mqdhg" path="res://assets/sounds/sfx/Props/door_open.wav" id="2_uw53c"]
 [ext_resource type="AudioStream" uid="uid://fpd72o8ew0vp" path="res://assets/sounds/sfx/Props/door_close.wav" id="3_vyfvo"]
@@ -192,6 +193,7 @@ disabled = true
 [node name="door2" type="MeshInstance3D" parent="Door2/AnimBdDoor2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42979, -0.0245905)
 layers = 18
+material_override = ExtResource("1_0bw6p")
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
 
@@ -211,6 +213,7 @@ disabled = true
 [node name="door1" type="MeshInstance3D" parent="Door1/AnimBdDoor1"]
 transform = Transform3D(1, 0, 0, 0, 0.999433, 0.0336785, 0, -0.0336785, 0.999433, 0, 2.42325, 0)
 layers = 18
+material_override = ExtResource("1_0bw6p")
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
 

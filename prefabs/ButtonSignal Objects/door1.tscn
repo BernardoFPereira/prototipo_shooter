@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://6pplbw1odkvt"]
+[gd_scene load_steps=11 format=3 uid="uid://6pplbw1odkvt"]
 
 [ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="1_0ckcj"]
+[ext_resource type="Material" uid="uid://bsyyacaunw8i4" path="res://materials/mapmaterials/glassmat.tres" id="1_1n1tq"]
 [ext_resource type="AudioStream" uid="uid://c2fjlpf3mqdhg" path="res://assets/sounds/sfx/Props/door_open.wav" id="2_txfp6"]
 [ext_resource type="AudioStream" uid="uid://fpd72o8ew0vp" path="res://assets/sounds/sfx/Props/door_close.wav" id="3_jrkqx"]
 
@@ -89,10 +90,12 @@ collision_mask = 0
 gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door2/AnimBdDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00507212, 0, -0.00420308)
 shape = SubResource("ConvexPolygonShape3D_o0lvg")
 
 [node name="door2" type="MeshInstance3D" parent="Door2/AnimBdDoor2"]
 layers = 2
+material_override = ExtResource("1_1n1tq")
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
 
@@ -109,6 +112,7 @@ shape = SubResource("ConvexPolygonShape3D_h1cab")
 
 [node name="door1" type="MeshInstance3D" parent="Door1/AnimBdDoor1"]
 layers = 2
+material_override = ExtResource("1_1n1tq")
 mesh = SubResource("BoxMesh_ofy1g")
 skeleton = NodePath("../../..")
 

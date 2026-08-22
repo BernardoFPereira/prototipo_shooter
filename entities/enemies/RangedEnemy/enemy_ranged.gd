@@ -278,7 +278,7 @@ func target_is_in_range() -> bool:
 func spawn_projectile():
 	var projectile = enemy_projectile_scene.instantiate()
 	get_parent().add_child(projectile, true)
-	projectile.transform = muzzle_point.global_transform
+	projectile.global_position = muzzle_point.global_position
 	projectile.start(global_position.direction_to(target.global_position))
 	shot_sfx.play()
 
