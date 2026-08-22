@@ -19,9 +19,9 @@
 [ext_resource type="Animation" uid="uid://c5bbs2k8ap622" path="res://models/player/anims/a_pose.res" id="9_y8pmy"]
 [ext_resource type="Animation" uid="uid://doejvdoyqsmui" path="res://models/player/anims/walk.res" id="10_uvuu5"]
 [ext_resource type="Texture2D" uid="uid://c14smyuarc2o6" path="res://UI/ConfigMenu/COLCHETE 2.png" id="10_vmsi3"]
-[ext_resource type="Texture2D" uid="uid://bd5swod4mubmo" path="res://UI/ConfigMenu/v2_btn_tick.png" id="11_d86lc"]
+[ext_resource type="Texture2D" uid="uid://bd5swod4mubmo" path="res://UI/ConfigMenu/_old/v2_btn_tick.png" id="11_d86lc"]
 [ext_resource type="AnimationLibrary" uid="uid://dsijh7fxtlxh" path="res://models/player/extra_anims.glb" id="12_1gohg"]
-[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/v2_btn_bar.png" id="12_rlhsb"]
+[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/_old/v2_btn_bar.png" id="12_rlhsb"]
 [ext_resource type="Texture2D" uid="uid://cp8sjbs1efomi" path="res://UI/ConfigMenu/BOTÃO OFF.png" id="13_xodqh"]
 [ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="14_8vx3h"]
 [ext_resource type="Texture2D" uid="uid://bo5sjwobb2r68" path="res://UI/ConfigMenu/BOTÃO ON.png" id="14_yv16d"]
@@ -1824,32 +1824,40 @@ visible = false
 
 [node name="Idle" parent="SFX" instance=ExtResource("24_mrbwe")]
 stream = ExtResource("25_8jerd")
+attenuation_model = 1
 volume_db = -22.0
 pitch_scale = 1.3
 bus = &"SFX"
 
 [node name="Walk" parent="SFX" instance=ExtResource("24_mrbwe")]
 stream = SubResource("AudioStreamRandomizer_lnffv")
+attenuation_model = 1
 pitch_scale = 0.8
 bus = &"SFX"
 
 [node name="Jump" parent="SFX" instance=ExtResource("24_mrbwe")]
 stream = SubResource("AudioStreamRandomizer_i5uff")
+attenuation_model = 1
 bus = &"SFX"
 
 [node name="Fire" parent="SFX" instance=ExtResource("24_mrbwe")]
 stream = SubResource("AudioStreamRandomizer_dm3ss")
+attenuation_model = 1
 volume_db = -3.0
 bus = &"SFX"
 
 [node name="ArmThrow" parent="SFX" instance=ExtResource("24_mrbwe")]
 stream = SubResource("AudioStreamRandomizer_d4xf8")
+attenuation_model = 1
 volume_db = -3.0
 bus = &"SFX"
 
-[node name="ArmBack" type="AudioStreamPlayer3D" parent="SFX"]
+[node name="ArmBack" parent="SFX" instance=ExtResource("24_mrbwe")]
 stream = ExtResource("50_0tyie")
+attenuation_model = 1
+volume_db = -8.0
 pitch_scale = 1.84
+bus = &"SFX"
 
 [connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

@@ -35,7 +35,6 @@ func explode():
 	particles.emitting = false
 	collision_area.set_deferred("monitoring", false)
 	collision_area.set_deferred("monitorable", false)
-	impact_sfx.play()
 	print(explosion_area.collision_result)
 	
 	var explosion = preload("res://entities/projectile/ProjectileExplosion.tscn").instantiate()
@@ -60,6 +59,7 @@ func _on_lifetime_timer_timeout():
 	call_deferred("queue_free")
 
 func _on_projectile_impact(_body):
+	impact_sfx.play()
 	explode()
 	#call_deferred("queue_free")
 

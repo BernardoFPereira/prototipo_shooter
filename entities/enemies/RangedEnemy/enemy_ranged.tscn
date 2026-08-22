@@ -427,8 +427,11 @@ attenuation_model = 1
 pitch_scale = 1.2
 bus = &"SFX"
 
-[node name="Shot" type="AudioStreamPlayer3D" parent="SFX"]
+[node name="Shot" parent="SFX" instance=ExtResource("10_l2fey")]
+visible = false
 stream = ExtResource("39_sfd88")
+attenuation_model = 1
 pitch_scale = 0.51
+bus = &"SFX"
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
