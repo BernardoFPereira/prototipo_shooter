@@ -8,6 +8,7 @@ extends Node3D
 @onready var particles = $GPUParticles3D
 @onready var mesh = $MeshInstance3D
 @onready var impact_sfx = $ImpactSFX
+@onready var projectile_light = $ProjectileLight
 
 var speed: int = 35
 var direction: Vector3
@@ -29,6 +30,7 @@ func start(dir) -> void:
 
 func explode():
 	explosion_timer.start()
+	projectile_light.visible = false
 	speed = 0
 	direction = Vector3.ZERO
 	mesh.visible = false
