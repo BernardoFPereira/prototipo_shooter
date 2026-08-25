@@ -19,9 +19,9 @@
 [ext_resource type="Animation" uid="uid://c5bbs2k8ap622" path="res://models/player/anims/a_pose.res" id="9_y8pmy"]
 [ext_resource type="Animation" uid="uid://doejvdoyqsmui" path="res://models/player/anims/walk.res" id="10_uvuu5"]
 [ext_resource type="Texture2D" uid="uid://c14smyuarc2o6" path="res://UI/ConfigMenu/COLCHETE 2.png" id="10_vmsi3"]
-[ext_resource type="Texture2D" uid="uid://cj1vv6u8c37p7" path="res://UI/ConfigMenu/v2_btn_tick.png" id="11_d86lc"]
+[ext_resource type="Texture2D" uid="uid://bd5swod4mubmo" path="res://UI/ConfigMenu/v2_btn_tick.png" id="11_d86lc"]
 [ext_resource type="AnimationLibrary" uid="uid://dsijh7fxtlxh" path="res://models/player/extra_anims.glb" id="12_1gohg"]
-[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/_old/v2_btn_bar.png" id="12_rlhsb"]
+[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/v2_btn_bar.png" id="12_rlhsb"]
 [ext_resource type="Texture2D" uid="uid://cp8sjbs1efomi" path="res://UI/ConfigMenu/BOTÃO OFF.png" id="13_xodqh"]
 [ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="14_8vx3h"]
 [ext_resource type="Texture2D" uid="uid://bo5sjwobb2r68" path="res://UI/ConfigMenu/BOTÃO ON.png" id="14_yv16d"]
@@ -59,6 +59,7 @@
 resource_name = "arms_mat.1001"
 cull_mode = 2
 albedo_texture = ExtResource("2_6hu70")
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_p1fio"]
 resource_name = "PlayerArmature_Mesh_004"
@@ -160,6 +161,7 @@ bind/23/pose = Transform3D(1, 8.74223e-08, -6.51683e-07, -6.51683e-07, -7.45061e
 resource_name = "cannon_mat"
 transparency = 4
 cull_mode = 2
+specular_mode = 1
 albedo_texture = ExtResource("3_v6m5b")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1dtmr"]
@@ -185,7 +187,9 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uoe8d"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
+diffuse_mode = 3
 albedo_texture = ExtResource("4_njt6l")
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ywy82"]
 resource_name = "PlayerArmature_Mesh_005"
@@ -211,6 +215,7 @@ blend_shape_mode = 0
 resource_name = "forearm_mat.1001"
 cull_mode = 2
 albedo_texture = ExtResource("4_njt6l")
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_g7m6x"]
 resource_name = "PlayerArmature_Mesh_022"
@@ -235,7 +240,9 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkdnv"]
 resource_name = "forearm_mat.1001"
 cull_mode = 2
+diffuse_mode = 3
 albedo_texture = ExtResource("4_njt6l")
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_42m8c"]
 resource_name = "PlayerArmature_Mesh_009"
@@ -261,6 +268,7 @@ blend_shape_mode = 0
 resource_name = "forearm_mat.1001"
 cull_mode = 2
 albedo_texture = ExtResource("4_njt6l")
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wr5cx"]
 resource_name = "PlayerArmature_Mesh_017"
@@ -286,6 +294,7 @@ blend_shape_mode = 0
 resource_name = "forearm_mat.1001"
 cull_mode = 2
 albedo_texture = ExtResource("4_njt6l")
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_kvaqn"]
 resource_name = "PlayerArmature_Mesh_013"
@@ -311,6 +320,7 @@ blend_shape_mode = 0
 resource_name = "forearm_mat.1001"
 cull_mode = 2
 albedo_texture = ExtResource("4_njt6l")
+metallic_specular = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5rrhx"]
 resource_name = "PlayerArmature_Mesh_020"
