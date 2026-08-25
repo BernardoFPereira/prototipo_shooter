@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=124 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="2_6hu70"]
@@ -692,6 +692,9 @@ stream_0/weight = 1.0
 streams_count = 1
 stream_0/stream = ExtResource("49_t5wby")
 stream_0/weight = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ag83q"]
+radius = 100.0
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice")]
 collision_layer = 260
@@ -1659,7 +1662,6 @@ theme = ExtResource("18_40mg7")
 text = "SIM"
 
 [node name="GameHUD" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="HitVignette" type="ColorRect" parent="GameHUD"]
 visible = false
@@ -1704,6 +1706,9 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 32
 text = "100"
 horizontal_alignment = 1
+
+[node name="DetectionTimer" type="Timer" parent="."]
+wait_time = 0.15
 
 [node name="GameOverHUD" type="CanvasLayer" parent="."]
 visible = false
@@ -1850,6 +1855,14 @@ bus = &"SFX"
 [node name="ArmBack" type="AudioStreamPlayer3D" parent="SFX"]
 stream = ExtResource("50_0tyie")
 pitch_scale = 1.84
+bus = &"SFX"
+
+[node name="EnemyDetectionRange" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 524288
+
+[node name="EnemyDetectionCollision" type="CollisionShape3D" parent="EnemyDetectionRange"]
+shape = SubResource("SphereShape3D_ag83q")
 
 [connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
