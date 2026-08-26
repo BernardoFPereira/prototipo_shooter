@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct5atronh7rv2"]
+
+[ext_resource type="PackedScene" uid="uid://43p4oygb15uw" path="res://models/heroassets/vent.glb" id="1_wfcqb"]
+
+[node name="vent" type="Node3D"]
+
+[node name="vent" parent="." instance=ExtResource("1_wfcqb")]
+
+[editable path="vent"]

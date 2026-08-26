@@ -24,6 +24,6 @@ clearcoat = 0.05
 clearcoat_roughness = 1.0
 anisotropy = 0.09
 heightmap_enabled = true
-heightmap_scale = 16.0
+heightmap_scale = 0.0
 heightmap_texture = ExtResource("3_wd1c5")
 texture_filter = 2

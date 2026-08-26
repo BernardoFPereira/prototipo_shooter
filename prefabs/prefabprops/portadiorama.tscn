@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl4641hb7ar1k"]
+
+[ext_resource type="PackedScene" uid="uid://cjywq18dnksnt" path="res://models/heroassets/porta.glb" id="1_c4ybi"]
+
+[node name="portadiorama" type="Node3D"]
+
+[node name="porta" parent="." instance=ExtResource("1_c4ybi")]
+
+[editable path="porta"]
