@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkf1hkmei3q1o"]
+
+[ext_resource type="PackedScene" uid="uid://c0y48dsxoctix" path="res://models/heroassets/props/plano1.glb" id="1_7e2i3"]
+
+[node name="Plano1" type="Node3D"]
+
+[node name="Plano de jogar Textura em cima" parent="." instance=ExtResource("1_7e2i3")]
