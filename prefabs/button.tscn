@@ -1,17 +1,18 @@
-[gd_scene load_steps=25 format=3 uid="uid://djriivifdcxl4"]
+[gd_scene load_steps=26 format=3 uid="uid://djriivifdcxl4"]
 
 [ext_resource type="Material" uid="uid://d4fdteuscil61" path="res://materials/testmats/testmat4.tres" id="1_obhs3"]
 [ext_resource type="Script" path="res://scripts/button.gd" id="1_q8bb1"]
 [ext_resource type="Material" uid="uid://cq0pket5afcw0" path="res://materials/testmats/testmat2.tres" id="2_kgc1c"]
-[ext_resource type="Texture2D" uid="uid://2dux5luion72" path="res://models/heroassets/button_button_button_mtl_BaseColor.png" id="4_iudyc"]
-[ext_resource type="Texture2D" uid="uid://dfm7ww102ejq8" path="res://models/heroassets/button_button_button_mtl_Metallic.1001-button_button_mtl_Roughness.png" id="5_b4wro"]
+[ext_resource type="Texture2D" uid="uid://creqwpunv4wdj" path="res://models/heroassets/button_button_mtl_BaseColor.1001.png" id="4_4b1oe"]
 [ext_resource type="Texture2D" uid="uid://cklj3nca05io4" path="res://models/heroassets/button_button_mtl_Emissive.1001.png" id="5_sriyj"]
+[ext_resource type="Texture2D" uid="uid://6k0vvg0uv7n1" path="res://models/heroassets/button_button_mtl_Height.1001.png" id="6_86xwl"]
 [ext_resource type="Texture2D" uid="uid://djxg55ukugdtc" path="res://models/heroassets/button_button_buttoncase_mtl_BaseColor.png" id="6_bftod"]
 [ext_resource type="Texture2D" uid="uid://qpieexwm6rgv" path="res://models/heroassets/button_button_buttoncase_mtl_Emissive.png" id="7_s7drv"]
-[ext_resource type="Texture2D" uid="uid://dmu2w15gn42eq" path="res://models/heroassets/button_button_buttoncase_mtl_Roughness.png" id="8_pv1js"]
-[ext_resource type="Texture2D" uid="uid://cly0t5lmwxmra" path="res://materials/mapmaterials/DioramaMats/DioramaTEX/texcube_low_cubotex_mtl_Height.1001.png" id="9_4s2u3"]
-[ext_resource type="Texture2D" uid="uid://dd222rhdheg5s" path="res://models/heroassets/button_button_buttondtls_mtl_BaseColor_6.png" id="9_hvjmi"]
+[ext_resource type="Texture2D" uid="uid://b3q2orafwl4rc" path="res://models/heroassets/button_buttondtls_mtl_Roughness.1001.png" id="7_y8kvd"]
+[ext_resource type="Texture2D" uid="uid://dm7kj1ytqjmh4" path="res://models/heroassets/button_buttoncase_mtl_Metallic.1001.png" id="9_wb0en"]
+[ext_resource type="Texture2D" uid="uid://b7tuff4kvbckl" path="res://models/heroassets/button_buttoncase_mtl_Roughness.1001.png" id="10_5b4e0"]
 [ext_resource type="Texture2D" uid="uid://bg165v4430a2f" path="res://models/heroassets/button_button_buttondtls_mtl_BaseColor.png" id="10_ugbm8"]
+[ext_resource type="Texture2D" uid="uid://hxkyxoqkmb7t" path="res://models/heroassets/button_buttondtls_mtl_BaseColor.1001.png" id="11_gih1k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1fwao"]
 
@@ -20,12 +21,13 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxr73"]
 resource_name = "button_mtl.1001"
 cull_mode = 2
-albedo_texture = ExtResource("4_iudyc")
-metallic = 0.04
-metallic_specular = 0.04
-metallic_texture = ExtResource("5_b4wro")
+albedo_texture = ExtResource("4_4b1oe")
+metallic = 1.0
+metallic_specular = 0.03
+metallic_texture = ExtResource("6_86xwl")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("5_b4wro")
+roughness = 0.5
+roughness_texture = ExtResource("7_y8kvd")
 roughness_texture_channel = 1
 emission_enabled = true
 emission_texture = ExtResource("5_sriyj")
@@ -69,11 +71,12 @@ size = Vector3(2.01166, 1.97571, 0.903259)
 resource_name = "buttoncase_mtl.1001"
 cull_mode = 2
 albedo_texture = ExtResource("6_bftod")
-metallic = 0.45
+metallic = 1.0
 metallic_specular = 0.0
-metallic_texture = ExtResource("9_4s2u3")
+metallic_texture = ExtResource("9_wb0en")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("8_pv1js")
+roughness = 0.39
+roughness_texture = ExtResource("10_5b4e0")
 roughness_texture_channel = 1
 emission_enabled = true
 emission_texture = ExtResource("7_s7drv")
@@ -114,7 +117,7 @@ shadow_mesh = SubResource("ArrayMesh_mccex")
 resource_name = "buttondtls_mtl.1001"
 transparency = 4
 cull_mode = 2
-albedo_texture = ExtResource("9_hvjmi")
+albedo_texture = ExtResource("11_gih1k")
 metallic = 1.0
 metallic_specular = 0.47
 roughness = 0.5

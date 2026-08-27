@@ -7811,6 +7811,17 @@ light_bake_mode = 1
 shadow_enabled = true
 omni_range = 15.889
 
+[node name="OmniLight3D15" type="OmniLight3D" parent="CorridorLights/OmniLight3D15"]
+transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, -1.43943, -5.02002, -4.94328)
+light_color = Color(0.519489, 0.700775, 0.16466, 1)
+light_energy = 16.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.125
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 15.889
+
 [node name="OmniLight3D16" type="OmniLight3D" parent="CorridorLights"]
 transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 25.0293, 4.93996, -0.450161)
 light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
