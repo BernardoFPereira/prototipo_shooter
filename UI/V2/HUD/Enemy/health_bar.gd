@@ -16,8 +16,8 @@ func bar_take_damage(damage: float):
 
 	var tween = create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(progress_bar, "value", real_value, 0.3)
-	tween.tween_property(progress_bar, "tint_progress", new_color, 0.3)
+	tween.tween_property(progress_bar, "value", real_value, 0.4)
+	tween.tween_property(progress_bar, "tint_progress", new_color, 0.4)
 
 func bar_dead():
 	queue_free()

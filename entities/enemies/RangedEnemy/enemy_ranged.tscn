@@ -1,4 +1,4 @@
-[gd_scene load_steps=209 format=3 uid="uid://b8bw8al37q20m"]
+[gd_scene load_steps=207 format=3 uid="uid://b8bw8al37q20m"]
 
 [ext_resource type="Script" path="res://entities/enemies/RangedEnemy/enemy_ranged.gd" id="1_ixay4"]
 [ext_resource type="Texture2D" uid="uid://cojkuuhu36hkc" path="res://textures/enemies/grunt01v2_standardSurface1_BaseColor.1001.png" id="2_lur2i"]
@@ -41,7 +41,6 @@
 [ext_resource type="AudioStream" uid="uid://com4jw17vfb74" path="res://assets/sounds/sfx/player/cannon_blast.wav" id="39_sfd88"]
 [ext_resource type="Texture2D" uid="uid://dnl3nnm5wtx70" path="res://UI/V2/HUD/Enemy/EnemyDetectedCH.png" id="40_ln16s"]
 [ext_resource type="Texture2D" uid="uid://33musy0s7pvw" path="res://UI/V2/HUD/Enemy/DetectedCH_Frames/detection_ch_sprite_sheet.png" id="41_s557h"]
-[ext_resource type="PackedScene" uid="uid://dbebn76mg38n7" path="res://UI/V2/HUD/Enemy/health_bar.tscn" id="42_bi712"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cstil"]
 transparency = 2
@@ -1278,9 +1277,6 @@ animations = [{
 "speed": 30.0
 }]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_pxmqa"]
-viewport_path = NodePath("EnemyHealth")
-
 [sub_resource type="Animation" id="Animation_lvm2u"]
 resource_name = "detected"
 length = 5.5
@@ -1319,30 +1315,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0, 1, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(1, 0, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(1, 0, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(1, 0, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(1, 0, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(0, 1, 0, 0.588235), Color(1, 0, 0, 0.588235), Color(0, 1, 0, 0.588235)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("HealthBar:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.9, 1.2, 1.3),
-"transitions": PackedFloat32Array(1, 1, 0.554785, 0.594604),
-"update": 0,
-"values": [Vector3(0.5, 0, 0), Vector3(0.5, 0, 0), Vector3(0.55, 0.55, 0.55), Vector3(0.5, 0.5, 0.5)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("HealthBar:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.9),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fq38c"]
@@ -1588,8 +1560,8 @@ size_flags_vertical = 4
 texture = ExtResource("40_ln16s")
 
 [node name="DetectionCH" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 1.52567, 0)
-modulate = Color(2.23517e-07, 1, 0, 0.588235)
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.52567, 0)
+modulate = Color(0.8, 1, 0.8, 0.917647)
 billboard = 1
 no_depth_test = true
 fixed_size = true
@@ -1598,10 +1570,6 @@ render_priority = 10
 sprite_frames = SubResource("SpriteFrames_rd5mj")
 animation = &"detected"
 autoplay = "detected"
-
-[node name="HealthBar" parent="." instance=ExtResource("42_bi712")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.13665, 0)
-texture = SubResource("ViewportTexture_pxmqa")
 
 [node name="HUDAnimations" type="AnimationPlayer" parent="."]
 libraries = {

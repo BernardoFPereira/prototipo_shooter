@@ -1,4 +1,4 @@
-[gd_scene load_steps=138 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=126 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="2_6hu70"]
@@ -33,16 +33,10 @@
 [ext_resource type="Texture2D" uid="uid://cxoq684337wnk" path="res://UI/Controls/_old/v2_btn_controle_b.png" id="17_baac6"]
 [ext_resource type="Theme" uid="uid://b7pmgihcajosw" path="res://UI/MainMenu/menu_theme.tres" id="18_40mg7"]
 [ext_resource type="Texture2D" uid="uid://btoqts0rijsgy" path="res://UI/Controls/_old/v2_btn_controle_b_selected.png" id="18_akbla"]
-[ext_resource type="Script" path="res://UI/V2/HUD/Player/glow_texture_rect.gd" id="18_nwpcu"]
-[ext_resource type="Shader" path="res://UI/V2/HUD/2DGlowShader.gdshader" id="20_lgex4"]
-[ext_resource type="Script" path="res://UI/V2/HUD/Player/glow_texture_bar.gd" id="24_km8vg"]
 [ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="24_mrbwe"]
 [ext_resource type="AudioStream" uid="uid://dxr7hi71peiey" path="res://assets/sounds/sfx/player/breathing.wav" id="25_8jerd"]
-[ext_resource type="Texture2D" uid="uid://cqiwk5xccunde" path="res://UI/V2/HUD/Player/HUD-HelmetFrame.png" id="30_a6or3"]
-[ext_resource type="Texture2D" uid="uid://ddg81h7ukqqoi" path="res://UI/V2/HUD/Player/HUD-Lines.png" id="31_1l4ih"]
-[ext_resource type="Texture2D" uid="uid://dyhldhcp1t73j" path="res://UI/V2/HUD/Player/HandButton.png" id="32_nbj6u"]
-[ext_resource type="Texture2D" uid="uid://bxyfytujwojle" path="res://UI/V2/HUD/Player/PlayerHealthBar-Frame.png" id="34_brvs5"]
-[ext_resource type="Texture2D" uid="uid://cstnk02q31tnh" path="res://UI/V2/HUD/Player/PlayerHealthBar-Fill.png" id="35_e13dq"]
+[ext_resource type="Texture2D" uid="uid://ctie57g58nmhb" path="res://UI/V2/HUD/Player/PlayerHealthBar_Fill.png" id="31_epnyr"]
+[ext_resource type="Texture2D" uid="uid://cdwahhk211qjf" path="res://UI/V2/HUD/Player/PlayerHealthBar_Progress.png" id="32_4xe6q"]
 [ext_resource type="AudioStream" uid="uid://bxifhxutmnuva" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 2-walk_metal.wav" id="36_o8xu3"]
 [ext_resource type="AudioStream" uid="uid://ck6kbnqdxyj5g" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 3-walk_metal.wav" id="37_7rxk2"]
 [ext_resource type="AudioStream" uid="uid://dpwfecnw5s7fj" path="res://assets/sounds/sfx/player/jump_f.wav" id="37_re1qd"]
@@ -543,104 +537,6 @@ size = Vector3(1.36, 1, 1.84)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_scdrr"]
-shader = ExtResource("20_lgex4")
-shader_parameter/glow_tint = Color(1, 1, 1, 1)
-shader_parameter/detect_color = Color(1, 1, 1, 1)
-shader_parameter/threshold = 0.1
-shader_parameter/intensity = 1.2
-shader_parameter/blur_size = 1.0
-shader_parameter/line_opacity = 0.3
-shader_parameter/glow_source = ExtResource("31_1l4ih")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_huepc"]
-shader = ExtResource("20_lgex4")
-shader_parameter/glow_tint = Color(1, 1, 1, 1)
-shader_parameter/detect_color = Color(1, 1, 1, 1)
-shader_parameter/threshold = 0.1
-shader_parameter/intensity = 1.5
-shader_parameter/blur_size = 1.0
-shader_parameter/line_opacity = 0.6
-shader_parameter/glow_source = ExtResource("32_nbj6u")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jua21"]
-shader = ExtResource("20_lgex4")
-shader_parameter/glow_tint = Color(1, 1, 1, 1)
-shader_parameter/detect_color = Color(1, 1, 1, 1)
-shader_parameter/threshold = 0.1
-shader_parameter/intensity = 1.5
-shader_parameter/blur_size = 1.0
-shader_parameter/line_opacity = 0.6
-shader_parameter/glow_source = ExtResource("34_brvs5")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwmfx"]
-shader = ExtResource("20_lgex4")
-shader_parameter/glow_tint = Color(1, 1, 1, 1)
-shader_parameter/detect_color = Color(1, 1, 1, 1)
-shader_parameter/threshold = 0.1
-shader_parameter/intensity = 2.0
-shader_parameter/blur_size = 1.0
-shader_parameter/line_opacity = 0.8
-shader_parameter/glow_source = ExtResource("35_e13dq")
-
-[sub_resource type="Animation" id="Animation_6a1g4"]
-resource_name = "start"
-length = 2.5
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/HelmetFrame:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.25),
-"transitions": PackedFloat32Array(0.133972, 1),
-"update": 0,
-"values": [Vector2(1.3, 1.3), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameHUD/HUDFrame:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.3, 0.6, 1.25),
-"transitions": PackedFloat32Array(0.535887, 0.353553, 0.34151),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0.9, 0.01), Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameHUD/HealthBar:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1.5, 1.6, 1.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GameHUD/HandButton:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.55, 1.65, 1.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.470588), Color(1, 1, 1, 0), Color(1, 1, 1, 0.470588)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ab6yd"]
-_data = {
-"start": SubResource("Animation_6a1g4")
-}
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_idfdn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l2w7q"]
@@ -1076,144 +972,6 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GetSwordArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40723, 0)
 shape = SubResource("SphereShape3D_k5oyn")
-
-[node name="GameHUD" type="CanvasLayer" parent="."]
-
-[node name="HitVignette" type="ColorRect" parent="GameHUD"]
-visible = false
-material = ExtResource("5_2w87f")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="HelmetFrame" type="TextureRect" parent="GameHUD"]
-texture_filter = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -540.0
-offset_right = 960.0
-offset_bottom = 540.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(960, 540)
-texture = ExtResource("30_a6or3")
-
-[node name="HUDFrame" type="TextureRect" parent="GameHUD"]
-texture_filter = 1
-material = SubResource("ShaderMaterial_scdrr")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(960, 540)
-texture = ExtResource("31_1l4ih")
-script = ExtResource("18_nwpcu")
-intensity = 1.2
-blur_size = 1.0
-line_opacity = 0.3
-
-[node name="HandButton" type="TextureRect" parent="GameHUD"]
-texture_filter = 1
-material = SubResource("ShaderMaterial_huepc")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(960, 540)
-texture = ExtResource("32_nbj6u")
-script = ExtResource("18_nwpcu")
-intensity = 1.5
-blur_size = 1.0
-line_opacity = 0.6
-
-[node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_jua21")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(960, 540)
-texture = ExtResource("34_brvs5")
-script = ExtResource("18_nwpcu")
-intensity = 1.5
-blur_size = 1.0
-line_opacity = 0.6
-
-[node name="Crosshair" type="TextureRect" parent="GameHUD"]
-modulate = Color(1, 1, 1, 0.705882)
-texture_filter = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_5hn21")
-
-[node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
-texture_filter = 1
-material = SubResource("ShaderMaterial_iwmfx")
-custom_minimum_size = Vector2(128, 26)
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -90.0
-offset_top = 60.0
-offset_right = 90.0
-offset_bottom = 86.0
-grow_horizontal = 2
-scale = Vector2(3, 3)
-pivot_offset = Vector2(90, 0)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-value = 100.0
-texture_progress = ExtResource("35_e13dq")
-script = ExtResource("24_km8vg")
-intensity = 2.0
-blur_size = 1.0
-line_opacity = 0.8
-
-[node name="HealthLabel" type="Label" parent="GameHUD"]
-visible = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -89.0
-offset_top = 74.0
-offset_right = 33.0001
-offset_bottom = 119.0
-grow_horizontal = 2
-scale = Vector2(1.471, 1.47)
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 1, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 32
-text = "100"
-horizontal_alignment = 1
-
-[node name="HUDAnimations" type="AnimationPlayer" parent="GameHUD"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_ab6yd")
-}
-autoplay = "start"
 
 [node name="MenuHUD" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -1904,6 +1662,75 @@ offset_right = 1443.0
 offset_bottom = 867.0
 theme = ExtResource("18_40mg7")
 text = "SIM"
+
+[node name="GameHUD" type="CanvasLayer" parent="."]
+
+[node name="HitVignette" type="ColorRect" parent="GameHUD"]
+visible = false
+material = ExtResource("5_2w87f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Crosshair" type="TextureRect" parent="GameHUD"]
+texture_filter = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_5hn21")
+
+[node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -237.0
+offset_top = 32.0
+offset_right = 237.0
+offset_bottom = 60.0
+grow_horizontal = 2
+value = 100.0
+fill_mode = 6
+nine_patch_stretch = true
+stretch_margin_left = 12
+stretch_margin_top = 6
+stretch_margin_right = 12
+stretch_margin_bottom = 6
+texture_under = ExtResource("31_epnyr")
+texture_progress = ExtResource("32_4xe6q")
+tint_under = Color(1, 1, 1, 0.588235)
+tint_progress = Color(0, 1, 0, 1)
+
+[node name="HealthLabel" type="Label" parent="GameHUD"]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -89.0
+offset_top = 74.0
+offset_right = 33.0001
+offset_bottom = 119.0
+grow_horizontal = 2
+scale = Vector2(1.471, 1.47)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "100"
+horizontal_alignment = 1
 
 [node name="DetectionTimer" type="Timer" parent="."]
 wait_time = 0.15

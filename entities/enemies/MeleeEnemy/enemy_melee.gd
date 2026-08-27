@@ -47,7 +47,6 @@ var is_floating: bool
 @onready var hud_animations = $HUDAnimations
 @onready var detection_ch := $DetectionCH
 var detected = false
-@onready var health_bar = $HealthBar
 
 var current_state : EnemyState = EnemyState.IDLE
 enum EnemyState {
@@ -65,7 +64,6 @@ func _ready():
 	sight_area.body_exited.connect(_on_sight_area_body_exited)
 	attack_area.area_entered.connect(_on_attack_area_entered)
 	detection_ch.visible  = false
-	health_bar.visible = false
 	
 	#var enemies = get_tree().get_nodes_in_group("Enemies")
 	#for enemy in enemies:
@@ -135,10 +133,8 @@ func _physics_process(delta):
 func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health) 
-		health_bar.bar_take_damage(clampf(amount, 0, health_bar.progress_bar.max_value))
 		if current_health <= 0:
 			set_current_state(EnemyState.DEAD)
-			health_bar.bar_dead()
 		else:
 			set_current_state(EnemyState.HIT)
 

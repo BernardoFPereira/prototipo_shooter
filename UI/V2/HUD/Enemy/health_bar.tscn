@@ -11,6 +11,7 @@ viewport_path = NodePath("EnemyHealth")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3.13665, 0)
 billboard = 2
 no_depth_test = true
+fixed_size = true
 texture_filter = 0
 render_priority = 10
 texture = SubResource("ViewportTexture_egygv")
@@ -49,7 +50,6 @@ tint_under = Color(1, 1, 1, 0.588235)
 tint_progress = Color(0, 1, 0, 0.588235)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="EnemyHealth/TextureProgressBar"]
-show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

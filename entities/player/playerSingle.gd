@@ -23,16 +23,6 @@ const JUMP_JOYSTICK_VELOCITY: = 5
 @export var melee_damage: float = 10.0
 @export var impact_strength: int = 250
 var current_health: float
-
-#region HUD
-var enemy_detected := "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
-var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
-@onready var enemy_detection_range = $EnemyDetectionRange
-@onready var enemy_detection_collision = $EnemyDetectionRange/EnemyDetectionCollision
-@onready var detection_timer: Timer = $DetectionTimer
-
-var enemies_in_range: Array[Node] = []
-
 #endregion
 
 ##sensibilidade da camera pelo joystick
@@ -63,6 +53,7 @@ enum PlayerStates {
 @onready var fire_sfx = $SFX/Fire
 @onready var arm_throw_sfx = $SFX/ArmThrow
 @onready var arm_back_sfx = $SFX/ArmBack
+#endregion
 
 #region SCENE VARIABLES
 @onready var get_sword_area = $GetSwordArea
@@ -82,12 +73,6 @@ enum PlayerStates {
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
 @onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
-@onready var game_hud_canvas = $GameHUD
-@onready var dead_canvas = $GameOverHUD
-@onready var next_level_canvas = $NextLevelHUD
-@onready var menu_canvas = $MenuHUD
-@onready var health_label = $GameHUD/HealthLabel
-@onready var activation_timer = $ActivationTimer
 
 @export var arm_projectile_scene: PackedScene
 const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
@@ -95,6 +80,25 @@ const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
 var next_level_scene: PackedScene
 var thrown_sword: Sword
+#endregion
+
+#region HUD
+@onready var game_hud_canvas = $GameHUD
+@onready var dead_canvas = $GameOverHUD
+@onready var next_level_canvas = $NextLevelHUD
+@onready var menu_canvas = $MenuHUD
+#@onready var health_label = $GameHUD/HealthLabel
+@onready var health_bar = $GameHUD/HealthBar
+var real_value : float
+@onready var activation_timer = $ActivationTimer
+
+var enemy_detected := "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
+var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
+@onready var enemy_detection_range = $EnemyDetectionRange
+@onready var enemy_detection_collision = $EnemyDetectionRange/EnemyDetectionCollision
+@onready var detection_timer: Timer = $DetectionTimer
+
+var enemies_in_range: Array[Node] = []
 #endregion
 
 #region UI VARIABLES
@@ -155,7 +159,9 @@ func _ready():
 	detection_timer.start()
 	
 	current_health = max_health
-	health_label.text = str(current_health)
+	real_value = max_health
+	health_bar.value = current_health
+	#health_label.text = str(current_health)
 	
 	active_background.texture = null
 	
@@ -470,7 +476,8 @@ func _on_sword_back(body):
 func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
-		health_label.text = str(current_health)
+		bar_take_damage(clampf(amount, 0, max_health))
+		#health_label.text = str(current_health)
 		camera_juice.add_screen_shake(2.0, 0.3)
 		game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
 		await get_tree().create_timer(.47).timeout # define o tempo antes de desligar o efeito
@@ -485,6 +492,17 @@ func take_damage(amount: float):
 			dead_canvas.visible = true
 			game_hud_canvas.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func bar_take_damage(damage: float):
+	real_value -= damage
+	var percent = real_value / max_health
+	var new_color = Color(1.0 - percent, percent, 0.0, health_bar.tint_progress.a)
+
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(health_bar, "value", real_value, 0.4)
+	tween.tween_property(health_bar, "tint_progress", new_color, 0.4)
+	tween.tween_property(health_bar, "glow_tint", new_color, 0.4)
 
 #func _rotate_camera_joystick():
 	#
