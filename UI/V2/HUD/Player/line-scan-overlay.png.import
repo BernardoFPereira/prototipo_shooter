@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://33musy0s7pvw"
-path="res://.godot/imported/detection_ch_sprite_sheet.png-876a0211f56f958326c34544afeaf1f1.ctex"
+uid="uid://bi4ck06oji7aw"
+path="res://.godot/imported/line-scan-overlay.png-ac515749d1d5f5753c917ed8c5f2caf3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/V2/HUD/Enemy/DetectedCH_Frames/detection_ch_sprite_sheet.png"
-dest_files=["res://.godot/imported/detection_ch_sprite_sheet.png-876a0211f56f958326c34544afeaf1f1.ctex"]
+source_file="res://UI/V2/HUD/Player/line-scan-overlay.png"
+dest_files=["res://.godot/imported/line-scan-overlay.png-ac515749d1d5f5753c917ed8c5f2caf3.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

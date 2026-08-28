@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c15c5wunweuir"]
 
 [ext_resource type="Shader" path="res://UI/V2/HUD/2DGlowShader.gdshader" id="1_axti3"]
-[ext_resource type="Texture2D" uid="uid://cstnk02q31tnh" path="res://UI/V2/HUD/Player/PlayerHealthBar-Fill.png" id="2_i2x6h"]
+[ext_resource type="Texture2D" uid="uid://dnl3nnm5wtx70" path="res://UI/V2/HUD/Enemy/EnemyDetectedCH.png" id="2_n0ogl"]
 
 [resource]
 shader = ExtResource("1_axti3")
@@ -11,4 +11,4 @@ shader_parameter/threshold = 0.0
 shader_parameter/intensity = 0.0
 shader_parameter/blur_size = 0.0
 shader_parameter/line_opacity = 0.0
-shader_parameter/glow_source = ExtResource("2_i2x6h")
+shader_parameter/glow_source = ExtResource("2_n0ogl")

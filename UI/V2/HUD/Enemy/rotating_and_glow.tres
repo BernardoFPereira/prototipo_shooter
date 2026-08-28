@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b6d2yfvsis7ga"]
+
+[ext_resource type="Shader" path="res://UI/V2/HUD/Enemy/rotating_and_glow.gdshader" id="1_7s8c3"]
+[ext_resource type="Texture2D" uid="uid://df4v1cg8ume44" path="res://UI/V2/HUD/Enemy/EnemyDetectedCH.png" id="2_0n2ca"]
+
+[resource]
+shader = ExtResource("1_7s8c3")
+shader_parameter/glow_tint = Color(1, 1, 1, 1)
+shader_parameter/detect_color = Color(1, 1, 1, 1)
+shader_parameter/threshold = 0.0
+shader_parameter/intensity = 0.0
+shader_parameter/blur_size = 0.0
+shader_parameter/line_opacity = 0.0
+shader_parameter/rotation = 0.0
+shader_parameter/glow_source = ExtResource("2_0n2ca")

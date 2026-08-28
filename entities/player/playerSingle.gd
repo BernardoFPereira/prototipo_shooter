@@ -92,6 +92,7 @@ var thrown_sword: Sword
 var real_value : float
 @onready var activation_timer = $ActivationTimer
 
+@onready var hud_animations = $GameHUD/HUDAnimations
 var enemy_detected := "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
 var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
 @onready var enemy_detection_range = $EnemyDetectionRange
@@ -375,6 +376,8 @@ func try_throw_sword():
 	thumb_geo.visible = false
 	#weapon.visible = false
 	arm_throw_sfx.play()
+	hud_animations.play("hand_flying")
+	
 	#animation_player.play("extra_anims/throw")
 
 func try_attack():
@@ -479,9 +482,10 @@ func take_damage(amount: float):
 		bar_take_damage(clampf(amount, 0, max_health))
 		#health_label.text = str(current_health)
 		camera_juice.add_screen_shake(2.0, 0.3)
-		game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
+		#game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
+		hud_animations.play("hit_vfx")
 		await get_tree().create_timer(.47).timeout # define o tempo antes de desligar o efeito
-		game_hud_canvas.find_child("HitVignette").visible = false
+		#game_hud_canvas.find_child("HitVignette").visible = false
 		
 		if current_health <= max_health/3:
 			idle_sfx.play()
@@ -560,14 +564,12 @@ func _on_resume_button_pressed():
 
 func _on_enemy_detection_range_body_entered(body):
 	
-	# ✅ VERIFICAR O BODY DIRETAMENTE (não o parent)
 	if body is EnemyMelee or body is EnemyRanged:
 		if not body in enemies_in_range:
 			enemies_in_range.append(body)
 
 func _on_enemy_detection_range_body_exited(body):
 	
-	# ✅ VERIFICAR O BODY DIRETAMENTE
 	if body is EnemyMelee or body is EnemyRanged:
 		body.detected = false
 		enemies_in_range.erase(body)
@@ -590,8 +592,8 @@ func _check_visibility():
 		
 		# Criar raycast
 		var ray_params = PhysicsRayQueryParameters3D.create(from, to)
-		ray_params.exclude = [self, enemy]  # Ignorar player e o próprio inimigo
-		ray_params.collision_mask = 1  # Camada de colisão do mundo (paredes, chão, etc.)
+		ray_params.exclude = [self, enemy]
+		ray_params.collision_mask = 1
 		
 		var result = space_state.intersect_ray(ray_params)
 		

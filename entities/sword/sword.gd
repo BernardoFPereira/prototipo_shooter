@@ -93,6 +93,7 @@ func set_state(new_state: SwordState):
 	state = new_state
 
 func register_impact():
+	sword_owner.hud_animations.play("hand_ready")
 	queue_free()
 
 func _on_sword_impact(result: KinematicCollision3D):

@@ -45,7 +45,8 @@ var is_floating: bool
 
 #HUD
 @onready var hud_animations = $HUDAnimations
-@onready var detection_ch := $DetectionCH
+@onready var detection_ch = $SubViewport/DetectionCH
+
 var detected = false
 
 var current_state : EnemyState = EnemyState.IDLE
@@ -77,7 +78,7 @@ func _ready():
 	current_health = max_health
 
 func _process(delta):
-	print(detected)
+	pass
 	
 func _physics_process(delta):
 	check_is_floating()

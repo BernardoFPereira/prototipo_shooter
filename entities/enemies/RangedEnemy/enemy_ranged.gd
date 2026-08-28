@@ -45,7 +45,7 @@ var is_floating: bool
 
 #HUD
 @onready var hud_animations = $HUDAnimations
-@onready var detection_ch := $DetectionCH
+@onready var detection_ch := $SubViewport/DetectionCH
 var detected = false
 
 var current_state : EnemyState = EnemyState.IDLE
