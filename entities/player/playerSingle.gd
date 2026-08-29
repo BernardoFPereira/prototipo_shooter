@@ -23,6 +23,7 @@ const JUMP_JOYSTICK_VELOCITY: = 5
 @export var melee_damage: float = 10.0
 @export var impact_strength: int = 250
 var current_health: float
+#endregion
 
 ##sensibilidade da camera pelo joystick
 #var look_sensitivity_horizontal : = 75
@@ -52,6 +53,7 @@ enum PlayerStates {
 @onready var fire_sfx = $SFX/Fire
 @onready var arm_throw_sfx = $SFX/ArmThrow
 @onready var arm_back_sfx = $SFX/ArmBack
+#endregion
 
 #region SCENE VARIABLES
 @onready var get_sword_area = $GetSwordArea
@@ -71,12 +73,6 @@ enum PlayerStates {
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
 @onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
-@onready var game_hud_canvas = $GameHUD
-@onready var dead_canvas = $GameOverHUD
-@onready var next_level_canvas = $NextLevelHUD
-@onready var menu_canvas = $MenuHUD
-@onready var health_label = $GameHUD/HealthLabel
-@onready var activation_timer = $ActivationTimer
 
 @export var arm_projectile_scene: PackedScene
 const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
@@ -84,6 +80,26 @@ const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
 var next_level_scene: PackedScene
 var thrown_sword: Sword
+#endregion
+
+#region HUD
+@onready var game_hud_canvas = $GameHUD
+@onready var dead_canvas = $GameOverHUD
+@onready var next_level_canvas = $NextLevelHUD
+@onready var menu_canvas = $MenuHUD
+#@onready var health_label = $GameHUD/HealthLabel
+@onready var health_bar = $GameHUD/HealthBar
+var real_value : float
+@onready var activation_timer = $ActivationTimer
+
+@onready var hud_animations = $GameHUD/HUDAnimations
+var enemy_detected := "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
+var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
+@onready var enemy_detection_range = $EnemyDetectionRange
+@onready var enemy_detection_collision = $EnemyDetectionRange/EnemyDetectionCollision
+@onready var detection_timer: Timer = $DetectionTimer
+
+var enemies_in_range: Array[Node] = []
 #endregion
 
 #region UI VARIABLES
@@ -127,6 +143,7 @@ const quit_background = preload("uid://dmel4nekr0nx4")
 @export var state: PlayerStates = PlayerStates.IDLE
 
 func _ready():
+	
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
 	dead_canvas.visible = false
@@ -134,8 +151,18 @@ func _ready():
 	game_hud_canvas.visible = true
 	is_next_level = false
 	
+	enemy_detection_range.body_entered.connect(_on_enemy_detection_range_body_entered)
+	enemy_detection_range.body_exited.connect(_on_enemy_detection_range_body_exited)
+	
+	detection_timer.timeout.connect(_check_visibility)
+	detection_timer.wait_time = 0.15
+	detection_timer.one_shot = false
+	detection_timer.start()
+	
 	current_health = max_health
-	health_label.text = str(current_health)
+	real_value = max_health
+	health_bar.value = current_health
+	#health_label.text = str(current_health)
 	
 	active_background.texture = null
 	
@@ -245,7 +272,7 @@ func handle_states(delta):
 				
 		PlayerStates.FALL:
 			if is_on_floor():
-				print(is_on_floor())
+				#print(is_on_floor())
 				set_state(PlayerStates.IDLE)
 				
 			if movement_vector:
@@ -322,14 +349,14 @@ func try_pull_sword():
 	if !is_disarmed or !thrown_sword:
 		return
 		
-	print("Pulling sword back!")
+	#print("Pulling sword back!")
 	thrown_sword.set_state(thrown_sword.SwordState.PULLED_BACK)
 
 func try_throw_sword():
 	if is_disarmed:
 		return
 	
-	print("Throwing Sword!")
+	#print("Throwing Sword!")
 	var sword = sword_scene.instantiate() as Sword
 	
 	sword.transform = head.global_transform
@@ -349,12 +376,14 @@ func try_throw_sword():
 	thumb_geo.visible = false
 	#weapon.visible = false
 	arm_throw_sfx.play()
+	hud_animations.play("hand_flying")
+	
 	#animation_player.play("extra_anims/throw")
 
 func try_attack():
 	if animation_player.current_animation != "push" and !is_disarmed:
 		animation_player.play("fast_push")
-		print("Attacking!")
+		#print("Attacking!")
 
 func try_fire():
 	if animation_player.current_animation != "fire" and animation_player.current_animation != "push":
@@ -365,13 +394,13 @@ func try_fire():
 		projectile.start(-head.global_transform.basis.z)
 		animation_player.play("fire")
 		fire_sfx.play()
-		print("Firing gun!")
+		#print("Firing gun!")
 
 func try_jump():
 	if !is_on_floor():
 		return
 		
-	print("Jumping!")
+	#print("Jumping!")
 	velocity.y = JUMP_VELOCITY
 	jump_sfx.play()
 	#animation_player.play("extra_anims/jump")
@@ -413,11 +442,11 @@ func _on_animation_finished(anim_name):
 			animation_player.play("idle")
 
 func _on_attack_hit():
-	print(sword_hit_area.collision_result)
+	#print(sword_hit_area.collision_result)
 	if sword_hit_area.collision_result:
 		for collision in sword_hit_area.collision_result:
 			if collision.collider is EnemyMelee:
-				print("Enemy hit")
+				#print("Enemy hit")
 				var enemy = collision.collider as EnemyMelee
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
@@ -425,7 +454,7 @@ func _on_attack_hit():
 				enemy.receive_sword_impact(melee_damage, global_position, impact_strength)
 				
 			elif collision.collider is EnemyRanged:
-				print("Enemy hit")
+				#print("Enemy hit")
 				var enemy = collision.collider as EnemyRanged
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
@@ -450,11 +479,13 @@ func _on_sword_back(body):
 func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
-		health_label.text = str(current_health)
+		bar_take_damage(clampf(amount, 0, max_health))
+		#health_label.text = str(current_health)
 		camera_juice.add_screen_shake(2.0, 0.3)
-		game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
+		#game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
+		hud_animations.play("hit_vfx")
 		await get_tree().create_timer(.47).timeout # define o tempo antes de desligar o efeito
-		game_hud_canvas.find_child("HitVignette").visible = false
+		#game_hud_canvas.find_child("HitVignette").visible = false
 		
 		if current_health <= max_health/3:
 			idle_sfx.play()
@@ -465,6 +496,17 @@ func take_damage(amount: float):
 			dead_canvas.visible = true
 			game_hud_canvas.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func bar_take_damage(damage: float):
+	real_value -= damage
+	var percent = real_value / max_health
+	var new_color = Color(1.0 - percent, percent, 0.0, health_bar.tint_progress.a)
+
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(health_bar, "value", real_value, 0.4)
+	tween.tween_property(health_bar, "tint_progress", new_color, 0.4)
+	tween.tween_property(health_bar, "glow_tint", new_color, 0.4)
 
 #func _rotate_camera_joystick():
 	#
@@ -519,6 +561,46 @@ func _on_resume_button_pressed():
 	menu_canvas.visible = false
 	game_hud_canvas.visible = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_enemy_detection_range_body_entered(body):
+	
+	if body is EnemyMelee or body is EnemyRanged:
+		if not body in enemies_in_range:
+			enemies_in_range.append(body)
+
+func _on_enemy_detection_range_body_exited(body):
+	
+	if body is EnemyMelee or body is EnemyRanged:
+		body.detected = false
+		enemies_in_range.erase(body)
+
+func _check_visibility():
+	if enemies_in_range.is_empty():
+		return
+	
+	var space_state = get_world_3d().direct_space_state
+	var from = global_position + Vector3(0, 1.5, 0)  # Altura dos olhos
+	
+	# Percorrer todos os inimigos no range
+	for enemy in enemies_in_range:
+		# Verificar se o inimigo ainda existe
+		if not is_instance_valid(enemy):
+			enemies_in_range.erase(enemy)
+			continue
+		
+		var to = enemy.global_position + Vector3(0, 1.5, 0)
+		
+		# Criar raycast
+		var ray_params = PhysicsRayQueryParameters3D.create(from, to)
+		ray_params.exclude = [self, enemy]
+		ray_params.collision_mask = 1
+		
+		var result = space_state.intersect_ray(ray_params)
+		
+		if result.is_empty():
+			if enemy.detected == false:
+				enemy.hud_animations.play("detected")
+				enemy.detected = true
 
 #region CONFIGS
 func setup_window_mode_buttons() -> void:

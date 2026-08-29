@@ -43,6 +43,10 @@ var is_floating: bool
 @export var chase_speed: float = 6.0
 @export var rotation_speed: float = 5.0
 
+#HUD
+@onready var hud_animations = $HUDAnimations
+@onready var detection_ch := $SubViewport/DetectionCH
+var detected = false
 
 var current_state : EnemyState = EnemyState.IDLE
 enum EnemyState {
@@ -58,6 +62,7 @@ func _ready():
 	sword_collision_area.body_entered.connect(_on_sword_entered)
 	sight_area.body_entered.connect(_on_sight_area_body_entered)
 	sight_area.body_exited.connect(_on_sight_area_body_exited)
+	detection_ch.visible  = false
 	
 	#var enemies = get_tree().get_nodes_in_group("Enemies")
 	#for enemy in enemies:
@@ -129,7 +134,7 @@ func _physics_process(delta):
 
 func take_damage(amount: float):
 	if current_health > 0:
-		current_health -= clampf(amount, 0, max_health) 
+		current_health -= clampf(amount, 0, max_health)
 		if current_health <= 0:
 			set_current_state(EnemyState.DEAD)
 		else:
@@ -278,7 +283,7 @@ func target_is_in_range() -> bool:
 func spawn_projectile():
 	var projectile = enemy_projectile_scene.instantiate()
 	get_parent().add_child(projectile, true)
-	projectile.transform = muzzle_point.global_transform
+	projectile.global_transform = muzzle_point.global_transform
 	projectile.start(global_position.direction_to(target.global_position))
 	shot_sfx.play()
 

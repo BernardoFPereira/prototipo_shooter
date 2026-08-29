@@ -783,8 +783,10 @@ shape = SubResource("SphereShape3D_yxbm2")
 stream = ExtResource("8_01ftu")
 volume_db = -27.211
 autoplay = true
+bus = &"SFX"
 
 [node name="Impact" type="AudioStreamPlayer3D" parent="SFX"]
 stream = ExtResource("9_cefh6")
+bus = &"SFX"
 
 [editable path="sword"]
