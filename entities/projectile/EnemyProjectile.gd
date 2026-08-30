@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var lifetime_timer = $LifetimeTimer
 @onready var collision_area = $CollisionArea
+@onready var impact_sfx = $ImpactSFX
 
 @export var damage: int = 15
 var speed: int = 35
@@ -26,9 +27,11 @@ func _on_collision_area_area_entered(area):
 	var parent = area.get_parent()
 	
 	if parent is Player:
+		impact_sfx.play()
 		parent.take_damage(damage)
 		queue_free()
 
 func _on_collision_area_body_entered(body):
 	if body.get_parent() != Player:
+		impact_sfx.play()
 		queue_free()

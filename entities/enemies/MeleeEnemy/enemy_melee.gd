@@ -43,6 +43,12 @@ var is_floating: bool
 @export var rotation_speed: float = 5.0
 
 
+#HUD
+@onready var hud_animations = $HUDAnimations
+@onready var detection_ch = $SubViewport/DetectionCH
+
+var detected = false
+
 var current_state : EnemyState = EnemyState.IDLE
 enum EnemyState {
 	IDLE,
@@ -58,6 +64,7 @@ func _ready():
 	sight_area.body_entered.connect(_on_sight_area_body_entered)
 	sight_area.body_exited.connect(_on_sight_area_body_exited)
 	attack_area.area_entered.connect(_on_attack_area_entered)
+	detection_ch.visible  = false
 	
 	#var enemies = get_tree().get_nodes_in_group("Enemies")
 	#for enemy in enemies:

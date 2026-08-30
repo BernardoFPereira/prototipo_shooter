@@ -38,7 +38,7 @@ func explode():
 	collision_area.set_deferred("monitoring", false)
 	collision_area.set_deferred("monitorable", false)
 	impact_sfx.play()
-	print(explosion_area.collision_result)
+	#print(explosion_area.collision_result)
 	
 	var explosion = preload("res://entities/projectile/ProjectileExplosion.tscn").instantiate()
 	explosion.global_transform = global_transform

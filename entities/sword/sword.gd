@@ -50,11 +50,11 @@ func _physics_process(delta):
 			pass
 
 func start(player: Player, dir: Vector3) -> void:
-	print(direction)
+	#print(direction)
 	sword_owner = player
 	direction = dir
 	set_as_top_level(true)
-	print(direction)
+	#print(direction)
 	set_state(SwordState.THROWN)
 
 func set_state(new_state: SwordState):
@@ -93,6 +93,7 @@ func set_state(new_state: SwordState):
 	state = new_state
 
 func register_impact():
+	sword_owner.hud_animations.play("hand_ready")
 	queue_free()
 
 func _on_sword_impact(result: KinematicCollision3D):
@@ -141,17 +142,17 @@ func _on_old_sword_impact(result: KinematicCollision3D):
 	if collision_result:
 		var collision_parent = collision_result.get_collider().get_parent()
 		if collision_parent is SwordButton: # Checa se o pai do objeto colidido é um Botao
-			print("parent detected")
+			#print("parent detected")
 			collision_parent.set_state(collision_parent.button_states.PRESSED)
 			is_on_button = true
 			pressed_button = collision_parent
-		else:
-			print("no parent detected")
+		#else:
+			#print("no parent detected")
 		var collision_normal = collision_result.get_normal()
 		var collision_pos = collision_result.get_position()
 		
-		print(collision_pos)
-		print(collision_result.get_collider())
+		#print(collision_pos)
+		#print(collision_result.get_collider())
 		
 		global_position = collision_pos + (collision_normal / 4)
 		look_at(global_position + collision_normal)

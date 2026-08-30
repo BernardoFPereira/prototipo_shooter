@@ -1,10 +1,9 @@
-[gd_scene load_steps=2735 format=3 uid="uid://ij2y5aqlc1dt"]
+[gd_scene load_steps=2734 format=3 uid="uid://ij2y5aqlc1dt"]
 
 [ext_resource type="Script" path="res://scripts/contained_level.gd" id="1_2lcxo"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_42qho"]
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="2_qhont"]
 [ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/RangedEnemy/enemy_ranged.tscn" id="3_sckar"]
-[ext_resource type="PackedScene" uid="uid://c6eg8oofsarrx" path="res://Scenes/Assets/patrol_route.tscn" id="4_0u1x5"]
 [ext_resource type="PackedScene" uid="uid://djriivifdcxl4" path="res://prefabs/button.tscn" id="4_7p5k2"]
 [ext_resource type="PackedScene" uid="uid://74a2p42vk65i" path="res://prefabs/ButtonSignal Objects/door3.tscn" id="5_jnl8x"]
 [ext_resource type="PackedScene" uid="uid://le0878p0jyqp" path="res://ST_cenarioPrefab/ST_monitorGrande2.tscn" id="6_olkgm"]
@@ -27094,97 +27093,18 @@ transform = Transform3D(0.953843, 0.179311, -0.240897, 0.295664, -0.420235, 0.85
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_42qho")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573916, 7.46304, -32.5344)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573916, -5.99696, -32.5344)
 
 [node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21837, 0)
 
 [node name="EnemyRanged" parent="Enemies" node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -125.239, 25.7816, 45.3544)
-target = NodePath("../../Player")
-
-[node name="EnemyRanged2" parent="Enemies" node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -106.873, 24.9852, 57.6711)
-target = NodePath("../../Player")
-
-[node name="EnemyRanged5" parent="Enemies" node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(-0.96647, 0, -0.256779, 0, 1, 0, 0.256779, 0, -0.96647, -78.1297, 22.9003, 79.4423)
-target = NodePath("../../Player")
-
-[node name="EnemyRanged6" parent="Enemies" node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(0.493516, 0, -0.869736, 0, 1, 0, 0.869736, 0, 0.493516, -78.1297, 22.8306, 52.9066)
-target = NodePath("../../Player")
-
-[node name="EnemyRanged7" parent="Enemies" node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(0.638002, 0, -0.770034, 0, 1, 0, 0.770034, 0, 0.638002, -98.2197, 22.941, 43.8807)
-target = NodePath("../../Player")
-
-[node name="EnemyRanged3" parent="Enemies" node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -121.378, 16.7816, 42.7519)
-target = NodePath("../../Player")
-
-[node name="EnemyRanged4" parent="Enemies" node_paths=PackedStringArray("target") groups=["Enemies"] instance=ExtResource("3_sckar")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.596, 21.7816, 42.5314)
+transform = Transform3D(0.00380456, 0, 0.999992, 0, 1, 0, -0.999992, 0, 0.00380456, -60.6728, 22.9672, 37.0759)
 target = NodePath("../../Player")
 
 [node name="EnemyMelee" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
 transform = Transform3D(0.389156, 0, 0.921171, 0, 1, 0, -0.921171, 0, 0.389156, 1.61314, -2.21837, 38.6893)
 target = NodePath("../../Player")
-
-[node name="EnemyMelee2" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(0.322761, 0, 0.946481, 0, 1, 0, -0.946481, 0, 0.322761, -35.0537, 13.7816, 26.3436)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee3" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(-0.501027, 0, 0.865431, 0, 1, 0, -0.865431, 0, -0.501027, -31.8892, 13.7816, 53.6212)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee4" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.9645, 22.7816, 87.4256)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee5" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.429, 8.78163, 17.7439)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee7" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107.429, 8.78163, 33.7439)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee8" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -127.429, 8.78163, 44.7439)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee9" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.429, 8.78163, 53.7439)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee10" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -119.429, 8.78163, 35.7439)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee6" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -115, 22.7816, 88)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee12" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -96.3619, 22.7816, 59.317)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee13" parent="Enemies" node_paths=PackedStringArray("target") instance=ExtResource("2_qhont")]
-transform = Transform3D(0.915416, 0, -0.402507, 0, 1, 0, 0.402507, 0, 0.915416, -84.6225, 22.7816, 47.3098)
-target = NodePath("../../Player")
-
-[node name="EnemyMelee11" parent="Enemies" node_paths=PackedStringArray("target", "patrol_route") instance=ExtResource("2_qhont")]
-transform = Transform3D(-0.999568, 0, -0.0294046, 0, 1, 0, 0.0294046, 0, -0.999568, -45.4497, 13.7816, 48.3879)
-target = NodePath("../../Player")
-patrol_route = NodePath("../PatrolRoute/PatrolRoutePath")
-
-[node name="PatrolRoute" parent="Enemies" instance=ExtResource("4_0u1x5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.4109, 13.8298, 47.923)
-
-[node name="PatrolRoutePath" parent="Enemies/PatrolRoute" index="0"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -30234,5 +30154,3 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_8nail")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
-
-[editable path="Enemies/PatrolRoute"]
