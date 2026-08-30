@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj1vv6u8c37p7"
-path.s3tc="res://.godot/imported/v2_btn_tick.png-6ed0187158a48278f750c004112bd46b.s3tc.ctex"
+uid="uid://dy1yxhvp6170b"
+path.s3tc="res://.godot/imported/Captura de tela 2026-08-30 123016.png-0bbd02361097c8eac4a46b96c416ccd2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://UI/ConfigMenu/v2_btn_tick.png"
-dest_files=["res://.godot/imported/v2_btn_tick.png-6ed0187158a48278f750c004112bd46b.s3tc.ctex"]
+source_file="res://textures/Captura de tela 2026-08-30 123016.png"
+dest_files=["res://.godot/imported/Captura de tela 2026-08-30 123016.png-0bbd02361097c8eac4a46b96c416ccd2.s3tc.ctex"]
 
 [params]
 
