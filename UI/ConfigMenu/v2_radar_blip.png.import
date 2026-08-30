@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cj1vv6u8c37p7"
-path.s3tc="res://.godot/imported/v2_btn_tick.png-6ed0187158a48278f750c004112bd46b.s3tc.ctex"
+uid="uid://dxo7v14kun22o"
+path.s3tc="res://.godot/imported/v2_radar_blip.png-8d6b06500bb49d3a3b600fe9a44fa977.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://UI/ConfigMenu/v2_btn_tick.png"
-dest_files=["res://.godot/imported/v2_btn_tick.png-6ed0187158a48278f750c004112bd46b.s3tc.ctex"]
+source_file="res://UI/ConfigMenu/v2_radar_blip.png"
+dest_files=["res://.godot/imported/v2_radar_blip.png-8d6b06500bb49d3a3b600fe9a44fa977.s3tc.ctex"]
 
 [params]
 

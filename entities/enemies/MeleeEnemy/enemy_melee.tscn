@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bl6itlv6uspjd"]
+[gd_scene load_steps=61 format=3 uid="uid://bl6itlv6uspjd"]
 
 [ext_resource type="Script" path="res://entities/enemies/MeleeEnemy/enemy_melee.gd" id="1_x23wf"]
 [ext_resource type="Texture2D" uid="uid://bj181a00mvyqh" path="res://textures/enemies/captainv2_standardSurface1_BaseColor.1001.png" id="2_0kbl7"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://df4v1cg8ume44" path="res://UI/V2/HUD/Enemy/EnemyDetectedCH.png" id="40_66jfs"]
 [ext_resource type="Shader" path="res://UI/V2/HUD/Enemy/rotating_and_glow.gdshader" id="40_thpls"]
 [ext_resource type="Script" path="res://UI/V2/HUD/Enemy/rotating_and_glow.gd" id="42_lyato"]
+[ext_resource type="Texture2D" uid="uid://dxo7v14kun22o" path="res://UI/ConfigMenu/v2_radar_blip.png" id="43_hgxr8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nn11o"]
 transparency = 2
@@ -250,11 +251,11 @@ streams_count = 1
 stream_0/stream = ExtResource("39_3uxr4")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8iqqj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h375g"]
 shader = ExtResource("40_thpls")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
-shader_parameter/threshold = 0.0
+shader_parameter/threshold = 0.1
 shader_parameter/intensity = 2.0
 shader_parameter/blur_size = 3.0
 shader_parameter/line_opacity = 0.24
@@ -270,7 +271,7 @@ length = 5.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:scale")
+tracks/0/path = NodePath("DetectionSprite:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -606,7 +607,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_8iqqj")
+material = SubResource("ShaderMaterial_h375g")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -626,7 +627,7 @@ intensity = 2.0
 blur_size = 3.0
 line_opacity = 0.24
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="DetectionSprite" type="Sprite3D" parent="."]
 transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.73336, 0)
 billboard = 1
 no_depth_test = true
@@ -637,5 +638,11 @@ texture = SubResource("ViewportTexture_okpct")
 libraries = {
 "": SubResource("AnimationLibrary_fq38c")
 }
+
+[node name="RadarBlip" type="Sprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, -2.18557e-07, -1, 0, 5, -4.37114e-08, 0, 0, 0)
+layers = 32
+modulate = Color(0.822, 0, 0.19258, 1)
+texture = ExtResource("43_hgxr8")
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
