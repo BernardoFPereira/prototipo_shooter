@@ -98,8 +98,15 @@ var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
 @onready var enemy_detection_range = $EnemyDetectionRange
 @onready var enemy_detection_collision = $EnemyDetectionRange/EnemyDetectionCollision
 @onready var detection_timer: Timer = $DetectionTimer
-
 var enemies_in_range: Array[Node] = []
+
+@onready var assistant_text_box = $GameHUD/AssistantTextBox
+@onready var assistant_frame = $GameHUD/AssistantFrame
+@onready var assistant_iris = $GameHUD/AssistantIris
+@onready var assistant_pupil = $GameHUD/AssistantPupil
+@onready var assistant_text_link = $GameHUD/AssistantTextLink
+
+
 #endregion
 
 #region UI VARIABLES
@@ -162,8 +169,11 @@ func _ready():
 	current_health = max_health
 	real_value = max_health
 	health_bar.value = current_health
-	#health_label.text = str(current_health)
 	
+	#assistant_text_box.set_message("[right]Olá, Projeto-XX. Eu sou o Assistente Virtual de Imagem e Combate.\nOu AVIC, se preferir.")
+	assistant_frame.scale = Vector2(0,0)
+	assistant_iris.scale = Vector2(0,0)
+	assistant_pupil.scale = Vector2(0,0)
 	active_background.texture = null
 	
 	add_resolutions()
@@ -175,6 +185,8 @@ func _ready():
 	config_group.visible = false
 	ctrls_group.visible = false
 	
+	await get_tree().create_timer(3.0).timeout
+	hud_animations.play("assistant_popup")
 
 func _process(delta):
 	if is_dead or is_next_level:
@@ -886,3 +898,8 @@ func play_fire_sound():
 #endregion
 
 #endregion
+
+
+func _on_hud_animations_animation_finished(anim_name):
+	if anim_name == "assistant_popup":
+		hud_animations.play("assistant_idle")
