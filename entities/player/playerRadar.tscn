@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=3 uid="uid://dd22mp4i0okdi"]
+[gd_scene load_steps=146 format=3 uid="uid://dd22mp4i0okdi"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_jjoxd"]
 [ext_resource type="PackedScene" uid="uid://jkhhtxq7n4px" path="res://entities/sword/arm_projectile.tscn" id="2_hj8pe"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bi4ck06oji7aw" path="res://UI/V2/HUD/Player/line-scan-overlay.png" id="24_txud3"]
 [ext_resource type="Texture2D" uid="uid://cqiwk5xccunde" path="res://UI/V2/HUD/Player/HUD-HelmetFrame.png" id="25_y7c5u"]
 [ext_resource type="Script" path="res://scripts/pause_input_handler.gd" id="26_6fl3o"]
+[ext_resource type="Texture2D" uid="uid://dun31hnablal8" path="res://UI/radar_mask.png" id="26_kixee"]
 [ext_resource type="Script" path="res://entities/player/RadarCam.gd" id="26_li8ra"]
 [ext_resource type="Texture2D" uid="uid://beg6jpulxo7uw" path="res://UI/PauseMenu/F_CONFIG PAUSE.png" id="27_drise"]
 [ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="28_ro66s"]
@@ -546,17 +547,17 @@ size = Vector3(1.36, 1, 1.84)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3jfk2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gl5bm"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
 shader_parameter/threshold = 0.1
-shader_parameter/intensity = 0.8
-shader_parameter/blur_size = 1.0
-shader_parameter/line_opacity = 0.3
+shader_parameter/intensity = 0.309
+shader_parameter/blur_size = 0.588
+shader_parameter/line_opacity = 0.14
 shader_parameter/glow_source = ExtResource("16_oplax")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4g4dh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4uu6l"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -566,7 +567,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("18_ath5r")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5a2h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b4xl4"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -576,7 +577,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("19_cowlu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bbpoy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2jgyh"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1210,7 +1211,7 @@ size_flags_vertical = 4
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_3jfk2")
+material = SubResource("ShaderMaterial_gl5bm")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1219,14 +1220,14 @@ grow_vertical = 2
 pivot_offset = Vector2(960, 540)
 texture = ExtResource("16_oplax")
 script = ExtResource("17_bfs7t")
-intensity = 0.8
-blur_size = 1.0
-line_opacity = 0.3
+intensity = 0.309
+blur_size = 0.588
+line_opacity = 0.14
 
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_4g4dh")
+material = SubResource("ShaderMaterial_4uu6l")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1240,7 +1241,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_p5a2h")
+material = SubResource("ShaderMaterial_b4xl4")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1271,7 +1272,7 @@ texture = ExtResource("20_w2q11")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_bbpoy")
+material = SubResource("ShaderMaterial_2jgyh")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1340,31 +1341,48 @@ libraries = {
 }
 autoplay = "start"
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD"]
+[node name="Control" type="TextureRect" parent="GameHUD"]
+self_modulate = Color(0, 0.298039, 0.301961, 0.772549)
+clip_children = 2
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 65.0
-offset_top = -274.0
-offset_right = 321.0
-offset_bottom = -18.0
+offset_left = 87.0
+offset_top = -250.0
+offset_right = 299.0
+offset_bottom = -41.0
 grow_vertical = 0
+texture = ExtResource("26_kixee")
 
-[node name="SubViewport" type="SubViewport" parent="GameHUD/SubViewportContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="GameHUD/Control/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 canvas_cull_mask = 4293918721
 size = Vector2i(256, 256)
 render_target_update_mode = 4
 
-[node name="RadarCam" type="Camera3D" parent="GameHUD/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
+[node name="RadarCam" type="Camera3D" parent="GameHUD/Control/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14, 0)
 cull_mask = 32
 projection = 1
 size = 41.721
 near = 0.111
 script = ExtResource("26_li8ra")
-cam_target = NodePath("../../../..")
+cam_target = NodePath("../../../../..")
 
 [node name="MenuHUD" type="CanvasLayer" parent="."]
 process_mode = 3
