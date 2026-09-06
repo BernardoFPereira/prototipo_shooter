@@ -1,4 +1,4 @@
-[gd_scene load_steps=2728 format=3 uid="uid://dnl207vpl3knm"]
+[gd_scene load_steps=2729 format=3 uid="uid://dnl207vpl3knm"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="3_kld1k"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/mesh_vector_data.gd" id="7_o3o1q"]
 [ext_resource type="PackedScene" uid="uid://dd22mp4i0okdi" path="res://entities/player/playerRadar.tscn" id="8_q6w5p"]
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="8_spe2c"]
+[ext_resource type="PackedScene" uid="uid://djriivifdcxl4" path="res://prefabs/button.tscn" id="9_834kp"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 volumetric_fog_enabled = true
@@ -28645,3 +28646,9 @@ target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("8_q6w5p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08565, 20, -26.5158)
+
+[node name="Button" parent="." instance=ExtResource("9_834kp")]
+transform = Transform3D(-0.400532, 0, 1.20643e-07, 0, 0.400532, 0, -3.50157e-08, 0, -1.38, -1.84373, 12.4726, 19.7403)
+
+[node name="Button2" parent="." instance=ExtResource("9_834kp")]
+transform = Transform3D(0.809364, 0, 0, 0, 0.809364, 0, 0, 0, 1.38, -6.62873, 22.9878, -21.7406)

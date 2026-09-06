@@ -548,7 +548,7 @@ size = Vector3(1.36, 1, 1.84)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lu1pt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pho2a"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -558,7 +558,7 @@ shader_parameter/blur_size = 0.588
 shader_parameter/line_opacity = 0.14
 shader_parameter/glow_source = ExtResource("16_oplax")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_17dda"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_spbfa"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -568,7 +568,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("18_ath5r")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e5jpa"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_81tub"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -578,7 +578,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("19_cowlu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lp6in"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4gv0y"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1212,7 +1212,7 @@ size_flags_vertical = 4
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_lu1pt")
+material = SubResource("ShaderMaterial_pho2a")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1228,7 +1228,7 @@ line_opacity = 0.14
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_17dda")
+material = SubResource("ShaderMaterial_spbfa")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1242,7 +1242,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_e5jpa")
+material = SubResource("ShaderMaterial_81tub")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1273,7 +1273,7 @@ texture = ExtResource("20_w2q11")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_lp6in")
+material = SubResource("ShaderMaterial_4gv0y")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1342,7 +1342,7 @@ libraries = {
 }
 autoplay = "start"
 
-[node name="Control" type="TextureRect" parent="GameHUD"]
+[node name="RadarUI" type="TextureRect" parent="GameHUD"]
 self_modulate = Color(0, 0.298039, 0.301961, 0.772549)
 clip_children = 2
 anchors_preset = 2
@@ -1355,7 +1355,7 @@ offset_bottom = -41.0
 grow_vertical = 0
 texture = ExtResource("26_kixee")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD/Control"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD/RadarUI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1369,14 +1369,14 @@ offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewport" type="SubViewport" parent="GameHUD/Control/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="GameHUD/RadarUI/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 canvas_cull_mask = 4293918721
 size = Vector2i(256, 256)
 render_target_update_mode = 4
 
-[node name="RadarCam" type="Camera3D" parent="GameHUD/Control/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
+[node name="RadarCam" type="Camera3D" parent="GameHUD/RadarUI/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14, 0)
 cull_mask = 32
 projection = 1
@@ -2233,7 +2233,7 @@ collision_mask = 524288
 shape = SubResource("SphereShape3D_ag83q")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(8, 0, 0, 0, -3.49691e-07, -1, 0, 8, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(8, 0, 0, 0, -3.49691e-07, -1, 0, 8, -4.37114e-08, 0, 0.0664139, 0)
 layers = 32
 modulate = Color(0, 0.898039, 0.211765, 1)
 texture = ExtResource("63_abf4d")

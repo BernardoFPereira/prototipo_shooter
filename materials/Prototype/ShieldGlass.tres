@@ -1,3 +1,18 @@
-[gd_resource type="ShaderMaterial" format=3 uid="uid://bgi6glyns8aeb"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bgi6glyns8aeb"]
+
+[ext_resource type="Shader" path="res://materials/Prototype/Shield.gdshader" id="1_u4s38"]
 
 [resource]
+render_priority = 0
+shader = ExtResource("1_u4s38")
+shader_parameter/shield_color = Color(0.0318561, 0.555343, 0.266153, 1)
+shader_parameter/wave_height = 0.2
+shader_parameter/wave_speed = Vector2(0.1, 0.05)
+shader_parameter/fresnel_power = 1.636
+shader_parameter/center_visibility = 0.055
+shader_parameter/hit_position = Vector3(0, 1, 0)
+shader_parameter/hit_progress = 0.2
+shader_parameter/hit_color = Color(1, 1, 1, 1)
+shader_parameter/hit_radius = 3.0
+shader_parameter/hit_ring_width = 0.3
+shader_parameter/hit_push_force = 0.5
