@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3 uid="uid://dd22mp4i0okdi"]
+[gd_scene load_steps=147 format=3 uid="uid://dd22mp4i0okdi"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_jjoxd"]
 [ext_resource type="PackedScene" uid="uid://jkhhtxq7n4px" path="res://entities/sword/arm_projectile.tscn" id="2_hj8pe"]
@@ -62,6 +62,7 @@
 [ext_resource type="AudioStream" uid="uid://com4jw17vfb74" path="res://assets/sounds/sfx/player/cannon_blast.wav" id="58_iumnx"]
 [ext_resource type="AudioStream" uid="uid://scdrwgxxkfq0" path="res://assets/sounds/sfx/player/firing_arm-1.wav" id="59_rrn1o"]
 [ext_resource type="AudioStream" uid="uid://dyktqgqav5wfm" path="res://assets/sounds/sfx/player/arm_back.ogg" id="60_rtcu6"]
+[ext_resource type="Texture2D" uid="uid://dxo7v14kun22o" path="res://UI/ConfigMenu/v2_radar_blip.png" id="63_abf4d"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8esgh"]
 
@@ -547,7 +548,7 @@ size = Vector3(1.36, 1, 1.84)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gl5bm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lu1pt"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -557,7 +558,7 @@ shader_parameter/blur_size = 0.588
 shader_parameter/line_opacity = 0.14
 shader_parameter/glow_source = ExtResource("16_oplax")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4uu6l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17dda"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -567,7 +568,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("18_ath5r")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b4xl4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e5jpa"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -577,7 +578,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("19_cowlu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2jgyh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lp6in"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1211,7 +1212,7 @@ size_flags_vertical = 4
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_gl5bm")
+material = SubResource("ShaderMaterial_lu1pt")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1227,7 +1228,7 @@ line_opacity = 0.14
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_4uu6l")
+material = SubResource("ShaderMaterial_17dda")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1241,7 +1242,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_b4xl4")
+material = SubResource("ShaderMaterial_e5jpa")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1272,7 +1273,7 @@ texture = ExtResource("20_w2q11")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_2jgyh")
+material = SubResource("ShaderMaterial_lp6in")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -2234,7 +2235,8 @@ shape = SubResource("SphereShape3D_ag83q")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(8, 0, 0, 0, -3.49691e-07, -1, 0, 8, -4.37114e-08, 0, 0, 0)
 layers = 32
-texture = ExtResource("33_mxoy1")
+modulate = Color(0, 0.898039, 0.211765, 1)
+texture = ExtResource("63_abf4d")
 
 [connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

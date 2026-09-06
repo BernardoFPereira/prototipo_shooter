@@ -12,7 +12,7 @@
 
 [sub_resource type="Environment" id="Environment_wviyp"]
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.012
+volumetric_fog_density = 0.02
 volumetric_fog_albedo = Color(0.717647, 0.756863, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_io6jf"]
@@ -7210,7 +7210,7 @@ mesh_vector_data = SubResource("Resource_1cduu")
 collision_layer = 17
 
 [node name="Block_38" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_h1v4d")
 collision_layer = 17
@@ -7228,55 +7228,55 @@ mesh_vector_data = SubResource("Resource_tn2b6")
 collision_layer = 17
 
 [node name="Block_41" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_jeppg")
 collision_layer = 17
 
 [node name="Block_42" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_1lkx6")
 collision_layer = 17
 
 [node name="Block_43" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_f51gl")
 collision_layer = 17
 
 [node name="Block_44" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_wau3l")
 collision_layer = 17
 
 [node name="Block_45" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_w0fr3")
 collision_layer = 17
 
 [node name="Block_46" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_4ivoh")
 collision_layer = 17
 
 [node name="Block_47" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_6kv33")
 collision_layer = 17
 
 [node name="Block_48" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_tyuby")
 collision_layer = 17
 
 [node name="Block_49" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
 script = ExtResource("3_3f0kp")
 mesh_vector_data = SubResource("Resource_ru3gj")
 collision_layer = 17
