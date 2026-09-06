@@ -49,7 +49,7 @@ const ctrls_joy_background = preload("uid://nb4doc1n4fhh")
 @onready var joystick_button = $Background/MainPanel/ControlsGroup/JoystickButton
 #endregion
 
-var level_scene: PackedScene = load("uid://ij2y5aqlc1dt")
+var level_scene: PackedScene = load("uid://cw50tmi4jwwv4")
 var resolution_button_group: ButtonGroup
 
 func _ready() -> void:
