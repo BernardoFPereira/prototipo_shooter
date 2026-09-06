@@ -2,9 +2,8 @@
 extends NinePatchRect
 class_name AssistantTextBox
 
-# ============================================================
-# GLOW (mesma lógica do GlowTextureRect, adaptada pro NinePatchRect)
-# ============================================================
+@onready var text_audio_stream = %TextSFX
+
 
 @export_group("Glow")
 @export var glow_tint: Color = Color(0.0, 1.0, 0.0):
@@ -46,17 +45,11 @@ class_name AssistantTextBox
 var _mat: ShaderMaterial
 var _initialized := false
 
-# ============================================================
-# ANCORAGEM FIXA (canto superior direito) — valores em PIXELS DE TELA
-# ============================================================
 
 @export_group("Anchoring")
 @export var margin_top: float = 184.0
 @export var margin_right: float = 13.0
 
-# ============================================================
-# TEXT BOX — todos os valores abaixo em PIXELS DE TELA (o script converte internamente)
-# ============================================================
 
 @export_group("Text Box")
 @export var rich_text_label: RichTextLabel
@@ -66,15 +59,37 @@ var _initialized := false
 @export var resize_duration: float = 0.2
 
 var _text_box_ready := false
+const ANIM_SPEED: int = 30
+var animate_text: bool = false
 
-# ============================================================
-# LIFECYCLE
-# ============================================================
 
 func _ready():
 	_ensure_material()
 	_apply_glow_params()
 	call_deferred("_setup_text_box")
+
+func _process(delta):
+	if not animate_text:
+		return
+
+	if text_audio_stream.playing == true:
+		pass
+	else:
+		if text_audio_stream.stream_paused == true:
+			text_audio_stream.stream_paused = false
+		else:
+			text_audio_stream.playing = true
+
+	var total_chars = rich_text_label.get_total_character_count()
+	if total_chars <= 0:
+		animate_text = false
+		return
+
+	if rich_text_label.visible_ratio < 1.0:
+		rich_text_label.visible_ratio += (1.0 / total_chars) * (ANIM_SPEED * delta)
+	else:
+		text_audio_stream.stream_paused = true
+		animate_text = false
 
 func _setup_text_box():
 	if rich_text_label == null:
@@ -88,9 +103,6 @@ func _setup_text_box():
 	_text_box_ready = true
 	_update_size(false)
 
-# ============================================================
-# API PÚBLICA
-# ============================================================
 
 func set_message(text: String, animate: bool = true):
 	if rich_text_label == null:
@@ -100,7 +112,6 @@ func set_message(text: String, animate: bool = true):
 	while not _text_box_ready:
 		await get_tree().process_frame
 
-	# remove tags BBCode só para fins de medição de largura (ex: [right]...[/right])
 	var plain_text = _strip_bbcode(text)
 
 	var local_padding = _to_local(padding)
@@ -110,11 +121,10 @@ func set_message(text: String, animate: bool = true):
 
 	var font_info = _get_font_and_size()
 	var lines = _wrap_text(plain_text, max_wrap_width, font_info.font, font_info.size)
-
-	# reconstrói o texto final com as linhas quebradas, preservando o BBCode original
-	# se o texto tinha tags envolvendo tudo (ex: [right]...[/right]), reaplica em volta do resultado
 	var wrapped_plain = "\n".join(lines)
+
 	rich_text_label.text = _reapply_bbcode_wrapper(text, wrapped_plain)
+	rich_text_label.visible_ratio = 0.0
 
 	var content_line_width = 0.0
 	for line in lines:
@@ -122,13 +132,35 @@ func set_message(text: String, animate: bool = true):
 		content_line_width = max(content_line_width, w)
 
 	rich_text_label.position = local_padding
-	rich_text_label.custom_minimum_size.x = content_line_width
+	rich_text_label.custom_minimum_size = Vector2(content_line_width, 0)
 	rich_text_label.size.x = content_line_width
 
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	_update_size(animate, content_line_width * rtl_scale.x)
+	# calcula o tamanho final (largura, altura total e posição) uma única vez, ignorando o typewriter
+	var target = _compute_target(content_line_width * rtl_scale.x)
+	var local_min_size = _to_local(min_size)
+
+	# duração estimada da revelação do texto, pra sincronizar o crescimento do NinePatch com ela
+	var total_chars = maxi(rich_text_label.get_total_character_count(), 1)
+	var reveal_duration = float(total_chars) / float(ANIM_SPEED)
+
+	# largura e posição já são fixadas de imediato — só a altura anima
+	size = Vector2(target.size.x, local_min_size.y)
+	position = target.position
+
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(self, "size:y", target.size.y, reveal_duration)
+	print("tween criado, indo de ", size.y, " até ", target.size.y, " em ", reveal_duration, "s")
+
+	animate_text = true
+
+
+func change_line(new_line: String):
+	set_message(new_line, true)
+
 
 func _strip_bbcode(text: String) -> String:
 	var regex = RegEx.new()
@@ -136,8 +168,6 @@ func _strip_bbcode(text: String) -> String:
 	return regex.sub(text, "", true)
 
 func _reapply_bbcode_wrapper(original: String, wrapped_plain: String) -> String:
-	# extrai a tag de abertura e fechamento do BBCode original, se existir,
-	# e reaplica em volta do texto já quebrado em linhas
 	var open_regex = RegEx.new()
 	open_regex.compile("^(\\[[a-zA-Z]+\\])")
 	var open_match = open_regex.search(original)
@@ -151,9 +181,6 @@ func _reapply_bbcode_wrapper(original: String, wrapped_plain: String) -> String:
 
 	return prefix + wrapped_plain + suffix
 
-# ============================================================
-# MEDIÇÃO DE TEXTO (wrap manual)
-# ============================================================
 
 func _get_font_and_size() -> Dictionary:
 	var font: Font = rich_text_label.get_theme_font("normal_font")
@@ -183,9 +210,6 @@ func _wrap_text(text: String, max_width_local: float, font: Font, font_size: int
 
 	return lines
 
-# ============================================================
-# CONVERSÃO PIXELS DE TELA <-> UNIDADES LOCAIS (considerando scale do NinePatchRect)
-# ============================================================
 
 func _to_local(screen_units: Vector2) -> Vector2:
 	return Vector2(
@@ -193,11 +217,8 @@ func _to_local(screen_units: Vector2) -> Vector2:
 		screen_units.y / max(scale.y, 0.001)
 	)
 
-# ============================================================
-# RESIZE INTERNO
-# ============================================================
 
-func _update_size(animate: bool = true, content_width_local: float = -1.0):
+func _compute_target(content_width_local: float = -1.0) -> Dictionary:
 	var local_padding = _to_local(padding)
 	var local_min_size = _to_local(min_size)
 	var local_max_width = max_width / max(scale.x, 0.001)
@@ -205,7 +226,6 @@ func _update_size(animate: bool = true, content_width_local: float = -1.0):
 	var rtl_scale = rich_text_label.scale
 	var content_height = rich_text_label.get_content_height() * rtl_scale.y
 
-	# se não recebeu largura de conteúdo medida, usa max_width como antes (fallback)
 	var content_width = content_width_local if content_width_local >= 0.0 else local_max_width - local_padding.x * 2
 
 	var target_width = clamp(
@@ -220,26 +240,28 @@ func _update_size(animate: bool = true, content_width_local: float = -1.0):
 	)
 
 	var effective_size = target_size * scale
-
 	var screen_width = get_viewport_rect().size.x
 	var target_position = Vector2(
 		screen_width - margin_right - effective_size.x,
 		margin_top
 	)
 
+	return {"size": target_size, "position": target_position}
+
+
+func _update_size(animate: bool = true, content_width_local: float = -1.0):
+	var target = _compute_target(content_width_local)
+
 	if animate:
 		var tween = create_tween()
 		tween.set_trans(Tween.TRANS_QUAD)
 		tween.set_parallel(true)
-		tween.tween_property(self, "size", target_size, resize_duration)
-		tween.tween_property(self, "position", target_position, resize_duration)
+		tween.tween_property(self, "size", target.size, resize_duration)
+		tween.tween_property(self, "position", target.position, resize_duration)
 	else:
-		size = target_size
-		position = target_position
+		size = target.size
+		position = target.position
 
-# ============================================================
-# HELPERS DO GLOW (moldura)
-# ============================================================
 
 func _ensure_material() -> bool:
 	if _initialized:

@@ -15,8 +15,7 @@ var input_mouse: Vector2
 var movement_vector: Vector2
 var direction: Vector3
 
-const JUMP_VELOCITY := 16
-const JUMP_JOYSTICK_VELOCITY: = 5
+const JUMP_VELOCITY := 18
 
 @export_category("Combat Properties")
 @export var max_health: float = 100.0
@@ -25,25 +24,28 @@ const JUMP_JOYSTICK_VELOCITY: = 5
 var current_health: float
 #endregion
 
-##sensibilidade da camera pelo joystick
-#var look_sensitivity_horizontal : = 75
-#var look_sensitivity_vertical : = 30
-
 #region STATE_MACHINE
 var is_disarmed: bool
 var is_dead: bool = false
+var was_in_air: bool = false
 var is_next_level
-
 
 enum PlayerStates {
 	IDLE,
 	RUN,
 	JUMP,
 	FALL,
-	#FIRE,
 	PUSH,
-	LAUNCH,
+	FIRE,
 }
+
+var state: PlayerStates = PlayerStates.IDLE
+var previous_state: PlayerStates = PlayerStates.IDLE
+var is_animating_action: bool = false
+
+var blend_time: float = 0.15
+
+@onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
 #endregion
 
 #region SFX Nodes
@@ -72,8 +74,6 @@ enum PlayerStates {
 
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
-@onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
-
 @export var arm_projectile_scene: PackedScene
 const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
@@ -87,7 +87,6 @@ var thrown_sword: Sword
 @onready var dead_canvas = $GameOverHUD
 @onready var next_level_canvas = $NextLevelHUD
 @onready var menu_canvas = $MenuHUD
-#@onready var health_label = $GameHUD/HealthLabel
 @onready var health_bar = $GameHUD/HealthBar
 var real_value : float
 @onready var activation_timer = $ActivationTimer
@@ -100,13 +99,13 @@ var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
 @onready var detection_timer: Timer = $DetectionTimer
 var enemies_in_range: Array[Node] = []
 
-@onready var assistant_text_box = $GameHUD/AssistantTextBox
+@onready var control = $GameHUD/Control
+@onready var assistant_text_box = $GameHUD/Control/AssistantTextBox
+var new_message: String = ""
 @onready var assistant_frame = $GameHUD/AssistantFrame
 @onready var assistant_iris = $GameHUD/AssistantIris
 @onready var assistant_pupil = $GameHUD/AssistantPupil
 @onready var assistant_text_link = $GameHUD/AssistantTextLink
-
-
 #endregion
 
 #region UI VARIABLES
@@ -147,10 +146,7 @@ const ctrls_key_background = preload("uid://bmu1oequesbqo")
 const quit_background = preload("uid://dmel4nekr0nx4")
 #endregion
 
-@export var state: PlayerStates = PlayerStates.IDLE
-
 func _ready():
-	
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
 	dead_canvas.visible = false
@@ -170,10 +166,11 @@ func _ready():
 	real_value = max_health
 	health_bar.value = current_health
 	
-	#assistant_text_box.set_message("[right]Olá, Projeto-XX. Eu sou o Assistente Virtual de Imagem e Combate.\nOu AVIC, se preferir.")
 	assistant_frame.scale = Vector2(0,0)
 	assistant_iris.scale = Vector2(0,0)
 	assistant_pupil.scale = Vector2(0,0)
+	assistant_text_link.scale = Vector2(0,0)
+	control.scale = Vector2(0,0)
 	active_background.texture = null
 	
 	add_resolutions()
@@ -185,41 +182,84 @@ func _ready():
 	config_group.visible = false
 	ctrls_group.visible = false
 	
-	await get_tree().create_timer(3.0).timeout
-	hud_animations.play("assistant_popup")
+	#await get_tree().create_timer(3.0).timeout
+	#hud_animations.play("centered_assistant_popup")
 
 func _process(delta):
 	if is_dead or is_next_level:
 		return
 	
 	_rotate_camera()
-	#vinculando rotate da câmera com joystick
-	#_rotate_camera_joystick()
-	if global_position.y <= -70: # if que coloca o player na area inicial do mapa
+	if global_position.y <= -70:
 		global_position = Vector3.ZERO
 	
 	handle_input()
+	
+	if is_on_floor() and not is_animating_action:
+		if state == PlayerStates.FALL or state == PlayerStates.JUMP:
+			if movement_vector:
+				set_state(PlayerStates.RUN)
+			else:
+				set_state(PlayerStates.IDLE)
+			return
+	
+	if is_animating_action and animation_player:
+		if not animation_player.is_playing():
+			_on_animation_finished(animation_player.current_animation)
 
 func set_state(new_state: PlayerStates):
+	if state == new_state:
+		return
+	
+	previous_state = state
+	state = new_state
+	
 	match new_state:
 		PlayerStates.IDLE:
-			#if state == PlayerStates.FALL:
-				#animation_player.play("extra_anims/land")
-			#else:
-				#animation_player.play("idle")
-			pass
+			is_animating_action = false
+			play_animation_with_blend("idle", true)
+		
 		PlayerStates.RUN:
-			pass
+			is_animating_action = false
+			play_animation_with_blend("walk", true)
+		
 		PlayerStates.JUMP:
-			try_jump()
-			pass
+			is_animating_action = true
+			play_animation_with_blend("jump", false)
+		
 		PlayerStates.FALL:
-			#animation_player.play("extra_anims/air")
-			pass
-		PlayerStates.LAUNCH:
-			pass
+			is_animating_action = false
+			play_animation_with_blend("extra_anims/air", true)
+		
+		PlayerStates.PUSH:
+			is_animating_action = true
+			play_animation_with_blend("push", false)
+		
+		PlayerStates.FIRE:
+			is_animating_action = true
+			play_animation_with_blend("fire", false)
+
+func play_animation_with_blend(anim_name: String, loop: bool = true):
+	if not animation_player or not animation_player.has_animation(anim_name):
+		return
 	
-	state = new_state
+	if animation_player.current_animation == anim_name and animation_player.is_playing():
+		return
+	
+	var anim = animation_player.get_animation(anim_name)
+	if anim:
+		anim.loop_mode = Animation.LOOP_LINEAR if loop else Animation.LOOP_NONE
+	
+	animation_player.play(anim_name, blend_time)
+
+func _return_to_ground_state():
+	if is_on_floor():
+		if movement_vector:
+			set_state(PlayerStates.RUN)
+		else:
+			set_state(PlayerStates.IDLE)
+	else:
+		set_state(PlayerStates.FALL)
 
 func handle_input():
 	if is_dead or is_next_level:
@@ -238,15 +278,40 @@ func handle_input():
 			try_pull_sword()
 		
 	if Input.is_action_just_pressed("jump"):
-		set_state(PlayerStates.JUMP)
+		try_jump()
 
 func _physics_process(delta):
 	if is_dead or is_next_level:
 		return
-		
+	
 	velocity.y -= gravity * delta
+	
+	if was_in_air and is_on_floor():
+		if not is_animating_action:
+			walk_sfx.play()
+			print("Pousou no chão!")
+			
+			if camera_juice:
+				camera_juice.add_fall_kick(3.0)
+		
+		if movement_vector:
+			set_state(PlayerStates.RUN)
+		else:
+			set_state(PlayerStates.IDLE)
+	
+	was_in_air = not is_on_floor()
+	
+	if state == PlayerStates.JUMP:
+		if animation_player and (animation_player.current_animation != "jump" or not animation_player.is_playing()):
+			set_state(PlayerStates.FALL)
+	
 	handle_states(delta)
 	move_and_slide()
+
+func _on_land():
+	walk_sfx.play()
+	
+	camera_juice.add_fall_kick(3)
 
 func handle_states(delta):
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -257,45 +322,69 @@ func handle_states(delta):
 	
 	match state:
 		PlayerStates.IDLE:
-			if movement_vector:
+			if movement_vector and is_on_floor():
 				set_state(PlayerStates.RUN)
-				
-			if !is_on_floor():
-				set_state(PlayerStates.FALL)
-				
+			elif !is_on_floor():
+				# Se não estiver no chão e não estiver pulando, vai para FALL
+				if state != PlayerStates.JUMP:
+					set_state(PlayerStates.FALL)
+			
 			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
 			
 		PlayerStates.RUN:
-			if !direction:
+			if !movement_vector and is_on_floor():
 				set_state(PlayerStates.IDLE)
+			elif !is_on_floor():
+				# Se não estiver no chão e não estiver pulando, vai para FALL
+				if state != PlayerStates.JUMP:
+					set_state(PlayerStates.FALL)
 			
-			target_velocity = direction * move_speed
-			horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
-			
+			if movement_vector:
+				target_velocity = direction * move_speed
+				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
+		
 		PlayerStates.JUMP:
-			if velocity.y <= 0:
-				set_state(PlayerStates.FALL)
-			
+			# Movimento horizontal durante o pulo
 			if movement_vector:
 				target_velocity = direction * move_speed
 				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
 			else:
 				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
-				
+			
+			# Verificar se o personagem já está caindo E a animação de jump terminou
+			# A transição será feita pelo _on_animation_finished
+		
 		PlayerStates.FALL:
 			if is_on_floor():
-				#print(is_on_floor())
-				set_state(PlayerStates.IDLE)
-				
+				if movement_vector:
+					set_state(PlayerStates.RUN)
+				else:
+					set_state(PlayerStates.IDLE)
+				return
+			
 			if movement_vector:
 				target_velocity = direction * move_speed
 				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
 			else:
 				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
 		
+		PlayerStates.PUSH:
+			if movement_vector:
+				target_velocity = direction * move_speed
+				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
+			else:
+				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
+		
+		PlayerStates.FIRE:
+			if movement_vector:
+				target_velocity = direction * move_speed
+				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
+			else:
+				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
+	
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
-	
+
 	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag, delta * 6)
 
 func _rotate_camera():
@@ -318,28 +407,6 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		input_mouse = event.relative
 
-#func _input(event):
-	#if is_dead or is_next_level:
-		#return
-		#
-	#if Input.is_action_just_pressed("attack"):
-		#try_attack()
-	#
-	#if Input.is_action_just_pressed("fire"):
-		#try_fire()
-		#
-	#if Input.is_action_just_pressed("throw_sword"): 
-		#if !is_disarmed:
-			#try_throw_sword()
-		#else:
-			#try_pull_sword()
-		#
-	#if Input.is_action_just_pressed("jump"):
-		#try_jump()
-		
-	#if Input.is_action_just_pressed("jump_joystick"):
-		#try_jump_joystick()
-
 func _toggle_pause_menu():
 	if get_tree().paused:
 		get_tree().paused = false
@@ -361,19 +428,15 @@ func try_pull_sword():
 	if !is_disarmed or !thrown_sword:
 		return
 		
-	#print("Pulling sword back!")
 	thrown_sword.set_state(thrown_sword.SwordState.PULLED_BACK)
 
 func try_throw_sword():
 	if is_disarmed:
 		return
 	
-	#print("Throwing Sword!")
 	var sword = sword_scene.instantiate() as Sword
-	
 	sword.transform = head.global_transform
 	get_parent().add_child(sword, true)
-	#sword.sword_owner = self
 	sword.start(self, -head.global_transform.basis.z)
 	
 	is_disarmed = true
@@ -386,46 +449,40 @@ func try_throw_sword():
 	pinky_geo.visible = false
 	ring_geo.visible = false
 	thumb_geo.visible = false
-	#weapon.visible = false
 	arm_throw_sfx.play()
 	hud_animations.play("hand_flying")
-	
-	#animation_player.play("extra_anims/throw")
 
 func try_attack():
-	if animation_player.current_animation != "push" and !is_disarmed:
-		animation_player.play("fast_push")
-		#print("Attacking!")
+	if is_disarmed or is_animating_action:
+		return
+	
+	if state != PlayerStates.PUSH:
+		previous_state = state
+		set_state(PlayerStates.PUSH)
 
 func try_fire():
-	if animation_player.current_animation != "fire" and animation_player.current_animation != "push":
+	if state == PlayerStates.PUSH:
+		return
+	
+	if state != PlayerStates.FIRE:
 		var projectile = projectile_scene.instantiate() as Projectile
 		projectile.transform = muzzle.global_transform
 		get_parent().add_child(projectile, true)
-		
 		projectile.start(-head.global_transform.basis.z)
-		animation_player.play("fire")
+		
+		previous_state = state
+		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
-		#print("Firing gun!")
+		camera_juice.add_weapon_kick(5, 0.5, 0.5)
 
 func try_jump():
 	if !is_on_floor():
 		return
-		
-	#print("Jumping!")
+	
 	velocity.y = JUMP_VELOCITY
 	jump_sfx.play()
-	#animation_player.play("extra_anims/jump")
-	#set_state(PlayerStates.JUMP)
+	set_state(PlayerStates.JUMP)
 
-#func try_jump_joystick():
-	#if !is_on_floor():
-		#return
-		#
-	#print("Jumping!")
-	#velocity.y += JUMP_JOYSTICK_VELOCITY
-
-#mais uma func do camera juice
 func check_fall_speed() -> bool:
 	if current_fall_velocity < fall_velocity_threshhold:
 		current_fall_velocity = 0.0
@@ -433,32 +490,32 @@ func check_fall_speed() -> bool:
 	else:
 		current_fall_velocity = 0.0
 		return false
-		
-
-#Camera Juice pra quando o player cair, por favor implementem se conseguirem organizar a state machine
-#func _on_airborne_state_physics_processing(delta : float) -> void:
-#	if Player.is_on_floor():
-#		if Player.check_fall_speed():
-#			Player.camera_effects.add_fall_kick(2.0)
-		#Player.PlayerStates.send_event("onGrounded")
-	
-	#Player.current_fall_velocity = Player.velocity.y
 
 func _on_animation_finished(anim_name):
 	match anim_name:
 		"push":
-			animation_player.play("idle")
+			is_animating_action = false
+			_return_to_ground_state()
+		
 		"fire":
-			animation_player.play("idle")
+			is_animating_action = false
+			_return_to_ground_state()
+		
 		"jump":
-			animation_player.play("idle")
+			if state == PlayerStates.JUMP:
+				if not is_on_floor():
+					set_state(PlayerStates.FALL)
+				else:
+					_return_to_ground_state()
+		
+		"extra_anims/air":
+			if is_on_floor():
+				_return_to_ground_state()
 
 func _on_attack_hit():
-	#print(sword_hit_area.collision_result)
 	if sword_hit_area.collision_result:
 		for collision in sword_hit_area.collision_result:
 			if collision.collider is EnemyMelee:
-				#print("Enemy hit")
 				var enemy = collision.collider as EnemyMelee
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
@@ -466,7 +523,6 @@ func _on_attack_hit():
 				enemy.receive_sword_impact(melee_damage, global_position, impact_strength)
 				
 			elif collision.collider is EnemyRanged:
-				#print("Enemy hit")
 				var enemy = collision.collider as EnemyRanged
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
@@ -485,19 +541,15 @@ func _on_sword_back(body):
 		pinky_geo.visible = true
 		ring_geo.visible = true
 		thumb_geo.visible = true
-		#weapon.visible = true
 		arm_back_sfx.play()
 
 func take_damage(amount: float):
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
 		bar_take_damage(clampf(amount, 0, max_health))
-		#health_label.text = str(current_health)
 		camera_juice.add_screen_shake(2.0, 0.3)
-		#game_hud_canvas.find_child("HitVignette").visible = true #ativa o shader de reação de hit
 		hud_animations.play("hit_vfx")
-		await get_tree().create_timer(.47).timeout # define o tempo antes de desligar o efeito
-		#game_hud_canvas.find_child("HitVignette").visible = false
+		await get_tree().create_timer(.47).timeout
 		
 		if current_health <= max_health/3:
 			idle_sfx.play()
@@ -519,29 +571,6 @@ func bar_take_damage(damage: float):
 	tween.tween_property(health_bar, "value", real_value, 0.4)
 	tween.tween_property(health_bar, "tint_progress", new_color, 0.4)
 	tween.tween_property(health_bar, "glow_tint", new_color, 0.4)
-
-#func _rotate_camera_joystick():
-	#
-	##______________________________
-	##Código para vincular visão do player com L3 do joystick
-	#
-	#var look_x = Input.get_action_strength("look_right") - Input.get_action_strength("look_left")
-	#var look_y = Input.get_action_strength("look_down") - Input.get_action_strength("look_up")
-	#
-	#var look_delta = Vector2(look_x, look_y)
-	#
-	#if look_delta.length() > 0:
-		## --- Yaw (left/right) ---
-		#rotate_y(-look_delta.x * mouse_sensitivity * look_sensitivity_horizontal)
-#
-		## --- Pitch (up/down) ---
-		#head.rotate_x(-look_delta.y * mouse_sensitivity * look_sensitivity_vertical)
-		#head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
-#
-		## --- Roll (optional tilt) ---
-		#head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
-	#
-	##_______________________________
 
 #region UI _ SCRIPTS
 func next_level(level_scene: PackedScene):
@@ -575,13 +604,11 @@ func _on_resume_button_pressed():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_enemy_detection_range_body_entered(body):
-	
 	if body is EnemyMelee or body is EnemyRanged:
 		if not body in enemies_in_range:
 			enemies_in_range.append(body)
 
 func _on_enemy_detection_range_body_exited(body):
-	
 	if body is EnemyMelee or body is EnemyRanged:
 		body.detected = false
 		enemies_in_range.erase(body)
@@ -591,18 +618,15 @@ func _check_visibility():
 		return
 	
 	var space_state = get_world_3d().direct_space_state
-	var from = global_position + Vector3(0, 1.5, 0)  # Altura dos olhos
+	var from = global_position + Vector3(0, 1.5, 0)
 	
-	# Percorrer todos os inimigos no range
 	for enemy in enemies_in_range:
-		# Verificar se o inimigo ainda existe
 		if not is_instance_valid(enemy):
 			enemies_in_range.erase(enemy)
 			continue
 		
 		var to = enemy.global_position + Vector3(0, 1.5, 0)
 		
-		# Criar raycast
 		var ray_params = PhysicsRayQueryParameters3D.create(from, to)
 		ray_params.exclude = [self, enemy]
 		ray_params.collision_mask = 1
@@ -622,7 +646,6 @@ func setup_window_mode_buttons() -> void:
 	
 	windowed_button.button_pressed = not UI.is_fullscreen
 	fullscreen_button.button_pressed = UI.is_fullscreen
-	
 
 func setup_audio_buttons() -> void:
 	var music_slider_value = UI.db_to_slider(UI.music_volume) if not UI.music_muted else 0
@@ -716,7 +739,6 @@ func _on_hud_slider_value_changed(value: float) -> void:
 		else:
 			UI.hud_volume = mapped_db
 
-
 func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		var current_slider_value = music_slider.value
@@ -770,7 +792,6 @@ func _on_toggle_hudsfx_button_toggled(toggled_on: bool) -> void:
 		toggle_hudsfx_button.icon = off_button_texture
 		UI.hud_muted = true
 		UI.play_sound("back_button")
-
 
 func _on_windowed_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
@@ -885,21 +906,14 @@ func _on_quit_button_toggled(toggled_on: bool) -> void:
 		UI.save_settings()
 #endregion
 
-#region AUDIO
-func play_step_sound():
-	$SFX/Walk.play()
-
-func play_jump_sound():
-	$SFX/Jump.play()
-
-func play_fire_sound():
-	$SFX/Fire.play()
-
-#endregion
-
-#endregion
-
-
 func _on_hud_animations_animation_finished(anim_name):
-	if anim_name == "assistant_popup":
-		hud_animations.play("assistant_idle")
+	match anim_name:
+		"assistant_popup":
+			hud_animations.play("assistant_idle")
+			assistant_text_box.set_message(new_message, true)
+		
+		"centered_assistant_popup":
+			hud_animations.play("centered_assistant_idle")
+
+func get_message_data(message: String):
+	new_message = message

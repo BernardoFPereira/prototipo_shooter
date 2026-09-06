@@ -1,4 +1,4 @@
-[gd_scene load_steps=666 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=668 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_r26mw"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_3xgkq"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/mesh_vector_data.gd" id="7_13rt1"]
 [ext_resource type="Material" uid="uid://ptwyuon1co7q" path="res://materials/Prototype/LabGlass.tres" id="8_dqwje"]
 [ext_resource type="Material" uid="uid://x7ah2e0ht273" path="res://materials/Prototype/ship_hall_light.tres" id="9_d1lnv"]
+[ext_resource type="Script" path="res://Scenes/Maps/assistant_text_set.gd" id="10_3kqni"]
 
 [sub_resource type="Environment" id="Environment_bwkuk"]
 volumetric_fog_enabled = true
@@ -6609,6 +6610,9 @@ _data = {
 "loop": SubResource("Animation_s5twc")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gln1x"]
+size = Vector3(0.865936, 5.89642, 5.46934)
+
 [node name="Level01Lab" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -7157,3 +7161,17 @@ light_volumetric_fog_energy = 10.0
 shadow_enabled = true
 spot_range = 26.61
 spot_angle = 19.1468
+
+[node name="AssistantTextArea" type="Area3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.741, 0, 28.501)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("10_3kqni")
+player = NodePath("../Player")
+message = "Olá, Projeto-01. Sou o Assistente Virtual de Imagem e Combate, mas pode me chamar de AVIC."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23921, 3.01358, -0.261265)
+shape = SubResource("BoxShape3D_gln1x")
+
+[connection signal="body_entered" from="AssistantTextArea" to="AssistantTextArea" method="_on_body_entered"]
