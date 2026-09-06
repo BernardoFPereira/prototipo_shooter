@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwsxqeoj0fwvx"]
+
+[ext_resource type="PackedScene" uid="uid://gh8igq2rphp" path="res://models/heroassets/plataformavoadora.glb" id="1_jtrro"]
+
+[node name="plataformavoadora" type="Node3D"]
+
+[node name="plataformavoadora" parent="." instance=ExtResource("1_jtrro")]
+
+[editable path="plataformavoadora"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://drw256atajt50"]
+
+[ext_resource type="PackedScene" uid="uid://bj8702x0ukutw" path="res://models/heroassets/Moedor.glb" id="1_rxdmf"]
+
+[node name="Moedor" type="Node3D"]
+
+[node name="Moedor" parent="." instance=ExtResource("1_rxdmf")]

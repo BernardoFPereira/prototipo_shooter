@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://b0xq1qpmc6jem"
+path.s3tc="res://.godot/imported/porta_doorscover_Doorbars_mtl_Metallic.1001-doorscover_Doorbars_mtl_Roughness.png-57c89fad3b56fd18cabf36fd788999dc.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "ab0b2d4302f691199ab052eeb9de155b"
+}
+
+[deps]
+
+source_file="res://models/heroassets/porta_doorscover_Doorbars_mtl_Metallic.1001-doorscover_Doorbars_mtl_Roughness.png"
+dest_files=["res://.godot/imported/porta_doorscover_Doorbars_mtl_Metallic.1001-doorscover_Doorbars_mtl_Roughness.png-57c89fad3b56fd18cabf36fd788999dc.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0
