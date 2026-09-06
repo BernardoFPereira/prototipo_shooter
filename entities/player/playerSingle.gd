@@ -28,7 +28,8 @@ var current_health: float
 var is_disarmed: bool
 var is_dead: bool = false
 var was_in_air: bool = false
-var is_next_level
+var is_next_level: bool
+var is_introduction: bool
 
 enum PlayerStates {
 	IDLE,
@@ -92,6 +93,7 @@ var real_value : float
 @onready var activation_timer = $ActivationTimer
 
 @onready var hud_animations = $GameHUD/HUDAnimations
+@onready var avic_animations = $GameHUD/AVICAnimations
 var enemy_detected := "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
 var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
 @onready var enemy_detection_range = $EnemyDetectionRange
@@ -101,6 +103,7 @@ var enemies_in_range: Array[Node] = []
 
 @onready var control = $GameHUD/Control
 @onready var assistant_text_box = $GameHUD/Control/AssistantTextBox
+@onready var centered_assistant_text_box = $GameHUD/CenteredAssistantTextBox
 var new_message: String = ""
 @onready var assistant_frame = $GameHUD/AssistantFrame
 @onready var assistant_iris = $GameHUD/AssistantIris
@@ -166,6 +169,7 @@ func _ready():
 	real_value = max_health
 	health_bar.value = current_health
 	
+	centered_assistant_text_box.visible = false
 	assistant_frame.scale = Vector2(0,0)
 	assistant_iris.scale = Vector2(0,0)
 	assistant_pupil.scale = Vector2(0,0)
@@ -182,8 +186,7 @@ func _ready():
 	config_group.visible = false
 	ctrls_group.visible = false
 	
-	#await get_tree().create_timer(3.0).timeout
-	#hud_animations.play("centered_assistant_popup")
+	is_introduction = true
 
 func _process(delta):
 	if is_dead or is_next_level:
@@ -262,7 +265,7 @@ func _return_to_ground_state():
 		set_state(PlayerStates.FALL)
 
 func handle_input():
-	if is_dead or is_next_level:
+	if is_dead or is_next_level or is_introduction:
 		return
 	
 	if Input.is_action_just_pressed("attack"):
@@ -314,6 +317,8 @@ func _on_land():
 	camera_juice.add_fall_kick(3)
 
 func handle_states(delta):
+	if is_introduction:
+		return
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
 	
@@ -908,12 +913,22 @@ func _on_quit_button_toggled(toggled_on: bool) -> void:
 
 func _on_hud_animations_animation_finished(anim_name):
 	match anim_name:
-		"assistant_popup":
-			hud_animations.play("assistant_idle")
+		"start":
+			if is_introduction:
+				avic_animations.play("avic/centered_assistant_popup")
+
+func _on_avic_animations_animation_finished(anim_name):
+	match anim_name:
+		"avic/assistant_popup":
+			avic_animations.play("avic/assistant_idle")
 			assistant_text_box.set_message(new_message, true)
 		
-		"centered_assistant_popup":
-			hud_animations.play("centered_assistant_idle")
+		"avic/centered_assistant_popup":
+			avic_animations.play("avic/centered_assistant_idle")
+		
+		"avic/centered_assistant_idle":
+			avic_animations.play("avic/centered_assistant_popout")
+			is_introduction = false
 
 func get_message_data(message: String):
 	new_message = message

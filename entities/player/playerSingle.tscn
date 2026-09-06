@@ -1,4 +1,4 @@
-[gd_scene load_steps=162 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=158 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="2_6hu70"]
@@ -19,9 +19,9 @@
 [ext_resource type="Animation" uid="uid://c5bbs2k8ap622" path="res://models/player/anims/a_pose.res" id="9_y8pmy"]
 [ext_resource type="Animation" uid="uid://doejvdoyqsmui" path="res://models/player/anims/walk.res" id="10_uvuu5"]
 [ext_resource type="Texture2D" uid="uid://c14smyuarc2o6" path="res://UI/ConfigMenu/COLCHETE 2.png" id="10_vmsi3"]
-[ext_resource type="Texture2D" uid="uid://bd5swod4mubmo" path="res://UI/ConfigMenu/v2_btn_tick.png" id="11_d86lc"]
+[ext_resource type="Texture2D" uid="uid://bd5swod4mubmo" path="res://UI/ConfigMenu/_old/v2_btn_tick.png" id="11_d86lc"]
 [ext_resource type="AnimationLibrary" uid="uid://dsijh7fxtlxh" path="res://models/player/extra_anims.glb" id="12_1gohg"]
-[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/v2_btn_bar.png" id="12_rlhsb"]
+[ext_resource type="Texture2D" uid="uid://b0gbwupo57fm7" path="res://UI/ConfigMenu/_old/v2_btn_bar.png" id="12_rlhsb"]
 [ext_resource type="Texture2D" uid="uid://cp8sjbs1efomi" path="res://UI/ConfigMenu/BOTÃO OFF.png" id="13_xodqh"]
 [ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="14_8vx3h"]
 [ext_resource type="Texture2D" uid="uid://bo5sjwobb2r68" path="res://UI/ConfigMenu/BOTÃO ON.png" id="14_yv16d"]
@@ -46,7 +46,9 @@
 [ext_resource type="Texture2D" uid="uid://cch8o5kfpnr3u" path="res://UI/V2/HUD/Assistant/assistant-double-pupil.png" id="28_y4ty8"]
 [ext_resource type="Script" path="res://UI/V2/HUD/Player/glow_ninepatchrect.gd" id="29_oavk8"]
 [ext_resource type="Texture2D" uid="uid://cqiwk5xccunde" path="res://UI/V2/HUD/Player/HUD-HelmetFrame.png" id="30_a6or3"]
+[ext_resource type="AnimationLibrary" uid="uid://dpg8d8y70up4b" path="res://UI/V2/HUD/hud.res" id="30_ffg5o"]
 [ext_resource type="Texture2D" uid="uid://ddg81h7ukqqoi" path="res://UI/V2/HUD/Player/HUD-Lines.png" id="31_1l4ih"]
+[ext_resource type="AnimationLibrary" uid="uid://baund00vow61g" path="res://UI/V2/HUD/avic.res" id="31_h423k"]
 [ext_resource type="Texture2D" uid="uid://dyhldhcp1t73j" path="res://UI/V2/HUD/Player/HandButton.png" id="32_nbj6u"]
 [ext_resource type="AudioStream" uid="uid://bom1ertuex5tm" path="res://assets/sounds/hud/8BIT-VozGrave.wav" id="32_w4sij"]
 [ext_resource type="Texture2D" uid="uid://bxyfytujwojle" path="res://UI/V2/HUD/Player/PlayerHealthBar-Frame.png" id="34_brvs5"]
@@ -564,7 +566,7 @@ size = Vector3(1.36, 1, 1.84)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x41jl"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gfdom"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -574,7 +576,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("31_1l4ih")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rgyku"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t34m3"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -584,7 +586,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("32_nbj6u")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rm8o0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a6sr8"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -594,7 +596,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("34_brvs5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mnn5j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6mwbg"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -619,7 +621,7 @@ shader_parameter/displacement_strength = 0.15
 shader_parameter/displacement_frequency = 10.0
 shader_parameter/displacement_wave_speed = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6kx62"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dp740"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -629,7 +631,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x8ix4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ld5r8"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -639,7 +641,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("27_frtra")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a6d1h"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cbfep"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -649,7 +651,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("28_y4ty8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8lel1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m5cv7"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -659,571 +661,133 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.4
 shader_parameter/glow_source = ExtResource("28_gqq6y")
 
-[sub_resource type="Animation" id="Animation_kt1le"]
-resource_name = "assistant_idle"
-length = 15.0
-loop_mode = 1
-step = 0.0333333
+[sub_resource type="Animation" id="Animation_iq5gi"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/AssistantFrame:scale")
+tracks/0/path = NodePath("GameHUD/CenteredAssistantTextBox:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(3, 3)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("GameHUD/AssistantIris:scale")
+tracks/1/path = NodePath("GameHUD/CenteredAssistantTextBox/IntroMessage01:visible_ratio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 4.0959, 4.2957, 4.4955, 7.0929, 7.2927, 7.4925, 10.0899, 10.2897, 10.4895, 13.0869, 13.2867, 13.4865),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, 1), Vector2(1, 1), Vector2(1, 0), Vector2(1, 1)]
+"values": [1.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("GameHUD/AssistantPupil:scale")
+tracks/2/path = NodePath("GameHUD/CenteredAssistantTextBox/IntroMessage01:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GameHUD/AssistantIris:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.4985, 1.998, 5.4945, 5.994, 10.5894, 11.0889),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1715, 49), Vector2(1715, 49), Vector2(1705, 54), Vector2(1705, 54), Vector2(1725, 54), Vector2(1725, 54), Vector2(1715, 49)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GameHUD/AssistantPupil:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.6983, 2.1978, 5.6943, 6.1938, 10.7892, 11.2887),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1715, 49), Vector2(1715, 49), Vector2(1705, 54), Vector2(1705, 54), Vector2(1725, 54), Vector2(1725, 54), Vector2(1715, 49)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("GameHUD/AssistantIris:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("GameHUD/AssistantPupil:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 4.2624, 4.3623, 7.2594, 7.3593, 10.2564, 10.3563, 13.2534, 13.3533),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true, false, true, false, true, false, true, false, true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("GameHUD/AssistantFrame:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1715, 49)]
-}
-
-[sub_resource type="Animation" id="Animation_7ovpm"]
-resource_name = "assistant_popup"
-length = 1.60001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/AssistantFrame:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameHUD/AssistantIris:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameHUD/AssistantPupil:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.1, 1.1), Vector2(1, 1)]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("GameHUD/AssistantFrame:position")
+tracks/3/path = NodePath("GameHUD/CenteredAssistantTextBox/IntroMessage02:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1715, 49)]
+"update": 1,
+"values": [false]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("GameHUD/AssistantIris:position")
+tracks/4/path = NodePath("GameHUD/CenteredAssistantTextBox/IntroMessage02:visible_ratio")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1715, 49)]
+"values": [1.0]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("GameHUD/AssistantPupil:position")
+tracks/5/path = NodePath("GameHUD/CenteredAssistantTextBox/IntroMessage03:visible_ratio")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1715, 49)]
+"values": [1.0]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("GameHUD/AssistantTextLink:visible")
+tracks/6/path = NodePath("GameHUD/CenteredAssistantTextBox/IntroMessage03:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": [false]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("GameHUD/AssistantTextLink:scale")
+tracks/7/path = NodePath("GameHUD/Control/TextSFX:playing")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.8, 1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1.1, 1.1), Vector2(1, 1)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("GameHUD/Control:scale")
+tracks/8/path = NodePath("GameHUD/CenteredAssistantTextBox:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 0), Vector2(1, 1)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("GameHUD/Control:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_jiret"]
-resource_name = "centered_assistant_idle"
-length = 15.0
-loop_mode = 1
-step = 0.0333333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/AssistantFrame:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3.5, 3.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameHUD/AssistantIris:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 4.0959, 4.2957, 4.4955, 7.0929, 7.2927, 7.4925, 10.1, 10.2897, 10.4895, 13.0869, 13.2867, 13.4865),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(3.5, 3.5), Vector2(3.5, 3.5), Vector2(3.5, 0), Vector2(3.5, 3.5), Vector2(3.5, 3.5), Vector2(3.5, 0), Vector2(3.5, 3.5), Vector2(3.5, 3.5), Vector2(3.5, 0), Vector2(3.5, 3.5), Vector2(3.5, 3.5), Vector2(3.5, 0), Vector2(3.5, 3.5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameHUD/AssistantPupil:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(3.5, 3.5)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GameHUD/AssistantIris:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1.4985, 1.998, 5.4945, 5.994, 10.5894, 11.0889),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(864, 344), Vector2(864, 344), Vector2(834, 359), Vector2(834, 359), Vector2(894, 359), Vector2(894, 359), Vector2(864, 344)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GameHUD/AssistantPupil:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.6983, 2.1978, 5.6943, 6.1938, 10.7892, 11.2887),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(864, 344), Vector2(864, 344), Vector2(834, 359), Vector2(834, 359), Vector2(894, 359), Vector2(894, 359), Vector2(864, 344)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("GameHUD/AssistantIris:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("GameHUD/AssistantPupil:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 4.2624, 4.3623, 7.2594, 7.3593, 10.2564, 10.3563, 13.2534, 13.3533),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true, false, true, false, true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("GameHUD/AssistantFrame:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(864, 344)]
-}
-
-[sub_resource type="Animation" id="Animation_4aujc"]
-resource_name = "first_assistant_popup"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/AssistantFrame:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(3.8, 3.8), Vector2(3.5, 3.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameHUD/AssistantIris:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(3.8, 3.8), Vector2(3.5, 3.5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameHUD/AssistantPupil:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(3.8, 3.8), Vector2(3.5, 3.5)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GameHUD/AssistantFrame:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(864, 344)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GameHUD/AssistantIris:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(864, 344)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("GameHUD/AssistantPupil:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(864, 344)]
-}
-
-[sub_resource type="Animation" id="Animation_1ltm7"]
-resource_name = "hand_flying"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/HandButton:intensity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1, 1.5, 1.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [1.5, 2.1, 1.5, 2.1, 1.5]
-}
-
-[sub_resource type="Animation" id="Animation_o4o4h"]
-resource_name = "hand_ready"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/HandButton:intensity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.5]
-}
-
-[sub_resource type="Animation" id="Animation_f3lup"]
-resource_name = "hit_vfx"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/HUDFrame:glow_tint")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameHUD/HUDFrame:intensity")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.8, 1.2, 0.8, 1.2, 0.8]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameHUD/HealthBarFrame:glow_tint")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GameHUD/HealthBarFrame:intensity")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [1.5, 2.0, 1.5, 2.0, 1.5]
-}
-
-[sub_resource type="Animation" id="Animation_6a1g4"]
-resource_name = "start"
-length = 3.25001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GameHUD/HelmetFrame:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.7, 1.45),
-"transitions": PackedFloat32Array(0.435277, 0.466517),
-"update": 0,
-"values": [Vector2(1.3, 1.3), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("GameHUD/HUDFrame:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1.4, 1.7, 2.35),
-"transitions": PackedFloat32Array(0.535887, 0.143587, 0.196146),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.1, 0.01), Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("GameHUD/HealthBar:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2.6, 2.7, 2.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("GameHUD/HandButton:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 2.65, 2.75, 2.85),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.470588), Color(1, 1, 1, 0), Color(1, 1, 1, 0.470588)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("GameHUD/HealthBarFrame:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1.35, 1.7, 2.35),
-"transitions": PackedFloat32Array(0.535887, 0.143587, 0.196146),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(1.1, 0.01), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ab6yd"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qd1cv"]
 _data = {
-"assistant_idle": SubResource("Animation_kt1le"),
-"assistant_popup": SubResource("Animation_7ovpm"),
-"centered_assistant_idle": SubResource("Animation_jiret"),
-"centered_assistant_popup": SubResource("Animation_4aujc"),
-"hand_flying": SubResource("Animation_1ltm7"),
-"hand_ready": SubResource("Animation_o4o4h"),
-"hit_vfx": SubResource("Animation_f3lup"),
-"start": SubResource("Animation_6a1g4")
+"RESET": SubResource("Animation_iq5gi")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t452v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mo7vk"]
+shader = ExtResource("20_lgex4")
+shader_parameter/glow_tint = Color(0, 1, 0, 1)
+shader_parameter/detect_color = Color(1, 1, 1, 1)
+shader_parameter/threshold = 0.1
+shader_parameter/intensity = 1.5
+shader_parameter/blur_size = 1.2
+shader_parameter/line_opacity = 0.5
+shader_parameter/glow_source = ExtResource("26_bypws")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3t6w"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1649,6 +1213,7 @@ playback_default_blend_time = 0.1
 
 [node name="Camera3D" type="Camera3D" parent="Head" node_paths=PackedStringArray("player_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+cull_mask = 1048543
 script = ExtResource("3_x4mog")
 player_controller = NodePath("../..")
 weapon_decay = 0.1
@@ -1689,7 +1254,7 @@ size_flags_vertical = 4
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_x41jl")
+material = SubResource("ShaderMaterial_gfdom")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1705,7 +1270,7 @@ line_opacity = 0.3
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_rgyku")
+material = SubResource("ShaderMaterial_t34m3")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1719,7 +1284,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_rm8o0")
+material = SubResource("ShaderMaterial_a6sr8")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1750,7 +1315,7 @@ texture = ExtResource("3_5hn21")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_mnn5j")
+material = SubResource("ShaderMaterial_6mwbg")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1786,15 +1351,16 @@ texture = ExtResource("24_4dgpa")
 [node name="AssistantFrame" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_6kx62")
+material = SubResource("ShaderMaterial_dp740")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -205.0
-offset_top = 49.0
-offset_right = -13.0002
-offset_bottom = 241.0
+offset_left = 864.0
+offset_top = 294.0
+offset_right = 1056.0
+offset_bottom = 486.0
 grow_horizontal = 0
+scale = Vector2(3, 3)
 pivot_offset = Vector2(96, 96)
 texture = ExtResource("26_bypws")
 script = ExtResource("18_nwpcu")
@@ -1805,15 +1371,16 @@ line_opacity = 0.5
 [node name="AssistantIris" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_x8ix4")
+material = SubResource("ShaderMaterial_ld5r8")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -205.0
-offset_top = 49.0
-offset_right = -13.0017
-offset_bottom = 241.0
+offset_left = 864.0
+offset_top = 294.0
+offset_right = 1056.0
+offset_bottom = 486.0
 grow_horizontal = 0
+scale = Vector2(3, 3)
 pivot_offset = Vector2(96, 96)
 texture = ExtResource("27_frtra")
 script = ExtResource("18_nwpcu")
@@ -1824,15 +1391,16 @@ line_opacity = 0.5
 [node name="AssistantPupil" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_a6d1h")
+material = SubResource("ShaderMaterial_cbfep")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -205.0
-offset_top = 49.0
-offset_right = -12.9995
-offset_bottom = 241.0
+offset_left = 864.0
+offset_top = 294.0
+offset_right = 1056.0
+offset_bottom = 486.0
 grow_horizontal = 0
+scale = Vector2(3, 3)
 pivot_offset = Vector2(96, 96)
 texture = ExtResource("28_y4ty8")
 script = ExtResource("18_nwpcu")
@@ -1844,7 +1412,7 @@ line_opacity = 0.5
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_8lel1")
+material = SubResource("ShaderMaterial_m5cv7")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1894,12 +1462,101 @@ horizontal_alignment = 1
 [node name="HUDAnimations" type="AnimationPlayer" parent="GameHUD"]
 root_node = NodePath("../..")
 libraries = {
-"": SubResource("AnimationLibrary_ab6yd")
+"": ExtResource("30_ffg5o")
 }
 autoplay = "start"
 
-[node name="Control" type="Control" parent="GameHUD"]
+[node name="AVICAnimations" type="AnimationPlayer" parent="GameHUD"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_qd1cv"),
+"avic": ExtResource("31_h423k")
+}
+autoplay = "HUD/start"
+
+[node name="CenteredAssistantTextBox" type="NinePatchRect" parent="GameHUD"]
+modulate = Color(1, 1, 1, 0.470588)
+texture_filter = 1
+material = SubResource("ShaderMaterial_mo7vk")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 600.0
+offset_right = 200.0
+offset_bottom = 683.0
+grow_horizontal = 2
+scale = Vector2(3, 3)
+pivot_offset = Vector2(200, 0)
+texture = ExtResource("26_bypws")
+patch_margin_left = 22
+patch_margin_top = 22
+patch_margin_right = 22
+patch_margin_bottom = 22
+
+[node name="IntroMessage01" type="RichTextLabel" parent="GameHUD/CenteredAssistantTextBox"]
+layout_direction = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 24.0
+offset_right = -21.0
+offset_bottom = -3.99998
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 1, 0, 1)
+theme_override_fonts/normal_font = ExtResource("15_8te5u")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center] Olá, Projeto-01. Eu sou o Assistente Virtual de Imagem e Combate, mas pode me chamar de AVIC."
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="IntroMessage02" type="RichTextLabel" parent="GameHUD/CenteredAssistantTextBox"]
 visible = false
+layout_direction = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 24.0
+offset_right = -21.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 1, 0, 1)
+theme_override_fonts/normal_font = ExtResource("15_8te5u")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center] O Protocolo de Defesa Central ativou o seu sistema. Parece que a nave está sendo invadida pelos Insectóides."
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="IntroMessage03" type="RichTextLabel" parent="GameHUD/CenteredAssistantTextBox"]
+visible = false
+layout_direction = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 31.0
+offset_right = -21.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 1, 0, 1)
+theme_override_fonts/normal_font = ExtResource("15_8te5u")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "[center] Sua missão é conter os invasores."
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="Control" type="Control" parent="GameHUD"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1907,21 +1564,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(1882, 212)
+pivot_offset = Vector2(1882, 211)
 mouse_filter = 2
 
 [node name="AssistantTextBox" type="NinePatchRect" parent="GameHUD/Control" node_paths=PackedStringArray("rich_text_label")]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_t452v")
+material = SubResource("ShaderMaterial_g3t6w")
 layout_direction = 3
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 377.667
+offset_left = -1540.33
 offset_top = 184.0
-offset_right = 561.0
+offset_right = -1357.0
 offset_bottom = 228.0
 grow_horizontal = 0
 scale = Vector2(3, 3)
@@ -1937,7 +1594,7 @@ line_opacity = 0.5
 rich_text_label = NodePath("RichTextLabel")
 padding = Vector2(62, 48)
 min_size = Vector2(0, 0)
-max_width = 550.0
+max_width = 720.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="GameHUD/Control/AssistantTextBox"]
 layout_direction = 3
@@ -1951,17 +1608,63 @@ offset_right = -20.0
 offset_bottom = 16.0
 grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
-theme_override_colors/default_color = Color(0.357398, 0.871024, 0.39392, 1)
+theme_override_colors/default_color = Color(0, 1, 0, 1)
 theme_override_fonts/normal_font = ExtResource("15_8te5u")
 theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+shortcut_keys_enabled = false
 
-[node name="TextSFX" type="AudioStreamPlayer3D" parent="GameHUD/Control"]
+[node name="TextSFX" type="AudioStreamPlayer" parent="GameHUD/Control"]
 unique_name_in_owner = true
 stream = ExtResource("32_w4sij")
+volume_db = -10.0
+bus = &"HUD"
+
+[node name="RadarUI" type="TextureRect" parent="GameHUD"]
+self_modulate = Color(0, 0.298039, 0.301961, 0.772549)
+clip_children = 2
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 87.0
+offset_top = -250.0
+offset_right = 299.0
+offset_bottom = -41.0
+grow_vertical = 0
+texture = ExtResource("67_bcwdr")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD/RadarUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="GameHUD/RadarUI/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+canvas_cull_mask = 4293918721
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="RadarCam" type="Camera3D" parent="GameHUD/RadarUI/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14, 0)
+cull_mask = 32
+projection = 1
+size = 41.721
+near = 0.111
+script = ExtResource("68_ddupl")
+cam_target = NodePath("../../../../..")
 
 [node name="MenuHUD" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -2811,49 +2514,6 @@ collision_mask = 524288
 [node name="EnemyDetectionCollision" type="CollisionShape3D" parent="EnemyDetectionRange"]
 shape = SubResource("SphereShape3D_ag83q")
 
-[node name="RadarUI" type="TextureRect" parent="."]
-self_modulate = Color(0, 0.298039, 0.301961, 0.772549)
-clip_children = 2
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 87.0
-offset_top = -250.0
-offset_right = 299.0
-offset_bottom = -41.0
-grow_vertical = 0
-texture = ExtResource("67_bcwdr")
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="RadarUI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 128.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SubViewport" type="SubViewport" parent="RadarUI/SubViewportContainer"]
-transparent_bg = true
-handle_input_locally = false
-canvas_cull_mask = 4293918721
-size = Vector2i(256, 256)
-render_target_update_mode = 4
-
-[node name="RadarCam" type="Camera3D" parent="RadarUI/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14, 0)
-cull_mask = 32
-projection = 1
-size = 41.721
-near = 0.111
-script = ExtResource("68_ddupl")
-cam_target = NodePath("../../../..")
-
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(8, 0, 0, 0, -3.49691e-07, -1, 0, 8, -4.37114e-08, 0, 0.0664139, 0)
 layers = 32
@@ -2861,6 +2521,7 @@ modulate = Color(0, 0.898039, 0.211765, 1)
 texture = ExtResource("69_pvhsd")
 
 [connection signal="animation_finished" from="GameHUD/HUDAnimations" to="." method="_on_hud_animations_animation_finished"]
+[connection signal="animation_finished" from="GameHUD/AVICAnimations" to="." method="_on_avic_animations_animation_finished"]
 [connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_button_hovered"]
 [connection signal="pressed" from="MenuHUD/Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="mouse_entered" from="MenuHUD/Panel/VBoxContainer/RetryButton" to="." method="_on_button_hovered"]
