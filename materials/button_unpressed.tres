@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://g8e5iddj6e0i"]
+
+[ext_resource type="Texture2D" uid="uid://creqwpunv4wdj" path="res://models/heroassets/button_button_mtl_BaseColor.1001.png" id="1_wify0"]
+[ext_resource type="Texture2D" uid="uid://cklj3nca05io4" path="res://models/heroassets/button_button_mtl_Emissive.1001.png" id="2_268in"]
+[ext_resource type="Texture2D" uid="uid://6k0vvg0uv7n1" path="res://models/heroassets/button_button_mtl_Height.1001.png" id="3_bits1"]
+[ext_resource type="Texture2D" uid="uid://b3q2orafwl4rc" path="res://models/heroassets/button_buttondtls_mtl_Roughness.1001.png" id="4_d48ai"]
+
+[resource]
+resource_name = "button_mtl.1001"
+cull_mode = 2
+albedo_texture = ExtResource("1_wify0")
+metallic = 1.0
+metallic_specular = 0.03
+metallic_texture = ExtResource("3_bits1")
+metallic_texture_channel = 2
+roughness = 0.5
+roughness_texture = ExtResource("4_d48ai")
+roughness_texture_channel = 1
+emission_enabled = true
+emission_texture = ExtResource("2_268in")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dw2b15lk21d4q"]
+
+[ext_resource type="Script" path="res://prefabs/prefabprops/BreakableVent.gd" id="1_sw2nr"]
+[ext_resource type="PackedScene" uid="uid://43p4oygb15uw" path="res://models/heroassets/vent.glb" id="2_viieh"]
+[ext_resource type="ArrayMesh" uid="uid://dj0cgr8hmy6qe" path="res://models/heroassets/props/ventplane.res" id="3_j16s0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4q53q"]
+size = Vector3(6.9104, 7.01453, 0.964722)
+
+[node name="vent" type="StaticBody3D"]
+collision_layer = 17
+script = ExtResource("1_sw2nr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.53518, 0.107361)
+shape = SubResource("BoxShape3D_4q53q")
+
+[node name="vent" parent="." instance=ExtResource("2_viieh")]
+transform = Transform3D(2.8281, 0, 0, 0, 2.8281, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="ventplane_geo2" type="MeshInstance3D" parent="vent"]
+transform = Transform3D(1.70968, 0, 0, 0, 0, -1.70968, 0, 1.70968, 0, 0.0159476, 1.10467, 0.331091)
+mesh = ExtResource("3_j16s0")
+skeleton = NodePath("")
+
+[editable path="vent"]

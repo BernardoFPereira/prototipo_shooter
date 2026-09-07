@@ -75,6 +75,7 @@ var blend_time: float = 0.15
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
 @export var arm_projectile_scene: PackedScene
+#@export var sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
@@ -473,7 +474,7 @@ func try_fire():
 		previous_state = state
 		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
-		camera_juice.add_weapon_kick(5, 0.5, 0.5)
+		#camera_juice.add_weapon_kick(5, 0.5, 0.5)
 
 func try_jump():
 	if !is_on_floor():

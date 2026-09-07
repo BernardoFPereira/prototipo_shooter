@@ -1,14 +1,12 @@
-[gd_scene load_steps=26 format=3 uid="uid://djriivifdcxl4"]
+[gd_scene load_steps=23 format=3 uid="uid://djriivifdcxl4"]
 
 [ext_resource type="Material" uid="uid://d4fdteuscil61" path="res://materials/testmats/testmat4.tres" id="1_obhs3"]
 [ext_resource type="Script" path="res://scripts/button.gd" id="1_q8bb1"]
 [ext_resource type="Material" uid="uid://cq0pket5afcw0" path="res://materials/testmats/testmat2.tres" id="2_kgc1c"]
-[ext_resource type="Texture2D" uid="uid://creqwpunv4wdj" path="res://models/heroassets/button_button_mtl_BaseColor.1001.png" id="4_4b1oe"]
-[ext_resource type="Texture2D" uid="uid://cklj3nca05io4" path="res://models/heroassets/button_button_mtl_Emissive.1001.png" id="5_sriyj"]
-[ext_resource type="Texture2D" uid="uid://6k0vvg0uv7n1" path="res://models/heroassets/button_button_mtl_Height.1001.png" id="6_86xwl"]
+[ext_resource type="Material" uid="uid://bu41vkikvk035" path="res://materials/button_pressed.tres" id="2_qjo38"]
+[ext_resource type="Material" uid="uid://g8e5iddj6e0i" path="res://materials/button_unpressed.tres" id="5_8k8f7"]
 [ext_resource type="Texture2D" uid="uid://djxg55ukugdtc" path="res://models/heroassets/button_button_buttoncase_mtl_BaseColor.png" id="6_bftod"]
 [ext_resource type="Texture2D" uid="uid://qpieexwm6rgv" path="res://models/heroassets/button_button_buttoncase_mtl_Emissive.png" id="7_s7drv"]
-[ext_resource type="Texture2D" uid="uid://b3q2orafwl4rc" path="res://models/heroassets/button_buttondtls_mtl_Roughness.1001.png" id="7_y8kvd"]
 [ext_resource type="Texture2D" uid="uid://dm7kj1ytqjmh4" path="res://models/heroassets/button_buttoncase_mtl_Metallic.1001.png" id="9_wb0en"]
 [ext_resource type="Texture2D" uid="uid://b7tuff4kvbckl" path="res://models/heroassets/button_buttoncase_mtl_Roughness.1001.png" id="10_5b4e0"]
 [ext_resource type="Texture2D" uid="uid://bg165v4430a2f" path="res://models/heroassets/button_button_buttondtls_mtl_BaseColor.png" id="10_ugbm8"]
@@ -18,19 +16,8 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vamuk"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxr73"]
-resource_name = "button_mtl.1001"
-cull_mode = 2
-albedo_texture = ExtResource("4_4b1oe")
-metallic = 1.0
-metallic_specular = 0.03
-metallic_texture = ExtResource("6_86xwl")
-metallic_texture_channel = 2
-roughness = 0.5
-roughness_texture = ExtResource("7_y8kvd")
-roughness_texture_channel = 1
-emission_enabled = true
-emission_texture = ExtResource("5_sriyj")
+[sub_resource type="BoxShape3D" id="BoxShape3D_42yw5"]
+size = Vector3(2.01166, 1.97571, 0.903259)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_bq288"]
 _surfaces = [{
@@ -54,7 +41,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 84,
 "index_data": PackedByteArray(9, 0, 12, 0, 3, 0, 9, 0, 21, 0, 12, 0, 24, 0, 42, 0, 33, 0, 24, 0, 39, 0, 42, 0, 38, 0, 20, 0, 47, 0, 38, 0, 17, 0, 20, 0, 32, 0, 2, 0, 29, 0, 32, 0, 8, 0, 2, 0, 30, 0, 10, 0, 6, 0, 10, 0, 18, 0, 22, 0, 18, 0, 43, 0, 45, 0, 43, 0, 30, 0, 34, 0, 30, 0, 18, 0, 10, 0, 18, 0, 30, 0, 43, 0, 0, 0, 25, 0, 27, 0, 25, 0, 36, 0, 40, 0, 36, 0, 13, 0, 15, 0, 13, 0, 0, 0, 4, 0, 0, 0, 36, 0, 25, 0, 36, 0, 0, 0, 13, 0, 1, 0, 11, 0, 5, 0, 1, 0, 7, 0, 11, 0, 14, 0, 19, 0, 16, 0, 14, 0, 23, 0, 19, 0, 26, 0, 31, 0, 28, 0, 26, 0, 35, 0, 31, 0, 37, 0, 44, 0, 41, 0, 37, 0, 46, 0, 44, 0),
-"material": SubResource("StandardMaterial3D_mxr73"),
+"material": ExtResource("5_8k8f7"),
 "name": "button_mtl.1001",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -63,9 +50,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bq288")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_42yw5"]
-size = Vector3(2.01166, 1.97571, 0.903259)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0huvk"]
 resource_name = "buttoncase_mtl.1001"
@@ -159,6 +143,7 @@ shadow_mesh = SubResource("ArrayMesh_mvpas")
 [node name="Button" type="Node3D"]
 transform = Transform3D(1.38, 0, 0, 0, 1.38, 0, 0, 0, 1.38, 0, 0, 0)
 script = ExtResource("1_q8bb1")
+pressed_mat = ExtResource("2_qjo38")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(2.025, 0, 0, 0, 1.923, 0, 0, 0, 0.345, 0, 0.490442, 0)
@@ -173,22 +158,22 @@ visible = false
 material_override = ExtResource("2_kgc1c")
 mesh = SubResource("BoxMesh_1fwao")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 1.64764e-13, 0, 1, 0, -1.64764e-13, 0, 1, -8.53712e-07, 2.59151e-06, -1.15334e-12)
+collision_layer = 16
+collision_mask = 32
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00869753, 0.487854, -0.182299)
+shape = SubResource("BoxShape3D_42yw5")
+
 [node name="button" type="Node3D" parent="."]
 transform = Transform3D(-0.575, 0, -8.68226e-08, 0, 0.575, 0, 8.68226e-08, 0, -0.575, -2.73309, -0.993143, 0)
 
 [node name="button_geo" type="MeshInstance3D" parent="button"]
-transform = Transform3D(3.19484, 0, 0, 0, 0, -3.19484, 0, 3.19484, 0, -4.77077, 2.65095, 0)
+transform = Transform3D(3.19484, -5.68434e-14, 0, 0, 0, -3.19484, 5.68434e-14, 3.19484, 0, -4.77077, 2.65095, 0)
 mesh = SubResource("ArrayMesh_ll7ey")
 skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="button/button_geo"]
-transform = Transform3D(-0.544356, 0, 8.21954e-08, -8.21954e-08, 0, -0.544356, 0, -0.544356, 0, 0.00550004, -2.24647e-07, 0.289135)
-collision_layer = 16
-collision_mask = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="button/button_geo/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00869753, 0.487854, -0.182299)
-shape = SubResource("BoxShape3D_42yw5")
 
 [node name="buttoncase_geo" type="MeshInstance3D" parent="button"]
 transform = Transform3D(4.84471, 0, 0, 0, 0, -4.84471, 0, 4.84471, 0, -4.77077, 2.65095, 0.494758)

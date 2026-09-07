@@ -1,9 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwsxqeoj0fwvx"]
+[gd_scene load_steps=3 format=3 uid="uid://dwsxqeoj0fwvx"]
 
 [ext_resource type="PackedScene" uid="uid://gh8igq2rphp" path="res://models/heroassets/plataformavoadora.glb" id="1_jtrro"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wyfee"]
+height = 1.23792
+radius = 4.14582
+
 [node name="plataformavoadora" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.08686, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36647, 0)
+collision_layer = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_wyfee")
 
 [node name="plataformavoadora" parent="." instance=ExtResource("1_jtrro")]
+
+[node name="thruster_grp1" parent="plataformavoadora/platformmoving_grp" index="2"]
+transform = Transform3D(-0.713076, 0.701087, 0, -0.701087, -0.713076, 5.68434e-14, 0, 0, 1, 0, 0, -1.52588e-05)
+
+[node name="thrusterboost_grp_002" parent="plataformavoadora/platformmoving_grp/thruster_grp1" index="0"]
+transform = Transform3D(0.357396, 0, 0, -1.49012e-08, 0.357396, 0, 1.42109e-14, 2.84217e-14, 0.357396, 1.76301e-05, -435.059, 124.621)
+
+[node name="thruster1_geo_002" parent="plataformavoadora/platformmoving_grp/thruster_grp1/thrusterboost_grp_002" index="0"]
+transform = Transform3D(89.2339, 0, 1.81899e-12, 0, 89.2339, 1.81899e-12, 1.81899e-12, -3.63798e-12, 89.2339, 0, 0, -113.867)
+
+[node name="thruster2_geo_002" parent="plataformavoadora/platformmoving_grp/thruster_grp1/thrusterboost_grp_002" index="1"]
+transform = Transform3D(89.2339, 7.62939e-06, 5.45697e-12, 0, 89.2339, 7.27596e-12, 5.45697e-12, -3.63798e-12, 89.2339, 0, 0, -113.867)
+
+[node name="thruster3_geo_002" parent="plataformavoadora/platformmoving_grp/thruster_grp1/thrusterboost_grp_002" index="2"]
+transform = Transform3D(129.654, 0, 0, -7.62939e-06, 129.654, 3.63798e-12, -3.63798e-12, 0, 129.654, -6.10352e-05, 0.000244141, 24.1364)
+
+[node name="thruster4_geo_002" parent="plataformavoadora/platformmoving_grp/thruster_grp1/thrusterboost_grp_002" index="3"]
+transform = Transform3D(131.192, 1.52588e-05, 0, 7.62939e-06, 131.192, 7.27596e-12, 3.63798e-12, 3.63798e-12, 131.192, 0, 0, -103.088)
 
 [editable path="plataformavoadora"]

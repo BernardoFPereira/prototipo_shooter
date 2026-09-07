@@ -105,7 +105,9 @@ func _on_sword_impact(result: KinematicCollision3D):
 		return
 	
 	var collision_parent = collider.get_parent()
+	
 	if collision_parent is SwordButton:
+		print("HIT BUTTON")
 		collision_parent.set_state(collision_parent.button_states.PRESSED)
 		is_on_button = true
 		pressed_button = collision_parent

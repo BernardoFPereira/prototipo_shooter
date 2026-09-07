@@ -21,6 +21,7 @@ func _ready():
 	#collision_area.area_entered.connect(_on_projectile_explosion)
 	lifetime_timer.timeout.connect(_on_lifetime_timer_timeout)
 	explosion_timer.timeout.connect(_on_explosion_timer_timeout)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	global_position += direction * speed * delta
@@ -57,12 +58,19 @@ func explode():
 		if collision.collider is EnemyRanged:
 			var enemy = collision.collider as EnemyRanged
 			enemy.receive_rocket_impact(global_position, damage)
+			
+		if collision.collider is BreakableVent:
+			var vent = collision.collider as BreakableVent
+			vent.queue_free()
+			
 		
 func _on_lifetime_timer_timeout():
 	call_deferred("queue_free")
 
 func _on_projectile_impact(_body):
 	explode()
+	if _body is BreakableVent:
+		_body.call_deferred("queue_free")
 	#call_deferred("queue_free")
 
 #func _on_projectile_explosion(_area):
