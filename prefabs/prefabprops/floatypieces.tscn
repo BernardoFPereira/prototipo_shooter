@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://cs7vxgjvgf51y"]
 
-[ext_resource type="Texture2D" uid="uid://dvqfct87yr5si" path="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_BaseColor.png" id="1_qlqk4"]
-[ext_resource type="Texture2D" uid="uid://q5go0jrqnmkq" path="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_Emissive.png" id="2_oqel1"]
-[ext_resource type="Texture2D" uid="uid://p0w7nspnivpq" path="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_Metallic.1001-texcube_low_cubotex_mtl_Roughness.png" id="3_pkojn"]
+[ext_resource type="Texture2D" uid="uid://dvqfct87yr5si" path="res://models/heroassets/props/props textures/floaty_texcube_low_cubotex_mtl_BaseColor.png" id="1_qlqk4"]
+[ext_resource type="Texture2D" uid="uid://q5go0jrqnmkq" path="res://models/heroassets/props/props textures/floaty_texcube_low_cubotex_mtl_Emissive.png" id="2_oqel1"]
+[ext_resource type="Texture2D" uid="uid://p0w7nspnivpq" path="res://models/heroassets/props/props textures/floaty_texcube_low_cubotex_mtl_Metallic.1001-texcube_low_cubotex_mtl_Roughness.png" id="3_pkojn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1b5qv"]
 resource_name = "trimtest_mtl"
