@@ -10,6 +10,8 @@ extends Node3D
 @onready var impact_sfx = $ImpactSFX
 @onready var projectile_light = $ProjectileLight
 
+@export var max_jump_height: float = 10
+
 var speed: int = 35
 var direction: Vector3
 var knockback: int = 16
@@ -49,7 +51,11 @@ func explode():
 		
 		if collision.collider is Player:
 			var player = collision.collider as Player
-			player.velocity += (global_position.direction_to(player.global_position) * knockback)
+			var knockback_force = global_position.direction_to(player.global_position) * knockback
+			print(knockback_force)
+			knockback_force.y = minf(knockback_force.y, max_jump_height)
+			player.velocity += knockback_force
+			print(player.velocity)
 		
 		if collision.collider is EnemyMelee:
 			var enemy = collision.collider as EnemyMelee

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bl4641hb7ar1k"]
+[gd_scene load_steps=25 format=3 uid="uid://bl4641hb7ar1k"]
 
 [ext_resource type="Script" path="res://scripts/porta.gd" id="1_dwwm7"]
 [ext_resource type="Texture2D" uid="uid://d2di802x0jx0e" path="res://models/heroassets/porta_doorscover_Doorbars_mtl_BaseColor.png" id="1_stwdy"]
@@ -13,7 +13,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("porta/ConcaveDoor/Doorbars_concave_geo:position")
+tracks/0/path = NodePath("porta/ConcaveDoor:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -25,7 +25,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("porta/ConvexDoor/Doorbars_convex_geo:position")
+tracks/1/path = NodePath("porta/ConvexDoor:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -37,11 +37,11 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("porta/ConcaveDoor:position")
+tracks/2/path = NodePath("porta/ConcaveDoor:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.001),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
@@ -49,11 +49,11 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("porta/ConvexDoor:position")
+tracks/3/path = NodePath("porta/ConvexDoor:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.001),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
@@ -70,10 +70,10 @@ tracks/0/path = NodePath("porta/ConcaveDoor:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.09, 0.19, 0.29, 0.49),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.09, 0.19, 0.29, 0.49),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.51025, 0, 0), Vector3(0.687177, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0.51025, 0, 0), Vector3(0.687177, 0, 0), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -86,6 +86,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-0.661896, 0, 0), Vector3(-1.0814, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("porta/ConvexDoor:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("porta/ConcaveDoor:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_st5tj"]
@@ -116,10 +140,87 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-0.0131171, 0, 0), Vector3(-0.0131171, 0, 0), Vector3(-1.645, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("porta/ConcaveDoor:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("porta/ConvexDoor:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_f0hq8"]
+resource_name = "break_apart"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("porta/ConcaveDoor:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(2.18803, 0.669092, 0), Vector3(2.76383, 0.491589, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("porta/ConcaveDoor:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.161775), Vector3(0, 0, -0.0607375)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("porta/ConvexDoor:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.783632, 0.288735, -0.236528), Vector3(-0.751913, 0, -0.236528)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("porta/ConvexDoor:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.233248, 0.0956876, 0.393586), Vector3(-0.0273995, 0.0931239, 0.368846)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_28n5f"]
 _data = {
 "RESET": SubResource("Animation_v3q4t"),
+"break_apart": SubResource("Animation_f0hq8"),
 "broken": SubResource("Animation_my84s"),
 "door_open": SubResource("Animation_st5tj")
 }
@@ -277,6 +378,7 @@ script = ExtResource("1_dwwm7")
 libraries = {
 "": SubResource("AnimationLibrary_28n5f")
 }
+playback_default_blend_time = 0.5
 
 [node name="porta" type="StaticBody3D" parent="."]
 
@@ -290,9 +392,11 @@ transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_cvjpd")
 
 [node name="ConcaveDoor" type="AnimatableBody3D" parent="porta"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+sync_to_physics = false
 
 [node name="Doorbars_concave_geo" type="MeshInstance3D" parent="porta/ConcaveDoor"]
-transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
+transform = Transform3D(0.01, 0, 1.16415e-10, 1.16415e-10, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7a5pb")
 skeleton = NodePath("")
 
@@ -301,6 +405,8 @@ transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_efcew")
 
 [node name="ConvexDoor" type="AnimatableBody3D" parent="porta"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+sync_to_physics = false
 
 [node name="Doorbars_convex_geo" type="MeshInstance3D" parent="porta/ConvexDoor"]
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)

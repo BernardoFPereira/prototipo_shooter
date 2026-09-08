@@ -6,14 +6,13 @@
 height = 1.23792
 radius = 4.14582
 
-[node name="plataformavoadora" type="Node3D"]
+[node name="plataformavoadora" type="AnimatableBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.08686, 0)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36647, 0)
 collision_layer = 17
+collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36647, 0)
 shape = SubResource("CylinderShape3D_wyfee")
 
 [node name="plataformavoadora" parent="." instance=ExtResource("1_jtrro")]
