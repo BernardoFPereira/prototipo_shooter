@@ -186,7 +186,7 @@ func _ready():
 	config_group.visible = false
 	ctrls_group.visible = false
 	
-	is_introduction = true
+	is_introduction = false
 
 func _process(delta):
 	if is_dead or is_next_level:
@@ -224,7 +224,7 @@ func set_state(new_state: PlayerStates):
 		
 		PlayerStates.RUN:
 			is_animating_action = false
-			play_animation_with_blend("walk", true)
+			play_animation_with_blend("extra_anims_2/walk", true)
 		
 		PlayerStates.JUMP:
 			is_animating_action = true

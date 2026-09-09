@@ -1,11 +1,12 @@
 class_name SpatialAudioPlayer3D
 extends AudioStreamPlayer3D
 
-@export var max_raycast_distance: float = 30.0
+@export var max_raycast_distance: float = 50.0
 @export var update_frequency_seconds: float = 0.3
-@export var max_reverb_wetness: float = 0.25
-@export var wall_lowpass_amount: int = 400   
-@export var fade_in_time: float = 1.0   
+@export var max_reverb_wetness: float = 0.5
+@export var wall_lowpass_amount: int = 350   
+@export var fade_in_time: float = 0.5
+@export var air_absorption_cutoff: float = 12000.0
 
 var _raycast_array: Array = []
 var _distance_array: Array = [0,0,0,0,0,0,0,0,0,0]
@@ -24,8 +25,10 @@ var _target_reverb_room_size: float = 0.0
 var _target_volume_db: float = 0.0
 
 func _ready():
-	_setup_audio_effects()
+	doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_PHYSICS_STEP
+	max_distance = max_raycast_distance + 5.0
 	
+	_setup_audio_effects()
 	_setup_raycasts()
 	
 	_target_volume_db = volume_db
@@ -97,20 +100,24 @@ func _on_update_reverb(_player: Node3D):
 		
 		var open_space_ratio = 0.0
 		var walls_detected = 0
+		var total_wall_distance = 0.0
 		
 		for dist in _distance_array:
 			if dist >= 0:
 				walls_detected += 1
-				
 				open_space_ratio += (dist / max_raycast_distance)
+				total_wall_distance += dist
 		
 		if walls_detected > 0:
 			open_space_ratio /= float(walls_detected)
+			var avg_wall_distance = total_wall_distance / float(walls_detected)
+			# room_size reflete o tamanho FÍSICO médio do ambiente, não só a proporção de abertura
+			_target_reverb_room_size = clamp(avg_wall_distance / max_raycast_distance, 0.0, 1.0)
 		else:
 			open_space_ratio = 1.0
+			_target_reverb_room_size = 1.0
 			
 		_target_reverb_wetness = (1.0 - open_space_ratio) * max_reverb_wetness
-		_target_reverb_room_size = 1.0 - open_space_ratio
 
 func _on_update_lowpass_filter(player: Node3D):
 	if _lowpass_filter != null:
@@ -120,17 +127,21 @@ func _on_update_lowpass_filter(player: Node3D):
 		$RaycastPlayer.force_raycast_update()
 		
 		var collider = $RaycastPlayer.get_collider()
+		var distance_to_player = global_position.distance_to(player.global_position)
 		var lowpass_cutoff = 20000.0
 		
 		if collider != null:
 			var hit_point = $RaycastPlayer.get_collision_point()
 			var ray_distance = global_position.distance_to(hit_point)
-			var distance_to_player = global_position.distance_to(player.global_position)
 			
 			if ray_distance < distance_to_player and distance_to_player > 0.1:
 				var wall_ratio = ray_distance / distance_to_player
-				
 				lowpass_cutoff = max(wall_lowpass_amount, 2000) * (1.0 - wall_ratio) + 2000
+		
+		# absorção atmosférica: reduz frequências altas gradualmente com a distância pura,
+		# mesmo sem obstáculos no caminho (efeito sutil, mas perceptível em distâncias grandes)
+		var atmospheric_cutoff = lerp(20000.0, air_absorption_cutoff, clamp(distance_to_player / max_raycast_distance, 0.0, 1.0))
+		lowpass_cutoff = min(lowpass_cutoff, atmospheric_cutoff)
 		
 		_target_lowpass_cutoff = clamp(lowpass_cutoff, 200.0, 20000.0)
 
@@ -173,11 +184,3 @@ func _physics_process(delta):
 		_last_update_time = 0.0
 	
 	_lerp_paramaters(delta)
-
-func _input(event):
-	if event.is_action_pressed("ui_home") and OS.is_debug_build():
-		print("=== Audio Debug ===")
-		print("Reverb Wet: ", _reverb_effect.wet)
-		print("Lowpass Cutoff: ", _lowpass_filter.cutoff_hz)
-		print("Volume: ", volume_db)
-		print("Open Space Ratio: ", 1.0 - _target_reverb_wetness / max_reverb_wetness)
