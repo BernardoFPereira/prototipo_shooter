@@ -757,7 +757,7 @@ size = Vector3(1.36, 1, 1.84)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dvs3g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_odl67"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -767,7 +767,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("31_1l4ih")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iy3e3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ymjvo"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -777,7 +777,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("32_nbj6u")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ihrh0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dvyyx"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -787,7 +787,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("34_brvs5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6gqhb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mkiap"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -812,7 +812,7 @@ shader_parameter/displacement_strength = 0.15
 shader_parameter/displacement_frequency = 10.0
 shader_parameter/displacement_wave_speed = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdi1m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r74wo"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -822,7 +822,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_r8oie"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jpl8"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -832,7 +832,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("27_frtra")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sjesr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7q5po"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -842,7 +842,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("28_y4ty8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4se24"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ci8ee"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -978,7 +978,7 @@ shader_parameter/blur_size = 1.2
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nfg16"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dgg0w"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1387,7 +1387,7 @@ mesh = SubResource("ArrayMesh_5rrhx")
 skin = SubResource("Skin_4l2pa")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Head/Weapon/PlayerArmature/Armature/Skeleton3D"]
-transform = Transform3D(0.996875, -0.0145783, 0.0776361, -0.0787209, -0.101825, 0.991683, -0.00655159, -0.994696, -0.102654, -0.376305, -0.13129, -0.369502)
+transform = Transform3D(0.996875, -0.0145781, 0.0776362, -0.0787209, -0.101825, 0.991683, -0.00655156, -0.994696, -0.102654, -0.376305, -0.13129, -0.369502)
 bone_name = "cannonBase"
 bone_idx = 3
 
@@ -1455,7 +1455,7 @@ color = Color(0.160784, 0.2, 0.211765, 0.960784)
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_dvs3g")
+material = SubResource("ShaderMaterial_odl67")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1471,7 +1471,7 @@ line_opacity = 0.3
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_iy3e3")
+material = SubResource("ShaderMaterial_ymjvo")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1485,7 +1485,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_ihrh0")
+material = SubResource("ShaderMaterial_dvyyx")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1516,7 +1516,7 @@ texture = ExtResource("3_5hn21")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_6gqhb")
+material = SubResource("ShaderMaterial_mkiap")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1552,13 +1552,13 @@ texture = ExtResource("24_4dgpa")
 [node name="AssistantFrame" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_rdi1m")
+material = SubResource("ShaderMaterial_r74wo")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -205.0
+offset_left = 1715.0
 offset_top = 49.0
-offset_right = -13.0
+offset_right = 1907.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1571,13 +1571,13 @@ line_opacity = 0.5
 [node name="AssistantIris" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_r8oie")
+material = SubResource("ShaderMaterial_0jpl8")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -205.0
+offset_left = 1715.0
 offset_top = 49.0
-offset_right = -13.0
+offset_right = 1907.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1590,13 +1590,13 @@ line_opacity = 0.5
 [node name="AssistantPupil" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_sjesr")
+material = SubResource("ShaderMaterial_7q5po")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -205.0
+offset_left = 1715.0
 offset_top = 49.0
-offset_right = -13.0
+offset_right = 1907.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1610,7 +1610,7 @@ line_opacity = 0.5
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_4se24")
+material = SubResource("ShaderMaterial_ci8ee")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1745,9 +1745,10 @@ pivot_offset = Vector2(1882, 211)
 mouse_filter = 2
 
 [node name="AssistantTextBox" type="NinePatchRect" parent="GameHUD/Control" node_paths=PackedStringArray("rich_text_label")]
+visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_nfg16")
+material = SubResource("ShaderMaterial_dgg0w")
 layout_direction = 3
 layout_mode = 1
 anchors_preset = 1
@@ -2652,7 +2653,6 @@ theme = ExtResource("18_40mg7")
 text = "SAIR"
 
 [node name="SFX" type="Node3D" parent="."]
-visible = false
 
 [node name="Idle" parent="SFX" instance=ExtResource("24_mrbwe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52837, 0)
