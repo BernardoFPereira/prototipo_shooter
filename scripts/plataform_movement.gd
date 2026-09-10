@@ -2,6 +2,7 @@ extends Node3D
 
 @export var path: Array[Marker3D]
 @export var move_speed: float = 10
+@export var start_node: int = 0
 
 var current_node: Marker3D
 var current_node_idx: int
@@ -9,8 +10,8 @@ var target
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	current_node = path[0]
-	current_node_idx = 0
+	current_node = path[start_node]
+	current_node_idx = start_node
 	global_position = current_node.global_position
 	target = path[current_node_idx + 1]
 

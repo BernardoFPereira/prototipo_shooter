@@ -8,7 +8,7 @@
 size = Vector3(6.9104, 7.01453, 0.964722)
 
 [node name="vent" type="StaticBody3D"]
-collision_layer = 17
+collision_layer = 273
 script = ExtResource("1_sw2nr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

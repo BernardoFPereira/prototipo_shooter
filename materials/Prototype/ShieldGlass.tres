@@ -1,6 +1,11 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bgi6glyns8aeb"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bgi6glyns8aeb"]
 
 [ext_resource type="Shader" path="res://materials/Prototype/Shield.gdshader" id="1_u4s38"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hxj4w"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l0kxh"]
+noise = SubResource("FastNoiseLite_hxj4w")
 
 [resource]
 render_priority = 0
@@ -16,3 +21,4 @@ shader_parameter/hit_color = Color(1, 1, 1, 1)
 shader_parameter/hit_radius = 3.0
 shader_parameter/hit_ring_width = 0.3
 shader_parameter/hit_push_force = 0.5
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_l0kxh")

@@ -8,7 +8,7 @@
 size = Vector3(2.53687, 2.42578, 0.875)
 
 [node name="vent" type="RigidBody3D"]
-collision_layer = 17
+collision_layer = 273
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true

@@ -49,7 +49,8 @@ const ctrls_joy_background = preload("uid://nb4doc1n4fhh")
 @onready var joystick_button = $Background/MainPanel/ControlsGroup/JoystickButton
 #endregion
 
-var level_scene: PackedScene = load("uid://cw50tmi4jwwv4")
+#var level_scene: PackedScene = load("uid://cw50tmi4jwwv4")
+var start_level: PackedScene = load("uid://cw50tmi4jwwv4")
 var resolution_button_group: ButtonGroup
 
 func _ready() -> void:
@@ -68,7 +69,7 @@ func _ready() -> void:
 
 func _on_play_pressed() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	get_tree().change_scene_to_packed(level_scene)
+	get_tree().change_scene_to_packed(start_level)
 	UI.play_sound("confirm_button")
 	UI.save_settings()
 

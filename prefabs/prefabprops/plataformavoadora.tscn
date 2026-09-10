@@ -35,4 +35,32 @@ transform = Transform3D(129.654, 0, 0, -7.62939e-06, 129.654, 3.63798e-12, -3.63
 [node name="thruster4_geo_002" parent="plataformavoadora/platformmoving_grp/thruster_grp1/thrusterboost_grp_002" index="3"]
 transform = Transform3D(131.192, 1.52588e-05, 0, 7.62939e-06, 131.192, 7.27596e-12, 3.63798e-12, 3.63798e-12, 131.192, 0, 0, -103.088)
 
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.09731, 0.659964, 3.15984)
+light_color = Color(0, 0.87451, 0.603922, 1)
+light_energy = 2.194
+shadow_enabled = true
+spot_range = 8.535
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -3.09731, 0.659964, -3.11602)
+light_color = Color(0, 0.87451, 0.603922, 1)
+light_energy = 2.194
+shadow_enabled = true
+spot_range = 8.535
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.04154, 0.659964, 3.15984)
+light_color = Color(0, 0.87451, 0.603922, 1)
+light_energy = 2.194
+shadow_enabled = true
+spot_range = 8.535
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 3.04154, 0.659964, -3.11602)
+light_color = Color(0, 0.87451, 0.603922, 1)
+light_energy = 2.194
+shadow_enabled = true
+spot_range = 8.535
+
 [editable path="plataformavoadora"]

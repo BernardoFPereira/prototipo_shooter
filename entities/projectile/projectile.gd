@@ -67,7 +67,8 @@ func explode():
 			
 		if collision.collider is BreakableVent:
 			var vent = collision.collider as BreakableVent
-			vent.queue_free()
+			#vent.queue_free()
+			vent.call_deferred("queue_free")
 			
 		
 func _on_lifetime_timer_timeout():
@@ -75,8 +76,8 @@ func _on_lifetime_timer_timeout():
 
 func _on_projectile_impact(_body):
 	explode()
-	if _body is BreakableVent:
-		_body.call_deferred("queue_free")
+	#if _body is BreakableVent:
+		#_body.call_deferred("queue_free")
 	#call_deferred("queue_free")
 
 #func _on_projectile_explosion(_area):
