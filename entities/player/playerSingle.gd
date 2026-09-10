@@ -161,6 +161,7 @@ func _ready():
 	enemy_detection_range.body_exited.connect(_on_enemy_detection_range_body_exited)
 	
 	detection_timer.timeout.connect(_check_visibility)
+	assistant_text_box.message_timeout.connect(_on_assistant_message_timeout)
 	detection_timer.wait_time = 0.15
 	detection_timer.one_shot = false
 	detection_timer.start()
@@ -930,5 +931,10 @@ func _on_avic_animations_animation_finished(anim_name):
 			avic_animations.play("avic/centered_assistant_popout")
 			is_introduction = false
 
+func _on_assistant_message_timeout():
+	avic_animations.play("avic/assistant_popout")
+
 func get_message_data(message: String):
 	new_message = message
+	if assistant_text_box:
+		assistant_text_box.visible = false

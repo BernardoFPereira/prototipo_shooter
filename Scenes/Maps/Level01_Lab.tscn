@@ -8456,7 +8456,7 @@ size = Vector3(4, 0.5, 4)
 size = Vector3(4.07617, 0.48999, 4.09863)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gln1x"]
-size = Vector3(10, 10, 10)
+size = Vector3(7.62183, 9.93018, 24.5033)
 
 [node name="Level01Lab" type="Node3D"]
 
@@ -9093,14 +9093,27 @@ collision_layer = 17
 shape = SubResource("BoxShape3D_p5ueu")
 
 [node name="AssistantTextArea" type="Area3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0426, 2.76092, 28.3459)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.9983, 2.76092, 28.3459)
 collision_layer = 0
 collision_mask = 512
 script = ExtResource("12_hg8l1")
 player = NodePath("../Player")
-message = "Olá carai"
+message = "Use 'W, A, S, D' para se locomover, e o Mouse para olhar ao redor."
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea"]
 shape = SubResource("BoxShape3D_gln1x")
 
+[node name="AssistantTextArea2" type="Area3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.88591, 2.76092, -22.8841)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("12_hg8l1")
+player = NodePath("../Player")
+message = "Use 'Espaço' para pular."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.95317, 2.44399, -5.2526)
+shape = SubResource("BoxShape3D_gln1x")
+
 [connection signal="body_entered" from="AssistantTextArea" to="AssistantTextArea" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea2" to="AssistantTextArea2" method="_on_body_entered"]
