@@ -27,6 +27,10 @@ func set_state(new_state):
 	
 	match state:
 		button_states.PRESSED:
+			if linked_obj is SpawnerDoor:
+				linked_obj.spawn_enemy()
+				return
+			
 			if linked_obj is Door and linked_obj.is_broken:
 				print("DOOR BROKEN BRUH")
 				#var moving_blocks = get_tree().get_first_node_in_group("ExplosionBlocks")
@@ -38,5 +42,8 @@ func set_state(new_state):
 			linked_obj.get_node("AnimationPlayer").play("door_open")
 			button_geo.material_override = pressed_mat
 		button_states.UNPRESSED:
+			if linked_obj is SpawnerDoor:
+				return
+				
 			linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
 			button_geo.material_override = null

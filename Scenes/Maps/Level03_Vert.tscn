@@ -1,4 +1,4 @@
-[gd_scene load_steps=3990 format=3 uid="uid://ddeco0b34517h"]
+[gd_scene load_steps=3991 format=3 uid="uid://ddeco0b34517h"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="3_kld1k"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dw2b15lk21d4q" path="res://prefabs/prefabprops/BreakableVent.tscn" id="12_a7xl6"]
 [ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="15_g48f6"]
+[ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="17_5epkl"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 ambient_light_source = 2
@@ -40064,7 +40065,7 @@ transform = Transform3D(0.933249, -0.0907514, 0.347579, -0.359231, -0.235764, 0.
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k7ges")
 
-[node name="Player" parent="." instance=ExtResource("9_e2kfd")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("9_e2kfd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.29368, 0.0973859, 27.3663)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
@@ -42171,6 +42172,10 @@ target = NodePath("../Player")
 transform = Transform3D(-0.597041, 0, 1.0164e-07, 0, 0.597041, 0, -9.01506e-08, 0, -0.673132, -2.44811, 11.8126, 19.7403)
 linked_obj = NodePath("../portadiorama")
 
+[node name="Button6" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("9_834kp")]
+transform = Transform3D(-6.40531e-08, 0, -0.673132, 0, 0.597041, 0, 0.597041, 0, -7.22165e-08, 22.9527, 11.8126, 1.47624)
+linked_obj = NodePath("../SpawnerDoor")
+
 [node name="Button3" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("9_834kp")]
 transform = Transform3D(1.16248e-07, 0, 0.558954, 0, 0.597041, 0, -0.597041, 0, 1.08833e-07, -11.3832, 11.7546, 33.9339)
 linked_obj = NodePath("../Chute")
@@ -42211,7 +42216,6 @@ is_open = true
 
 [node name="portadiorama8" parent="." instance=ExtResource("10_4532i")]
 transform = Transform3D(1, 0, -1.74845e-07, 0, 1, 0, 1.74845e-07, 0, 1, -5.81078, 30.4189, 20.292)
-is_open = true
 
 [node name="Chute" parent="." instance=ExtResource("11_6sjiu")]
 transform = Transform3D(-5.94503e-08, 0, 1.36006, 0, 1, 0, -1.36006, 0, -5.94503e-08, -6.73988, 15.8553, 31.2536)
@@ -42247,5 +42251,9 @@ is_final_level = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SceneProgressArea"]
 shape = SubResource("BoxShape3D_7h6pm")
+
+[node name="SpawnerDoor" parent="." instance=ExtResource("17_5epkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5671, 10, -4.45081)
+melee = 2
 
 [connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
