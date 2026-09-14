@@ -27121,17 +27121,11 @@ transform = Transform3D(0.844038, 0, -0.536284, 0, 1, 0, 0.536284, 0, 0.844038, 
 
 [node name="Button" parent="Doors and Buttons" node_paths=PackedStringArray("linked_obj") instance=ExtResource("4_7p5k2")]
 transform = Transform3D(-1.37983, 0, 0.0219876, 0, 1.38, 0, -0.0219876, 0, -1.37983, -4.45629, 3.11814, 13.8044)
-linked_obj = NodePath("../Door2")
-
-[node name="Door2" parent="Doors and Buttons" instance=ExtResource("5_jnl8x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.580675, 0, 14.5349)
+linked_obj = NodePath("")
 
 [node name="Button2" parent="Doors and Buttons" node_paths=PackedStringArray("linked_obj") instance=ExtResource("4_7p5k2")]
 transform = Transform3D(-0.0151014, 0, 1.37992, 0, 1.38, 0, -1.37992, 0, -0.0151014, -16.6655, 26.7681, 43.2234)
-linked_obj = NodePath("../Door3")
-
-[node name="Door3" parent="Doors and Buttons" instance=ExtResource("5_jnl8x")]
-transform = Transform3D(0.000191996, 0, 1, 0, 1, 0, -1, 0, 0.000191996, -18.4709, 23.6499, 37.6847)
+linked_obj = NodePath("")
 
 [node name="Button4" parent="Doors and Buttons" node_paths=PackedStringArray("linked_obj") instance=ExtResource("4_7p5k2")]
 transform = Transform3D(-1.37992, 0, 0.0146918, 0, 1.38, 0, -0.0146918, 0, -1.37992, -1.31054, 11.933, 45.773)
