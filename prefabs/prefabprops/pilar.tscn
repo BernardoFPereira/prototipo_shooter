@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpqer2rvjis3b"]
+
+[ext_resource type="PackedScene" uid="uid://c4uv8no8hgsa6" path="res://models/heroassets/Pilar.glb" id="1_21m0x"]
+
+[node name="Pilar" type="Node3D"]
+
+[node name="Pilar" parent="." instance=ExtResource("1_21m0x")]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcj3yqwdv0enk"]
+
+[ext_resource type="PackedScene" uid="uid://118n0of05q30" path="res://models/heroassets/props/LabCapsule.glb" id="1_b2t8n"]
+
+[node name="LabCapsule" type="Node3D"]
+
+[node name="LabCapsule" parent="." instance=ExtResource("1_b2t8n")]
+
+[editable path="LabCapsule"]

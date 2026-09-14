@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvvatsxla1lbb"]
+
+[ext_resource type="PackedScene" uid="uid://ghin345xyjn4" path="res://models/heroassets/props/Tubinho.glb" id="1_m1y5w"]
+
+[node name="Tubinho" type="Node3D"]
+
+[node name="Tubinho" parent="." instance=ExtResource("1_m1y5w")]

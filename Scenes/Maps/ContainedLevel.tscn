@@ -27093,7 +27093,7 @@ transform = Transform3D(0.953843, 0.179311, -0.240897, 0.295664, -0.420235, 0.85
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_42qho")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573916, -5.99696, -32.5344)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.573916, 0.601979, -32.5344)
 
 [node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21837, 0)
