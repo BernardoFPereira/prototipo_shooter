@@ -8465,6 +8465,12 @@ environment = SubResource("Environment_bwkuk")
 
 [node name="Player" parent="." instance=ExtResource("1_r26mw")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 40.4177, -2.38419e-07, 28.3653)
+fall_velocity_threshhold = -5.0
+drag = 25
+gravity = 42
+max_health = 100.0
+melee_damage = 10.0
+impact_strength = 250
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.4367, 0)

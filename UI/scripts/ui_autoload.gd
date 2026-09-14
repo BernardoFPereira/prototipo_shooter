@@ -22,6 +22,18 @@ var hud_muted: bool = false
 
 #region CONTROLS
 var is_keyboard: bool = true
+var mouse_sensitivity: float = 0.001
+
+const SENSITIVITY_MIN: float = 0.0001
+const SENSITIVITY_MAX: float = 0.003
+
+func slider_to_sensitivity(value: float) -> float:
+	var normalized = value / 10.0
+	return lerp(SENSITIVITY_MIN, SENSITIVITY_MAX, normalized)
+
+func sensitivity_to_slider(sens: float) -> float:
+	var normalized = (sens - SENSITIVITY_MIN) / (SENSITIVITY_MAX - SENSITIVITY_MIN)
+	return clamp(normalized * 10.0, 0.0, 10.0)
 #endregion
 
 #region AUDIO MANAGEMENT
@@ -212,7 +224,7 @@ func center_window() -> void:
 const MIN_DB: float = -80
 const MAX_DB: float = -5
 
-const VOLUME_CURVE_POWER: float = 0.4
+const VOLUME_CURVE_POWER: float = 2.5
 
 func slider_to_db(value: float) -> float:
 	
@@ -269,6 +281,8 @@ func save_settings() -> void:
 	config.set_value("audio", "sfx_muted", sfx_muted)
 	config.set_value("audio", "hud_muted", hud_muted)
 	
+	config.set_value("controls", "mouse_sensitivity", mouse_sensitivity)
+	
 	config.save(SETTINGS_FILE)
 	print("Settings saved to: ", SETTINGS_FILE)
 
@@ -284,6 +298,7 @@ func load_settings() -> void:
 		music_muted = false
 		sfx_muted = false
 		hud_muted = false
+		mouse_sensitivity = 0.001
 		apply_settings()
 		return
 	
@@ -301,6 +316,7 @@ func load_settings() -> void:
 	music_muted = config.get_value("audio", "music_muted", false)
 	sfx_muted = config.get_value("audio", "sfx_muted", false)
 	hud_muted = config.get_value("audio", "hud_muted", false)
+	mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 0.001)
 	
 	apply_settings()
 	print("Settings loaded from: ", SETTINGS_FILE)
