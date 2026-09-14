@@ -147,8 +147,8 @@ func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		var current_slider_value = music_slider.value
 		if current_slider_value <= 0:
-			music_slider.value = 1
-			current_slider_value = 1
+			music_slider.value = 2
+			current_slider_value = 2
 
 		AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, UI.slider_to_db(current_slider_value))
 		toggle_music_button.icon = on_button_texture
@@ -165,8 +165,8 @@ func _on_toggle_sfx_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		var current_slider_value = sfx_slider.value
 		if current_slider_value <= 0:
-			sfx_slider.value = 1
-			current_slider_value = 1
+			sfx_slider.value = 2
+			current_slider_value = 2
 
 		AudioServer.set_bus_volume_db(UI.AudioBus.SFX, UI.slider_to_db(current_slider_value))
 		toggle_sfx_button.icon = on_button_texture
@@ -183,8 +183,8 @@ func _on_toggle_hudsfx_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		var current_slider_value = hud_slider.value
 		if current_slider_value <= 0:
-			hud_slider.value = 1
-			current_slider_value = 1
+			hud_slider.value = 2
+			current_slider_value = 2
 
 		AudioServer.set_bus_volume_db(UI.AudioBus.HUD, UI.slider_to_db(current_slider_value))
 		toggle_hudsfx_button.icon = on_button_texture

@@ -232,6 +232,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 stretch_mode = 5
 
 [node name="ConfigGroup" type="Control" parent="Background/MainPanel"]
@@ -506,8 +507,8 @@ offset_left = 1482.0
 offset_top = 195.0
 offset_right = 1725.0
 offset_bottom = 249.0
-max_value = 10.0
-value = 10.0
+max_value = 20.0
+value = 20.0
 texture_progress = ExtResource("9_eyrhm")
 
 [node name="MusicSlider" type="HSlider" parent="Background/MainPanel/ConfigGroup/Audio"]
@@ -525,7 +526,7 @@ theme_override_icons/tick = SubResource("ImageTexture_7w4mo")
 theme_override_styles/slider = SubResource("StyleBoxEmpty_j1qwj")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_1vpe4")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_xpcdl")
-max_value = 10.0
+max_value = 20.0
 
 [node name="SFXBar" type="TextureProgressBar" parent="Background/MainPanel/ConfigGroup/Audio"]
 layout_mode = 0
@@ -533,8 +534,8 @@ offset_left = 1482.0
 offset_top = 405.0
 offset_right = 1725.0
 offset_bottom = 459.0
-max_value = 10.0
-value = 10.0
+max_value = 20.0
+value = 20.0
 texture_progress = ExtResource("9_eyrhm")
 
 [node name="SFXSlider" type="HSlider" parent="Background/MainPanel/ConfigGroup/Audio"]
@@ -552,7 +553,7 @@ theme_override_icons/tick = SubResource("ImageTexture_7w4mo")
 theme_override_styles/slider = SubResource("StyleBoxEmpty_j1qwj")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_1vpe4")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_xpcdl")
-max_value = 10.0
+max_value = 20.0
 
 [node name="HUDBar" type="TextureProgressBar" parent="Background/MainPanel/ConfigGroup/Audio"]
 layout_mode = 0
@@ -560,8 +561,8 @@ offset_left = 1482.0
 offset_top = 615.0
 offset_right = 1725.0
 offset_bottom = 669.0
-max_value = 10.0
-value = 10.0
+max_value = 20.0
+value = 20.0
 texture_progress = ExtResource("9_eyrhm")
 
 [node name="HUDSlider" type="HSlider" parent="Background/MainPanel/ConfigGroup/Audio"]
@@ -579,7 +580,7 @@ theme_override_icons/tick = SubResource("ImageTexture_7w4mo")
 theme_override_styles/slider = SubResource("StyleBoxEmpty_j1qwj")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_1vpe4")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_xpcdl")
-max_value = 10.0
+max_value = 20.0
 
 [node name="ToggleMusicButton" type="Button" parent="Background/MainPanel/ConfigGroup/Audio"]
 layout_mode = 0

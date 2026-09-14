@@ -84,9 +84,6 @@ var thrown_sword: Sword
 
 #region HUD
 @onready var game_hud_canvas = $GameHUD
-@onready var dead_canvas = $GameOverHUD
-@onready var next_level_canvas = $NextLevelHUD
-@onready var menu_canvas = $MenuHUD
 @onready var health_bar = $GameHUD/HealthBar
 var real_value : float
 @onready var activation_timer = $ActivationTimer
@@ -119,14 +116,15 @@ const res_button_selected_texture = preload("uid://cev240nhyxski")
 const ctrls_key_background = preload("uid://bmu1oequesbqo")
 const quit_background = preload("uid://dmel4nekr0nx4")
 var resolution_button_group: ButtonGroup
-@onready var settings_panel: SettingsPanel = $MenuHUD/Panel/ConfigGroup
 #endregion
 
 func _ready():
+	# Sem isso, o Menu (autoload GameMenu.tscn) nunca sai do context MAIN_MENU, e o "_unhandled_input"
+	# dele que escuta ui_cancel (ESC) fica travado — é o que faz o ESC não abrir o menu de pausa.
+	Menu.enter_gameplay_context(self)
+
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
-	dead_canvas.visible = false
-	next_level_canvas.visible = false
 	game_hud_canvas.visible = true
 	is_next_level = false
 	
@@ -149,8 +147,6 @@ func _ready():
 	assistant_pupil.scale = Vector2(0,0)
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
-	
-	settings_panel.setup()
 	
 	is_introduction = false
 
@@ -375,12 +371,10 @@ func _unhandled_input(event):
 func _toggle_pause_menu():
 	if get_tree().paused:
 		get_tree().paused = false
-		menu_canvas.visible = false
 		game_hud_canvas.visible = true
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:
 		get_tree().paused = true
-		menu_canvas.visible = true
 		game_hud_canvas.visible = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -522,7 +516,6 @@ func take_damage(amount: float):
 		if current_health <= 0:
 			current_health = 0
 			is_dead = true
-			dead_canvas.visible = true
 			game_hud_canvas.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 

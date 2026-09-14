@@ -224,32 +224,28 @@ func center_window() -> void:
 const MIN_DB: float = -80
 const MAX_DB: float = -5
 
-const VOLUME_CURVE_POWER: float = 2.5
+# Sliders de áudio vão de 0 a 20 (step 1). Cada step sobe/desce exatamente VOLUME_DB_STEP dB,
+# ancorado no topo (slider = VOLUME_SLIDER_MAX equivale a MAX_DB). Ex.: 20 -> -5dB, 19 -> -7dB,
+# 18 -> -9dB, e por aí vai — sem curva nenhuma, só passos iguais de dB. slider = 0 é tratado como
+# mudo (MIN_DB) e não entra nessa conta linear.
+const VOLUME_SLIDER_MAX: float = 20.0
+const VOLUME_DB_STEP: float = 2.0
 
 func slider_to_db(value: float) -> float:
-	
 	if value <= 0:
 		return MIN_DB
 	
-	var normalized = value / 10.0
+	var clamped = clampf(value, 0.0, VOLUME_SLIDER_MAX)
 	
-	var curve = pow(normalized, VOLUME_CURVE_POWER)
-	
-	var db = MIN_DB + (curve * (MAX_DB - MIN_DB))
-	
-	return db
+	return MAX_DB - (VOLUME_SLIDER_MAX - clamped) * VOLUME_DB_STEP
 
 func db_to_slider(db: float) -> float:
 	if db <= MIN_DB:
 		return 0.0
 	
-	var normalized = (db - MIN_DB) / (MAX_DB - MIN_DB)
+	var value = VOLUME_SLIDER_MAX - (MAX_DB - db) / VOLUME_DB_STEP
 	
-	var curve = pow(normalized, 1.0 / VOLUME_CURVE_POWER)
-	
-	var value = curve * 10.0
-	
-	return clamp(value, 0.0, 10.0)
+	return clampf(value, 0.0, VOLUME_SLIDER_MAX)
 #endregion
 
 func apply_settings() -> void:
