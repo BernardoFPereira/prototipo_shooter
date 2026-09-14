@@ -1,4 +1,4 @@
-[gd_scene load_steps=1280 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1279 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_r26mw"]
@@ -21,7 +21,6 @@
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="17_84fkf"]
 [ext_resource type="Script" path="res://scripts/plataform_movement.gd" id="17_lhni3"]
 [ext_resource type="PackedScene" uid="uid://ddeco0b34517h" path="res://Scenes/Maps/Level03_Vert.tscn" id="18_knqji"]
-[ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="22_ibuoc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -13670,7 +13669,7 @@ script = ExtResource("17_lhni3")
 path = [NodePath("../Waypoint0"), NodePath("../Waypoint1"), NodePath("../Waypoint2"), NodePath("../Waypoint3"), NodePath("../Waypoint4")]
 
 [node name="plataformavoadora2" parent="PlatformPath" node_paths=PackedStringArray("path") instance=ExtResource("12_hqdqu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2268, -9.3343, -3.21784)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2268, -5.32423, -3.21784)
 script = ExtResource("17_lhni3")
 path = [NodePath("../Waypoint0"), NodePath("../Waypoint1"), NodePath("../Waypoint2"), NodePath("../Waypoint3"), NodePath("../Waypoint4")]
 start_node = 3
@@ -13684,8 +13683,6 @@ level_to_load = ExtResource("18_knqji")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SceneProgressArea"]
 shape = SubResource("BoxShape3D_76us0")
-
-[node name="Node3D" parent="." instance=ExtResource("22_ibuoc")]
 
 [connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
 
