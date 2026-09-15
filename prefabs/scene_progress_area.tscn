@@ -1,0 +1,98 @@
+[gd_scene load_steps=9 format=3 uid="uid://3piewsvrrigx"]
+
+[ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="1_wn1od"]
+[ext_resource type="PackedScene" uid="uid://ddeco0b34517h" path="res://Scenes/Maps/Level03_Vert.tscn" id="2_8ey1f"]
+[ext_resource type="Texture2D" uid="uid://ci4qqpqgo2utt" path="res://UI/NextLevel/_old/v2 NÍVEL CONCLUIDO BASE.png" id="3_1l6km"]
+[ext_resource type="Texture2D" uid="uid://b0cqpwoqvbjm7" path="res://UI/NextLevel/_old/v2_btn_continuar.png" id="4_vdnpi"]
+[ext_resource type="Texture2D" uid="uid://ddm1ovqo68r7g" path="res://UI/NextLevel/_old/v2_btn_continuar_selected.png" id="5_lpd10"]
+[ext_resource type="Texture2D" uid="uid://dsbvhxar6mq30" path="res://UI/NextLevel/_old/v2_btn_sair.png" id="6_r464h"]
+[ext_resource type="Texture2D" uid="uid://cwcecrhgtc106" path="res://UI/NextLevel/_old/v2_btn_sair_selected.png" id="7_02u3x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_76us0"]
+size = Vector3(6.33398, 5.11914, 5.98047)
+
+[node name="SceneProgressArea" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0526, 3.26803, 25.6415)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_wn1od")
+level_to_load = ExtResource("2_8ey1f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_76us0")
+
+[node name="LevelCompleteScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="LevelCompleteScreen"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="UnfocusRect" type="ColorRect" parent="LevelCompleteScreen/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.172549, 0.0901961, 0.584314)
+
+[node name="LevelCompleteText" type="TextureRect" parent="LevelCompleteScreen/Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_1l6km")
+
+[node name="ContinueButton" type="TextureButton" parent="LevelCompleteScreen/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -571.0
+offset_top = 39.0
+offset_right = -67.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("4_vdnpi")
+texture_pressed = ExtResource("5_lpd10")
+texture_hover = ExtResource("5_lpd10")
+
+[node name="QuitButton" type="TextureButton" parent="LevelCompleteScreen/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 76.0
+offset_top = 39.0
+offset_right = 580.0
+offset_bottom = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("6_r464h")
+texture_pressed = ExtResource("7_02u3x")
+texture_hover = ExtResource("7_02u3x")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="button_down" from="LevelCompleteScreen/Control/ContinueButton" to="." method="_on_continue_button_down"]
+[connection signal="button_down" from="LevelCompleteScreen/Control/QuitButton" to="." method="_on_quit_button_down"]

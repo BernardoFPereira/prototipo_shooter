@@ -1,4 +1,4 @@
-[gd_scene load_steps=1279 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1277 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_r26mw"]
@@ -18,9 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://dw2b15lk21d4q" path="res://prefabs/prefabprops/BreakableVent.tscn" id="15_00gqf"]
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="15_r2o2d"]
 [ext_resource type="PackedScene" uid="uid://c6uc418mpdn06" path="res://prefabs/prefabprops/pilares.tscn" id="16_bfy5c"]
-[ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="17_84fkf"]
 [ext_resource type="Script" path="res://scripts/plataform_movement.gd" id="17_lhni3"]
-[ext_resource type="PackedScene" uid="uid://ddeco0b34517h" path="res://Scenes/Maps/Level03_Vert.tscn" id="18_knqji"]
+[ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="20_1ynvn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -12670,9 +12669,6 @@ _data = {
 "loop": SubResource("Animation_s5twc")
 }
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_76us0"]
-size = Vector3(6.33398, 5.11914, 5.98047)
-
 [node name="Level01Lab" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -13674,17 +13670,7 @@ script = ExtResource("17_lhni3")
 path = [NodePath("../Waypoint0"), NodePath("../Waypoint1"), NodePath("../Waypoint2"), NodePath("../Waypoint3"), NodePath("../Waypoint4")]
 start_node = 3
 
-[node name="SceneProgressArea" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0526, 3.26803, 25.6415)
-collision_layer = 0
-collision_mask = 4
-script = ExtResource("17_84fkf")
-level_to_load = ExtResource("18_knqji")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SceneProgressArea"]
-shape = SubResource("BoxShape3D_76us0")
-
-[connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
+[node name="SceneProgressArea" parent="." instance=ExtResource("20_1ynvn")]
 
 [editable path="Pilar"]
 [editable path="Pilar2"]
