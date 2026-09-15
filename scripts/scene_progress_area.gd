@@ -2,16 +2,10 @@ extends Area3D
 
 @onready var level_complete_screen = $LevelCompleteScreen
 
-@export var level_to_load: PackedScene
-@export var is_final_level: bool
+@export var level_to_load: PackedScene = null
+@export var is_final_level: bool = false
 
 var main_menu_scene = load("uid://d2rqkagxvdfhw")
-
-signal continue_button_pressed
-
-#func _ready():
-	#continue_button_pressed.connect(_on_continue_button_pressed)
-	#pass
 
 func load_next_level(level_to_load):
 	get_tree().change_scene_to_packed(level_to_load)
@@ -22,17 +16,6 @@ func _on_body_entered(body):
 		body.process_mode = Node.PROCESS_MODE_DISABLED
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		level_complete_screen.visible = true
-		
-		#get_tree().change_scene_to_packed(level_to_load)
-		#if is_final_level:
-			#get_tree().change_scene_to_packed(main_menu_scene)
-
-#func _on_continue_button_pressed():
-	#if is_final_level:
-		#get_tree().change_scene_to_packed(main_menu_scene)
-		#return
-	#
-	#load_next_level(level_to_load)
 
 func _on_continue_button_down():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

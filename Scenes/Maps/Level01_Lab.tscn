@@ -1,4 +1,4 @@
-[gd_scene load_steps=1277 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1278 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_r26mw"]
@@ -19,7 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="15_r2o2d"]
 [ext_resource type="PackedScene" uid="uid://c6uc418mpdn06" path="res://prefabs/prefabprops/pilares.tscn" id="16_bfy5c"]
 [ext_resource type="Script" path="res://scripts/plataform_movement.gd" id="17_lhni3"]
-[ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="20_1ynvn"]
+[ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="20_2kun6"]
+[ext_resource type="PackedScene" uid="uid://ddeco0b34517h" path="res://Scenes/Maps/Level03_Vert.tscn" id="21_yms5d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -13032,78 +13033,91 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.7805, -0.5, 16.6743)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_abib2")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_49" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_trf11")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_50" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_genel")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_52" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_uhfjw")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_53" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_11c85")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_54" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_6g7gq")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_56" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_2wi4c")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_51" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_3dynl")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_55" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_vxltp")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_57" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_d16q7")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_58" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_swk3t")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_59" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_3mlb6")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_60" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -16.5, -77.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_spwdu")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_61" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2805, -12.5, -50.3257)
@@ -13124,198 +13138,231 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_xyfeg")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_64" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_twn51")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_65" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_ogp5w")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_66" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_k6rtv")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_67" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_dsvil")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_68" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_mok06")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_69" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_qb5ju")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_70" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -75.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_7tvui")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_71" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -75.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_jcanw")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_72" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -75.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_os18b")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_73" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -75.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_dj6hn")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_74" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -75.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_xey6f")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_75" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -45.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_gk7r8")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_18" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.2805, -1, -40.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_4b666")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_76" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_0p0ii")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_77" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_exkk3")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_78" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_moef0")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_79" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_251xe")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_80" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_lt3ek")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_81" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_g525w")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_82" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_dl1hu")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_83" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_yjes6")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_84" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_ut5r1")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_85" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_45obp")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_86" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_veh58")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_87" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_n0pq7")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_88" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_iyj0d")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_89" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_refaw")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_90" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_q2h5v")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_91" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_es50f")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_92" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7805, -1, -74.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_1mg0b")
 materials = Array[Material]([ExtResource("9_s7sjn")])
+collision_layer = 17
 
 [node name="Block_93" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.7805, -15.5, -76.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_g60c0")
 materials = Array[Material]([ExtResource("9_s7sjn"), ExtResource("9_1fefy")])
+collision_layer = 17
 
 [node name="Block_94" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.7805, -15.5, -76.8257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_0mmra")
 materials = Array[Material]([ExtResource("9_s7sjn"), ExtResource("9_1fefy")])
+collision_layer = 17
 
 [node name="CorridorLights" type="Node" parent="."]
 
@@ -13562,8 +13609,12 @@ spot_angle = 19.1468
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.4976, 0, 28.1458)
 is_open = true
 
+[node name="portadiorama3" parent="." instance=ExtResource("15_r2o2d")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 19.9676, -0.0140808, -44.9187)
+is_open = true
+
 [node name="portadiorama2" parent="." instance=ExtResource("15_r2o2d")]
-transform = Transform3D(2.28171, 0, 0, 0, 1.62155, 0, 0, 0, 1.40712, -0.25066, 0, -45.6732)
+transform = Transform3D(1.63021, 0, 0, 0, 1.62155, 0, 0, 0, 1.40712, -0.25066, 0, -45.6732)
 
 [node name="Pilar" parent="." instance=ExtResource("16_bfy5c")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.6419, 4.76837e-07, 24.8486)
@@ -13670,7 +13721,9 @@ script = ExtResource("17_lhni3")
 path = [NodePath("../Waypoint0"), NodePath("../Waypoint1"), NodePath("../Waypoint2"), NodePath("../Waypoint3"), NodePath("../Waypoint4")]
 start_node = 3
 
-[node name="SceneProgressArea" parent="." instance=ExtResource("20_1ynvn")]
+[node name="SceneProgressArea" parent="." instance=ExtResource("20_2kun6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0614, 3.25388, 32.0181)
+level_to_load = ExtResource("21_yms5d")
 
 [editable path="Pilar"]
 [editable path="Pilar2"]

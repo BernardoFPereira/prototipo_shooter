@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dw2b15lk21d4q" path="res://prefabs/prefabprops/BreakableVent.tscn" id="12_a7xl6"]
 [ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="17_5epkl"]
-[ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="18_b7sie"]
+[ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="18_lkbti"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 ambient_light_source = 2
@@ -43235,5 +43235,6 @@ visible = false
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.842, 30.4767, 4.25536)
 melee = 2
 
-[node name="SceneProgressArea" parent="." instance=ExtResource("18_b7sie")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8533, 42.6079, -4.99497)
+[node name="SceneProgressArea" parent="." instance=ExtResource("18_lkbti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 42.9172, -5)
+is_final_level = true
