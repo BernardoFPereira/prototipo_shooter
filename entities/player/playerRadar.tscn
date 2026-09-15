@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=3 uid="uid://dd22mp4i0okdi"]
+[gd_scene load_steps=148 format=3 uid="uid://dd22mp4i0okdi"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_jjoxd"]
 [ext_resource type="PackedScene" uid="uid://jkhhtxq7n4px" path="res://entities/sword/arm_projectile.tscn" id="2_hj8pe"]
@@ -26,7 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://bi4ck06oji7aw" path="res://UI/V2/HUD/Player/line-scan-overlay.png" id="24_txud3"]
 [ext_resource type="Texture2D" uid="uid://cqiwk5xccunde" path="res://UI/V2/HUD/Player/HUD-HelmetFrame.png" id="25_y7c5u"]
 [ext_resource type="Script" path="res://scripts/pause_input_handler.gd" id="26_6fl3o"]
-[ext_resource type="Texture2D" uid="uid://dun31hnablal8" path="res://UI/radar_mask.png" id="26_kixee"]
+[ext_resource type="Texture2D" uid="uid://bwqnpi1pgxoii" path="res://UI/Radar/radar_texture.png" id="26_huue0"]
+[ext_resource type="Texture2D" uid="uid://dun31hnablal8" path="res://UI/Radar/radar_mask.png" id="26_kixee"]
 [ext_resource type="Script" path="res://entities/player/RadarCam.gd" id="26_li8ra"]
 [ext_resource type="Texture2D" uid="uid://beg6jpulxo7uw" path="res://UI/PauseMenu/F_CONFIG PAUSE.png" id="27_drise"]
 [ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="28_ro66s"]
@@ -548,7 +549,7 @@ size = Vector3(1.36, 1, 1.84)
 [sub_resource type="SphereShape3D" id="SphereShape3D_k5oyn"]
 radius = 0.7
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pho2a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wx0rh"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -558,7 +559,7 @@ shader_parameter/blur_size = 0.588
 shader_parameter/line_opacity = 0.14
 shader_parameter/glow_source = ExtResource("16_oplax")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_spbfa"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwqdw"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -568,7 +569,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("18_ath5r")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_81tub"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_affya"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -578,7 +579,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("19_cowlu")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4gv0y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a82lm"]
 shader = ExtResource("15_0g163")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1212,7 +1213,7 @@ size_flags_vertical = 4
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_pho2a")
+material = SubResource("ShaderMaterial_wx0rh")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1228,7 +1229,7 @@ line_opacity = 0.14
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_spbfa")
+material = SubResource("ShaderMaterial_dwqdw")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1242,7 +1243,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_81tub")
+material = SubResource("ShaderMaterial_affya")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1273,7 +1274,7 @@ texture = ExtResource("20_w2q11")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_4gv0y")
+material = SubResource("ShaderMaterial_a82lm")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1343,47 +1344,62 @@ libraries = {
 autoplay = "start"
 
 [node name="RadarUI" type="TextureRect" parent="GameHUD"]
-self_modulate = Color(0, 0.298039, 0.301961, 0.772549)
-clip_children = 2
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 87.0
-offset_top = -250.0
-offset_right = 299.0
-offset_bottom = -41.0
+offset_left = 82.0
+offset_top = -255.0
+offset_right = 304.0
+offset_bottom = -36.0
 grow_vertical = 0
-texture = ExtResource("26_kixee")
+texture = ExtResource("26_huue0")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD/RadarUI"]
+[node name="RadarMask" type="TextureRect" parent="GameHUD/RadarUI"]
+self_modulate = Color(0, 0.25098, 0.188235, 0.917647)
+clip_children = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -128.0
-offset_right = 128.0
-offset_bottom = 128.0
+offset_left = -105.0
+offset_top = -103.5
+offset_right = 105.0
+offset_bottom = 103.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("26_kixee")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD/RadarUI/RadarMask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -123.0
+offset_right = 133.0
+offset_bottom = 133.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SubViewport" type="SubViewport" parent="GameHUD/RadarUI/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="GameHUD/RadarUI/RadarMask/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 canvas_cull_mask = 4293918721
 size = Vector2i(256, 256)
 render_target_update_mode = 4
 
-[node name="RadarCam" type="Camera3D" parent="GameHUD/RadarUI/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
+[node name="RadarCam" type="Camera3D" parent="GameHUD/RadarUI/RadarMask/SubViewportContainer/SubViewport" node_paths=PackedStringArray("cam_target")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 14, 0)
 cull_mask = 32
 projection = 1
 size = 41.721
 near = 0.111
 script = ExtResource("26_li8ra")
-cam_target = NodePath("../../../../..")
+cam_target = NodePath("../../../../../..")
 
 [node name="MenuHUD" type="CanvasLayer" parent="."]
 process_mode = 3

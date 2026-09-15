@@ -10,6 +10,8 @@ extends Node3D
 @onready var impact_sfx = $ImpactSFX
 @onready var projectile_light = $ProjectileLight
 
+@export var max_jump_height: float = 10
+
 var speed: int = 35
 var direction: Vector3
 var knockback: int = 16
@@ -21,6 +23,7 @@ func _ready():
 	#collision_area.area_entered.connect(_on_projectile_explosion)
 	lifetime_timer.timeout.connect(_on_lifetime_timer_timeout)
 	explosion_timer.timeout.connect(_on_explosion_timer_timeout)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	global_position += direction * speed * delta
@@ -48,7 +51,11 @@ func explode():
 		
 		if collision.collider is Player:
 			var player = collision.collider as Player
-			player.velocity += (global_position.direction_to(player.global_position) * knockback)
+			var knockback_force = global_position.direction_to(player.global_position) * knockback
+			print(knockback_force)
+			knockback_force.y = minf(knockback_force.y, max_jump_height)
+			player.velocity += knockback_force
+			print(player.velocity)
 		
 		if collision.collider is EnemyMelee:
 			var enemy = collision.collider as EnemyMelee
@@ -57,12 +64,20 @@ func explode():
 		if collision.collider is EnemyRanged:
 			var enemy = collision.collider as EnemyRanged
 			enemy.receive_rocket_impact(global_position, damage)
+			
+		if collision.collider is BreakableVent:
+			var vent = collision.collider as BreakableVent
+			#vent.queue_free()
+			vent.call_deferred("queue_free")
+			
 		
 func _on_lifetime_timer_timeout():
 	call_deferred("queue_free")
 
 func _on_projectile_impact(_body):
 	explode()
+	#if _body is BreakableVent:
+		#_body.call_deferred("queue_free")
 	#call_deferred("queue_free")
 
 #func _on_projectile_explosion(_area):

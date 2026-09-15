@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/resources/mesh_vector_data.gd" id="7_hwas4"]
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="8_ko41r"]
 [ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/RangedEnemy/enemy_ranged.tscn" id="9_4cci7"]
-[ext_resource type="PackedScene" uid="uid://dd22mp4i0okdi" path="res://entities/player/playerRadar.tscn" id="9_b2y5d"]
+[ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="9_mscfs"]
 
 [sub_resource type="Environment" id="Environment_wviyp"]
 volumetric_fog_enabled = true
@@ -7363,5 +7363,5 @@ target = NodePath("../Player")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.1899, 13.5, -41.1728)
 target = NodePath("../Player")
 
-[node name="Player" parent="." instance=ExtResource("9_b2y5d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0830495, 0.5, 48.2672)
+[node name="Player" parent="." instance=ExtResource("9_mscfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60996, 0.5, 43.2626)
