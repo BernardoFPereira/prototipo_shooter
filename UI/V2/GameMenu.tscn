@@ -1,7 +1,6 @@
-[gd_scene load_steps=53 format=3 uid="uid://cpt5wtni46dde"]
+[gd_scene load_steps=52 format=3 uid="uid://cpt5wtni46dde"]
 
 [ext_resource type="Script" path="res://UI/V2/game_menu.gd" id="1_7rwh6"]
-[ext_resource type="Texture2D" uid="uid://d3cmexsyvqeow" path="res://UI/MainMenu/_old/v2 BACKGROUND PLACEHOLDER.png" id="1_mtdf5"]
 [ext_resource type="Texture2D" uid="uid://q2ofa0l23gka" path="res://UI/MainMenu/MAIN MENU NO TEXT BASE.png" id="2_3wycm"]
 [ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="3_0xqtw"]
 [ext_resource type="Theme" uid="uid://b7pmgihcajosw" path="res://UI/MainMenu/menu_theme.tres" id="4_u88di"]
@@ -18,8 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://cxoq684337wnk" path="res://UI/Controls/_old/v2_btn_controle_b.png" id="14_nx52q"]
 [ext_resource type="Texture2D" uid="uid://btoqts0rijsgy" path="res://UI/Controls/_old/v2_btn_controle_b_selected.png" id="15_u40rb"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k0eiw"]
-texture = ExtResource("1_mtdf5")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bgnone"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cwduv"]
 texture = ExtResource("2_3wycm")
@@ -121,7 +119,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxTexture_k0eiw")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_bgnone")
 
 [node name="MainPanel" type="Panel" parent="Background"]
 layout_mode = 1
