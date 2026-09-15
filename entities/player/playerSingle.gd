@@ -10,6 +10,7 @@ extends CharacterBody3D
 @export var gravity := 42
 
 var current_fall_velocity : float
+var mouse_sensitivity := 0.001
 var input_mouse: Vector2
 var movement_vector: Vector2
 var direction: Vector3
@@ -27,8 +28,7 @@ var current_health: float
 var is_disarmed: bool
 var is_dead: bool = false
 var was_in_air: bool = false
-var is_next_level: bool
-var is_introduction: bool
+var is_next_level
 
 enum PlayerStates {
 	IDLE,
@@ -75,7 +75,6 @@ var blend_time: float = 0.15
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
 @export var arm_projectile_scene: PackedScene
-#@export var sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
@@ -85,12 +84,14 @@ var thrown_sword: Sword
 
 #region HUD
 @onready var game_hud_canvas = $GameHUD
+@onready var dead_canvas = $GameOverHUD
+@onready var next_level_canvas = $NextLevelHUD
+@onready var menu_canvas = $MenuHUD
 @onready var health_bar = $GameHUD/HealthBar
 var real_value : float
 @onready var activation_timer = $ActivationTimer
 
 @onready var hud_animations = $GameHUD/HUDAnimations
-@onready var avic_animations = $GameHUD/AVICAnimations
 var enemy_detected := "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
 var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
 @onready var enemy_detection_range = $EnemyDetectionRange
@@ -100,7 +101,6 @@ var enemies_in_range: Array[Node] = []
 
 @onready var control = $GameHUD/Control
 @onready var assistant_text_box = $GameHUD/Control/AssistantTextBox
-@onready var centered_assistant_text_box = $GameHUD/CenteredAssistantTextBox
 var new_message: String = ""
 @onready var assistant_frame = $GameHUD/AssistantFrame
 @onready var assistant_iris = $GameHUD/AssistantIris
@@ -112,20 +112,45 @@ var new_message: String = ""
 const config_background = preload("uid://beg6jpulxo7uw")
 const on_button_texture = preload("uid://bo5sjwobb2r68")
 const off_button_texture = preload("uid://cp8sjbs1efomi")
+
+@onready var active_background = $MenuHUD/Panel/ActiveBackground
+@onready var config_group = $MenuHUD/Panel/ConfigGroup
+@onready var ctrls_group = $MenuHUD/Panel/ControlsGroup
+@onready var quit_group = $MenuHUD/Panel/QuitGroup
+@onready var config_button = $MenuHUD/Panel/VBoxContainer/ConfigButton
+@onready var ctrls_button = $MenuHUD/Panel/VBoxContainer/ControlsButton
+@onready var quit_button = $MenuHUD/Panel/VBoxContainer/QuitButton
+
+@onready var windowed_button = $MenuHUD/Panel/ConfigGroup/WindowMode/WindowedButton
+@onready var fullscreen_button = $MenuHUD/Panel/ConfigGroup/WindowMode/FullscreenButton
+
 const res_button = preload("uid://bjlxctidiwjf3")
 const res_button_selected_texture = preload("uid://cev240nhyxski")
+var resolution_button_group: ButtonGroup
+@onready var resolutions_list = $MenuHUD/Panel/ConfigGroup/Resolution/ResolutionOptions/ResolutionVBox
+
+@onready var music_bar = $MenuHUD/Panel/ConfigGroup/Audio/MusicBar
+@onready var music_slider = $MenuHUD/Panel/ConfigGroup/Audio/MusicSlider
+@onready var sfx_bar = $MenuHUD/Panel/ConfigGroup/Audio/SFXBar
+@onready var sfx_slider = $MenuHUD/Panel/ConfigGroup/Audio/SFXSlider
+@onready var hud_bar = $MenuHUD/Panel/ConfigGroup/Audio/HUDBar
+@onready var hud_slider = $MenuHUD/Panel/ConfigGroup/Audio/HUDSlider
+@onready var toggle_music_button = $MenuHUD/Panel/ConfigGroup/Audio/ToggleMusicButton
+@onready var toggle_sfx_button = $MenuHUD/Panel/ConfigGroup/Audio/ToggleSFXButton
+@onready var toggle_hudsfx_button = $MenuHUD/Panel/ConfigGroup/Audio/ToggleHUDSFXButton
+
+@onready var sens_bar = $MenuHUD/Panel/ConfigGroup/MouseSens/SensBar
+@onready var sens_slider = $MenuHUD/Panel/ConfigGroup/MouseSens/SensSlider
+
 const ctrls_key_background = preload("uid://bmu1oequesbqo")
 const quit_background = preload("uid://dmel4nekr0nx4")
-var resolution_button_group: ButtonGroup
 #endregion
 
 func _ready():
-	# Sem isso, o Menu (autoload GameMenu.tscn) nunca sai do context MAIN_MENU, e o "_unhandled_input"
-	# dele que escuta ui_cancel (ESC) fica travado — é o que faz o ESC não abrir o menu de pausa.
-	Menu.enter_gameplay_context(self)
-
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
+	dead_canvas.visible = false
+	next_level_canvas.visible = false
 	game_hud_canvas.visible = true
 	is_next_level = false
 	
@@ -133,7 +158,6 @@ func _ready():
 	enemy_detection_range.body_exited.connect(_on_enemy_detection_range_body_exited)
 	
 	detection_timer.timeout.connect(_check_visibility)
-	assistant_text_box.message_timeout.connect(_on_assistant_message_timeout)
 	detection_timer.wait_time = 0.15
 	detection_timer.one_shot = false
 	detection_timer.start()
@@ -142,14 +166,24 @@ func _ready():
 	real_value = max_health
 	health_bar.value = current_health
 	
-	centered_assistant_text_box.visible = false
 	assistant_frame.scale = Vector2(0,0)
 	assistant_iris.scale = Vector2(0,0)
 	assistant_pupil.scale = Vector2(0,0)
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
+	active_background.texture = null
 	
-	is_introduction = false
+	add_resolutions()
+	update_button_values()
+	
+	setup_window_mode_buttons()
+	setup_audio_buttons()
+	
+	config_group.visible = false
+	ctrls_group.visible = false
+	
+	#await get_tree().create_timer(3.0).timeout
+	#hud_animations.play("centered_assistant_popup")
 
 func _process(delta):
 	if is_dead or is_next_level:
@@ -187,7 +221,7 @@ func set_state(new_state: PlayerStates):
 		
 		PlayerStates.RUN:
 			is_animating_action = false
-			play_animation_with_blend("extra_anims_2/walk", true)
+			play_animation_with_blend("walk", true)
 		
 		PlayerStates.JUMP:
 			is_animating_action = true
@@ -228,7 +262,7 @@ func _return_to_ground_state():
 		set_state(PlayerStates.FALL)
 
 func handle_input():
-	if is_dead or is_next_level or is_introduction:
+	if is_dead or is_next_level:
 		return
 	
 	if Input.is_action_just_pressed("attack"):
@@ -280,8 +314,6 @@ func _on_land():
 	camera_juice.add_fall_kick(3)
 
 func handle_states(delta):
-	if is_introduction:
-		return
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
 	
@@ -293,6 +325,7 @@ func handle_states(delta):
 			if movement_vector and is_on_floor():
 				set_state(PlayerStates.RUN)
 			elif !is_on_floor():
+				# Se não estiver no chão e não estiver pulando, vai para FALL
 				if state != PlayerStates.JUMP:
 					set_state(PlayerStates.FALL)
 			
@@ -302,6 +335,7 @@ func handle_states(delta):
 			if !movement_vector and is_on_floor():
 				set_state(PlayerStates.IDLE)
 			elif !is_on_floor():
+				# Se não estiver no chão e não estiver pulando, vai para FALL
 				if state != PlayerStates.JUMP:
 					set_state(PlayerStates.FALL)
 			
@@ -310,11 +344,15 @@ func handle_states(delta):
 				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
 		
 		PlayerStates.JUMP:
+			# Movimento horizontal durante o pulo
 			if movement_vector:
 				target_velocity = direction * move_speed
 				horizontal_velocity = horizontal_velocity.lerp(target_velocity, delta * move_speed)
 			else:
 				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
+			
+			# Verificar se o personagem já está caindo E a animação de jump terminou
+			# A transição será feita pelo _on_animation_finished
 		
 		PlayerStates.FALL:
 			if is_on_floor():
@@ -354,8 +392,8 @@ func _rotate_camera():
 		return
 		
 	if input_mouse:
-		rotate_y(-input_mouse.x * UI.mouse_sensitivity)
-		head.rotate_x(-input_mouse.y * UI.mouse_sensitivity)
+		rotate_y(-input_mouse.x * mouse_sensitivity)
+		head.rotate_x(-input_mouse.y * mouse_sensitivity)
 		
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
@@ -372,10 +410,12 @@ func _unhandled_input(event):
 func _toggle_pause_menu():
 	if get_tree().paused:
 		get_tree().paused = false
+		menu_canvas.visible = false
 		game_hud_canvas.visible = true
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	else:
 		get_tree().paused = true
+		menu_canvas.visible = true
 		game_hud_canvas.visible = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -433,7 +473,7 @@ func try_fire():
 		previous_state = state
 		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
-		#camera_juice.add_weapon_kick(5, 0.5, 0.5)
+		camera_juice.add_weapon_kick(5, 0.5, 0.5)
 
 func try_jump():
 	if !is_on_floor():
@@ -517,6 +557,7 @@ func take_damage(amount: float):
 		if current_health <= 0:
 			current_health = 0
 			is_dead = true
+			dead_canvas.visible = true
 			game_hud_canvas.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -530,6 +571,37 @@ func bar_take_damage(damage: float):
 	tween.tween_property(health_bar, "value", real_value, 0.4)
 	tween.tween_property(health_bar, "tint_progress", new_color, 0.4)
 	tween.tween_property(health_bar, "glow_tint", new_color, 0.4)
+
+#region UI _ SCRIPTS
+func next_level(level_scene: PackedScene):
+	get_tree().paused = false
+	next_level_canvas.visible = true
+	game_hud_canvas.visible = false
+	is_next_level = true
+	next_level_scene = level_scene
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _on_menu_button_pressed():
+	get_tree().paused = false
+	UI.save_settings()
+	get_tree().change_scene_to_packed(menu_scene)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _on_retry_button_pressed():
+	get_tree().paused = false
+	menu_canvas.visible = false
+	get_tree().reload_current_scene()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_next_button_pressed():
+	get_tree().change_scene_to_packed(next_level_scene)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_resume_button_pressed():
+	get_tree().paused = false
+	menu_canvas.visible = false
+	game_hud_canvas.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_enemy_detection_range_body_entered(body):
 	if body is EnemyMelee or body is EnemyRanged:
@@ -566,29 +638,282 @@ func _check_visibility():
 				enemy.hud_animations.play("detected")
 				enemy.detected = true
 
+#region CONFIGS
+func setup_window_mode_buttons() -> void:
+	var window_mode_group = ButtonGroup.new()
+	windowed_button.button_group = window_mode_group
+	fullscreen_button.button_group = window_mode_group
+	
+	windowed_button.button_pressed = not UI.is_fullscreen
+	fullscreen_button.button_pressed = UI.is_fullscreen
+
+func setup_audio_buttons() -> void:
+	var music_slider_value = UI.db_to_slider(UI.music_volume) if not UI.music_muted else 0
+	var sfx_slider_value = UI.db_to_slider(UI.sfx_volume) if not UI.sfx_muted else 0
+	var hud_slider_value = UI.db_to_slider(UI.hud_volume) if not UI.hud_muted else 0
+	
+	music_slider.value = music_slider_value
+	sfx_slider.value = sfx_slider_value
+	hud_slider.value = hud_slider_value
+	
+	toggle_music_button.button_pressed = not UI.music_muted
+	toggle_sfx_button.button_pressed = not UI.sfx_muted
+	toggle_hudsfx_button.button_pressed = not UI.hud_muted
+	
+	_on_music_slider_value_changed(music_slider_value)
+	_on_sfx_slider_value_changed(sfx_slider_value)
+	_on_hud_slider_value_changed(hud_slider_value)
+
+func _on_config_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		config_group.visible = true
+		ctrls_group.visible = false
+		ctrls_button.button_pressed = false
+		quit_group.visible = false
+		quit_button.button_pressed = false
+		active_background.texture = config_background
+		UI.play_sound("confirm_button")
+	else:
+		config_group.visible = false
+		active_background.texture = null
+		UI.play_sound("back_button")
+		UI.save_settings()
+
+func _on_music_slider_value_changed(value: float) -> void:
+	var mapped_db = UI.slider_to_db(value)
+	
+	music_bar.value = value
+	
+	if value <= 0:
+		if not UI.music_muted:
+			toggle_music_button.button_pressed = false
+			_on_toggle_music_button_toggled(false)
+	else:
+		if UI.music_muted:
+			toggle_music_button.button_pressed = true
+			_on_toggle_music_button_toggled(true)
+		
+		if toggle_music_button.button_pressed:
+			UI.music_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, mapped_db)
+		else:
+			UI.music_volume = mapped_db
+
+func _on_sfx_slider_value_changed(value: float) -> void:
+	var mapped_db = UI.slider_to_db(value)
+	
+	sfx_bar.value = value
+	
+	if value <= 0:
+		if not UI.sfx_muted:
+			toggle_sfx_button.button_pressed = false
+			_on_toggle_sfx_button_toggled(false)
+	else:
+		if UI.sfx_muted:
+			toggle_sfx_button.button_pressed = true
+			_on_toggle_sfx_button_toggled(true)
+		
+		if toggle_sfx_button.button_pressed:
+			UI.sfx_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.SFX, mapped_db)
+		else:
+			UI.sfx_volume = mapped_db
+
+func _on_hud_slider_value_changed(value: float) -> void:
+	var mapped_db = UI.slider_to_db(value)
+	
+	hud_bar.value = value
+	
+	if value <= 0:
+		if not UI.hud_muted:
+			toggle_hudsfx_button.button_pressed = false
+			_on_toggle_hudsfx_button_toggled(false)
+	else:
+		if UI.hud_muted:
+			toggle_hudsfx_button.button_pressed = true
+			_on_toggle_hudsfx_button_toggled(true)
+		
+		if toggle_hudsfx_button.button_pressed:
+			UI.hud_volume = mapped_db
+			AudioServer.set_bus_volume_db(UI.AudioBus.HUD, mapped_db)
+		else:
+			UI.hud_volume = mapped_db
+
+func _on_toggle_music_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		var current_slider_value = music_slider.value
+		if current_slider_value <= 0:
+			music_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, UI.slider_to_db(current_slider_value))
+		toggle_music_button.icon = on_button_texture
+		UI.music_muted = false
+		UI.play_sound("confirm_button")
+	else:
+		UI.music_volume = AudioServer.get_bus_volume_db(UI.AudioBus.MUSIC)
+		AudioServer.set_bus_volume_db(UI.AudioBus.MUSIC, UI.MIN_DB)
+		toggle_music_button.icon = off_button_texture
+		UI.music_muted = true
+		UI.play_sound("back_button")
+
+func _on_toggle_sfx_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		var current_slider_value = sfx_slider.value
+		if current_slider_value <= 0:
+			sfx_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.SFX, UI.slider_to_db(current_slider_value))
+		toggle_sfx_button.icon = on_button_texture
+		UI.sfx_muted = false
+		UI.play_sound("confirm_button")
+	else:
+		UI.sfx_volume = AudioServer.get_bus_volume_db(UI.AudioBus.SFX)
+		AudioServer.set_bus_volume_db(UI.AudioBus.SFX, UI.MIN_DB)
+		toggle_sfx_button.icon = off_button_texture
+		UI.sfx_muted = true
+		UI.play_sound("back_button")
+
+func _on_toggle_hudsfx_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		var current_slider_value = hud_slider.value
+		if current_slider_value <= 0:
+			hud_slider.value = 1
+			current_slider_value = 1
+		
+		AudioServer.set_bus_volume_db(UI.AudioBus.HUD, UI.slider_to_db(current_slider_value))
+		toggle_hudsfx_button.icon = on_button_texture
+		UI.hud_muted = false
+		UI.play_sound("confirm_button")
+	else:
+		UI.hud_volume = AudioServer.get_bus_volume_db(UI.AudioBus.HUD)
+		AudioServer.set_bus_volume_db(UI.AudioBus.HUD, UI.MIN_DB)
+		toggle_hudsfx_button.icon = off_button_texture
+		UI.hud_muted = true
+		UI.play_sound("back_button")
+
+func _on_windowed_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		UI.is_fullscreen = false
+		get_window().mode = Window.MODE_WINDOWED
+		get_window().size = UI.current_resolution
+		UI.play_sound("confirm_button")
+		windowed_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		UI.center_window()
+		update_button_values()
+		set_resolution_buttons_enabled(true)
+	else:
+		windowed_button.mouse_filter = Control.MOUSE_FILTER_PASS
+
+func _on_fullscreen_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		UI.is_fullscreen = true
+		UI.play_sound("confirm_button")
+		fullscreen_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+		set_resolution_buttons_enabled(false)
+	else:
+		fullscreen_button.mouse_filter = Control.MOUSE_FILTER_PASS
+
+func _on_resolution_button_pressed(resolution_key: String) -> void:
+	if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+		return
+	
+	if UI.resolutions.has(resolution_key):
+		UI.current_resolution = UI.resolutions[resolution_key]
+		get_window().size = UI.current_resolution
+		UI.center_window()
+		UI.play_sound("confirm_button")
+		update_button_values()
+
+func add_resolutions() -> void:
+	resolution_button_group = ButtonGroup.new()
+	
+	var index = 0
+	for r in UI.resolutions:
+		var new_button = res_button.instantiate()
+		new_button.text = r
+		new_button.name = "ResolutionButton" + str(index)
+		new_button.button_group = resolution_button_group
+		new_button.pressed.connect(_on_resolution_button_pressed.bind(r))
+		new_button.mouse_entered.connect(_on_button_hovered)
+		resolutions_list.add_child(new_button)
+		index += 1
+	update_button_values()
+	set_resolution_buttons_enabled(!UI.is_fullscreen)
+
+func update_button_values() -> void:
+	var window_size_str = str(get_window().size.x, "x", get_window().size.y)
+	var resolutions_index = UI.resolutions.keys().find(window_size_str)
+	
+	if resolutions_index == -1:
+		window_size_str = "1920x1080"
+		resolutions_index = UI.resolutions.keys().find(window_size_str)
+
+	var button_name = "ResolutionButton" + str(resolutions_index)
+	var selected_button = resolutions_list.get_node(button_name)
+	
+	if selected_button:
+		selected_button.button_pressed = true
+
+func set_resolution_buttons_enabled(enabled: bool) -> void:
+	for button in resolutions_list.get_children():
+		button.disabled = not enabled
+		if enabled:
+			button.mouse_filter = Control.MOUSE_FILTER_PASS
+		else:
+			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+func _on_sens_slider_value_changed(value):
+	sens_bar.value = value
+	mouse_sensitivity = value * 0.0001
+#endregion
+
+func _on_button_hovered():
+	UI.play_sound("hover_button")
+
+#region CONTROLS
+func _on_ctrls_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		ctrls_group.visible = true
+		config_group.visible = false
+		config_button.button_pressed = false
+		quit_group.visible = false
+		quit_button.button_pressed = false
+		active_background.texture = ctrls_key_background
+		UI.play_sound("confirm_button")
+	else:
+		ctrls_group.visible = false
+		active_background.texture = null
+		UI.play_sound("back_button")
+#endregion
+
+#region QUIT
+func _on_quit_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		quit_group.visible = true
+		config_group.visible = false
+		config_button.button_pressed = false
+		ctrls_group.visible = false
+		ctrls_button.button_pressed = false
+		active_background.texture = quit_background
+		UI.play_sound("confirm_button")
+	else:
+		quit_group.visible = false
+		active_background.texture = null
+		UI.play_sound("back_button")
+		UI.save_settings()
+#endregion
+
 func _on_hud_animations_animation_finished(anim_name):
 	match anim_name:
-		"start":
-			if is_introduction:
-				avic_animations.play("avic/centered_assistant_popup")
-
-func _on_avic_animations_animation_finished(anim_name):
-	match anim_name:
-		"avic/assistant_popup":
-			avic_animations.play("avic/assistant_idle")
+		"assistant_popup":
+			hud_animations.play("assistant_idle")
 			assistant_text_box.set_message(new_message, true)
 		
-		"avic/centered_assistant_popup":
-			avic_animations.play("avic/centered_assistant_idle")
-		
-		"avic/centered_assistant_idle":
-			avic_animations.play("avic/centered_assistant_popout")
-			is_introduction = false
-
-func _on_assistant_message_timeout():
-	avic_animations.play("avic/assistant_popout")
+		"centered_assistant_popup":
+			hud_animations.play("centered_assistant_idle")
 
 func get_message_data(message: String):
 	new_message = message
-	if assistant_text_box:
-		assistant_text_box.visible = false

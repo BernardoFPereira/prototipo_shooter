@@ -299,7 +299,6 @@ linear_damp = 0.25
 script = ExtResource("1_ixay4")
 idle_sound_interval = 4.0
 attack_range = 75.0
-detection_range = 50.0
 
 [node name="Armature" type="Node3D" parent="."]
 
@@ -544,7 +543,4 @@ libraries = {
 "": SubResource("AnimationLibrary_fq38c")
 }
 
-[connection signal="body_entered" from="SwordCollisionArea" to="." method="_on_sword_entered"]
-[connection signal="body_entered" from="SightArea" to="." method="_on_sight_area_body_entered"]
-[connection signal="body_exited" from="SightArea" to="." method="_on_sight_area_body_exited"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]

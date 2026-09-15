@@ -22,18 +22,6 @@ var hud_muted: bool = false
 
 #region CONTROLS
 var is_keyboard: bool = true
-var mouse_sensitivity: float = 0.001
-
-const SENSITIVITY_MIN: float = 0.0001
-const SENSITIVITY_MAX: float = 0.003
-
-func slider_to_sensitivity(value: float) -> float:
-	var normalized = value / 10.0
-	return lerp(SENSITIVITY_MIN, SENSITIVITY_MAX, normalized)
-
-func sensitivity_to_slider(sens: float) -> float:
-	var normalized = (sens - SENSITIVITY_MIN) / (SENSITIVITY_MAX - SENSITIVITY_MIN)
-	return clamp(normalized * 10.0, 0.0, 10.0)
 #endregion
 
 #region AUDIO MANAGEMENT
@@ -224,28 +212,32 @@ func center_window() -> void:
 const MIN_DB: float = -80
 const MAX_DB: float = -5
 
-# Sliders de áudio vão de 0 a 20 (step 1). Cada step sobe/desce exatamente VOLUME_DB_STEP dB,
-# ancorado no topo (slider = VOLUME_SLIDER_MAX equivale a MAX_DB). Ex.: 20 -> -5dB, 19 -> -7dB,
-# 18 -> -9dB, e por aí vai — sem curva nenhuma, só passos iguais de dB. slider = 0 é tratado como
-# mudo (MIN_DB) e não entra nessa conta linear.
-const VOLUME_SLIDER_MAX: float = 20.0
-const VOLUME_DB_STEP: float = 2.0
+const VOLUME_CURVE_POWER: float = 0.4
 
 func slider_to_db(value: float) -> float:
+	
 	if value <= 0:
 		return MIN_DB
 	
-	var clamped = clampf(value, 0.0, VOLUME_SLIDER_MAX)
+	var normalized = value / 10.0
 	
-	return MAX_DB - (VOLUME_SLIDER_MAX - clamped) * VOLUME_DB_STEP
+	var curve = pow(normalized, VOLUME_CURVE_POWER)
+	
+	var db = MIN_DB + (curve * (MAX_DB - MIN_DB))
+	
+	return db
 
 func db_to_slider(db: float) -> float:
 	if db <= MIN_DB:
 		return 0.0
 	
-	var value = VOLUME_SLIDER_MAX - (MAX_DB - db) / VOLUME_DB_STEP
+	var normalized = (db - MIN_DB) / (MAX_DB - MIN_DB)
 	
-	return clampf(value, 0.0, VOLUME_SLIDER_MAX)
+	var curve = pow(normalized, 1.0 / VOLUME_CURVE_POWER)
+	
+	var value = curve * 10.0
+	
+	return clamp(value, 0.0, 10.0)
 #endregion
 
 func apply_settings() -> void:
@@ -277,8 +269,6 @@ func save_settings() -> void:
 	config.set_value("audio", "sfx_muted", sfx_muted)
 	config.set_value("audio", "hud_muted", hud_muted)
 	
-	config.set_value("controls", "mouse_sensitivity", mouse_sensitivity)
-	
 	config.save(SETTINGS_FILE)
 	print("Settings saved to: ", SETTINGS_FILE)
 
@@ -294,7 +284,6 @@ func load_settings() -> void:
 		music_muted = false
 		sfx_muted = false
 		hud_muted = false
-		mouse_sensitivity = 0.001
 		apply_settings()
 		return
 	
@@ -312,7 +301,6 @@ func load_settings() -> void:
 	music_muted = config.get_value("audio", "music_muted", false)
 	sfx_muted = config.get_value("audio", "sfx_muted", false)
 	hud_muted = config.get_value("audio", "hud_muted", false)
-	mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 0.001)
 	
 	apply_settings()
 	print("Settings loaded from: ", SETTINGS_FILE)

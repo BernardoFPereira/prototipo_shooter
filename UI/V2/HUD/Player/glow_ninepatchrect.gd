@@ -2,8 +2,6 @@
 extends NinePatchRect
 class_name AssistantTextBox
 
-signal message_timeout
-
 @onready var text_audio_stream = %TextSFX
 
 
@@ -58,20 +56,16 @@ var _initialized := false
 @export var padding: Vector2 = Vector2(20, 20)
 @export var min_size: Vector2 = Vector2(160, 60)
 @export var max_width: float = 400.0
-@export var message_display_time: float = 10.0
+@export var resize_duration: float = 0.2
 
 var _text_box_ready := false
 const ANIM_SPEED: int = 30
 var animate_text: bool = false
-var _resize_tween: Tween
-var _display_timer: Timer
 
 
 func _ready():
-	visible = false 
 	_ensure_material()
 	_apply_glow_params()
-	_setup_display_timer()
 	call_deferred("_setup_text_box")
 
 func _process(delta):
@@ -81,7 +75,10 @@ func _process(delta):
 	if text_audio_stream.playing == true:
 		pass
 	else:
-		text_audio_stream.playing = true
+		if text_audio_stream.stream_paused == true:
+			text_audio_stream.stream_paused = false
+		else:
+			text_audio_stream.playing = true
 
 	var total_chars = rich_text_label.get_total_character_count()
 	if total_chars <= 0:
@@ -91,9 +88,8 @@ func _process(delta):
 	if rich_text_label.visible_ratio < 1.0:
 		rich_text_label.visible_ratio += (1.0 / total_chars) * (ANIM_SPEED * delta)
 	else:
-		text_audio_stream.playing = false
+		text_audio_stream.stream_paused = true
 		animate_text = false
-		_start_display_timer()
 
 func _setup_text_box():
 	if rich_text_label == null:
@@ -105,19 +101,8 @@ func _setup_text_box():
 	rich_text_label.scroll_active = false
 
 	_text_box_ready = true
+	_update_size(false)
 
-func _setup_display_timer():
-	_display_timer = Timer.new()
-	_display_timer.one_shot = true
-	_display_timer.timeout.connect(_on_display_timer_timeout)
-	add_child(_display_timer)
-
-func _on_display_timer_timeout():
-	message_timeout.emit()
-
-func _start_display_timer():
-	if message_display_time > 0.0:
-		_display_timer.start(message_display_time)
 
 func set_message(text: String, animate: bool = true):
 	if rich_text_label == null:
@@ -126,16 +111,6 @@ func set_message(text: String, animate: bool = true):
 
 	while not _text_box_ready:
 		await get_tree().process_frame
-	
-	_display_timer.stop()
-	
-	if _resize_tween and _resize_tween.is_valid():
-		_resize_tween.kill()
-
-	animate_text = false 
-
-	visible = false
-	await get_tree().process_frame 
 
 	var plain_text = _strip_bbcode(text)
 
@@ -149,6 +124,7 @@ func set_message(text: String, animate: bool = true):
 	var wrapped_plain = "\n".join(lines)
 
 	rich_text_label.text = _reapply_bbcode_wrapper(text, wrapped_plain)
+	rich_text_label.visible_ratio = 0.0
 
 	var content_line_width = 0.0
 	for line in lines:
@@ -159,27 +135,25 @@ func set_message(text: String, animate: bool = true):
 	rich_text_label.custom_minimum_size = Vector2(content_line_width, 0)
 	rich_text_label.size.x = content_line_width
 
-	rich_text_label.visible_ratio = 1.0
 	await get_tree().process_frame
 	await get_tree().process_frame
 
+	# calcula o tamanho final (largura, altura total e posição) uma única vez, ignorando o typewriter
 	var target = _compute_target(content_line_width * rtl_scale.x)
+	var local_min_size = _to_local(min_size)
 
-	var final_height: float = target.size.y
-	position = target.position
-	size = Vector2(target.size.x, 44)
-
-	rich_text_label.visible_ratio = 0.0
-
-	visible = true
-
+	# duração estimada da revelação do texto, pra sincronizar o crescimento do NinePatch com ela
 	var total_chars = maxi(rich_text_label.get_total_character_count(), 1)
 	var reveal_duration = float(total_chars) / float(ANIM_SPEED)
 
-	_resize_tween = create_tween()
-	_resize_tween.set_trans(Tween.TRANS_QUAD)
-	_resize_tween.set_ease(Tween.EASE_OUT)
-	_resize_tween.tween_property(self, "size:y", final_height, reveal_duration)
+	# largura e posição já são fixadas de imediato — só a altura anima
+	size = Vector2(target.size.x, local_min_size.y)
+	position = target.position
+
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(self, "size:y", target.size.y, reveal_duration)
+	print("tween criado, indo de ", size.y, " até ", target.size.y, " em ", reveal_duration, "s")
 
 	animate_text = true
 
@@ -273,6 +247,20 @@ func _compute_target(content_width_local: float = -1.0) -> Dictionary:
 	)
 
 	return {"size": target_size, "position": target_position}
+
+
+func _update_size(animate: bool = true, content_width_local: float = -1.0):
+	var target = _compute_target(content_width_local)
+
+	if animate:
+		var tween = create_tween()
+		tween.set_trans(Tween.TRANS_QUAD)
+		tween.set_parallel(true)
+		tween.tween_property(self, "size", target.size, resize_duration)
+		tween.tween_property(self, "position", target.position, resize_duration)
+	else:
+		size = target.size
+		position = target.position
 
 
 func _ensure_material() -> bool:
