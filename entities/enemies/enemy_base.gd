@@ -1,18 +1,6 @@
 class_name EnemyBase
 extends RigidBody3D
 
-## Base class para todo inimigo (EnemyMelee, EnemyRanged, e qualquer tipo futuro).
-## Concentra tudo que estava duplicado entre enemy_melee.gd e enemy_ranged.gd: máquina de
-## estados, perseguição/navegação, detecção do jogador, sons de idle, dano/morte e a
-## configuração de alcance (detecção + ataque).
-##
-## As subclasses só adicionam o que é realmente específico delas:
-## - EnemyMelee: o hitbox de ataque da espada (attack_area) e o liga/desliga dele
-## - EnemyRanged: o projétil que ela atira
-##
-## Para estender o comportamento por tipo, sobrescreva _ready_extra() (setup extra) e
-## _pre_state_change() (reação a troca de estado) — veja EnemyMelee como exemplo.
-
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var sight_area: Area3D = $SightArea
 @onready var sight_collision: CollisionShape3D = $SightArea/SightCollision
@@ -38,7 +26,10 @@ var blood_particles_scene = preload("uid://dauurgt5mibfk")
 
 @export_category("Targets")
 @export var target: CharacterBody3D
-@export var patrol_route: PathFollow3D
+@export var patrol_route_name: String = ""
+var _patrol_waypoints: Array[Vector3] = []
+var _patrol_index: int = 0
+var _patrol_loop: bool = true
 
 @export_category("Combat Properties")
 @export var max_health: float = 100
@@ -52,14 +43,8 @@ var current_health: float
 var is_floating: bool
 
 @export_category("Detection & Engagement")
-## Alcance de detecção. Redimensiona sozinho o SphereShape3D de SightArea/SightCollision — antes
-## esse número só existia como o tamanho do collider, escondido dentro da árvore de nós.
 @export var detection_range: float = 20.0
-## Margem entre onde o NavigationAgent3D para de andar (target_desired_distance) e o attack_range
-## real, pra evitar que o inimigo fique "vibrando" bem na borda do alcance de ataque.
 @export var engagement_buffer: float = 0.5
-## Altura usada no raycast de linha-de-visão de target_is_in_range(). Ajustável por instância
-## (ex: um inimigo maior/menor com o "olho" em outra altura).
 @export var eye_height: float = 1.5
 
 #HUD
@@ -82,38 +67,20 @@ func _ready() -> void:
 	_configure_engagement_ranges()
 	_setup_idle_sound_timer()
 	current_health = max_health
+	_resolve_patrol_route()
 	_ready_extra()
 
-	# Nota histórica (mantida dos dois scripts originais): existia uma tentativa de registrar
-	# cada inimigo como exceção de colisão com os outros inimigos do grupo "Enemies". Ficou
-	# comentada nos dois — trazendo pra cá caso o grupo queira retomar:
-	#var enemies = get_tree().get_nodes_in_group("Enemies")
-	#for enemy in enemies:
-		#if enemy is EnemyMelee:
-			#add_collision_exception_with(enemy)
-		#elif enemy is EnemyRanged:
-			#add_collision_exception_with(enemy)
-
-## Sobrescreva em subclasses para setup extra específico do tipo de inimigo.
 func _ready_extra() -> void:
 	pass
 
-## Sobrescreva em subclasses para reagir a uma troca de estado antes da lógica comum rodar.
-## (ex: EnemyMelee liga/desliga o hitbox da espada aqui.)
 func _pre_state_change(new_state: EnemyState) -> void:
 	pass
 
-## Único lugar que decide alcance de detecção e de ataque — ver Contexto.md / Programado.md no
-## Projeto pra entender por que isso existia espalhado entre o export attack_range, o tamanho do
-## collider de SightArea e o target_desired_distance do NavigationAgent3D.
 func _configure_engagement_ranges() -> void:
 	nav_agent.target_desired_distance = max(0.1, attack_range - engagement_buffer)
 
 	var shape := sight_collision.shape
 	if shape is SphereShape3D:
-		# Sub-resources carregados de uma .tscn são compartilhados entre todas as instâncias da
-		# cena a menos que sejam duplicados — sem isso, mudar detection_range de UM inimigo
-		# redimensionaria o SightArea de todos os outros da mesma cena.
 		shape = shape.duplicate()
 		shape.radius = detection_range
 		sight_collision.shape = shape
@@ -123,12 +90,46 @@ func _configure_engagement_ranges() -> void:
 	if attack_range > detection_range:
 		push_warning("%s: attack_range (%.1f) é maior que detection_range (%.1f) — o inimigo vai atacar assim que detectar o jogador, sem perseguir de verdade. Ajuste um dos dois." % [name, attack_range, detection_range])
 
+#region PATROL
+func _resolve_patrol_route() -> void:
+	_patrol_waypoints.clear()
+	_patrol_index = 0
+	_patrol_loop = true
+
+	if patrol_route_name == "":
+		return
+
+	var route := get_tree().get_first_node_in_group(patrol_route_name) as PatrolRoute
+	if route == null:
+		push_warning("%s: nenhuma PatrolRoute encontrada com route_name = \"%s\"." % [name, patrol_route_name])
+		return
+
+	_patrol_waypoints = route.get_waypoints()
+	_patrol_loop = route.loop
+	if _patrol_waypoints.is_empty():
+		push_warning("%s: a PatrolRoute \"%s\" não tem nenhum Marker3D filho." % [name, patrol_route_name])
+
+func assign_patrol_route(route_name: String) -> void:
+	patrol_route_name = route_name
+	_resolve_patrol_route()
+	if current_state == EnemyState.IDLE and not _patrol_waypoints.is_empty():
+		set_current_state(EnemyState.PATROLLING)
+
+func _advance_patrol_waypoint() -> void:
+	if _patrol_waypoints.is_empty():
+		return
+	if _patrol_index < _patrol_waypoints.size() - 1:
+		_patrol_index += 1
+	elif _patrol_loop:
+		_patrol_index = 0
+#endregion
+
 func _physics_process(delta: float) -> void:
 	check_is_floating()
 
 	match current_state:
 		EnemyState.IDLE:
-			if patrol_route != null:
+			if not _patrol_waypoints.is_empty():
 				set_current_state(EnemyState.PATROLLING)
 
 			if player_in_sight_area:
@@ -136,11 +137,23 @@ func _physics_process(delta: float) -> void:
 				sight_area.monitoring = true
 
 		EnemyState.PATROLLING:
-			if patrol_route.has_enemy:
-				linear_velocity = Vector3.ZERO
-				if get_parent() != patrol_route:
-					move_to_parent(patrol_route)
-				patrol_route.progress += patrol_speed * delta
+			if _patrol_waypoints.is_empty():
+				set_current_state(EnemyState.IDLE)
+			else:
+				nav_agent.target_position = _patrol_waypoints[_patrol_index]
+				var next_path_pos: Vector3 = nav_agent.get_next_path_position()
+				var direction = global_position.direction_to(next_path_pos)
+				if nav_agent.avoidance_enabled:
+					nav_agent.velocity = direction * patrol_speed
+				else:
+					_on_velocity_computed(direction * patrol_speed)
+
+				if direction.length() > 0.01:
+					look_at(global_position + Vector3(direction.x, 0, direction.z), Vector3.UP, true)
+
+				if nav_agent.is_navigation_finished():
+					nav_agent.velocity = Vector3.ZERO
+					_advance_patrol_waypoint()
 
 		EnemyState.CHASING:
 			nav_agent.target_position = target.position
@@ -212,12 +225,6 @@ func set_current_state(new_state: EnemyState) -> void:
 
 		EnemyState.PATROLLING:
 			_pre_state_change(new_state)
-			if get_parent() != patrol_route and patrol_route != null:
-				move_to_parent(patrol_route)
-
-			if not patrol_route.has_enemy:
-				patrol_route.has_enemy = true
-
 			nav_agent.max_speed = patrol_speed
 			anim_player.play("patrol")
 			resume_idle_sounds()
@@ -226,9 +233,6 @@ func set_current_state(new_state: EnemyState) -> void:
 			if current_state == EnemyState.DEAD:
 				return
 			_pre_state_change(new_state)
-			if get_parent() is PathFollow3D:
-				move_to_parent(get_tree().current_scene)
-
 			has_target = true
 			nav_agent.max_speed = chase_speed
 			anim_player.play("chase")
@@ -355,7 +359,7 @@ func _on_sight_area_body_exited(body: Node) -> void:
 		player_in_sight_area = false
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
-	if current_state == EnemyState.CHASING:
+	if current_state == EnemyState.CHASING or current_state == EnemyState.PATROLLING:
 		linear_velocity = safe_velocity
 
 #region SOUNDS

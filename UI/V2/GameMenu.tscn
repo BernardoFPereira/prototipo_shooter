@@ -663,8 +663,8 @@ offset_left = 822.0
 offset_top = 861.0
 offset_right = 1284.0
 offset_bottom = 915.0
-min_value = 1.0
-value = 100.0
+max_value = 20.0
+value = 10.0
 nine_patch_stretch = true
 stretch_margin_left = 9
 stretch_margin_top = 3
@@ -687,8 +687,8 @@ theme_override_icons/tick = SubResource("ImageTexture_7w4mo")
 theme_override_styles/slider = SubResource("StyleBoxEmpty_j1qwj")
 theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_1vpe4")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_xpcdl")
-min_value = 1.0
-value = 100.0
+max_value = 20.0
+value = 10.0
 
 [node name="ControlsGroup" type="Control" parent="Background/MainPanel"]
 visible = false
