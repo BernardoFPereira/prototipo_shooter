@@ -58,7 +58,7 @@ var _initialized := false
 @export var padding: Vector2 = Vector2(20, 20)
 @export var min_size: Vector2 = Vector2(160, 60)
 @export var max_width: float = 400.0
-@export var message_display_time: float = 10.0
+@export var message_display_time: float = 20.0
 
 var _text_box_ready := false
 const ANIM_SPEED: int = 30

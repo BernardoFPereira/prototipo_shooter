@@ -120,8 +120,6 @@ var resolution_button_group: ButtonGroup
 #endregion
 
 func _ready():
-	# Sem isso, o Menu (autoload GameMenu.tscn) nunca sai do context MAIN_MENU, e o "_unhandled_input"
-	# dele que escuta ui_cancel (ESC) fica travado — é o que faz o ESC não abrir o menu de pausa.
 	Menu.enter_gameplay_context(self)
 
 	animation_player.animation_finished.connect(_on_animation_finished)
@@ -149,7 +147,7 @@ func _ready():
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
 	
-	is_introduction = false
+	is_introduction = true
 
 func _process(delta):
 	if is_dead or is_next_level:
@@ -583,6 +581,12 @@ func _on_avic_animations_animation_finished(anim_name):
 		
 		"avic/centered_assistant_idle":
 			avic_animations.play("avic/centered_assistant_popout")
+			
+		"avic/centered_assistant_popout":
+			await get_tree().create_timer(2.0).timeout
+			get_message_data("[right]Calibrar os sistemas de locomoção:\nW,A,S,D")
+			avic_animations.play("avic/assistant_popup")
+			await get_tree().create_timer(4.0).timeout
 			is_introduction = false
 
 func _on_assistant_message_timeout():

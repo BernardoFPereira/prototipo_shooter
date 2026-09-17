@@ -15,11 +15,11 @@ const CHAR_PATHS := [
 @export var glyph_textures: Array[Texture2D] = []
 @export var background_color: Color = Color(0.02, 0.02, 0.035, 1.0)
 
-const GLOW_TINT := Color(0.0, 1.0, 0.0)
+const GLOW_TINT := Color(0.1, 0.5, 0.1)
 const GLOW_THRESHOLD := 0.1
-const GLOW_INTENSITY := 1.5
+const GLOW_INTENSITY := 0.7
 const GLOW_BLUR_SIZE := 1.0
-const GLOW_LINE_OPACITY := 0.5
+const GLOW_LINE_OPACITY := 0.6
 
 class LayerConfig:
 	var column_count: int

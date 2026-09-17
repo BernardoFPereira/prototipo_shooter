@@ -1,4 +1,4 @@
-[gd_scene load_steps=1279 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1280 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_r26mw"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="17_84fkf"]
 [ext_resource type="Script" path="res://scripts/plataform_movement.gd" id="17_lhni3"]
 [ext_resource type="PackedScene" uid="uid://ddeco0b34517h" path="res://Scenes/Maps/Level03_Vert.tscn" id="18_knqji"]
+[ext_resource type="PackedScene" uid="uid://bh6dp22ye0rr4" path="res://entities/assistant/assistant_text_area.tscn" id="22_dunmu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -12679,7 +12680,7 @@ size = Vector3(6.33398, 5.11914, 5.98047)
 environment = SubResource("Environment_bwkuk")
 
 [node name="Player" parent="." instance=ExtResource("1_r26mw")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.2763, 0.0558967, 29.6154)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 39.2763, 0.0558967, 28.3675)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.4367, 0)
@@ -13684,7 +13685,17 @@ level_to_load = ExtResource("18_knqji")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SceneProgressArea"]
 shape = SubResource("BoxShape3D_76us0")
 
+[node name="AssistantTextArea" parent="." node_paths=PackedStringArray("player") instance=ExtResource("22_dunmu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.6815, 0, 27.9598)
+player = NodePath("../Player")
+message = "Calibrar sistema de disparo:
+Botão Esquerdo do Mouse"
+
+[node name="CollisionShape3D" parent="AssistantTextArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84253, 5.26013, 1.04233)
+
 [connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
 
 [editable path="Pilar"]
 [editable path="Pilar2"]
+[editable path="AssistantTextArea"]
