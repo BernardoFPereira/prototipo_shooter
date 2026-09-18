@@ -35,7 +35,7 @@ func set_state(new_state):
 				print("DOOR BROKEN BRUH")
 				#var moving_blocks = get_tree().get_first_node_in_group("ExplosionBlocks")
 				#moving_blocks.get_node("AnimationPlayer").play("explosion_aftermath")
-				linked_obj.get_node("AnimationPlayer").play("break_apart")
+				linked_obj.get_node("AnimationPlayer").play("break_open")
 				disabled = true
 				return
 			
