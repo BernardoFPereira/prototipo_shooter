@@ -22,18 +22,18 @@ var hud_muted: bool = false
 
 #region CONTROLS
 var is_keyboard: bool = true
-var mouse_sensitivity: float = 0.001
-
-const SENSITIVITY_MIN: float = 0.0001
-const SENSITIVITY_MAX: float = 0.003
+var mouse_sensitivity: float = 0.0012
+const SENSITIVITY_MIN: float = 0.0003
+const SENSITIVITY_MAX: float = 0.004
+const SENS_SLIDER_MAX: float = 20.0
 
 func slider_to_sensitivity(value: float) -> float:
-	var normalized = value / 10.0
+	var normalized = clampf(value / SENS_SLIDER_MAX, 0.0, 1.0)
 	return lerp(SENSITIVITY_MIN, SENSITIVITY_MAX, normalized)
 
 func sensitivity_to_slider(sens: float) -> float:
-	var normalized = (sens - SENSITIVITY_MIN) / (SENSITIVITY_MAX - SENSITIVITY_MIN)
-	return clamp(normalized * 10.0, 0.0, 10.0)
+	var normalized = clampf((sens - SENSITIVITY_MIN) / (SENSITIVITY_MAX - SENSITIVITY_MIN), 0.0, 1.0)
+	return normalized * SENS_SLIDER_MAX
 #endregion
 
 #region AUDIO MANAGEMENT
@@ -224,10 +224,6 @@ func center_window() -> void:
 const MIN_DB: float = -80
 const MAX_DB: float = -5
 
-# Sliders de áudio vão de 0 a 20 (step 1). Cada step sobe/desce exatamente VOLUME_DB_STEP dB,
-# ancorado no topo (slider = VOLUME_SLIDER_MAX equivale a MAX_DB). Ex.: 20 -> -5dB, 19 -> -7dB,
-# 18 -> -9dB, e por aí vai — sem curva nenhuma, só passos iguais de dB. slider = 0 é tratado como
-# mudo (MIN_DB) e não entra nessa conta linear.
 const VOLUME_SLIDER_MAX: float = 20.0
 const VOLUME_DB_STEP: float = 2.0
 
