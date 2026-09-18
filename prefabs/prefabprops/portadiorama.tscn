@@ -1,12 +1,12 @@
 [gd_scene load_steps=25 format=3 uid="uid://bl4641hb7ar1k"]
 
 [ext_resource type="Script" path="res://scripts/porta.gd" id="1_dwwm7"]
-[ext_resource type="Texture2D" uid="uid://d2di802x0jx0e" path="res://models/heroassets/porta_doorscover_Doorbars_mtl_BaseColor.png" id="1_stwdy"]
-[ext_resource type="Texture2D" uid="uid://b8dfqvs1qbk74" path="res://models/heroassets/porta_doorscover_Doorbars_mtl_Emissive.png" id="2_3l4l8"]
-[ext_resource type="Texture2D" uid="uid://b0xq1qpmc6jem" path="res://models/heroassets/porta_doorscover_Doorbars_mtl_Metallic.1001-doorscover_Doorbars_mtl_Roughness.png" id="3_xksgb"]
-[ext_resource type="Texture2D" uid="uid://bkfpgctco5bs6" path="res://models/heroassets/porta_doorscover_Doorcover_mtl_BaseColor.png" id="4_xysmd"]
-[ext_resource type="Texture2D" uid="uid://dppm0jw1du72g" path="res://models/heroassets/porta_doorscover_Doorcover_mtl_Roughness.png" id="5_ju2j0"]
-[ext_resource type="Texture2D" uid="uid://owtwr2mk3dvr" path="res://models/heroassets/porta_doorscover_Doorcover_mtl_Normal.png" id="6_prksl"]
+[ext_resource type="Texture2D" uid="uid://d2di802x0jx0e" path="res://textures/porta_doorscover_Doorbars_mtl_BaseColor.png" id="1_stwdy"]
+[ext_resource type="Texture2D" uid="uid://b8dfqvs1qbk74" path="res://textures/porta_doorscover_Doorbars_mtl_Emissive.png" id="2_3l4l8"]
+[ext_resource type="Texture2D" uid="uid://b0xq1qpmc6jem" path="res://textures/porta_doorscover_Doorbars_mtl_Metallic.1001-doorscover_Doorbars_mtl_Roughness.png" id="3_xksgb"]
+[ext_resource type="Texture2D" uid="uid://bkfpgctco5bs6" path="res://textures/porta_doorscover_Doorcover_mtl_BaseColor.png" id="4_xysmd"]
+[ext_resource type="Texture2D" uid="uid://dppm0jw1du72g" path="res://textures/porta_doorscover_Doorcover_mtl_Roughness.png" id="5_ju2j0"]
+[ext_resource type="Texture2D" uid="uid://owtwr2mk3dvr" path="res://textures/porta_doorscover_Doorcover_mtl_Normal.png" id="6_prksl"]
 
 [sub_resource type="Animation" id="Animation_v3q4t"]
 length = 0.001
