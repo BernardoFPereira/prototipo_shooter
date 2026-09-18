@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://dohcqbyddi0iv"]
+
+[sub_resource type="Animation" id="Animation_lnrpv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_s5twc"]
+resource_name = "loop"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pqge0"]
+_data = {
+"RESET": SubResource("Animation_lnrpv"),
+"loop": SubResource("Animation_s5twc")
+}
+
+[node name="AlarmLight4" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4333, 8.65667, -14.4277)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+light_color = Color(1, 0, 0.184314, 1)
+light_energy = 4.5
+shadow_enabled = true
+spot_range = 15.4667
+spot_angle = 53.9735
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0)
+light_color = Color(1, 0, 0.184314, 1)
+light_energy = 4.5
+shadow_enabled = true
+spot_range = 15.4667
+spot_angle = 53.9735
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pqge0")
+}
+autoplay = "loop"

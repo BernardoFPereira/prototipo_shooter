@@ -1,0 +1,106 @@
+[gd_scene load_steps=5 format=3 uid="uid://hv2ci1icih7t"]
+
+[ext_resource type="Material" uid="uid://x7ah2e0ht273" path="res://materials/Prototype/ship_hall_light.tres" id="1_l16gj"]
+[ext_resource type="PackedScene" uid="uid://dcj3yqwdv0enk" path="res://prefabs/prefabprops/lab_capsule.tscn" id="2_lbirx"]
+[ext_resource type="PackedScene" uid="uid://bvvatsxla1lbb" path="res://prefabs/prefabprops/tubinho.tscn" id="3_1xvl7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r8ms6"]
+material = ExtResource("1_l16gj")
+size = Vector3(0.5, 0.1, 10)
+
+[node name="SecludedSpot" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0716, 10.4978, -27.4908)
+material_override = ExtResource("1_l16gj")
+mesh = SubResource("BoxMesh_r8ms6")
+skeleton = NodePath("../../CorridorLights/Node3D/MeshInstance3D2")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0716, 10.4978, -35.4523)
+material_override = ExtResource("1_l16gj")
+mesh = SubResource("BoxMesh_r8ms6")
+skeleton = NodePath("../../CorridorLights/Node3D/MeshInstance3D2")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0716, 10.4978, -11.5316)
+material_override = ExtResource("1_l16gj")
+mesh = SubResource("BoxMesh_r8ms6")
+skeleton = NodePath("../../CorridorLights/Node3D/MeshInstance3D2")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0716, 10.4978, -3.564)
+material_override = ExtResource("1_l16gj")
+mesh = SubResource("BoxMesh_r8ms6")
+skeleton = NodePath("../../CorridorLights/Node3D/MeshInstance3D2")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19.0716, 10.4978, 4.4816)
+material_override = ExtResource("1_l16gj")
+mesh = SubResource("BoxMesh_r8ms6")
+skeleton = NodePath("../../CorridorLights/Node3D/MeshInstance3D2")
+
+[node name="OmniLight3D15" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 25.0293, 4.93996, -21.1084)
+light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
+light_energy = 4.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.75
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 15.889
+
+[node name="OmniLight3D15" type="OmniLight3D" parent="OmniLight3D15"]
+transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, -1.43943, -5.02002, -4.94328)
+light_color = Color(0.519489, 0.700775, 0.16466, 1)
+light_energy = 16.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.125
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 15.889
+
+[node name="OmniLight3D18" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 13.6165, 4.93996, -19.7098)
+light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
+light_energy = 4.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.75
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 15.889
+
+[node name="OmniLight3D19" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 13.6165, 4.93996, -37.2023)
+light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
+light_energy = 16.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+light_specular = 0.75
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 15.889
+
+[node name="LabCapsule" parent="." instance=ExtResource("2_lbirx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, -37.8881)
+
+[node name="LabCapsule2" parent="." instance=ExtResource("2_lbirx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, -26.9565)
+
+[node name="LabCapsule3" parent="." instance=ExtResource("2_lbirx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, -4.97812)
+
+[node name="LabCapsule4" parent="." instance=ExtResource("2_lbirx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, 3.51864)
+
+[node name="Tubinho" parent="." instance=ExtResource("3_1xvl7")]
+transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 8.71652, 4.76837e-07, -42.1835)
+
+[node name="Tubinho2" parent="." instance=ExtResource("3_1xvl7")]
+transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 5.10312, 4.76837e-07, -42.1835)
+
+[node name="Tubinho3" parent="." instance=ExtResource("3_1xvl7")]
+transform = Transform3D(-0.382183, 0, 0.924086, 0, 1, 0, -0.924086, 0, -0.382183, 7.11172, 4.49147, -42.1835)

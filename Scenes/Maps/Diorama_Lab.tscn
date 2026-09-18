@@ -16,14 +16,14 @@
 [ext_resource type="PackedScene" uid="uid://dcj3yqwdv0enk" path="res://prefabs/prefabprops/lab_capsule.tscn" id="14_nrj1j"]
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="15_md7nd"]
 [ext_resource type="PackedScene" uid="uid://ct5atronh7rv2" path="res://prefabs/prefabprops/vent.tscn" id="16_2vhi1"]
-[ext_resource type="Texture2D" uid="uid://dvqfct87yr5si" path="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_BaseColor.png" id="17_dx8xj"]
-[ext_resource type="Texture2D" uid="uid://q5go0jrqnmkq" path="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_Emissive.png" id="18_tym0j"]
-[ext_resource type="Texture2D" uid="uid://p0w7nspnivpq" path="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_Metallic.1001-texcube_low_cubotex_mtl_Roughness.png" id="19_deaj5"]
+[ext_resource type="Texture2D" uid="uid://dvqfct87yr5si" path="res://textures/propstextures/floaty_texcube_low_cubotex_mtl_BaseColor.png" id="17_dx8xj"]
+[ext_resource type="Texture2D" uid="uid://q5go0jrqnmkq" path="res://textures/propstextures/floaty_texcube_low_cubotex_mtl_Emissive.png" id="18_tym0j"]
+[ext_resource type="Texture2D" uid="uid://p0w7nspnivpq" path="res://textures/propstextures/floaty_texcube_low_cubotex_mtl_Metallic.1001-texcube_low_cubotex_mtl_Roughness.png" id="19_deaj5"]
 [ext_resource type="PackedScene" uid="uid://c6uc418mpdn06" path="res://prefabs/prefabprops/pilares.tscn" id="20_fl77u"]
 [ext_resource type="Texture2D" uid="uid://co7avk5obna6g" path="res://textures/Pilar_Pillar_mtl_Base_color.png" id="21_o2wqv"]
-[ext_resource type="PackedScene" uid="uid://bvvatsxla1lbb" path="res://prefabs/prefabprops/tubinho.tscn" id="22_1o5g2"]
 [ext_resource type="PackedScene" uid="uid://gh8igq2rphp" path="res://models/heroassets/plataformavoadora.glb" id="23_2in6r"]
 [ext_resource type="Shader" path="res://shaders/buckshot.gdshader" id="24_tv44h"]
+[ext_resource type="PackedScene" uid="uid://hv2ci1icih7t" path="res://prefabs/prefabprops/prefabslab/secluded_spot.tscn" id="24_w46wd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2cek6"]
 size = Vector3(128.07, 1, 117.362)
@@ -7669,33 +7669,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.107841, 0, -15.2385)
 material_override = ExtResource("9_vfr5m")
 mesh = SubResource("BoxMesh_r8ms6")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CorridorLights/Node3D/MeshInstance3D2"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.6305, 0.111916, -12.2523)
-material_override = ExtResource("9_vfr5m")
-mesh = SubResource("BoxMesh_r8ms6")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="CorridorLights/Node3D/MeshInstance3D2"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.6305, 0.111916, -20.2138)
-material_override = ExtResource("9_vfr5m")
-mesh = SubResource("BoxMesh_r8ms6")
-
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="CorridorLights/Node3D/MeshInstance3D2"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.6305, 0.111916, -4.26277)
-material_override = ExtResource("9_vfr5m")
-mesh = SubResource("BoxMesh_r8ms6")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="CorridorLights/Node3D/MeshInstance3D2"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.6305, 0.111916, 3.70686)
-material_override = ExtResource("9_vfr5m")
-mesh = SubResource("BoxMesh_r8ms6")
-
-[node name="MeshInstance3D6" type="MeshInstance3D" parent="CorridorLights/Node3D/MeshInstance3D2"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.6305, 0.111916, 11.6745)
-material_override = ExtResource("9_vfr5m")
-mesh = SubResource("BoxMesh_r8ms6")
-
-[node name="MeshInstance3D7" type="MeshInstance3D" parent="CorridorLights/Node3D/MeshInstance3D2"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.6305, 0.111916, 19.7201)
 material_override = ExtResource("9_vfr5m")
 mesh = SubResource("BoxMesh_r8ms6")
 
@@ -7820,28 +7795,6 @@ light_bake_mode = 1
 shadow_enabled = true
 omni_range = 15.889
 
-[node name="OmniLight3D15" type="OmniLight3D" parent="CorridorLights"]
-transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 25.0293, 4.93996, -21.1084)
-light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
-light_energy = 16.0
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_specular = 0.75
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 15.889
-
-[node name="OmniLight3D15" type="OmniLight3D" parent="CorridorLights/OmniLight3D15"]
-transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, -1.43943, -5.02002, -4.94328)
-light_color = Color(0.519489, 0.700775, 0.16466, 1)
-light_energy = 16.0
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_specular = 0.125
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 15.889
-
 [node name="OmniLight3D16" type="OmniLight3D" parent="CorridorLights"]
 transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 25.0293, 4.93996, -0.450161)
 light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
@@ -7855,28 +7808,6 @@ omni_range = 15.889
 
 [node name="OmniLight3D17" type="OmniLight3D" parent="CorridorLights"]
 transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 13.6165, 4.93996, -0.450161)
-light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
-light_energy = 16.0
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_specular = 0.75
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 15.889
-
-[node name="OmniLight3D18" type="OmniLight3D" parent="CorridorLights"]
-transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 13.6165, 4.93996, -19.7098)
-light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
-light_energy = 16.0
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-light_specular = 0.75
-light_bake_mode = 1
-shadow_enabled = true
-omni_range = 15.889
-
-[node name="OmniLight3D19" type="OmniLight3D" parent="CorridorLights"]
-transform = Transform3D(-0.999591, 0, 0.0286021, 0, 1, 0, -0.0286021, 0, -0.999591, 13.6165, 4.93996, -37.2023)
 light_color = Color(3.94672e-06, 0.869264, 0.616256, 1)
 light_energy = 16.0
 light_indirect_energy = 0.0
@@ -8014,18 +7945,6 @@ spot_angle = 19.1468
 [node name="Button" parent="." instance=ExtResource("12_lvsea")]
 transform = Transform3D(-6.03217e-08, 0, -1.38, 0, 1.38, 0, 1.38, 0, -6.03217e-08, 28.9729, 1.65932, -15.0428)
 
-[node name="LabCapsule" parent="." instance=ExtResource("14_nrj1j")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, -37.8881)
-
-[node name="LabCapsule2" parent="." instance=ExtResource("14_nrj1j")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, -26.9565)
-
-[node name="LabCapsule3" parent="." instance=ExtResource("14_nrj1j")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, -4.97812)
-
-[node name="LabCapsule4" parent="." instance=ExtResource("14_nrj1j")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, 3.51864)
-
 [node name="LabCapsule5" parent="." instance=ExtResource("14_nrj1j")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 41.4714, -4.76837e-07, 27.941)
 
@@ -8104,15 +8023,6 @@ transform = Transform3D(9.06332e-05, -4.32954e-10, -0.00815429, -0.0173095, -4.3
 mesh = SubResource("ArrayMesh_tmd4a")
 skeleton = NodePath("")
 
-[node name="Tubinho" parent="." instance=ExtResource("22_1o5g2")]
-transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 14.7954, 4.76837e-07, -42.1835)
-
-[node name="Tubinho2" parent="." instance=ExtResource("22_1o5g2")]
-transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 11.182, 4.76837e-07, -42.1835)
-
-[node name="Tubinho3" parent="." instance=ExtResource("22_1o5g2")]
-transform = Transform3D(-0.382183, 0, 0.924086, 0, 1, 0, -0.924086, 0, -0.382183, 13.1906, 4.49147, -42.1835)
-
 [node name="plataformavoadora" parent="." instance=ExtResource("23_2in6r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7583, 1.41335, -2.25528)
 
@@ -8124,3 +8034,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("CanvasTexture_rqlct")
+
+[node name="SecludedSpot" parent="." instance=ExtResource("24_w46wd")]

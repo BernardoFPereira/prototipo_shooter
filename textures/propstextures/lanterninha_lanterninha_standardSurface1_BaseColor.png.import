@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hdy3lsmc8i1f"
-path.s3tc="res://.godot/imported/LabCapsule_metalbar_mtl_BaseColor.png-e5ae4f4136bb8e612db20d8b840cf00a.s3tc.ctex"
+uid="uid://dfsofo5akoit6"
+path.s3tc="res://.godot/imported/lanterninha_lanterninha_standardSurface1_BaseColor.png-cea036732f2e0eff5db664036dc026e5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "415bdbe772a910401b08d0505dc92d52"
+"md5": "95886369389286c28fbd315c1968fd47"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/LabCapsule_metalbar_mtl_BaseColor.png"
-dest_files=["res://.godot/imported/LabCapsule_metalbar_mtl_BaseColor.png-e5ae4f4136bb8e612db20d8b840cf00a.s3tc.ctex"]
+source_file="res://textures/propstextures/lanterninha_lanterninha_standardSurface1_BaseColor.png"
+dest_files=["res://.godot/imported/lanterninha_lanterninha_standardSurface1_BaseColor.png-cea036732f2e0eff5db664036dc026e5.s3tc.ctex"]
 
 [params]
 

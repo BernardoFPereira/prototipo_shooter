@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0allu41r8tse"
-path.s3tc="res://.godot/imported/Tubinho_metalcap_mtl_BaseColor.png-70055d36f781a90f5e6e738f006ff474.s3tc.ctex"
+uid="uid://ccand22iorjkn"
+path.s3tc="res://.godot/imported/Chute_CeilingChute_geo_lambert27_BaseColor.png-daef890869175056278cb9a48104b2a9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "976914a8d388293ed0b126d809f4f152"
+"md5": "09e798cbf4b2ef3a62cb09e1c33700bc"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/Tubinho_metalcap_mtl_BaseColor.png"
-dest_files=["res://.godot/imported/Tubinho_metalcap_mtl_BaseColor.png-70055d36f781a90f5e6e738f006ff474.s3tc.ctex"]
+source_file="res://textures/propstextures/Chute_CeilingChute_geo_lambert27_BaseColor.png"
+dest_files=["res://.godot/imported/Chute_CeilingChute_geo_lambert27_BaseColor.png-daef890869175056278cb9a48104b2a9.s3tc.ctex"]
 
 [params]
 

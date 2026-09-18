@@ -2,23 +2,24 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpt1hvxx0gg7k"
-path="res://.godot/imported/floaty_texcube_low_cubotex_mtl_Roughness.png-256c38e10866e48cae10de0872c54c6f.ctex"
+uid="uid://dxc1ew2b4aqgj"
+path.s3tc="res://.godot/imported/Tubinho_bubbles_mtl_BaseColor.png-3d2a11d47c1499562916f9f04a5d6eae.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 generator_parameters={
-"md5": "d0eae3e0ff0d64ee9cdd8297bf7bce4d"
+"md5": "9b7be3b5bdbf8c05619525f6ccd4ff2a"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_Roughness.png"
-dest_files=["res://.godot/imported/floaty_texcube_low_cubotex_mtl_Roughness.png-256c38e10866e48cae10de0872c54c6f.ctex"]
+source_file="res://textures/propstextures/Tubinho_bubbles_mtl_BaseColor.png"
+dest_files=["res://.godot/imported/Tubinho_bubbles_mtl_BaseColor.png-3d2a11d47c1499562916f9f04a5d6eae.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
@@ -34,4 +35,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

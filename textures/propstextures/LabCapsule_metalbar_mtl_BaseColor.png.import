@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmnfe8n3i70cb"
-path.s3tc="res://.godot/imported/Tubinho_standardSurface5_BaseColor.png-0257738e113a380bc896c6dbaf545f68.s3tc.ctex"
+uid="uid://hdy3lsmc8i1f"
+path.s3tc="res://.godot/imported/LabCapsule_metalbar_mtl_BaseColor.png-81b8b5652ad456977dbc182644def42c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "c8332b0eb7b73b2da0519f61d4e88f15"
+"md5": "415bdbe772a910401b08d0505dc92d52"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/Tubinho_standardSurface5_BaseColor.png"
-dest_files=["res://.godot/imported/Tubinho_standardSurface5_BaseColor.png-0257738e113a380bc896c6dbaf545f68.s3tc.ctex"]
+source_file="res://textures/propstextures/LabCapsule_metalbar_mtl_BaseColor.png"
+dest_files=["res://.godot/imported/LabCapsule_metalbar_mtl_BaseColor.png-81b8b5652ad456977dbc182644def42c.s3tc.ctex"]
 
 [params]
 

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvqfct87yr5si"
-path.s3tc="res://.godot/imported/floaty_texcube_low_cubotex_mtl_BaseColor.png-80ae0c1a7b0a9612fb6b737d298258b3.s3tc.ctex"
+uid="uid://q5go0jrqnmkq"
+path.s3tc="res://.godot/imported/floaty_texcube_low_cubotex_mtl_Emissive.png-c55e538c81248c02a7ee28f5b2fe6bcc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "45eb92136af81452d61cd1f5c991d4bb"
+"md5": "5573207b7c291c1c0b69501092d740dc"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/floaty_texcube_low_cubotex_mtl_BaseColor.png"
-dest_files=["res://.godot/imported/floaty_texcube_low_cubotex_mtl_BaseColor.png-80ae0c1a7b0a9612fb6b737d298258b3.s3tc.ctex"]
+source_file="res://textures/propstextures/floaty_texcube_low_cubotex_mtl_Emissive.png"
+dest_files=["res://.godot/imported/floaty_texcube_low_cubotex_mtl_Emissive.png-c55e538c81248c02a7ee28f5b2fe6bcc.s3tc.ctex"]
 
 [params]
 

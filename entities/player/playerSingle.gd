@@ -147,7 +147,7 @@ func _ready():
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
 	
-	is_introduction = true
+	is_introduction = false #intro desligada
 
 func _process(delta):
 	if is_dead or is_next_level:

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://laswchl2x8xd"
-path.s3tc="res://.godot/imported/LabCapsule_pnl_mtl_BaseColor.png-6c990c84b3c549d850b3e69b01f58b06.s3tc.ctex"
+uid="uid://p0w7nspnivpq"
+path.s3tc="res://.godot/imported/floaty_texcube_low_cubotex_mtl_Metallic.1001-texcube_low_cubotex_mtl_Roughness.png-aa9d4848e5e7f4dc40aba107e68dfc90.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "bead7cd4ad4a395af4d93803e57cb489"
+"md5": "a1f552267153787a71e8a03de0de63df"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/LabCapsule_pnl_mtl_BaseColor.png"
-dest_files=["res://.godot/imported/LabCapsule_pnl_mtl_BaseColor.png-6c990c84b3c549d850b3e69b01f58b06.s3tc.ctex"]
+source_file="res://textures/propstextures/floaty_texcube_low_cubotex_mtl_Metallic.1001-texcube_low_cubotex_mtl_Roughness.png"
+dest_files=["res://.godot/imported/floaty_texcube_low_cubotex_mtl_Metallic.1001-texcube_low_cubotex_mtl_Roughness.png-aa9d4848e5e7f4dc40aba107e68dfc90.s3tc.ctex"]
 
 [params]
 

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7m7qfmug6vkj"
-path.s3tc="res://.godot/imported/LabCapsule_Glassvat_mtl_BaseColor.png-037f376c0d52d1aeafc392d3d11ee05c.s3tc.ctex"
+uid="uid://beeoeiplnt0ro"
+path.s3tc="res://.godot/imported/LabCapsule_bubls_mtl_BaseColor.png-e4cb03ce2abf1edc2e10f5de00fa47c5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "7f76391d6a800420f628ac4c42b94917"
+"md5": "a1bcec4ca6e1f0f9a5c4da9b9257b76e"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/LabCapsule_Glassvat_mtl_BaseColor.png"
-dest_files=["res://.godot/imported/LabCapsule_Glassvat_mtl_BaseColor.png-037f376c0d52d1aeafc392d3d11ee05c.s3tc.ctex"]
+source_file="res://textures/propstextures/LabCapsule_bubls_mtl_BaseColor.png"
+dest_files=["res://.godot/imported/LabCapsule_bubls_mtl_BaseColor.png-e4cb03ce2abf1edc2e10f5de00fa47c5.s3tc.ctex"]
 
 [params]
 

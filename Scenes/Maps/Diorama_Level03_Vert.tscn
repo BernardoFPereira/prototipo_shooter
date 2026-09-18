@@ -1,6 +1,5 @@
-[gd_scene load_steps=4095 format=3 uid="uid://c065scjxbdcie"]
+[gd_scene load_steps=4096 format=3 uid="uid://c065scjxbdcie"]
 
-[ext_resource type="Script" path="res://scripts/patrol_route.gd" id="1_kxfcf"]
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="2_2xmcg"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="3_xmowe"]
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="4_euolr"]
@@ -19,12 +18,12 @@
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="13_sfhiq"]
 [ext_resource type="Material" uid="uid://c8m7xk4f7krb" path="res://materials/mapmaterials/DioramaMats/PlateWallexposed.tres" id="14_rp6xe"]
 [ext_resource type="PackedScene" path="res://prefabs/prefabprops/chute.tscn" id="14_s3etq"]
-[ext_resource type="PackedScene" path="res://prefabs/prefabprops/BreakableVent.tscn" id="15_cvc61"]
+[ext_resource type="PackedScene" uid="uid://qthuiqlchfys" path="res://prefabs/prefabprops/BreakableVent.tscn" id="15_cvc61"]
 [ext_resource type="PackedScene" path="res://prefabs/prefabprops/door_explosion.tscn" id="16_06kbd"]
 [ext_resource type="Material" uid="uid://c2cp8w4f82s27" path="res://materials/mapmaterials/DioramaMats/DiamondWall.tres" id="16_nskfs"]
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="17_jfwxe"]
 [ext_resource type="Material" uid="uid://bf5tpsfyy2l71" path="res://materials/mapmaterials/DioramaMats/PlateWalldirty.tres" id="17_tamme"]
-[ext_resource type="PackedScene" path="res://prefabs/SpawnerDoor.tscn" id="18_6k4kx"]
+[ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="18_6k4kx"]
 [ext_resource type="PackedScene" uid="uid://d38b67veaataa" path="res://prefabs/prefabprops/prefabsl3/monitorzim.tscn" id="22_if7ep"]
 [ext_resource type="PackedScene" uid="uid://cpqer2rvjis3b" path="res://prefabs/prefabprops/pilar.tscn" id="23_mu63i"]
 [ext_resource type="Texture2D" uid="uid://co7avk5obna6g" path="res://textures/Pilar_Pillar_mtl_Base_color.png" id="24_51fc2"]
@@ -36,6 +35,8 @@
 [ext_resource type="PackedScene" uid="uid://gv17vrccmqq0" path="res://models/heroassets/props/plano1.glb" id="30_jubbt"]
 [ext_resource type="PackedScene" uid="uid://dedu2e4ut8aq0" path="res://prefabs/prefabprops/prefabsl3/maquinario_com_esteira.tscn" id="30_pv5rf"]
 [ext_resource type="PackedScene" uid="uid://cjyxtxb16dwdg" path="res://prefabs/prefabprops/prefabsl3/star_1.tscn" id="31_y1o4g"]
+[ext_resource type="PackedScene" uid="uid://p13gufm2kjpk" path="res://entities/enemies/MeleeEnemy/melee_enemy_01.tscn" id="36_g76hb"]
+[ext_resource type="Material" uid="uid://dcrnq1f66ek1q" path="res://UI/V2/Background/Hologram_MainMenu.tres" id="37_178d8"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 ambient_light_source = 2
@@ -40963,12 +40964,10 @@ curve = SubResource("Curve3D_nww83")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="RespawnableEnemy/Path3D" groups=["PatrolPath01"]]
 transform = Transform3D(0.994536, 0, 0.104388, 0, 1, 0, -0.104388, 0, 0.994536, 5.67, 0, 4.435)
-script = ExtResource("1_kxfcf")
 
-[node name="EnemyMelee" parent="RespawnableEnemy/Path3D/PathFollow3D" node_paths=PackedStringArray("target", "patrol_route") instance=ExtResource("2_2xmcg")]
+[node name="EnemyMelee" parent="RespawnableEnemy/Path3D/PathFollow3D" node_paths=PackedStringArray("target") instance=ExtResource("2_2xmcg")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0380421, -0.246082, 7.24529)
 target = NodePath("../../../../Player")
-patrol_route = NodePath("..")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("3_xmowe")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -27.1327, 32.7527, -3.15661)
@@ -43307,6 +43306,44 @@ transform = Transform3D(-0.0193196, 0, -0.999813, 0, 1, 0, 0.999813, 0, -0.01931
 [node name="Pilar4" parent="." instance=ExtResource("25_xonhq")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -9.41183, 29.4845, 18.02)
 
+[node name="melee_enemy_01" parent="." instance=ExtResource("36_g76hb")]
+transform = Transform3D(-0.993228, 0, -0.116185, 0, 1, 0, 0.116185, 0, -0.993228, 6.78807, 41.1084, 16.4709)
+
+[node name="Skeleton3D" parent="melee_enemy_01/Armature" index="0"]
+bones/1/position = Vector3(3.69576e-17, 1.16318, -0.152902)
+bones/1/rotation = Quaternion(0.500485, 0.00198354, 0.0087506, 0.865699)
+bones/2/rotation = Quaternion(-0.315713, 0.127659, -0.0653589, 0.937954)
+bones/3/rotation = Quaternion(-0.147122, 0.116546, -0.635322, 0.749091)
+bones/4/rotation = Quaternion(0.0832996, -0.336767, 0.6796, -0.646369)
+bones/5/rotation = Quaternion(0.470334, -0.0518973, -0.563517, 0.677157)
+bones/6/rotation = Quaternion(0.00205086, -0.151151, -0.00031363, 0.988509)
+bones/7/rotation = Quaternion(-0.227504, -0.0379879, -0.176364, 0.956919)
+bones/8/rotation = Quaternion(-0.227199, 0.0363327, 0.171073, 0.958016)
+bones/9/rotation = Quaternion(-0.147944, -0.114242, 0.631869, 0.752199)
+bones/10/rotation = Quaternion(-0.57183, 0.00410139, 0.648778, 0.502077)
+bones/11/rotation = Quaternion(0.491988, 0.0489591, 0.589462, 0.638816)
+bones/12/rotation = Quaternion(0.425081, 0.167548, 0.0153344, 0.889381)
+bones/13/rotation = Quaternion(0.363728, -0.0332265, 0.0921471, 0.926341)
+bones/14/rotation = Quaternion(0.916204, -0.12229, -0.0439918, 0.379053)
+bones/15/rotation = Quaternion(0.336582, 0.0336154, -0.0852698, 0.937183)
+bones/16/position = Vector3(0.34908, 0.482894, 0.801441)
+bones/17/position = Vector3(0.279265, 1.0313, 0.941693)
+bones/17/rotation = Quaternion(0.701484, 0.163222, 0.0889964, 0.688011)
+bones/18/position = Vector3(-0.336344, 0.460969, -0.772824)
+bones/19/position = Vector3(-0.289504, 0.838361, 0.555916)
+bones/19/rotation = Quaternion(0.70325, -0.178116, -0.0737508, 0.684306)
+bones/20/position = Vector3(0.647075, 1.77395, -0.359236)
+bones/21/position = Vector3(0.692972, 1.28551, -0.111538)
+bones/22/position = Vector3(-0.466225, 1.47783, -0.272205)
+bones/23/position = Vector3(-0.692133, 1.37553, 0.731947)
+
+[node name="melee_enemy_geo" parent="melee_enemy_01/Armature/Skeleton3D" index="0"]
+transform = Transform3D(1.89589, 0, 1.59875, 0, 2.48, 0, -1.59875, 0, 1.89589, -0.173884, 0, -0.0203495)
+material_override = ExtResource("37_178d8")
+
+[node name="AnimationPlayer" parent="melee_enemy_01" index="1"]
+autoplay = "chase"
+
 [connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
 
 [editable path="Pilar"]
@@ -43314,3 +43351,4 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -9.411
 [editable path="Plano1"]
 [editable path="maquinario com esteira"]
 [editable path="maquinario com esteira/esteira/maquinario"]
+[editable path="melee_enemy_01"]
