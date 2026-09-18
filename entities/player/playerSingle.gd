@@ -21,6 +21,10 @@ const JUMP_VELOCITY := 18
 @export var melee_damage: float = 10.0
 @export var impact_strength: int = 250
 var current_health: float
+
+@export_category("VFX")
+@export var muzzle_flash_particles: PackedScene = preload("uid://b8edqmwpwyrwk")
+
 #endregion
 
 #region STATE_MACHINE
@@ -120,6 +124,7 @@ var resolution_button_group: ButtonGroup
 #endregion
 
 func _ready():
+	
 	# Sem isso, o Menu (autoload GameMenu.tscn) nunca sai do context MAIN_MENU, e o "_unhandled_input"
 	# dele que escuta ui_cancel (ESC) fica travado — é o que faz o ESC não abrir o menu de pausa.
 	Menu.enter_gameplay_context(self)
@@ -433,6 +438,11 @@ func try_fire():
 		previous_state = state
 		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
+		var muzzle_flash = muzzle_flash_particles.instantiate()
+		muzzle_flash.global_transform = muzzle.global_transform
+		get_tree().root.add_child(muzzle_flash)
+		for child: GPUParticles3D in muzzle_flash.get_children():
+			child.emitting = true
 		#camera_juice.add_weapon_kick(5, 0.5, 0.5)
 
 func try_jump():

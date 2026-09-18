@@ -1,0 +1,22 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://dmcjgyjeld5f8"]
+
+[sub_resource type="VisualShaderNodeVectorFunc" id="VisualShaderNodeVectorFunc_768ya"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+function = 23
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_j1okr"]
+output_port_for_preview = 0
+input_name = "uv"
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+
+
+"
+nodes/fragment/9/node = SubResource("VisualShaderNodeInput_j1okr")
+nodes/fragment/9/position = Vector2(-900, 220)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorFunc_768ya")
+nodes/fragment/10/position = Vector2(-385.885, 157.708)

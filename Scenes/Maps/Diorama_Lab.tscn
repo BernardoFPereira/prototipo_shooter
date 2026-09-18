@@ -1,4 +1,4 @@
-[gd_scene load_steps=740 format=3 uid="uid://b0pony3dqoo81"]
+[gd_scene load_steps=743 format=3 uid="uid://b0pony3dqoo81"]
 
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_nhcrw"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_d5jfk"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://co7avk5obna6g" path="res://models/heroassets/Pilar_Pillar_mtl_Base_color.png" id="21_o2wqv"]
 [ext_resource type="PackedScene" uid="uid://bvvatsxla1lbb" path="res://prefabs/prefabprops/tubinho.tscn" id="22_1o5g2"]
 [ext_resource type="PackedScene" uid="uid://gh8igq2rphp" path="res://models/heroassets/plataformavoadora.glb" id="23_2in6r"]
+[ext_resource type="Shader" path="res://shaders/buckshot.gdshader" id="24_tv44h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2cek6"]
 size = Vector3(128.07, 1, 117.362)
@@ -7264,6 +7265,25 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ic56a")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0s25k"]
+shader = ExtResource("24_tv44h")
+shader_parameter/exposure = 1.0
+shader_parameter/contrast = 1.25
+shader_parameter/saturation = 0.9
+shader_parameter/enable_pixelate = true
+shader_parameter/pixel_factor = 2.0
+shader_parameter/enable_posterize = true
+shader_parameter/color_levels = 12.0
+shader_parameter/dither_strength = 0.75
+shader_parameter/chrom_aberration = 4.0
+shader_parameter/vignette_strength = 1.0
+shader_parameter/grain_strength = 0.2
+shader_parameter/tint_color = Vector3(0.95, 1.03, 0.9)
+shader_parameter/tint_strength = 0.15
+shader_parameter/viewport_size_override = Vector2(0, 0)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rqlct"]
+
 [node name="Level01Lab" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_nhcrw")]
@@ -8095,3 +8115,12 @@ transform = Transform3D(-0.382183, 0, 0.924086, 0, 1, 0, -0.924086, 0, -0.382183
 
 [node name="plataformavoadora" parent="." instance=ExtResource("23_2in6r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7583, 1.41335, -2.25528)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_0s25k")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_rqlct")
