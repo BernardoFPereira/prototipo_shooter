@@ -88,6 +88,12 @@ var current_music: String = ""
 var current_music_player: AudioStreamPlayer = null
 #endregion
 
+#region PLAYER VARIABLES
+var is_introduction: bool
+var is_walk_introduction: bool
+var is_fire_introduction: bool
+#endregion
+
 func _ready() -> void:
 	_setup_audio_players()
 	
@@ -274,6 +280,9 @@ func save_settings() -> void:
 	config.set_value("audio", "hud_muted", hud_muted)
 	
 	config.set_value("controls", "mouse_sensitivity", mouse_sensitivity)
+	config.set_value("controls", "is_introduction", is_introduction)
+	config.set_value("controls", "is_walk_introduction", is_walk_introduction)
+	config.set_value("controls", "is_fire_introduction", is_fire_introduction)
 	
 	config.save(SETTINGS_FILE)
 	print("Settings saved to: ", SETTINGS_FILE)
@@ -291,6 +300,10 @@ func load_settings() -> void:
 		sfx_muted = false
 		hud_muted = false
 		mouse_sensitivity = 0.001
+		is_introduction = true
+		is_walk_introduction = true
+		is_fire_introduction = true
+		
 		apply_settings()
 		return
 	
@@ -309,6 +322,9 @@ func load_settings() -> void:
 	sfx_muted = config.get_value("audio", "sfx_muted", false)
 	hud_muted = config.get_value("audio", "hud_muted", false)
 	mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 0.001)
+	is_introduction = config.get_value("controls", "is_introduction", true)
+	is_walk_introduction = config.get_value("controls", "is_walk_introduction", true)
+	is_fire_introduction = config.get_value("controls", "is_fire_introduction", true)
 	
 	apply_settings()
 	print("Settings loaded from: ", SETTINGS_FILE)

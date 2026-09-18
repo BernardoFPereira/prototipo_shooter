@@ -63,6 +63,9 @@ func open_as_main_menu() -> void:
 
 	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	UI.is_introduction = false
+	UI.is_walk_introduction = false
+	UI.is_fire_introduction = false
 	visible = true
 	_reset_groups()
 

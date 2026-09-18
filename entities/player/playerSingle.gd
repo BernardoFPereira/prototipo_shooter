@@ -24,11 +24,14 @@ var current_health: float
 #endregion
 
 #region STATE_MACHINE
+signal change_level
 var is_disarmed: bool
 var is_dead: bool = false
+var is_next_level: bool = false
 var was_in_air: bool = false
-var is_next_level: bool
 var is_introduction: bool
+var is_walk_introduction: bool
+var is_fire_introduction: bool
 
 enum PlayerStates {
 	IDLE,
@@ -106,6 +109,7 @@ var new_message: String = ""
 @onready var assistant_iris = $GameHUD/AssistantIris
 @onready var assistant_pupil = $GameHUD/AssistantPupil
 @onready var assistant_text_link = $GameHUD/AssistantTextLink
+@onready var loading_screen = $GameHUD/LoadingScreen
 #endregion
 
 #region UI VARIABLES
@@ -125,7 +129,6 @@ func _ready():
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
 	game_hud_canvas.visible = true
-	is_next_level = false
 	
 	enemy_detection_range.body_entered.connect(_on_enemy_detection_range_body_entered)
 	enemy_detection_range.body_exited.connect(_on_enemy_detection_range_body_exited)
@@ -147,10 +150,18 @@ func _ready():
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
 	
-	is_introduction = false #intro desligada
+	is_introduction = UI.is_introduction
+	is_walk_introduction = UI.is_walk_introduction 
+	is_fire_introduction = UI.is_fire_introduction
+	
+	if is_introduction:
+		loading_screen.modulate = Color(1,1,1,0)
+	else:
+		loading_screen.modulate = Color(1,1,1,1)
+		hud_animations.play("loading_screen_out")
 
 func _process(delta):
-	if is_dead or is_next_level:
+	if is_dead:
 		return
 	
 	_rotate_camera()
@@ -226,22 +237,22 @@ func _return_to_ground_state():
 		set_state(PlayerStates.FALL)
 
 func handle_input():
-	if is_dead or is_next_level or is_introduction:
+	if is_dead or is_next_level:
 		return
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and !is_fire_introduction:
 		try_attack()
 	
-	if Input.is_action_just_pressed("fire"):
+	if Input.is_action_just_pressed("fire") and !is_fire_introduction:
 		try_fire()
 		
-	if Input.is_action_just_pressed("throw_sword"): 
+	if Input.is_action_just_pressed("throw_sword") and !is_fire_introduction: 
 		if !is_disarmed:
 			try_throw_sword()
 		else:
 			try_pull_sword()
 		
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and !is_walk_introduction:
 		try_jump()
 
 func _physics_process(delta):
@@ -278,7 +289,7 @@ func _on_land():
 	camera_juice.add_fall_kick(3)
 
 func handle_states(delta):
-	if is_introduction:
+	if is_walk_introduction:
 		return
 	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
@@ -348,7 +359,7 @@ func handle_states(delta):
 	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag, delta * 6)
 
 func _rotate_camera():
-	if is_dead or is_next_level:
+	if is_dead:
 		return
 		
 	if input_mouse:
@@ -361,7 +372,7 @@ func _rotate_camera():
 	input_mouse = Vector2.ZERO
 
 func _unhandled_input(event):
-	if is_dead or is_next_level:
+	if is_dead:
 		return
 	
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -569,6 +580,10 @@ func _on_hud_animations_animation_finished(anim_name):
 		"start":
 			if is_introduction:
 				avic_animations.play("avic/centered_assistant_popup")
+		"loading_screen_in":
+			change_level.emit()
+		"loading_screen_out":
+			is_next_level = false
 
 func _on_avic_animations_animation_finished(anim_name):
 	match anim_name:
@@ -583,14 +598,39 @@ func _on_avic_animations_animation_finished(anim_name):
 			avic_animations.play("avic/centered_assistant_popout")
 			
 		"avic/centered_assistant_popout":
-			await get_tree().create_timer(2.0).timeout
-			get_message_data("[right]Calibrar os sistemas de locomoção:\nW,A,S,D")
+			await get_tree().create_timer(1.0).timeout
+			
+			get_message_data("[right]Calibrar sistemas de locomoção:\nW,A,S,D")
 			avic_animations.play("avic/assistant_popup")
 			await get_tree().create_timer(4.0).timeout
+			UI.is_walk_introduction = false
+			is_walk_introduction = false
+			await get_tree().create_timer(4.0).timeout
+			
+			get_message_data("[right]Calibrar amortecedores:\nBarra de Espaço")
+			avic_animations.play("avic/assistant_popup")
+			await get_tree().create_timer(8.0).timeout
+			
+			get_message_data("[right]Calibrar sistemas de visão:\nMouse")
+			avic_animations.play("avic/assistant_popup")
+			await get_tree().create_timer(8.0).timeout
+			
+			get_message_data("[right]Calibrar sistemas de disparo:\nBotão Esquerdo do Mouse")
+			avic_animations.play("avic/assistant_popup")
+			UI.is_fire_introduction = false
+			is_fire_introduction = false
+			await get_tree().create_timer(8.0).timeout
+			
+			get_message_data("[right]Calibrar sistemas de desacoplamento:\nBotão Direito do Mouse")
+			avic_animations.play("avic/assistant_popup")
+			await get_tree().create_timer(8.0).timeout
+			
+			UI.is_introduction = false
 			is_introduction = false
 
 func _on_assistant_message_timeout():
-	avic_animations.play("avic/assistant_popout")
+	if !is_introduction:
+		avic_animations.play("avic/assistant_popout")
 
 func get_message_data(message: String):
 	new_message = message
