@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=14 format=3 uid="uid://l31a0u2c7yj8"]
+[gd_resource type="VisualShader" load_steps=13 format=3 uid="uid://ob06i6gqhhrk"]
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_v742a"]
 output_port_for_preview = 0
@@ -60,35 +60,14 @@ default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(2, 2, 2, 2)]
 op_type = 2
 operator = 2
 
-[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_c5w1v"]
-billboard_type = 3
-keep_scale = true
-
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha, unshaded;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha, unshaded;
 
 uniform float Bits = 16;
 uniform sampler2D tex_frg_6;
 
 
-
-void vertex() {
-	mat4 n_out2p0;
-// GetBillboardMatrix:2
-	{
-		mat4 __wm = mat4(normalize(INV_VIEW_MATRIX[0]), normalize(INV_VIEW_MATRIX[1]), normalize(INV_VIEW_MATRIX[2]), MODEL_MATRIX[3]);
-		__wm = __wm * mat4(vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		__wm = __wm * mat4(vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0), vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0), vec4(0.0, 0.0, 0.0, 1.0));
-		n_out2p0 = VIEW_MATRIX * __wm;
-	}
-
-
-// Output:0
-	MODELVIEW_MATRIX = n_out2p0;
-
-
-}
 
 void fragment() {
 // Input:5
@@ -141,11 +120,9 @@ void fragment() {
 
 }
 "
+modes/cull = 2
 flags/depth_prepass_alpha = true
 flags/unshaded = true
-nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_c5w1v")
-nodes/vertex/2/position = Vector2(-160, 260)
-nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
 nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_nu5lp")
 nodes/fragment/4/position = Vector2(60, -80)
 nodes/fragment/5/node = SubResource("VisualShaderNodeInput_mcb2m")

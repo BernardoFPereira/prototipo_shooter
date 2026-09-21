@@ -1,4 +1,4 @@
-[gd_scene load_steps=4084 format=3 uid="uid://ddeco0b34517h"]
+[gd_scene load_steps=4085 format=3 uid="uid://ddeco0b34517h"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://scripts/patrol_route.gd" id="2_xv5s3"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="17_5epkl"]
 [ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="18_lkbti"]
+[ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/RangedEnemy/enemy_ranged.tscn" id="19_winy6"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 ambient_light_source = 2
@@ -41008,7 +41009,7 @@ target = NodePath("../../../../Player")
 patrol_route = NodePath("..")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("9_e2kfd")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -27.1327, 32.7527, -3.15661)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.93031, 0.918935, 10.8935)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.560836, 0, 0, 0, 1, 0, 0, 0, 0.525002, 0, 0, 0)
@@ -43242,3 +43243,7 @@ melee = 2
 [node name="SceneProgressArea" parent="." instance=ExtResource("18_lkbti")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 42.9172, -5)
 is_final_level = true
+
+[node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") instance=ExtResource("19_winy6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9206, 10, -10.1539)
+target = NodePath("../Player")

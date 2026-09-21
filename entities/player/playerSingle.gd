@@ -24,6 +24,7 @@ var current_health: float
 
 @export_category("VFX")
 @export var muzzle_flash_particles: PackedScene = preload("uid://b8edqmwpwyrwk")
+@onready var muzzle_flash_position = $Head/MuzzleFlashPosition
 
 #endregion
 
@@ -439,8 +440,10 @@ func try_fire():
 		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
 		var muzzle_flash = muzzle_flash_particles.instantiate()
-		muzzle_flash.global_transform = muzzle.global_transform
-		get_tree().root.add_child(muzzle_flash)
+		#muzzle_flash.global_transform = muzzle_flash_position.global_transform
+		muzzle_flash_position.add_child(muzzle_flash)
+		#get_tree().root.add_child(muzzle_flash)
+		muzzle_flash.global_position = muzzle_flash_position.global_position
 		for child: GPUParticles3D in muzzle_flash.get_children():
 			child.emitting = true
 		#camera_juice.add_weapon_kick(5, 0.5, 0.5)
