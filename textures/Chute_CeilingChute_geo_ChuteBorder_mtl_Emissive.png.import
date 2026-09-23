@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjmcgpxdjnbwk"
-path.s3tc="res://.godot/imported/plano7_Plano7_standardSurface1_Emissive.png-9d770c1c43c7675f0b79a39bc3fa7a59.s3tc.ctex"
+uid="uid://i31efyy32c1p"
+path.s3tc="res://.godot/imported/Chute_CeilingChute_geo_ChuteBorder_mtl_Emissive.png-53bbaf6ce3d70980c8715ff03e37ba25.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "03cdbf56d4de54dc7770cbe2727718e2"
+"md5": "59f4a4793434a94fd4863372dc64280e"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/plano7_Plano7_standardSurface1_Emissive.png"
-dest_files=["res://.godot/imported/plano7_Plano7_standardSurface1_Emissive.png-9d770c1c43c7675f0b79a39bc3fa7a59.s3tc.ctex"]
+source_file="res://textures/Chute_CeilingChute_geo_ChuteBorder_mtl_Emissive.png"
+dest_files=["res://.godot/imported/Chute_CeilingChute_geo_ChuteBorder_mtl_Emissive.png-53bbaf6ce3d70980c8715ff03e37ba25.s3tc.ctex"]
 
 [params]
 

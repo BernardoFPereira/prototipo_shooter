@@ -51,10 +51,12 @@ data = PackedVector3Array(-0.3786, 1.7018, -0.0477, 0.3786, 1.7018, -0.1965, 0.3
 
 [node name="diagbevel_geo" type="MeshInstance3D" parent="Cube and DiagBevel"]
 transform = Transform3D(4.56995, 0, 0, 0, 1.63434e-06, -4.56995, 0, 4.56995, 1.63434e-06, 0.109361, -2.4872, 0)
+layers = 17
 mesh = SubResource("ArrayMesh_04f6l")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube and DiagBevel/diagbevel_geo"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube and DiagBevel/diagbevel_geo/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_ka63f")

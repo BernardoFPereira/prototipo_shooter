@@ -13,9 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="9_e2kfd"]
 [ext_resource type="Material" uid="uid://byq7v6r2vv3i7" path="res://materials/Prototype/default_grey.tres" id="9_js4wg"]
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="10_4532i"]
-[ext_resource type="PackedScene" uid="uid://bc3gi1d4k2rxo" path="res://prefabs/prefabprops/chute.tscn" id="11_6sjiu"]
+[ext_resource type="PackedScene" path="res://prefabs/prefabprops/chute.tscn" id="11_6sjiu"]
 [ext_resource type="PackedScene" uid="uid://qthuiqlchfys" path="res://prefabs/prefabprops/BreakableVent.tscn" id="12_a7xl6"]
-[ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
+[ext_resource type="PackedScene" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="15_g48f6"]
 [ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="17_5epkl"]
 

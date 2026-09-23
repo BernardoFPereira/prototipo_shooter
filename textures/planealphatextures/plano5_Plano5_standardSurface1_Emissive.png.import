@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4fobytrqcrd6"
-path.s3tc="res://.godot/imported/plano3_Plano3_standardSurface1_BaseColor.png-349613d80c447ac1378449cd1f2b5214.s3tc.ctex"
+uid="uid://by0853nl71v3a"
+path.s3tc="res://.godot/imported/plano5_Plano5_standardSurface1_Emissive.png-2e0378873061032c3d56ea161d450e52.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "0aef5e2ec289c6928fcb2b5882df7304"
+"md5": "7d99b938bb774d4c0960edb4218c0178"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/plano3_Plano3_standardSurface1_BaseColor.png"
-dest_files=["res://.godot/imported/plano3_Plano3_standardSurface1_BaseColor.png-349613d80c447ac1378449cd1f2b5214.s3tc.ctex"]
+source_file="res://textures/planealphatextures/plano5_Plano5_standardSurface1_Emissive.png"
+dest_files=["res://.godot/imported/plano5_Plano5_standardSurface1_Emissive.png-2e0378873061032c3d56ea161d450e52.s3tc.ctex"]
 
 [params]
 

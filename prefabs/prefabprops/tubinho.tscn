@@ -19,6 +19,7 @@ points = PackedVector3Array(-0.304774, -0.511032, -0.5449, 0.507937, 0.895731, 0
 layers = 17
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tubinho/Lab_vat/inverted_hull1" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Tubinho/Lab_vat/inverted_hull1/StaticBody3D"]
 transform = Transform3D(1, -1.49012e-08, 0, 1.49012e-08, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -28,6 +29,7 @@ shape = SubResource("ConvexPolygonShape3D_7ipp7")
 layers = 17
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tubinho/Lab_vat/pCylinder2" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tubinho/Lab_vat/pCylinder2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_xc0ku")
@@ -36,6 +38,7 @@ shape = SubResource("ConcavePolygonShape3D_xc0ku")
 layers = 17
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tubinho/Lab_vat/pCylinder3" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tubinho/Lab_vat/pCylinder3/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_x1y8e")

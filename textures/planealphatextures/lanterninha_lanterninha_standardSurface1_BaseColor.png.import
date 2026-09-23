@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqtapuqkyo37m"
-path.s3tc="res://.godot/imported/plano2_Plano2_standardSurface1_BaseColor.png-dac4a1734fa0be9be90ce83fb27a0ff2.s3tc.ctex"
+uid="uid://bxhge3mmrm020"
+path.s3tc="res://.godot/imported/lanterninha_lanterninha_standardSurface1_BaseColor.png-01d5e45c002a00e14f2a730589911af2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "00dd53ba3ba39545b4c59fd6a5943151"
+"md5": "95886369389286c28fbd315c1968fd47"
 }
 
 [deps]
 
-source_file="res://models/heroassets/props/plano2_Plano2_standardSurface1_BaseColor.png"
-dest_files=["res://.godot/imported/plano2_Plano2_standardSurface1_BaseColor.png-dac4a1734fa0be9be90ce83fb27a0ff2.s3tc.ctex"]
+source_file="res://textures/planealphatextures/lanterninha_lanterninha_standardSurface1_BaseColor.png"
+dest_files=["res://.godot/imported/lanterninha_lanterninha_standardSurface1_BaseColor.png-01d5e45c002a00e14f2a730589911af2.s3tc.ctex"]
 
 [params]
 
