@@ -1,4 +1,4 @@
-[gd_scene load_steps=4084 format=3 uid="uid://ddeco0b34517h"]
+[gd_scene load_steps=4085 format=3 uid="uid://ddeco0b34517h"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://entities/enemies/patrol_route.gd" id="3_1u5nc"]
@@ -13,11 +13,12 @@
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="9_e2kfd"]
 [ext_resource type="Material" uid="uid://byq7v6r2vv3i7" path="res://materials/Prototype/default_grey.tres" id="9_js4wg"]
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="10_4532i"]
-[ext_resource type="PackedScene" path="res://prefabs/prefabprops/chute.tscn" id="11_6sjiu"]
+[ext_resource type="PackedScene" uid="uid://bc3gi1d4k2rxo" path="res://prefabs/prefabprops/chute.tscn" id="11_6sjiu"]
 [ext_resource type="PackedScene" uid="uid://qthuiqlchfys" path="res://prefabs/prefabprops/BreakableVent.tscn" id="12_a7xl6"]
-[ext_resource type="PackedScene" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
+[ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="15_g48f6"]
 [ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="17_5epkl"]
+[ext_resource type="PackedScene" uid="uid://bh6dp22ye0rr4" path="res://entities/assistant/assistant_text_area.tscn" id="19_naepp"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 ambient_light_source = 2
@@ -43252,12 +43253,25 @@ shape = SubResource("BoxShape3D_7h6pm")
 
 [node name="SpawnerDoor" parent="." groups=["spawner_door"] instance=ExtResource("17_5epkl")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.842, 30.4767, 4.25536)
-melee = 2
+melee = 4
+ranged = 2
 patrol_route_name = "Area1_PatrolRoute"
 
 [node name="CollisionShape3D" parent="SpawnerDoor/SpawnTriggerArea" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.19958, 3.94702, 24.9509)
 
+[node name="AssistantTextArea" parent="." node_paths=PackedStringArray("player") instance=ExtResource("19_naepp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2053, 37.7657, -6.18719)
+player = NodePath("../Player")
+message = "% SISTEMA AVANÇADO %
+Dispare em direção ao chão após pular
+para ganhar impulso vertical
+"
+
+[node name="CollisionShape3D" parent="AssistantTextArea" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.305573, -0.276855, -0.0357971)
+
 [connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
 
 [editable path="SpawnerDoor"]
+[editable path="AssistantTextArea"]
