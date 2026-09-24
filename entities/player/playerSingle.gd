@@ -154,11 +154,13 @@ func _ready():
 	is_walk_introduction = UI.is_walk_introduction 
 	is_fire_introduction = UI.is_fire_introduction
 	
-	if is_introduction:
-		loading_screen.modulate = Color(1,1,1,0)
-	else:
-		loading_screen.modulate = Color(1,1,1,1)
-		hud_animations.play("loading_screen_out")
+	print(is_introduction)
+	print(UI.is_introduction)
+	#if is_introduction:
+		#loading_screen.modulate = Color(1,1,1,0)
+	#else:
+		#loading_screen.modulate = Color(1,1,1,1)
+		#hud_animations.play("loading_screen_out")
 
 func _process(delta):
 	if is_dead:
@@ -237,7 +239,7 @@ func _return_to_ground_state():
 		set_state(PlayerStates.FALL)
 
 func handle_input():
-	if is_dead or is_next_level:
+	if is_dead: #or is_next_level:
 		return
 	
 	if Input.is_action_just_pressed("attack") and !is_fire_introduction:
@@ -256,7 +258,7 @@ func handle_input():
 		try_jump()
 
 func _physics_process(delta):
-	if is_dead or is_next_level:
+	if is_dead: #or is_next_level:
 		return
 	
 	velocity.y -= gravity * delta
@@ -580,10 +582,10 @@ func _on_hud_animations_animation_finished(anim_name):
 		"start":
 			if is_introduction:
 				avic_animations.play("avic/centered_assistant_popup")
-		"loading_screen_in":
-			change_level.emit()
-		"loading_screen_out":
-			is_next_level = false
+		#"loading_screen_in":
+			#change_level.emit()
+		#"loading_screen_out":
+			#is_next_level = false
 
 func _on_avic_animations_animation_finished(anim_name):
 	match anim_name:
@@ -602,7 +604,7 @@ func _on_avic_animations_animation_finished(anim_name):
 			
 			get_message_data("[right]Calibrar sistemas de locomoção:\nW,A,S,D")
 			avic_animations.play("avic/assistant_popup")
-			await get_tree().create_timer(4.0).timeout
+			await get_tree().create_timer(3.0).timeout
 			UI.is_walk_introduction = false
 			is_walk_introduction = false
 			await get_tree().create_timer(4.0).timeout

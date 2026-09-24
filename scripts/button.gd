@@ -45,5 +45,5 @@ func set_state(new_state):
 			#if linked_obj is SpawnerDoor:
 				#return
 				
-			linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
-			button_geo.material_override = null
+			#linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
+			#button_geo.material_override = null

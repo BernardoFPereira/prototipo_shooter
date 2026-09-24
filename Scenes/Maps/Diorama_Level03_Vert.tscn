@@ -1,4 +1,4 @@
-[gd_scene load_steps=4096 format=3 uid="uid://c065scjxbdcie"]
+[gd_scene load_steps=4098 format=3 uid="uid://c065scjxbdcie"]
 
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="2_2xmcg"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="3_xmowe"]
@@ -17,9 +17,9 @@
 [ext_resource type="Material" uid="uid://d27g86vke7lpg" path="res://materials/mapmaterials/ground1.tres" id="13_d4tf6"]
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="13_sfhiq"]
 [ext_resource type="Material" uid="uid://c8m7xk4f7krb" path="res://materials/mapmaterials/DioramaMats/PlateWallexposed.tres" id="14_rp6xe"]
-[ext_resource type="PackedScene" path="res://prefabs/prefabprops/chute.tscn" id="14_s3etq"]
+[ext_resource type="PackedScene" uid="uid://bc3gi1d4k2rxo" path="res://prefabs/prefabprops/chute.tscn" id="14_s3etq"]
 [ext_resource type="PackedScene" uid="uid://qthuiqlchfys" path="res://prefabs/prefabprops/BreakableVent.tscn" id="15_cvc61"]
-[ext_resource type="PackedScene" path="res://prefabs/prefabprops/door_explosion.tscn" id="16_06kbd"]
+[ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="16_06kbd"]
 [ext_resource type="Material" uid="uid://c2cp8w4f82s27" path="res://materials/mapmaterials/DioramaMats/DiamondWall.tres" id="16_nskfs"]
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="17_jfwxe"]
 [ext_resource type="Material" uid="uid://bf5tpsfyy2l71" path="res://materials/mapmaterials/DioramaMats/PlateWalldirty.tres" id="17_tamme"]
@@ -37,6 +37,8 @@
 [ext_resource type="PackedScene" uid="uid://cjyxtxb16dwdg" path="res://prefabs/prefabprops/prefabsl3/star_1.tscn" id="31_y1o4g"]
 [ext_resource type="PackedScene" uid="uid://p13gufm2kjpk" path="res://entities/enemies/MeleeEnemy/melee_enemy_01.tscn" id="36_g76hb"]
 [ext_resource type="Material" uid="uid://dcrnq1f66ek1q" path="res://UI/V2/Background/Hologram_MainMenu.tres" id="37_178d8"]
+[ext_resource type="Script" path="res://entities/enemies/patrol_route.gd" id="38_jj5ot"]
+[ext_resource type="Script" path="res://Scenes/Maps/assistant_text_set.gd" id="39_c1dnc"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 ambient_light_source = 2
@@ -47,13 +49,6 @@ ssao_intensity = 2.62
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.012
 volumetric_fog_albedo = Color(0.717647, 0.756863, 1, 1)
-
-[sub_resource type="Curve3D" id="Curve3D_nww83"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, -0.275, 0, -2.62, 5.67, 0, 4.435, 5.16, 0, 0.045, 0, 0, 0, -5.66, 0, -1.485, 0, 0, 0, 0, 0, 0, -8.855, 0, 2.015, 0, 0, 0, 0, 0, 0, -0.775, 0, 10.355),
-"tilts": PackedFloat32Array(0, 0, 0, 0)
-}
-point_count = 4
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vaso5"]
 size = Vector3(128.07, 1, 117.362)
@@ -40947,6 +40942,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ic56a")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gln1x"]
+size = Vector3(7.06452, 5.07861, 6.10062)
+
 [node name="Level03Vert" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -40955,22 +40953,12 @@ transform = Transform3D(0.933249, -0.0907514, 0.347579, -0.359231, -0.235764, 0.
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k7ges")
 
-[node name="RespawnableEnemy" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.7461, 0)
-
-[node name="Path3D" type="Path3D" parent="RespawnableEnemy"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.6976, 0, 3.28566)
-curve = SubResource("Curve3D_nww83")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="RespawnableEnemy/Path3D" groups=["PatrolPath01"]]
-transform = Transform3D(0.994536, 0, 0.104388, 0, 1, 0, -0.104388, 0, 0.994536, 5.67, 0, 4.435)
-
-[node name="EnemyMelee" parent="RespawnableEnemy/Path3D/PathFollow3D" node_paths=PackedStringArray("target") instance=ExtResource("2_2xmcg")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0380421, -0.246082, 7.24529)
-target = NodePath("../../../../Player")
+[node name="EnemyMelee" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_2xmcg")]
+transform = Transform3D(0.994536, 0, 0.104388, 0, 1, 0, -0.104388, 0, 0.994536, 2.42905, 30.5, 0.41657)
+target = NodePath("../Player")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("3_xmowe")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -27.1327, 32.7527, -3.15661)
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 9.48688, 0.0202236, 29.6947)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.560836, 0, 0, 0, 1, 0, 0, 0, 0.525002, 0, 0, 0)
@@ -43114,6 +43102,7 @@ mesh_vector_data = SubResource("Resource_c13qk")
 
 [node name="EnemyMelee2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_2xmcg")]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 19.8171, 10.0716, 7.13358)
+visible = false
 target = NodePath("../Player")
 
 [node name="Button" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("12_xfdae")]
@@ -43199,6 +43188,10 @@ shape = SubResource("BoxShape3D_7h6pm")
 [node name="SpawnerDoor" parent="." instance=ExtResource("18_6k4kx")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.842, 30.4767, 4.25536)
 melee = 2
+patrol_route_name = "Area1_PatrolRoute"
+
+[node name="SpawnTriggerArea" parent="SpawnerDoor" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 0, 11.9223)
 
 [node name="Monitorzim" parent="." instance=ExtResource("22_if7ep")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.72659, 43.1461, 20.0962)
@@ -43316,8 +43309,60 @@ material_override = ExtResource("37_178d8")
 [node name="AnimationPlayer" parent="melee_enemy_01" index="1"]
 autoplay = "chase"
 
-[connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
+[node name="PatrolRoute" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0017, 30.5373, 4.41623)
+script = ExtResource("38_jj5ot")
+route_name = "Area1_PatrolRoute"
 
+[node name="Point1" type="Marker3D" parent="PatrolRoute"]
+
+[node name="Point2" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09188, 0, -14.4882)
+
+[node name="Point3" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2287, 0, -18.6142)
+
+[node name="Point4" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.8069, 0, -17.3371)
+
+[node name="Point5" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5029, 0, 6.1748)
+
+[node name="Point6" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.1834, 0, 10.2477)
+
+[node name="Point7" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.34308, 0, 10.9812)
+
+[node name="AssistantTextArea" type="Area3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.41436, 7.08476, -17.3491)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("39_c1dnc")
+player = NodePath("")
+message = "% SISTEMA AVANÇADO %
+Dispare em direção ao chão após pular
+para ganhar impulso vertical
+"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0412064, 0.231812, 1.97712)
+shape = SubResource("BoxShape3D_gln1x")
+
+[node name="AssistantTextArea2" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.510224, 12.465, 16.9183)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("39_c1dnc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2"]
+shape = SubResource("BoxShape3D_gln1x")
+
+[connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea" to="AssistantTextArea" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea2" to="AssistantTextArea2" method="_on_body_entered"]
+
+[editable path="SpawnerDoor"]
 [editable path="Pilar"]
 [editable path="Pilar/Pilar"]
 [editable path="Plano1"]

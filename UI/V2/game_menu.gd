@@ -112,6 +112,9 @@ func _reset_groups() -> void:
 #region BUTTON HANDLERS
 func _on_play_pressed() -> void:
 	UI.play_sound("confirm_button")
+	UI.is_introduction = true
+	UI.is_walk_introduction = true
+	UI.is_fire_introduction = true
 	UI.save_settings()
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

@@ -17,8 +17,12 @@ func _on_body_entered(body):
 		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		#level_complete_screen.visible = true
 		body.change_level.connect(_on_player_change_level)
-		body.hud_animations.play("loading_screen_in")
-		body.is_next_level =  true
+		body.change_level.emit()
+		UI.is_introduction = false
+		UI.is_walk_introduction = false
+		UI.is_fire_introduction = false
+		#body.hud_animations.play("loading_screen_in")
+		#body.is_next_level = true
 		pass
 
 func _on_continue_button_down():

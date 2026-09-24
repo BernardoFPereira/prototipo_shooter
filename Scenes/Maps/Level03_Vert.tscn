@@ -1,4 +1,4 @@
-[gd_scene load_steps=4085 format=3 uid="uid://ddeco0b34517h"]
+[gd_scene load_steps=4086 format=3 uid="uid://ddeco0b34517h"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://entities/enemies/patrol_route.gd" id="3_1u5nc"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="Script" path="res://scripts/scene_progress_area.gd" id="15_g48f6"]
 [ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="17_5epkl"]
+[ext_resource type="PackedScene" uid="uid://d2rqkagxvdfhw" path="res://Scenes/Maps/MainMenu.tscn" id="18_mqd78"]
 [ext_resource type="PackedScene" uid="uid://bh6dp22ye0rr4" path="res://entities/assistant/assistant_text_area.tscn" id="19_naepp"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
@@ -40989,7 +40990,7 @@ transform = Transform3D(0.933249, -0.0907514, 0.347579, -0.359231, -0.235764, 0.
 environment = SubResource("Environment_k7ges")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("9_e2kfd")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -31.0151, 32.7527, -3.15661)
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 9.76776, 0.259435, 25.2975)
 
 [node name="EnemyMelee" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(0.0224606, 0, -0.999748, 0, 1, 0, 0.999748, 0, 0.0224606, 3.57803, 30.5, -2.24851)
@@ -43168,7 +43169,7 @@ script = ExtResource("3_kld1k")
 mesh_vector_data = SubResource("Resource_c13qk")
 
 [node name="EnemyMelee2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
-transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 19.8171, 10.0716, 7.13358)
+transform = Transform3D(-0.370331, 0, -0.9289, 0, 1, 0, 0.9289, 0, -0.370331, 21.8158, 10.0716, -7.0465)
 target = NodePath("../Player")
 
 [node name="Button" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("9_834kp")]
@@ -43246,6 +43247,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.0441, 42.7278, -5.02305)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("15_g48f6")
+level_to_load = ExtResource("18_mqd78")
 is_final_level = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SceneProgressArea"]
@@ -43261,7 +43263,7 @@ patrol_route_name = "Area1_PatrolRoute"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.19958, 3.94702, 24.9509)
 
 [node name="AssistantTextArea" parent="." node_paths=PackedStringArray("player") instance=ExtResource("19_naepp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2053, 37.7657, -6.18719)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.41436, 7.08476, -17.3491)
 player = NodePath("../Player")
 message = "% SISTEMA AVANÇADO %
 Dispare em direção ao chão após pular
@@ -43269,9 +43271,22 @@ para ganhar impulso vertical
 "
 
 [node name="CollisionShape3D" parent="AssistantTextArea" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.305573, -0.276855, -0.0357971)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.200425, 0.231812, 1.87985)
+
+[node name="AssistantTextArea2" parent="." node_paths=PackedStringArray("player") instance=ExtResource("19_naepp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.74652, 12.6278, 13.3099)
+player = NodePath("../Player")
+message = "% SISTEMA AVANÇADO %
+Desacople seu braço
+em direção ao botão vermelho
+para abrir portas
+"
+
+[node name="CollisionShape3D" parent="AssistantTextArea2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.92438, 0.231812, 4.24055)
 
 [connection signal="body_entered" from="SceneProgressArea" to="SceneProgressArea" method="_on_body_entered"]
 
 [editable path="SpawnerDoor"]
 [editable path="AssistantTextArea"]
+[editable path="AssistantTextArea2"]
