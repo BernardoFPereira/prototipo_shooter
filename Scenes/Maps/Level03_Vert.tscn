@@ -1,4 +1,4 @@
-[gd_scene load_steps=3954 format=3 uid="uid://ddeco0b34517h"]
+[gd_scene load_steps=3960 format=3 uid="uid://ddeco0b34517h"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="3_kld1k"]
@@ -17,7 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="PackedScene" uid="uid://bcqkhd1lph1ct" path="res://prefabs/SpawnerDoor.tscn" id="17_5epkl"]
 [ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="18_lkbti"]
+[ext_resource type="PackedScene" uid="uid://d2rqkagxvdfhw" path="res://Scenes/Maps/MainMenu.tscn" id="18_s34m5"]
 [ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/RangedEnemy/enemy_ranged.tscn" id="19_winy6"]
+[ext_resource type="Script" path="res://entities/enemies/patrol_route.gd" id="20_m2jjn"]
+[ext_resource type="Script" path="res://Scenes/Maps/assistant_text_set.gd" id="21_6jwj4"]
 
 [sub_resource type="Environment" id="Environment_k7ges"]
 ambient_light_source = 2
@@ -39670,6 +39673,15 @@ face_vertex_data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_0hwae"]
 size = Vector3(2.87402, 1.24805, 1.11102)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_m7uql"]
+size = Vector3(15.4079, 4.75452, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gln1x"]
+size = Vector3(5.51855, 5.23425, 5.0697)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hr37t"]
+size = Vector3(4.00031, 5.05835, 4.00439)
+
 [node name="Level03Vert" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -39682,11 +39694,11 @@ environment = SubResource("Environment_k7ges")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.7461, 0)
 
 [node name="EnemyMelee" parent="RespawnableEnemy" node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
-transform = Transform3D(0.162776, 0, 0.986661, 0, 1, 0, -0.986661, 0, 0.162776, -5.23146, -0.200336, -1.64667)
+transform = Transform3D(0.162776, 0, 0.986661, 0, 1, 0, -0.986661, 0, 0.162776, -2.47735, -0.200336, -1.64667)
 target = NodePath("../../Player")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("9_e2kfd")]
-transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 37.7878, 26.3045, -13.2313)
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 9.84895, 0.206853, 25.4044)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.560836, 0, 0, 0, 1, 0, 0, 0, 0.525002, 0, 0, 0)
@@ -41857,15 +41869,76 @@ visible = false
 [node name="SpawnerDoor" parent="." instance=ExtResource("17_5epkl")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 23.842, 30.4767, 4.25536)
 melee = 2
+patrol_route_name = "PatrolRoute"
 
 [node name="SceneProgressArea" parent="." instance=ExtResource("18_lkbti")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39, 42.9172, -5)
+level_to_load = ExtResource("18_s34m5")
 is_final_level = true
 
 [node name="SceneProgressArea2" parent="." instance=ExtResource("18_lkbti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.429, 41.9522, -52.4116)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.429, 42.1172, -52.4116)
+level_to_load = ExtResource("18_s34m5")
 is_final_level = true
 
 [node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") instance=ExtResource("19_winy6")]
 transform = Transform3D(0.987058, 0, -0.160364, 0, 1, 0, 0.160364, 0, 0.987058, 37.8454, 20.0319, -8.50904)
 target = NodePath("../Player")
+
+[node name="PatrolRoute" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8932, 33.2855, 0)
+script = ExtResource("20_m2jjn")
+
+[node name="Marker3D" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.38312, -2.55891, 3.11661)
+
+[node name="Marker3D2" type="Marker3D" parent="PatrolRoute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.22398, -2.55891, -0.563951)
+
+[node name="AssistantTextArea" type="Area3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.47657, 13.7148, 15.7824)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../Player")
+message = "% SISTEMA AVANÇADO %
+Desacople seu braço
+em direção ao botão vermelho
+para abrir portas"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.70395, 0.323059, 0)
+shape = SubResource("BoxShape3D_m7uql")
+
+[node name="AssistantTextArea2" type="Area3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.82761, 9.71041, -14.6779)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../Player")
+message = "% SISTEMA AVANÇADO %
+Dispare em direção ao chão após pular
+para ganhar impulso vertical"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.591309, -2.38287, -0.718689)
+shape = SubResource("BoxShape3D_gln1x")
+
+[node name="AssistantTextArea3" type="Area3D" parent="." node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4586, 35.086, -3.15875)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../Player")
+message = "% SISTEMA AVANÇADO %
+Desacople seu braço
+em direção a um inimigo
+para avançar em direção à ele"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65231, 0, -0.169189)
+shape = SubResource("BoxShape3D_hr37t")
+
+[connection signal="body_entered" from="AssistantTextArea" to="AssistantTextArea" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea2" to="AssistantTextArea2" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea3" to="AssistantTextArea3" method="_on_body_entered"]

@@ -19,10 +19,10 @@ func _on_body_entered(body):
 
 func _on_continue_button_down():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if is_final_level:
-		get_tree().change_scene_to_packed(main_menu_scene)
-		return
-	
+	#if is_final_level:
+		#get_tree().change_scene_to_packed(main_menu_scene)
+		#return
+	UI.save_settings()
 	load_next_level(level_to_load)
 
 func _on_quit_button_down():
