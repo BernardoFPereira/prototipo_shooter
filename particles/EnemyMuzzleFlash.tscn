@@ -1,0 +1,105 @@
+[gd_scene load_steps=23 format=3 uid="uid://dkeqiailpja6v"]
+
+[ext_resource type="Shader" uid="uid://vgnlfho4fa0v" path="res://vfx/projectile_impact.tres" id="1_3cnr6"]
+[ext_resource type="Script" path="res://particles/particle_self_destruct.gd" id="1_c51op"]
+[ext_resource type="Texture2D" uid="uid://buoxnpgoks2f8" path="res://vfx/flash.png" id="2_a2q5g"]
+[ext_resource type="Texture2D" uid="uid://cdp5vyku0tjxa" path="res://vfx/impact_wave.png" id="4_jdv5s"]
+
+[sub_resource type="Curve" id="Curve_iqv4u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.68261, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_icb0m"]
+curve = SubResource("Curve_iqv4u")
+
+[sub_resource type="Gradient" id="Gradient_b8lh1"]
+offsets = PackedFloat32Array(0.307692, 1)
+colors = PackedColorArray(2.6, 0.6, 0.2, 1, 3, 1.2, 0.2, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1ag1w"]
+gradient = SubResource("Gradient_b8lh1")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_hnir3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.92991, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_w2vpf"]
+curve = SubResource("Curve_hnir3")
+
+[sub_resource type="Curve" id="Curve_sg1nj"]
+max_value = 3.1
+_data = [Vector2(0, 0), 0.0, 6.52927, 0, 0, Vector2(1, 2.78117), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xvot4"]
+curve = SubResource("Curve_sg1nj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x0k10"]
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.1
+scale_curve = SubResource("CurveTexture_xvot4")
+color_ramp = SubResource("GradientTexture1D_1ag1w")
+alpha_curve = SubResource("CurveTexture_icb0m")
+emission_curve = SubResource("CurveTexture_w2vpf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_doorg"]
+render_priority = 0
+shader = ExtResource("1_3cnr6")
+shader_parameter/Bits = 32.0
+shader_parameter/Texture2DParameter = ExtResource("2_a2q5g")
+
+[sub_resource type="QuadMesh" id="QuadMesh_hoe6h"]
+material = SubResource("ShaderMaterial_doorg")
+
+[sub_resource type="Curve" id="Curve_3iph7"]
+_data = [Vector2(0.0877863, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.88853, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4kssp"]
+curve = SubResource("Curve_3iph7")
+
+[sub_resource type="Curve" id="Curve_01j22"]
+max_value = 1.85
+_data = [Vector2(0, 0), 0.0, 3.45941, 0, 0, Vector2(1, 1.62168), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pkhy6"]
+curve = SubResource("Curve_01j22")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8msas"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_pkhy6")
+color = Color(2.6, 0.6, 0.2, 1)
+alpha_curve = SubResource("CurveTexture_4kssp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s0oex"]
+render_priority = 0
+shader = ExtResource("1_3cnr6")
+shader_parameter/Bits = 16.0
+shader_parameter/Texture2DParameter = ExtResource("4_jdv5s")
+
+[sub_resource type="QuadMesh" id="QuadMesh_2ox3j"]
+material = SubResource("ShaderMaterial_s0oex")
+
+[node name="EnemyMuzzleFlash" type="Node3D"]
+script = ExtResource("1_c51op")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_x0k10")
+draw_pass_1 = SubResource("QuadMesh_hoe6h")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.4
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_8msas")
+draw_pass_1 = SubResource("QuadMesh_2ox3j")

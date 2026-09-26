@@ -14101,6 +14101,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21.99
 
 [node name="Decal" type="Decal" parent="vent2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3.75237, 0.239319)
+visible = false
 size = Vector3(5.19141, 2.47864, 4.99438)
 texture_albedo = ExtResource("14_x17lw")
 texture_orm = ExtResource("14_x17lw")

@@ -53,8 +53,8 @@ point_count = 2
 curve = SubResource("Curve_ilp7t")
 
 [sub_resource type="Curve" id="Curve_ob67o"]
-max_value = 2.0
-_data = [Vector2(0, 0), 0.0, 6.26619, 0, 0, Vector2(1, 1.7943), 0.0, 0.0, 0, 0]
+max_value = 3.3
+_data = [Vector2(0, 0), 0.0, 6.26619, 0, 0, Vector2(1, 3.19818), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_pwugm"]

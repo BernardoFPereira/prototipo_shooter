@@ -1,6 +1,9 @@
-extends GPUParticles3D
+extends Node3D
 
-#func _ready():
+func _ready():
+	if get_children():
+		for child in get_children():
+			child.emitting = true
 	#$Puffs.emitting = true
 	#$Flash.emitting = true
 	#emitting = true
