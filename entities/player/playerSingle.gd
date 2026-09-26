@@ -566,6 +566,7 @@ func _on_avic_animations_animation_finished(anim_name):
 			await get_tree().create_timer(8.0).timeout
 			UI.is_introduction = false
 			is_introduction = false
+			#UI.save_settings()
  
 func _on_assistant_message_timeout():
 	if !is_introduction:

@@ -20,10 +20,13 @@ func _on_body_entered(body):
 
 func _on_continue_button_down():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	UI.is_introduction = false
+	UI.is_walk_introduction = false
+	UI.is_fire_introduction = false
+	
 	if is_final_level:
-		UI.is_introduction = false
-		UI.is_walk_introduction = false
-		UI.is_fire_introduction = false
+		UI.save_settings()
 		get_tree().change_scene_to_packed(first_level)
 		return
 		
