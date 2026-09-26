@@ -375,7 +375,7 @@ data = PackedVector3Array(-103.666, 4.7814, -252.333, 15.6029, 24.9488, -353.45,
 size = Vector3(5.79004, 4.71375, 0.844788)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mnpes"]
-size = Vector3(41.2277, 8.89404, 50.9979)
+size = Vector3(37.3975, 6.05302, 63.709)
 
 [node name="SpawnerDoor" type="Node3D"]
 script = ExtResource("1_j53bi")

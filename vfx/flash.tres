@@ -1,7 +1,6 @@
-[gd_resource type="VisualShader" load_steps=21 format=3 uid="uid://dat383cyxt7nl"]
+[gd_resource type="VisualShader" load_steps=20 format=3 uid="uid://dat383cyxt7nl"]
 
 [ext_resource type="Texture2D" uid="uid://buoxnpgoks2f8" path="res://vfx/flash.png" id="1_w3t6n"]
-[ext_resource type="Texture2D" uid="uid://sjcu45vted61" path="res://vfx/wave.png" id="2_mqe7s"]
 
 [sub_resource type="VisualShaderNodeVectorFunc" id="VisualShaderNodeVectorFunc_32euv"]
 output_port_for_preview = 0
@@ -79,7 +78,6 @@ texture = ExtResource("1_w3t6n")
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_5tjp7"]
 output_port_for_preview = 0
-texture = ExtResource("2_mqe7s")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_v7xxi"]
