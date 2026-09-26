@@ -28,7 +28,7 @@ var is_disarmed: bool
 var is_dead: bool = false
 var was_in_air: bool = false
 var is_next_level: bool
-var is_introduction: bool
+@export var is_introduction: bool
 
 enum PlayerStates {
 	IDLE,
@@ -73,6 +73,10 @@ var blend_time: float = 0.15
 @onready var thumb_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/thumb_geo
 
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
+
+@export_category("VFX")
+@export var muzzle_flash_particles: PackedScene = preload("uid://b8edqmwpwyrwk")
+@onready var muzzle_flash_position = $Head/MuzzleFlashPosition
 
 @export var arm_projectile_scene: PackedScene
 #@export var sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
@@ -147,7 +151,7 @@ func _ready():
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
 	
-	is_introduction = true
+	#is_introduction = true
 
 func _process(delta):
 	if is_dead or is_next_level:
@@ -431,6 +435,15 @@ func try_fire():
 		previous_state = state
 		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
+		
+		var muzzle_flash = muzzle_flash_particles.instantiate()
+		#muzzle_flash.global_transform = muzzle_flash_position.global_transform
+		muzzle_flash_position.add_child(muzzle_flash)
+		#get_tree().root.add_child(muzzle_flash)
+		muzzle_flash.global_position = muzzle_flash_position.global_position
+		for child: GPUParticles3D in muzzle_flash.get_children():
+			child.emitting = true
+		
 		#camera_juice.add_weapon_kick(5, 0.5, 0.5)
 
 func try_jump():

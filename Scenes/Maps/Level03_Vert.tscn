@@ -39681,10 +39681,9 @@ environment = SubResource("Environment_k7ges")
 [node name="RespawnableEnemy" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.7461, 0)
 
-[node name="EnemyMelee" parent="RespawnableEnemy" node_paths=PackedStringArray("target", "patrol_route") instance=ExtResource("8_spe2c")]
+[node name="EnemyMelee" parent="RespawnableEnemy" node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(0.162776, 0, 0.986661, 0, 1, 0, -0.986661, 0, 0.162776, -5.23146, -0.200336, -1.64667)
 target = NodePath("../../Player")
-patrol_route = NodePath("")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("9_e2kfd")]
 transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 37.7878, 26.3045, -13.2313)

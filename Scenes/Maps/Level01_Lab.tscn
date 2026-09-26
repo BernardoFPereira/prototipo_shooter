@@ -13072,6 +13072,7 @@ environment = SubResource("Environment_bwkuk")
 
 [node name="Player" parent="." instance=ExtResource("23_eda7h")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 37.3736, 2.38419e-07, 27.425)
+is_introduction = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -30.4367, 0)
