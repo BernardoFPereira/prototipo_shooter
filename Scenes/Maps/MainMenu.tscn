@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2rqkagxvdfhw"]
+[gd_scene load_steps=3 format=3 uid="uid://d2rqkagxvdfhw"]
 
 [ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_bcgb6"]
+[ext_resource type="PackedScene" uid="uid://cajyifw6cxcde" path="res://UI/V2/Background/MatrixDustBackground.tscn" id="2_o6o2x"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -11,3 +12,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_bcgb6")
+
+[node name="MatrixDustBackground" parent="." instance=ExtResource("2_o6o2x")]
