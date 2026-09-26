@@ -375,7 +375,7 @@ func try_throw_sword():
 	ring_geo.visible = false
 	thumb_geo.visible = false
 	arm_throw_sfx.play()
-	hud_animations.play("hand_flying")
+	#hud_animations.play("hand_flying")
  
 func try_attack():
 	if is_disarmed or is_animating_action:
