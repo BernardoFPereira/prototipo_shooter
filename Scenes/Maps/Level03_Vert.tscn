@@ -41009,7 +41009,7 @@ target = NodePath("../../../../Player")
 patrol_route = NodePath("..")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("9_e2kfd")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.93031, 0.918935, 10.8935)
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 9.60961, 0.0745644, 27.2277)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.560836, 0, 0, 0, 1, 0, 0, 0, 0.525002, 0, 0, 0)

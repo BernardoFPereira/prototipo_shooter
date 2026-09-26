@@ -64,7 +64,7 @@ func explode():
 			var player = collision.collider as Player
 			var knockback_force = global_position.direction_to(player.global_position) * knockback
 			print(knockback_force)
-			knockback_force.y = minf(knockback_force.y, max_jump_height)
+			knockback_force.y = min(knockback_force.y, max_jump_height)
 			player.velocity += knockback_force
 			print(player.velocity)
 		
