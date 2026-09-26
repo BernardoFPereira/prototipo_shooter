@@ -6,6 +6,7 @@ extends Area3D
 @export var is_final_level: bool = false
 
 var main_menu_scene = load("uid://d2rqkagxvdfhw")
+var first_level = load("uid://cw50tmi4jwwv4")
 
 func load_next_level(level_to_load):
 	get_tree().change_scene_to_packed(level_to_load)
@@ -19,9 +20,13 @@ func _on_body_entered(body):
 
 func _on_continue_button_down():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#if is_final_level:
-		#get_tree().change_scene_to_packed(main_menu_scene)
-		#return
+	if is_final_level:
+		UI.is_introduction = false
+		UI.is_walk_introduction = false
+		UI.is_fire_introduction = false
+		get_tree().change_scene_to_packed(first_level)
+		return
+		
 	UI.save_settings()
 	load_next_level(level_to_load)
 

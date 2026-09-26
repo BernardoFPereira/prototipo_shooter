@@ -19,7 +19,6 @@ script = ExtResource("1_wn1od")
 shape = SubResource("BoxShape3D_76us0")
 
 [node name="LevelCompleteScreen" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Control" type="Control" parent="LevelCompleteScreen"]
 layout_mode = 3
@@ -55,6 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("3_1l6km")
+metadata/_edit_use_anchors_ = true
 
 [node name="ContinueButton" type="TextureButton" parent="LevelCompleteScreen/Control"]
 layout_mode = 1
@@ -72,6 +72,7 @@ grow_vertical = 2
 texture_normal = ExtResource("4_vdnpi")
 texture_pressed = ExtResource("5_lpd10")
 texture_hover = ExtResource("5_lpd10")
+metadata/_edit_use_anchors_ = true
 
 [node name="QuitButton" type="TextureButton" parent="LevelCompleteScreen/Control"]
 layout_mode = 1
@@ -89,7 +90,6 @@ grow_vertical = 2
 texture_normal = ExtResource("6_r464h")
 texture_pressed = ExtResource("7_02u3x")
 texture_hover = ExtResource("7_02u3x")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="button_down" from="LevelCompleteScreen/Control/ContinueButton" to="." method="_on_continue_button_down"]
-[connection signal="button_down" from="LevelCompleteScreen/Control/QuitButton" to="." method="_on_quit_button_down"]
