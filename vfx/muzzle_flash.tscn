@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://b8edqmwpwyrwk"]
+[gd_scene load_steps=30 format=3 uid="uid://b8edqmwpwyrwk"]
 
 [ext_resource type="Shader" uid="uid://l31a0u2c7yj8" path="res://vfx/impact.tres" id="1_m1j7j"]
 [ext_resource type="Shader" uid="uid://dmcjgyjeld5f8" path="res://vfx/pixelated_particle.tres" id="2_6w3ch"]
 [ext_resource type="Shader" uid="uid://dat383cyxt7nl" path="res://vfx/flash.tres" id="2_x5m4n"]
+[ext_resource type="Texture2D" uid="uid://sjcu45vted61" path="res://vfx/wave.png" id="4_j4y3p"]
 
 [sub_resource type="Curve" id="Curve_nlc0l"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.8, 0), 0.0, 0.0, 0, 0]
@@ -121,6 +122,7 @@ emission_curve = SubResource("CurveTexture_nuyfj")
 render_priority = 0
 shader = ExtResource("2_x5m4n")
 shader_parameter/Bits = 16.0
+shader_parameter/tex_frg_8 = ExtResource("4_j4y3p")
 
 [sub_resource type="QuadMesh" id="QuadMesh_owuux"]
 material = SubResource("ShaderMaterial_4m4gw")

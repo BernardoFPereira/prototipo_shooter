@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://bkecmbnogq48m"]
+[gd_scene load_steps=26 format=3 uid="uid://bkecmbnogq48m"]
 
 [ext_resource type="Script" path="res://entities/projectile/EnemyProjectile.gd" id="1_4l8oa"]
 [ext_resource type="AudioStream" uid="uid://bfbvm261h58va" path="res://assets/sounds/sfx/player/cannon_hit.ogg" id="2_23r30"]
 [ext_resource type="Shader" uid="uid://dmcjgyjeld5f8" path="res://vfx/pixelated_particle.tres" id="2_uqtpt"]
 [ext_resource type="Shader" uid="uid://c6uusfjomyo41" path="res://vfx/EnemyProjectileFX.tres" id="4_82x8e"]
 [ext_resource type="Shader" uid="uid://dlqug3470rma6" path="res://vfx/enemy_projectile_tail.tres" id="5_2m11r"]
+[ext_resource type="Texture2D" uid="uid://c0aaj6qrj21pc" path="res://vfx/enemy_projectile_shape.png" id="6_g6s61"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11i2v"]
 albedo_color = Color(2.703, 0.541, 0, 1)
@@ -110,6 +111,7 @@ render_priority = 0
 shader = ExtResource("5_2m11r")
 shader_parameter/Bits = 32.0
 shader_parameter/Tail_Color = SubResource("GradientTexture1D_4dtwe")
+shader_parameter/tex_frg_2 = ExtResource("6_g6s61")
 
 [sub_resource type="QuadMesh" id="QuadMesh_ay8qx"]
 material = SubResource("ShaderMaterial_hles0")

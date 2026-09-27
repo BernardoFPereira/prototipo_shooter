@@ -1,9 +1,10 @@
-[gd_scene load_steps=46 format=3 uid="uid://cdu40asu3x8p7"]
+[gd_scene load_steps=47 format=3 uid="uid://cdu40asu3x8p7"]
 
 [ext_resource type="Script" path="res://entities/projectile/projectile.gd" id="1_bpkli"]
 [ext_resource type="Shader" uid="uid://d3wg2kj4obl3r" path="res://vfx/arm_propulsion.tres" id="2_6mt37"]
 [ext_resource type="Material" uid="uid://b6e5ht1idg1gu" path="res://entities/projectile/ProjectileMat.tres" id="2_spcdd"]
 [ext_resource type="AudioStream" uid="uid://bfbvm261h58va" path="res://assets/sounds/sfx/player/cannon_hit.ogg" id="3_2h034"]
+[ext_resource type="Texture2D" uid="uid://cf0padk74b00v" path="res://vfx/projetile_tail.png" id="4_1frm4"]
 [ext_resource type="Shader" uid="uid://c37p30cogsqpo" path="res://vfx/pixelated_particle_billboard.tres" id="4_55t6y"]
 [ext_resource type="Shader" uid="uid://co6rpmduovp5o" path="res://vfx/projectile_tail.tres" id="6_oe3am"]
 [ext_resource type="Shader" uid="uid://vgnlfho4fa0v" path="res://vfx/projectile_impact.tres" id="7_ouohd"]
@@ -56,6 +57,7 @@ shadow_mesh = SubResource("ArrayMesh_x1xpd")
 render_priority = 0
 shader = ExtResource("6_oe3am")
 shader_parameter/Bits = 24.0
+shader_parameter/tex_frg_2 = ExtResource("4_1frm4")
 
 [sub_resource type="QuadMesh" id="QuadMesh_uqcvj"]
 material = SubResource("ShaderMaterial_qluok")
