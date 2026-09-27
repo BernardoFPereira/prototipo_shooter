@@ -21,6 +21,8 @@ const JUMP_VELOCITY := 18
 @export var melee_damage: float = 10.0
 @export var impact_strength: int = 250
 var current_health: float
+@onready var coyote_timer = $CoyoteTimer
+var can_coyote_jump: bool = true
 #endregion
  
 #region STATE_MACHINE
@@ -194,6 +196,9 @@ func set_state(new_state: PlayerStates):
 			is_animating_action = true
 			play_animation_with_blend("jump", false)
 		PlayerStates.FALL:
+			print(can_coyote_jump)
+			if can_coyote_jump:
+				coyote_timer.start()
 			is_animating_action = false
 			play_animation_with_blend("extra_anims/air", true)
 		PlayerStates.PUSH:
@@ -244,6 +249,7 @@ func _physics_process(delta):
 	if was_in_air and is_on_floor():
 		if not is_animating_action:
 			walk_sfx.play()
+			can_coyote_jump = true
 			print("Pousou no chão!")
 			if camera_juice:
 				camera_juice.add_fall_kick(3.0)
@@ -407,10 +413,12 @@ func try_fire():
 			child.emitting = true 
 
 func try_jump():
-	if !is_on_floor():
+	print(can_coyote_jump)
+	if !is_on_floor() and coyote_timer.is_stopped():
 		return
 	velocity.y = JUMP_VELOCITY
 	jump_sfx.play()
+	can_coyote_jump = false
 	set_state(PlayerStates.JUMP)
  
 func check_fall_speed() -> bool:
