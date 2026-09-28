@@ -127,6 +127,8 @@ func _on_sword_impact(result: KinematicCollision3D):
 	var impact_particle_instance = impact_particles.instantiate()
 	impact_particle_instance.global_transform = impact_particle_marker.global_transform
 	impact_particle_instance.emitting = true
+	for child: GPUParticles3D in impact_particle_instance.get_children():
+		child.emitting = true
 	impact_sfx.play()
 	get_tree().root.add_child(impact_particle_instance)
 	

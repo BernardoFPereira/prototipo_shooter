@@ -435,6 +435,7 @@ libraries = {
 playback_default_blend_time = 0.5
 
 [node name="porta" type="StaticBody3D" parent="."]
+collision_layer = 17
 
 [node name="DoorCover_geo" type="MeshInstance3D" parent="porta"]
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
@@ -446,6 +447,7 @@ transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_cvjpd")
 
 [node name="ConcaveDoor" type="AnimatableBody3D" parent="porta"]
+collision_layer = 17
 sync_to_physics = false
 
 [node name="Doorbars_concave_geo" type="MeshInstance3D" parent="porta/ConcaveDoor"]
@@ -458,6 +460,7 @@ transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_efcew")
 
 [node name="ConvexDoor" type="AnimatableBody3D" parent="porta"]
+collision_layer = 17
 sync_to_physics = false
 
 [node name="Doorbars_convex_geo" type="MeshInstance3D" parent="porta/ConvexDoor"]

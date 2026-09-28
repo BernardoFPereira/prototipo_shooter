@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dyngooikjw5l6"]
+[gd_scene load_steps=64 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_h1e1e"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cm42np5vcb2pa" path="res://models/player/PlayerArmature_John_RocketArms_Mecharms_mtl_BaseColor.png" id="5_p00k7"]
 [ext_resource type="AudioStream" uid="uid://q3wb4eexmtl1" path="res://assets/sounds/sfx/player/arm_flying_loop.wav" id="8_01ftu"]
 [ext_resource type="AudioStream" uid="uid://dqub51bdg3ynw" path="res://assets/sounds/sfx/player/arm_impact.wav" id="9_cefh6"]
+[ext_resource type="ArrayMesh" uid="uid://3jdst5ao5kox" path="res://vfx/proprulsion_mesh2.res" id="10_ob23j"]
+[ext_resource type="Shader" uid="uid://dmcjgyjeld5f8" path="res://vfx/pixelated_particle.tres" id="11_66vd1"]
+[ext_resource type="Shader" uid="uid://ob06i6gqhhrk" path="res://vfx/propulsion_wave.tres" id="12_p4epw"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -494,6 +497,101 @@ size = Vector3(0.445557, 0.338135, 0.391368)
 [sub_resource type="SphereShape3D" id="SphereShape3D_yxbm2"]
 radius = 0.292478
 
+[sub_resource type="Curve" id="Curve_ojtf4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a4x7t"]
+curve = SubResource("Curve_ojtf4")
+
+[sub_resource type="Curve" id="Curve_xqc3b"]
+max_value = 100.0
+_data = [Vector2(0.599237, 100), 0.0, 0.0, 0, 0, Vector2(1, 1), -542.793, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_awghl"]
+curve = SubResource("Curve_xqc3b")
+
+[sub_resource type="Curve" id="Curve_dg4g0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.69084, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -6.62139, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gvtdp"]
+curve = SubResource("Curve_dg4g0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aaloj"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.45
+direction = Vector3(0, 0, -1)
+spread = 22.655
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 5.52
+linear_accel_max = 15.49
+damping_max = 0.077
+damping_curve = SubResource("CurveTexture_awghl")
+scale_min = 0.5
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_gvtdp")
+color = Color(0.3, 2.5, 1.1, 1)
+alpha_curve = SubResource("CurveTexture_a4x7t")
+turbulence_noise_strength = 0.95
+turbulence_noise_scale = 2.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0e2ym"]
+render_priority = 0
+shader = ExtResource("11_66vd1")
+shader_parameter/Bits = 16.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_eun27"]
+material = SubResource("ShaderMaterial_0e2ym")
+size = Vector2(0.17, 0.255)
+
+[sub_resource type="Curve" id="Curve_gngb0"]
+_data = [Vector2(0.477099, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00237346), -2.79826, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8yxbt"]
+curve = SubResource("Curve_gngb0")
+
+[sub_resource type="Curve" id="Curve_bneh2"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 145.253), 0.0, 0.0, 0, 0, Vector2(1, -143.544), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lme2o"]
+curve = SubResource("Curve_bneh2")
+
+[sub_resource type="Curve" id="Curve_lw5ub"]
+_data = [Vector2(0, 0), 0.0, 1.40698, 0, 0, Vector2(1, 0.681171), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mjqeh"]
+curve = SubResource("Curve_lw5ub")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_duuna"]
+angle_curve = SubResource("CurveTexture_lme2o")
+direction = Vector3(0, 0, -1)
+spread = 0.0
+initial_velocity_min = 6.0
+initial_velocity_max = 6.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_curve = SubResource("CurveTexture_mjqeh")
+color = Color(0.3, 2.5, 1.3, 1)
+alpha_curve = SubResource("CurveTexture_8yxbt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tmpnw"]
+render_priority = 0
+shader = ExtResource("12_p4epw")
+shader_parameter/Bits = 16.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_yua88"]
+material = SubResource("ShaderMaterial_tmpnw")
+
 [node name="Sword" type="Node3D"]
 script = ExtResource("1_h1e1e")
 
@@ -728,6 +826,7 @@ skin = SubResource("Skin_bik2k")
 
 [node name="ArmThruster" type="GPUParticles3D" parent="ArmProjectile/Armature"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306935, -0.0246889, -0.429968)
+emitting = false
 amount = 1200
 lifetime = 0.49
 visibility_aabb = AABB(-0.417526, -0.314789, -0.453413, 0.835052, 0.629578, 0.906826)
@@ -749,6 +848,7 @@ transform = Transform3D(1, 0, 0, 0, 0.14, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Swordtrail Particles2" type="GPUParticles3D" parent="sword"]
 transform = Transform3D(8.15703e-12, -0.615086, 2.22661e-06, -2.24449e-06, -2.22661e-06, -0.615087, 0.615087, -8.857e-14, -2.24449e-06, 0.00124277, 1.02372, -0.00915593)
+emitting = false
 amount = 400
 lifetime = 0.45
 visibility_aabb = AABB(-1.90861, -0.133851, -1.67127, 3.81722, 0.267701, 3.34253)
@@ -788,5 +888,25 @@ bus = &"SFX"
 [node name="Impact" type="AudioStreamPlayer3D" parent="SFX"]
 stream = ExtResource("9_cefh6")
 bus = &"SFX"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.157678, 0, 0, 0, 0.161273, 0, 0, 0, 0.133494, 0.00757335, -0.0336614, -0.448606)
+mesh = ExtResource("10_ob23j")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.77619)
+amount = 64
+lifetime = 0.25
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_aaloj")
+draw_pass_1 = SubResource("QuadMesh_eun27")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.08419)
+amount = 3
+lifetime = 0.45
+visibility_aabb = AABB(-4, -4, -4.27115, 8, 8, 8.54229)
+process_material = SubResource("ParticleProcessMaterial_duuna")
+draw_pass_1 = SubResource("QuadMesh_yua88")
 
 [editable path="sword"]
