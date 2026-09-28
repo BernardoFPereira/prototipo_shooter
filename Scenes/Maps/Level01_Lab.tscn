@@ -15,7 +15,7 @@
 [ext_resource type="Material" uid="uid://bf5tpsfyy2l71" path="res://materials/mapmaterials/DioramaMats/PlateWalldirty.tres" id="10_67e6u"]
 [ext_resource type="Material" uid="uid://dgadiubdu1nq6" path="res://materials/mapmaterials/DioramaMats/PlateWallexposeds.tres" id="10_yctok"]
 [ext_resource type="Material" uid="uid://d27g86vke7lpg" path="res://materials/mapmaterials/ground1.tres" id="11_egvjx"]
-[ext_resource type="Material" uid="uid://cdl4gefatqikk" path="res://materials/Prototype/ShieldGlassInternal.tres" id="11_iqhna"]
+[ext_resource type="Material" path="res://materials/Prototype/ShieldGlassInternal.tres" id="11_iqhna"]
 [ext_resource type="PackedScene" uid="uid://dwsxqeoj0fwvx" path="res://prefabs/prefabprops/plataformavoadora.tscn" id="12_hqdqu"]
 [ext_resource type="Material" uid="uid://dvnlnrthg3cb7" path="res://materials/mapmaterials/DioramaMats/PlateWall.tres" id="12_lyqev"]
 [ext_resource type="Material" uid="uid://chk4frd4pycwa" path="res://materials/mapmaterials/DioramaMats/PlateWallgreens.tres" id="13_ol26d"]
@@ -16171,12 +16171,6 @@ linked_obj = NodePath("../portadiorama")
 [node name="Cube" parent="." instance=ExtResource("25_vyen0")]
 transform = Transform3D(0.54, 0, 0, 0, 0.54, 0, 0, 0, 0.54, -15.3221, -14.7436, -44.4295)
 
-[node name="Cube7" parent="." instance=ExtResource("25_vyen0")]
-transform = Transform3D(0.539972, 0, -0.00548513, 0, 0.54, 0, 0.00548513, 0, 0.539972, -27.6902, -14.7436, 1.87331)
-
-[node name="Cube8" parent="." instance=ExtResource("25_vyen0")]
-transform = Transform3D(0.54, 0, 0, 0, 0.54, 0, 0, 0, 0.54, -34.5973, -14.7436, 1.98511)
-
 [node name="Cube2" parent="." instance=ExtResource("25_vyen0")]
 transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, -20.6538, -15.0123, -45.2638)
 
@@ -16240,16 +16234,28 @@ shape = SubResource("ConcavePolygonShape3D_h7mal")
 transform = Transform3D(-2.07629e-08, 0, 0.475, 0, 0.475, 0, -0.475, 0, -2.07629e-08, -34.4067, -14.4423, -23.2261)
 
 [node name="Diagonal Bevel2" parent="Details Divider" instance=ExtResource("36_2mylm")]
-transform = Transform3D(0.396361, 3.4651e-08, 0.261769, 4.15258e-08, -0.475, 2.19641e-15, 0.261769, 2.28846e-08, -0.396361, -36.7465, 21.3013, -3.71538)
+transform = Transform3D(2.07629e-08, 1.81515e-15, 0.475, 4.15258e-08, -0.475, 0, 0.475, 4.15258e-08, -2.07629e-08, -35.5052, 21.3013, -4.69146)
+
+[node name="Diagonal Bevel7" parent="Details Divider" instance=ExtResource("36_2mylm")]
+transform = Transform3D(2.07629e-08, 1.81515e-15, 0.475, 4.15258e-08, -0.475, 0, 0.475, 4.15258e-08, -2.07629e-08, -35.5052, 21.3013, -16.4631)
 
 [node name="Diagonal Bevel3" parent="Details Divider" instance=ExtResource("36_2mylm")]
-transform = Transform3D(-0.408924, -3.57493e-08, 0.241673, 4.15258e-08, -0.475, -1.55382e-15, 0.241673, 2.11278e-08, 0.408924, -36.9167, 21.3966, -37.2658)
+transform = Transform3D(2.07629e-08, 1.81515e-15, 0.475, 4.15258e-08, -0.475, 0, 0.475, 4.15258e-08, -2.07629e-08, -35.3611, 21.3966, -25.2658)
+
+[node name="Diagonal Bevel6" parent="Details Divider" instance=ExtResource("36_2mylm")]
+transform = Transform3D(2.07629e-08, 1.81515e-15, 0.475, 4.15258e-08, -0.475, 0, 0.475, 4.15258e-08, -2.07629e-08, -35.3611, 21.3966, -36.0207)
 
 [node name="Diagonal Bevel4" parent="Details Divider" instance=ExtResource("36_2mylm")]
-transform = Transform3D(-0.413892, -3.61836e-08, -0.233064, 4.15258e-08, -0.475, -5.89319e-16, -0.233064, -2.03751e-08, 0.413892, -19.615, 21.3847, -37.2658)
+transform = Transform3D(2.07629e-08, 1.81515e-15, -0.475, 4.15259e-08, -0.475, 0, -0.475, -4.15258e-08, -2.07629e-08, -20.615, 21.3847, -25.2658)
+
+[node name="Diagonal Bevel8" parent="Details Divider" instance=ExtResource("36_2mylm")]
+transform = Transform3D(2.07629e-08, 1.81515e-15, -0.475, 4.15259e-08, -0.475, 0, -0.475, -4.15258e-08, -2.07629e-08, -20.615, 21.3847, -16.1593)
+
+[node name="Diagonal Bevel9" parent="Details Divider" instance=ExtResource("36_2mylm")]
+transform = Transform3D(2.07629e-08, 1.81515e-15, -0.475, 4.15259e-08, -0.475, 0, -0.475, -4.15258e-08, -2.07629e-08, -20.615, 21.3847, -36.4185)
 
 [node name="Diagonal Bevel5" parent="Details Divider" instance=ExtResource("36_2mylm")]
-transform = Transform3D(0.420805, 3.67879e-08, -0.220337, 4.15258e-08, -0.475, 1.3975e-15, -0.220337, -1.92625e-08, -0.420805, -18.7245, 21.2921, -3.16355)
+transform = Transform3D(2.07629e-08, 1.81515e-15, -0.475, 4.15258e-08, -0.475, 0, -0.475, -4.15258e-08, -2.07629e-08, -20.7245, 21.2921, -4.63796)
 
 [node name="Tubinho" parent="Details Divider" instance=ExtResource("37_iia73")]
 transform = Transform3D(-0.308668, 0, 0.95117, 0, 1, 0, -0.95117, 0, -0.308668, -26.4996, -15.3843, -40.1403)
