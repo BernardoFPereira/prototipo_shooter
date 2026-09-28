@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c00ttgvpcg5le"
-path="res://.godot/imported/ST_placa.glb-b4c76ff9dea351842c1197d5e9cf3a4e.scn"
+uid="uid://cc1yk65blw1by"
+path="res://.godot/imported/ST_bau_grp.glb-f3c6f4a9b3d3a648a6a3cacdd0e25f24.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_placa.glb"
-dest_files=["res://.godot/imported/ST_placa.glb-b4c76ff9dea351842c1197d5e9cf3a4e.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_bau_grp.glb"
+dest_files=["res://.godot/imported/ST_bau_grp.glb-f3c6f4a9b3d3a648a6a3cacdd0e25f24.scn"]
 
 [params]
 

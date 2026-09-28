@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dh1ew4107llw4"
-path="res://.godot/imported/ST_monitorBaseSo.glb-cf53e7c39943355b549fc81d476f1291.scn"
+uid="uid://dauy3d4m4ihsl"
+path="res://.godot/imported/ST_caixaFusiveis.glb-203cabfeeadca5a902632525a00172b3.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_monitorBaseSo.glb"
-dest_files=["res://.godot/imported/ST_monitorBaseSo.glb-cf53e7c39943355b549fc81d476f1291.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_caixaFusiveis.glb"
+dest_files=["res://.godot/imported/ST_caixaFusiveis.glb-203cabfeeadca5a902632525a00172b3.scn"]
 
 [params]
 

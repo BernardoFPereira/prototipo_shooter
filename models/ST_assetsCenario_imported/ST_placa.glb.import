@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://uslxihc3p5uv"
-path="res://.godot/imported/ST_monitorTelaSo.glb-0ad31834e66d16e0e006389b9d51ebb4.scn"
+uid="uid://c00ttgvpcg5le"
+path="res://.godot/imported/ST_placa.glb-09d6a178795aeb14fa20ffd7264dd46d.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_monitorTelaSo.glb"
-dest_files=["res://.godot/imported/ST_monitorTelaSo.glb-0ad31834e66d16e0e006389b9d51ebb4.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_placa.glb"
+dest_files=["res://.godot/imported/ST_placa.glb-09d6a178795aeb14fa20ffd7264dd46d.scn"]
 
 [params]
 

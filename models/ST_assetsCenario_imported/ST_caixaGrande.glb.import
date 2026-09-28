@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://7wmmewf6lvxy"
-path="res://.godot/imported/ST_fioRetoLngo01.glb-959b08fb9cdfe10ff1fa7febe166b785.scn"
+uid="uid://coywpagrbe6rq"
+path="res://.godot/imported/ST_caixaGrande.glb-d239cc414e026d19573912f303e39549.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_fioRetoLngo01.glb"
-dest_files=["res://.godot/imported/ST_fioRetoLngo01.glb-959b08fb9cdfe10ff1fa7febe166b785.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_caixaGrande.glb"
+dest_files=["res://.godot/imported/ST_caixaGrande.glb-d239cc414e026d19573912f303e39549.scn"]
 
 [params]
 

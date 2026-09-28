@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d255tru6vqmk"
-path="res://.godot/imported/ST_manilhaReta.glb-7a8deeebfeb79ead69e021023d3eaef7.scn"
+uid="uid://cfmlppvpbyquj"
+path="res://.godot/imported/ST_manilhaQuina.glb-92887afb39cf28bb08abc77d3f1ee562.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_manilhaReta.glb"
-dest_files=["res://.godot/imported/ST_manilhaReta.glb-7a8deeebfeb79ead69e021023d3eaef7.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_manilhaQuina.glb"
+dest_files=["res://.godot/imported/ST_manilhaQuina.glb-92887afb39cf28bb08abc77d3f1ee562.scn"]
 
 [params]
 

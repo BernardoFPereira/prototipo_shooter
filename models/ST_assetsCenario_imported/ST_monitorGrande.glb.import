@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b4n46p3r01a41"
-path="res://.godot/imported/ST_monitorGrande.glb-963eec36ce680fe379a689e440a6444c.scn"
+path="res://.godot/imported/ST_monitorGrande.glb-bd13a673db7c49280f8df8e1be88b7b5.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_monitorGrande.glb"
-dest_files=["res://.godot/imported/ST_monitorGrande.glb-963eec36ce680fe379a689e440a6444c.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_monitorGrande.glb"
+dest_files=["res://.godot/imported/ST_monitorGrande.glb-bd13a673db7c49280f8df8e1be88b7b5.scn"]
 
 [params]
 

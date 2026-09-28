@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bbwd1s4nb6jf6"
-path="res://.godot/imported/ST_ficaoComSeparador_grp.glb-9231b5d78f3be668cf8ab282da8cfe56.scn"
+uid="uid://d255tru6vqmk"
+path="res://.godot/imported/ST_manilhaReta.glb-3240f91de389f25436d6bb031c904f50.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_ficaoComSeparador_grp.glb"
-dest_files=["res://.godot/imported/ST_ficaoComSeparador_grp.glb-9231b5d78f3be668cf8ab282da8cfe56.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_manilhaReta.glb"
+dest_files=["res://.godot/imported/ST_manilhaReta.glb-3240f91de389f25436d6bb031c904f50.scn"]
 
 [params]
 

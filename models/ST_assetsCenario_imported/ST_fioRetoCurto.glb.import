@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dauy3d4m4ihsl"
-path="res://.godot/imported/ST_caixaFusiveis.glb-ae8a254f16479ab19dc016d97fa7574d.scn"
+uid="uid://brtuhm6hp5vdq"
+path="res://.godot/imported/ST_fioRetoCurto.glb-0c53de5cb85a6d6048ac0bce378100bb.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_caixaFusiveis.glb"
-dest_files=["res://.godot/imported/ST_caixaFusiveis.glb-ae8a254f16479ab19dc016d97fa7574d.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_fioRetoCurto.glb"
+dest_files=["res://.godot/imported/ST_fioRetoCurto.glb-0c53de5cb85a6d6048ac0bce378100bb.scn"]
 
 [params]
 

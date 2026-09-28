@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://drwkoc6vlux0p"
-path="res://.godot/imported/ST_gancho.glb-8185db7e6cfe9ec90ccd0e2056d13e8a.scn"
+uid="uid://do38l7gwdix3q"
+path="res://.godot/imported/ST_caixaPequena.glb-2e0ee39f60460d0704a75d6c1d3f9b07.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_gancho.glb"
-dest_files=["res://.godot/imported/ST_gancho.glb-8185db7e6cfe9ec90ccd0e2056d13e8a.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_caixaPequena.glb"
+dest_files=["res://.godot/imported/ST_caixaPequena.glb-2e0ee39f60460d0704a75d6c1d3f9b07.scn"]
 
 [params]
 

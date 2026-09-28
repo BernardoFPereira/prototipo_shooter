@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cuc8usqxcc1q7"
-path="res://.godot/imported/ST_fioQuina.glb-060ef493e407eb31e28bc74242536659.scn"
+uid="uid://bir71t1kwwx4j"
+path="res://.godot/imported/ST_capsulaEncubadora01.glb-ec3c4051c5bfa9de243d28e6149ae2b2.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_fioQuina.glb"
-dest_files=["res://.godot/imported/ST_fioQuina.glb-060ef493e407eb31e28bc74242536659.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_capsulaEncubadora01.glb"
+dest_files=["res://.godot/imported/ST_capsulaEncubadora01.glb-ec3c4051c5bfa9de243d28e6149ae2b2.scn"]
 
 [params]
 

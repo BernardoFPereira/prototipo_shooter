@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dfd54gjprjafa"
-path="res://.godot/imported/ST_monitorMedio.glb-5cd9c62e6a5fe8d9513390079c28e390.scn"
+path="res://.godot/imported/ST_monitorMedio.glb-8efd615a59909c494e43cd534c909fcf.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_monitorMedio.glb"
-dest_files=["res://.godot/imported/ST_monitorMedio.glb-5cd9c62e6a5fe8d9513390079c28e390.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_monitorMedio.glb"
+dest_files=["res://.godot/imported/ST_monitorMedio.glb-8efd615a59909c494e43cd534c909fcf.scn"]
 
 [params]
 

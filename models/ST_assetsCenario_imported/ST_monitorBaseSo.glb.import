@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bir71t1kwwx4j"
-path="res://.godot/imported/ST_capsulaEncubadora01.glb-72479aa0be72e7dd5e6b677aafd882b2.scn"
+uid="uid://dh1ew4107llw4"
+path="res://.godot/imported/ST_monitorBaseSo.glb-fcdd07bdefe7d568bfc06ebeeb2b978a.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_capsulaEncubadora01.glb"
-dest_files=["res://.godot/imported/ST_capsulaEncubadora01.glb-72479aa0be72e7dd5e6b677aafd882b2.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_monitorBaseSo.glb"
+dest_files=["res://.godot/imported/ST_monitorBaseSo.glb-fcdd07bdefe7d568bfc06ebeeb2b978a.scn"]
 
 [params]
 

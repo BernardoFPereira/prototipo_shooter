@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://do38l7gwdix3q"
-path="res://.godot/imported/ST_caixaPequena.glb-d7d7d27d1a610c354825d5b8a45b8b4d.scn"
+uid="uid://uslxihc3p5uv"
+path="res://.godot/imported/ST_monitorTelaSo.glb-9e5a20937da658c99071747082610b50.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_caixaPequena.glb"
-dest_files=["res://.godot/imported/ST_caixaPequena.glb-d7d7d27d1a610c354825d5b8a45b8b4d.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_monitorTelaSo.glb"
+dest_files=["res://.godot/imported/ST_monitorTelaSo.glb-9e5a20937da658c99071747082610b50.scn"]
 
 [params]
 

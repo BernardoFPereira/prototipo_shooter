@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://brtuhm6hp5vdq"
-path="res://.godot/imported/ST_fioRetoCurto.glb-b4ed6da9c600d6de9062977ca7f0307e.scn"
+uid="uid://drwkoc6vlux0p"
+path="res://.godot/imported/ST_gancho.glb-28773d05703a01762b34ab2dbd1fdef4.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_fioRetoCurto.glb"
-dest_files=["res://.godot/imported/ST_fioRetoCurto.glb-b4ed6da9c600d6de9062977ca7f0307e.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_gancho.glb"
+dest_files=["res://.godot/imported/ST_gancho.glb-28773d05703a01762b34ab2dbd1fdef4.scn"]
 
 [params]
 

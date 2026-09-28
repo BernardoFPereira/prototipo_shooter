@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bcsn1q5y8wsda"
-path="res://.godot/imported/ST_fioRetoLngo02.glb-c48115ae85812491f58ff8a168150c0c.scn"
+uid="uid://bbwd1s4nb6jf6"
+path="res://.godot/imported/ST_ficaoComSeparador_grp.glb-a79737632931fedfcbd2a3ac1d9a9940.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_fioRetoLngo02.glb"
-dest_files=["res://.godot/imported/ST_fioRetoLngo02.glb-c48115ae85812491f58ff8a168150c0c.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_ficaoComSeparador_grp.glb"
+dest_files=["res://.godot/imported/ST_ficaoComSeparador_grp.glb-a79737632931fedfcbd2a3ac1d9a9940.scn"]
 
 [params]
 

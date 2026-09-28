@@ -33,7 +33,7 @@
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="23_eda7h"]
 [ext_resource type="PackedScene" uid="uid://cmt6r0hgmc5tb" path="res://prefabs/prefabprops/prefabsl3/BigDoor.tscn" id="23_ydroa"]
 [ext_resource type="PackedScene" uid="uid://c1lx7l4mmragh" path="res://prefabs/prefabprops/prefabsl3/cube.tscn" id="25_vyen0"]
-[ext_resource type="PackedScene" uid="uid://c065scjxbdcie" path="res://Scenes/Maps/Diorama_Level03_Vert.tscn" id="32_kwfen"]
+[ext_resource type="PackedScene" uid="uid://ddeco0b34517h" path="res://Scenes/Maps/Level03_Vert.tscn" id="32_ytpwb"]
 [ext_resource type="PackedScene" uid="uid://dpow2sxmvwmho" path="res://prefabs/prefabprops/prefabsl3/bevel_details.tscn" id="33_puccs"]
 [ext_resource type="Texture2D" uid="uid://bttoc4uhwspmx" path="res://textures/propstextures/level3textures/platforms and bevels stars_platforms borders and stars_level3props_mtl_BaseColor.png" id="34_toyrk"]
 [ext_resource type="Texture2D" uid="uid://t3hr81bwxssm" path="res://textures/propstextures/level3textures/platforms and bevels stars_platforms borders and stars_level3props_mtl_Emissive.png" id="35_8vfiy"]
@@ -16158,7 +16158,7 @@ start_node = 3
 
 [node name="SceneProgressArea" parent="." instance=ExtResource("20_2kun6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0614, 3.25388, 32.0181)
-level_to_load = ExtResource("32_kwfen")
+level_to_load = ExtResource("32_ytpwb")
 
 [node name="vent" parent="." instance=ExtResource("15_00gqf")]
 transform = Transform3D(-2.3399e-08, 0, 1, 0, 0.531346, 0, -0.535308, 0, -4.37114e-08, 19.8953, 1.94492, 20.6266)

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cc1yk65blw1by"
-path="res://.godot/imported/ST_bau_grp.glb-f9271b2b12d86c9f31a665c77b3c2b6a.scn"
+uid="uid://7wmmewf6lvxy"
+path="res://.godot/imported/ST_fioRetoLngo01.glb-889e52d4006ad721b318be630b3b6f54.scn"
 
 [deps]
 
-source_file="res://ST_assetsCenario_imported/ST_bau_grp.glb"
-dest_files=["res://.godot/imported/ST_bau_grp.glb-f9271b2b12d86c9f31a665c77b3c2b6a.scn"]
+source_file="res://models/ST_assetsCenario_imported/ST_fioRetoLngo01.glb"
+dest_files=["res://.godot/imported/ST_fioRetoLngo01.glb-889e52d4006ad721b318be630b3b6f54.scn"]
 
 [params]
 
