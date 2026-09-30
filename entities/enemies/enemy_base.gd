@@ -8,6 +8,7 @@ extends RigidBody3D
 @onready var sword_hit_collision: CollisionShape3D = $SwordCollisionArea/SwordHitCollision
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var ground_raycast: RayCast3D = $GroundRaycast
+@onready var shield_area: Area3D = get_node_or_null("ShieldArea3D")
  
 #region SOUNDS
 @onready var idle_sfx: AudioStreamPlayer3D = $SFX/Idle
@@ -47,6 +48,54 @@ var is_floating: bool
 @export var engagement_buffer: float = 0.5
 @export var eye_height: float = 1.5
  
+@export_category("Shield")
+
+enum AttackType { SWORD, SHOOT }
+
+enum ShieldMode {
+	SWORD_BLOCK_SWORD_BREAK, #Braço bloqueado, braço quebra. Tiro normal.
+	SWORD_BLOCK_SHOOT_BREAK, #Braço bloqueado, tiro quebra.
+	SHOOT_BLOCK_SHOOT_BREAK, #Tiro bloqueado, tiro quebra. Braço normal.
+	SHOOT_BLOCK_SWORD_BREAK, #Tiro bloqueado, braço quebra.
+}
+
+
+@export var SHIELD_MODE_COLORS := {
+	ShieldMode.SWORD_BLOCK_SWORD_BREAK: Color(0.545, 0.0, 1.0),
+	ShieldMode.SWORD_BLOCK_SHOOT_BREAK: Color(0.0, 0.75, 1.0),
+	ShieldMode.SHOOT_BLOCK_SHOOT_BREAK: Color(1.0, 0.45, 0.0),
+	ShieldMode.SHOOT_BLOCK_SWORD_BREAK: Color(1.0, 0.1, 0.25),
+}
+
+@export var shield_mode: ShieldMode = ShieldMode.SWORD_BLOCK_SWORD_BREAK:
+	set(value):
+		shield_mode = value
+		_apply_shield_color()
+
+@export var shield_up: bool = false:
+	set(value):
+		shield_up = value
+		if is_node_ready() and not _is_breaking_shield:
+			_update_shield_visual()
+@export var shield_str: int = 1
+
+@export_group("Shield Break FX")
+@export var shield_break_fx: PackedScene = preload("res://entities/enemies/ShieldBreakGlyphs.tscn")
+@export var shield_glitch_time: float = 0.3
+@export var hitstop_duration: float = 0.07
+@export var hitstop_time_scale: float = 0.05
+
+var _shield_hits_left: int = 1
+var _shield_mesh: MeshInstance3D
+var _shield_material: ShaderMaterial
+var _is_breaking_shield: bool = false
+var _shield_break_tween: Tween
+
+static var _hitstop_owner: EnemyBase = null
+static var _hitstop_previous_scale: float = 1.0
+
+signal shield_broken
+
 #HUD
 @onready var hud_animations = $HUDAnimations
 @onready var detection_ch = $SubViewport/DetectionCH
@@ -67,6 +116,9 @@ func _ready() -> void:
 	_configure_engagement_ranges()
 	_setup_idle_sound_timer()
 	current_health = max_health
+	_shield_hits_left = max(shield_str, 1)
+	_setup_shield_material()
+	_update_shield_visual()
 	_resolve_patrol_route()
 	_ready_extra()
  
@@ -193,6 +245,7 @@ func take_damage(amount: float) -> void:
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
 		if current_health <= 0:
+			break_shield()
 			set_current_state(EnemyState.DEAD)
 		else:
 			set_current_state(EnemyState.HIT)
@@ -206,20 +259,145 @@ func spawn_blood(position: Vector3) -> void:
 func _on_sword_entered(body: Node) -> void:
 	if body.get_parent() is Sword:
 		var sword := body.get_parent() as Sword
-		spawn_blood(sword.global_position)
- 
+
 		match sword.state:
 			sword.SwordState.THROWN:
-				var tween = get_tree().create_tween()
-				tween.tween_property(sword.sword_owner, "global_position", sword.global_position, 0.16)
 				sword.speed = 0
 				sword.set_state(sword.SwordState.PULLED_BACK)
- 
+
+				if _shield_absorbs(AttackType.SWORD):
+					sword.impact_sfx.play()
+					return
+
+				var tween = get_tree().create_tween()
+				tween.tween_property(sword.sword_owner, "global_position", sword.global_position, 0.16)
 				receive_sword_impact(current_health, sword.global_position, 250)
- 
+
 			sword.SwordState.PULLED_BACK:
+				if shield_up and _shield_reacts_to(AttackType.SWORD):
+					return
 				receive_sword_impact(sword.damage, sword.global_position, 250)
  
+#region SHIELD
+func _block_type() -> AttackType:
+	match shield_mode:
+		ShieldMode.SWORD_BLOCK_SWORD_BREAK, ShieldMode.SWORD_BLOCK_SHOOT_BREAK:
+			return AttackType.SWORD
+		_:
+			return AttackType.SHOOT
+
+func _break_type() -> AttackType:
+	match shield_mode:
+		ShieldMode.SWORD_BLOCK_SWORD_BREAK, ShieldMode.SHOOT_BLOCK_SWORD_BREAK:
+			return AttackType.SWORD
+		_:
+			return AttackType.SHOOT
+
+func _shield_reacts_to(attack: AttackType) -> bool:
+	return attack == _block_type() or attack == _break_type()
+
+func _shield_absorbs(attack: AttackType) -> bool:
+	if not shield_up or not _shield_reacts_to(attack):
+		return false
+	if attack == _break_type():
+		_shield_hits_left -= 1
+		if _shield_hits_left <= 0:
+			break_shield()
+	return true
+
+func _apply_shield_color() -> void:
+	if _shield_material:
+		_shield_material.set_shader_parameter("color", SHIELD_MODE_COLORS[shield_mode])
+
+## Quebra o escudo: na lógica ele já some na hora (o próximo arremesso teleporta), e o visual faz
+## hitstop -> glitch forte -> explosão de glifos -> some.
+func break_shield() -> void:
+	if not shield_up:
+		return
+	_is_breaking_shield = true
+	shield_up = false
+	shield_broken.emit()
+	_hitstop()
+	_play_shield_break_animation()
+
+func restore_shield() -> void:
+	if _is_breaking_shield:
+		_finish_shield_break()
+	_shield_hits_left = max(shield_str, 1)
+	shield_up = true
+
+func _setup_shield_material() -> void:
+	if shield_area == null:
+		return
+	for node in shield_area.find_children("*", "MeshInstance3D", true, false):
+		_shield_mesh = node
+		break
+	if _shield_mesh and _shield_mesh.material_override is ShaderMaterial:
+		_shield_material = _shield_mesh.material_override.duplicate()
+		_shield_mesh.material_override = _shield_material
+	_apply_shield_color()
+
+func _play_shield_break_animation() -> void:
+	if _shield_break_tween and _shield_break_tween.is_valid():
+		_shield_break_tween.kill()
+
+	if _shield_material == null:
+		_spawn_shield_glyphs()
+		_finish_shield_break()
+		return
+
+	var half := shield_glitch_time * 0.5
+	_shield_break_tween = create_tween()
+	_shield_break_tween.tween_method(_set_shield_break_progress, 0.0, 0.5, half)
+	_shield_break_tween.tween_callback(_spawn_shield_glyphs)
+	_shield_break_tween.tween_method(_set_shield_break_progress, 0.5, 1.0, half)
+	_shield_break_tween.tween_callback(_finish_shield_break)
+
+func _set_shield_break_progress(value: float) -> void:
+	if _shield_material:
+		_shield_material.set_shader_parameter("break_progress", value)
+
+func _spawn_shield_glyphs() -> void:
+	if shield_break_fx == null:
+		return
+	var fx := shield_break_fx.instantiate()
+	get_tree().root.add_child(fx)
+	if fx.has_method("play_from_shield"):
+		fx.play_from_shield(_shield_mesh)
+	elif _shield_mesh:
+		fx.global_position = _shield_mesh.global_position
+
+func _finish_shield_break() -> void:
+	_is_breaking_shield = false
+	_set_shield_break_progress(0.0)
+	_update_shield_visual()
+
+func _hitstop() -> void:
+	if hitstop_duration <= 0.0 or _hitstop_owner != null:
+		return
+	_hitstop_owner = self
+	_hitstop_previous_scale = Engine.time_scale
+	Engine.time_scale = hitstop_time_scale
+	await get_tree().create_timer(hitstop_duration, true, false, true).timeout
+	_end_hitstop()
+
+func _end_hitstop() -> void:
+	if _hitstop_owner == self:
+		Engine.time_scale = _hitstop_previous_scale
+		_hitstop_owner = null
+
+func _exit_tree() -> void:
+	_end_hitstop()
+
+func _update_shield_visual() -> void:
+	if shield_area == null:
+		if shield_up:
+			push_warning("%s: shield_up está ligado, mas a cena não tem um nó ShieldArea3D — o escudo funciona, só não aparece." % name)
+		return
+	shield_area.visible = shield_up
+	shield_area.set_deferred("monitorable", shield_up)
+#endregion
+
 func set_current_state(new_state: EnemyState) -> void:
 	match new_state:
 		EnemyState.IDLE:
@@ -283,6 +461,8 @@ func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: i
  
 func receive_rocket_impact(hit_position: Vector3, damage: int) -> void:
 	if current_state == EnemyState.DEAD:
+		return
+	if _shield_absorbs(AttackType.SHOOT):
 		return
 	set_current_state(EnemyState.HIT)
 	spawn_blood(hit_position)
