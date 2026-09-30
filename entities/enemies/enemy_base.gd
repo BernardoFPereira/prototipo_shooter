@@ -49,17 +49,26 @@ var is_floating: bool
 @export var eye_height: float = 1.5
  
 @export_category("Hit Reaction")
-## Velocidade horizontal (m/s) do empurrão quando leva tiro, na direção do tiro.
-@export var hit_knockback_force: float = 5
-## Velocidade pra cima (m/s) do empurrão. Menos = menos tempo no ar.
-@export var hit_knockback_up: float = 6
-## Multiplicador de gravidade enquanto está em HIT (cai mais rápido, fica menos tempo no ar).
+#Velocidade horizontal (m/s) do empurrão quando leva tiro, na direção do tiro.
+@export var hit_knockback_force: float = 5.0
+#Velocidade pra cima (m/s) do empurrão. Menos = menos tempo no ar.
+@export var hit_knockback_up: float = 6.0
+#Multiplicador de gravidade enquanto está em HIT (cai mais rápido, fica menos tempo no ar).
 @export var hit_gravity_scale: float = 2.0
-## Velocidade da animação de hit. 1.5 = stagger de ~0,3 s em vez de ~0,45 s.
+#Velocidade da animação de hit. 1.5 = stagger de ~0,3 s em vez de ~0,45 s.
 @export var hit_anim_speed: float = 1
-## Quão rápido o deslize horizontal para depois que ele encosta no chão, ainda em HIT.
-@export var hit_ground_friction: float = 10.0
+#Quão rápido o deslize horizontal para depois que ele encosta no chão, ainda em HIT.
+@export var hit_ground_friction: float = 5.0
+## Tempo mínimo (s) em HIT antes de poder voltar a perseguir, pra golpes que quase não tiram ele
+## do chão (senão sairia do HIT no mesmo frame em que entrou).
+@export var hit_min_stagger: float = 0.2
 var _base_gravity_scale: float = 1.0
+var _hit_elapsed: float = 0.0
+var _hit_was_airborne: bool = false
+
+@export_category("Animation")
+## Tempo (s) de transição entre animações — mesmo esquema do play_animation_with_blend do player.
+@export var anim_blend_time: float = 0.15
 
 @export_category("Shield")
 
@@ -248,11 +257,18 @@ func _physics_process(delta: float) -> void:
  
 		EnemyState.HIT:
 			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
-			# No chão, o empurrão horizontal morre rápido em vez de deslizar.
 			if not is_floating:
 				var slow := clampf(hit_ground_friction * delta, 0.0, 1.0)
 				linear_velocity.x = lerpf(linear_velocity.x, 0.0, slow)
 				linear_velocity.z = lerpf(linear_velocity.z, 0.0, slow)
+
+			# A animação de hit fica em loop enquanto ele está no ar; assim que encosta no chão
+			# (depois de ter saído dele, ou depois do stagger mínimo) volta a perseguir.
+			_hit_elapsed += delta
+			if is_floating:
+				_hit_was_airborne = true
+			elif _hit_was_airborne or _hit_elapsed >= hit_min_stagger:
+				set_current_state(EnemyState.CHASING if target else EnemyState.IDLE)
  
 		EnemyState.ATTACKING:
 			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
@@ -423,13 +439,13 @@ func set_current_state(new_state: EnemyState) -> void:
 			if current_state == EnemyState.DEAD:
 				return
 			_pre_state_change(new_state)
-			anim_player.play("idle")
+			_play_anim("idle", true)
 			resume_idle_sounds()
  
 		EnemyState.PATROLLING:
 			_pre_state_change(new_state)
 			nav_agent.max_speed = patrol_speed
-			anim_player.play("patrol")
+			_play_anim("patrol", true)
 			resume_idle_sounds()
  
 		EnemyState.CHASING:
@@ -438,7 +454,7 @@ func set_current_state(new_state: EnemyState) -> void:
 			_pre_state_change(new_state)
 			has_target = true
 			nav_agent.max_speed = chase_speed
-			anim_player.play("chase")
+			_play_anim("chase", true)
 			if _idle_timer:
 				_idle_timer.wait_time = idle_sound_interval / 2.0
  
@@ -448,9 +464,9 @@ func set_current_state(new_state: EnemyState) -> void:
 			_pre_state_change(new_state)
 			nav_agent.max_speed = 0
 			gravity_scale = _base_gravity_scale * hit_gravity_scale
-			# Toca do começo mesmo se já estava em HIT (senão o play() da mesma animação não reinicia).
-			anim_player.stop()
-			anim_player.play("hit", -1, hit_anim_speed)
+			_hit_elapsed = 0.0
+			_hit_was_airborne = false
+			_play_anim("hit", true, hit_anim_speed)
 			pause_idle_sounds()
 			hit_sfx.play()
  
@@ -459,7 +475,7 @@ func set_current_state(new_state: EnemyState) -> void:
 				return
 			_pre_state_change(new_state)
 			linear_velocity = Vector3.ZERO
-			anim_player.play("attack")
+			_play_anim("attack", false)
 			pause_idle_sounds()
  
 		EnemyState.DEAD:
@@ -467,7 +483,7 @@ func set_current_state(new_state: EnemyState) -> void:
 			nav_agent.set_avoidance_enabled(false)
 			sword_collision_area.set_collision_mask_value(6, false)
 			nav_agent.max_speed = 0
-			anim_player.play("hit")
+			_play_anim("hit", true, hit_anim_speed)
 			stop_idle_sounds()
  
 	if new_state != EnemyState.HIT:
@@ -483,8 +499,7 @@ func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: i
 	linear_velocity.y += 5
 	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
  
-## shot_direction: direção em que o tiro estava indo (o projectile.gd passa). Se não vier, empurra
-## pra longe do ponto da explosão.
+
 func receive_rocket_impact(hit_position: Vector3, damage: int, shot_direction: Vector3 = Vector3.ZERO) -> void:
 	if current_state == EnemyState.DEAD:
 		return
@@ -495,8 +510,7 @@ func receive_rocket_impact(hit_position: Vector3, damage: int, shot_direction: V
 	take_damage(damage)
 	apply_knockback(hit_position, shot_direction)
 
-## Troca a velocidade atual (inclusive o embalo de quando estava andando) por um empurrão curto:
-## na direção do tiro + pra cima.
+
 func apply_knockback(from_position: Vector3, shot_direction: Vector3 = Vector3.ZERO) -> void:
 	var dir := Vector3(shot_direction.x, 0.0, shot_direction.z)
 	if dir.length() < 0.01:
@@ -514,20 +528,25 @@ func finished_attacking() -> void:
 	else:
 		set_current_state(EnemyState.HIT)
  
+## Chamado pela trilha de método da animação "hit" (a cada volta do loop). A saída do HIT agora
+## é pelo _physics_process (quando encosta no chão); aqui só trata a morte.
 func finished_get_hit() -> void:
-	if not is_floating:
-		set_current_state(EnemyState.CHASING)
-	elif current_state == EnemyState.HIT:
-		# Ainda no ar: repete só a animação (sem tocar o som de hit de novo).
-		anim_player.stop()
-		anim_player.play("hit", -1, hit_anim_speed)
-	else:
-		set_current_state(EnemyState.HIT)
- 
-	if current_state == EnemyState.DEAD:
+	if current_state == EnemyState.DEAD and anim_player.current_animation == "hit":
 		set_collision_layer_value(20, false)
-		anim_player.play("dead")
+		_play_anim("dead", false)
  
+## Mesmo esquema do play_animation_with_blend() do player: transição suave (anim_blend_time),
+## define se a animação faz loop e não reinicia a que já está tocando.
+func _play_anim(anim_name: String, loop: bool, speed: float = 1.0) -> void:
+	if not anim_player.has_animation(anim_name):
+		return
+	if anim_player.current_animation == anim_name and anim_player.is_playing():
+		return
+	var anim := anim_player.get_animation(anim_name)
+	if anim:
+		anim.loop_mode = Animation.LOOP_LINEAR if loop else Animation.LOOP_NONE
+	anim_player.play(anim_name, anim_blend_time, speed)
+
 func finished_dead() -> void:
 	await get_tree().create_timer(5).timeout
 	queue_free()

@@ -40076,7 +40076,7 @@ transform = Transform3D(0.162776, 0, 0.986661, 0, 1, 0, -0.986661, 0, 0.162776, 
 target = NodePath("../../Player")
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("9_e2kfd")]
-transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 9.84895, 0.206853, 25.4044)
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 9.58968, 0.206853, 25.4044)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.560836, 0, 0, 0, 1, 0, 0, 0, 0.525002, 0, 0, 0)
@@ -42165,14 +42165,37 @@ mesh_vector_data = SubResource("Resource_c13qk")
 [node name="EnemyMelee4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(0.893089, 0, -0.44988, 0, 1, 0, 0.44988, 0, 0.893089, -14.2304, 0.0157796, -11.1727)
 target = NodePath("../Player")
+detection_range = 50.0
 
 [node name="EnemyMelee5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(-0.780136, 0, 0.625611, 0, 1, 0, -0.625611, 0, -0.780136, -16.8229, 0.0157796, -8.49848)
 target = NodePath("../Player")
+detection_range = 50.0
+
+[node name="EnemyMelee7" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
+transform = Transform3D(0.103765, 0, -0.994602, 0, 1, 0, 0.994602, 0, 0.103765, -1.41116, 0.0157796, -9.49727)
+target = NodePath("../Player")
+detection_range = 50.0
+
+[node name="EnemyMelee8" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
+transform = Transform3D(-0.933825, 0, 0.357733, 0, 1, 0, -0.357733, 0, -0.933825, -11.2364, 0.0157796, 1.31468)
+target = NodePath("../Player")
+detection_range = 50.0
+
+[node name="EnemyMelee9" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
+transform = Transform3D(-0.405923, 0, -0.913907, 0, 1, 0, 0.913907, 0, -0.405923, 11.142, 0.0157796, -11.8474)
+target = NodePath("../Player")
+detection_range = 50.0
+
+[node name="EnemyMelee10" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
+transform = Transform3D(0.949322, 0, 0.314307, 0, 1, 0, -0.314307, 0, 0.949322, 7.46052, 0.0157796, -14.3068)
+target = NodePath("../Player")
+detection_range = 50.0
 
 [node name="EnemyMelee6" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(-0.250279, 0, -0.968174, 0, 1, 0, 0.968174, 0, -0.250279, 36.9882, 20.0054, 5.32602)
 target = NodePath("../Player")
+detection_range = 50.0
 
 [node name="Button" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("9_834kp")]
 transform = Transform3D(-0.597041, 0, 1.0164e-07, 0, 0.597041, 0, -9.01506e-08, 0, -0.673132, -2.44811, 11.8126, 19.7403)
