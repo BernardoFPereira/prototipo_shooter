@@ -48,6 +48,19 @@ var is_floating: bool
 @export var engagement_buffer: float = 0.5
 @export var eye_height: float = 1.5
  
+@export_category("Hit Reaction")
+## Velocidade horizontal (m/s) do empurrão quando leva tiro, na direção do tiro.
+@export var hit_knockback_force: float = 5
+## Velocidade pra cima (m/s) do empurrão. Menos = menos tempo no ar.
+@export var hit_knockback_up: float = 6
+## Multiplicador de gravidade enquanto está em HIT (cai mais rápido, fica menos tempo no ar).
+@export var hit_gravity_scale: float = 2.0
+## Velocidade da animação de hit. 1.5 = stagger de ~0,3 s em vez de ~0,45 s.
+@export var hit_anim_speed: float = 1
+## Quão rápido o deslize horizontal para depois que ele encosta no chão, ainda em HIT.
+@export var hit_ground_friction: float = 10.0
+var _base_gravity_scale: float = 1.0
+
 @export_category("Shield")
 
 enum AttackType { SWORD, SHOOT }
@@ -116,6 +129,7 @@ func _ready() -> void:
 	_configure_engagement_ranges()
 	_setup_idle_sound_timer()
 	current_health = max_health
+	_base_gravity_scale = gravity_scale
 	_shield_hits_left = max(shield_str, 1)
 	_setup_shield_material()
 	_update_shield_visual()
@@ -234,6 +248,11 @@ func _physics_process(delta: float) -> void:
  
 		EnemyState.HIT:
 			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
+			# No chão, o empurrão horizontal morre rápido em vez de deslizar.
+			if not is_floating:
+				var slow := clampf(hit_ground_friction * delta, 0.0, 1.0)
+				linear_velocity.x = lerpf(linear_velocity.x, 0.0, slow)
+				linear_velocity.z = lerpf(linear_velocity.z, 0.0, slow)
  
 		EnemyState.ATTACKING:
 			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
@@ -428,7 +447,10 @@ func set_current_state(new_state: EnemyState) -> void:
 				return
 			_pre_state_change(new_state)
 			nav_agent.max_speed = 0
-			anim_player.play("hit")
+			gravity_scale = _base_gravity_scale * hit_gravity_scale
+			# Toca do começo mesmo se já estava em HIT (senão o play() da mesma animação não reinicia).
+			anim_player.stop()
+			anim_player.play("hit", -1, hit_anim_speed)
 			pause_idle_sounds()
 			hit_sfx.play()
  
@@ -448,6 +470,8 @@ func set_current_state(new_state: EnemyState) -> void:
 			anim_player.play("hit")
 			stop_idle_sounds()
  
+	if new_state != EnemyState.HIT:
+		gravity_scale = _base_gravity_scale
 	current_state = new_state
  
 func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int) -> void:
@@ -459,7 +483,9 @@ func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: i
 	linear_velocity.y += 5
 	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
  
-func receive_rocket_impact(hit_position: Vector3, damage: int) -> void:
+## shot_direction: direção em que o tiro estava indo (o projectile.gd passa). Se não vier, empurra
+## pra longe do ponto da explosão.
+func receive_rocket_impact(hit_position: Vector3, damage: int, shot_direction: Vector3 = Vector3.ZERO) -> void:
 	if current_state == EnemyState.DEAD:
 		return
 	if _shield_absorbs(AttackType.SHOOT):
@@ -467,8 +493,20 @@ func receive_rocket_impact(hit_position: Vector3, damage: int) -> void:
 	set_current_state(EnemyState.HIT)
 	spawn_blood(hit_position)
 	take_damage(damage)
-	linear_velocity.y += 5
-	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
+	apply_knockback(hit_position, shot_direction)
+
+## Troca a velocidade atual (inclusive o embalo de quando estava andando) por um empurrão curto:
+## na direção do tiro + pra cima.
+func apply_knockback(from_position: Vector3, shot_direction: Vector3 = Vector3.ZERO) -> void:
+	var dir := Vector3(shot_direction.x, 0.0, shot_direction.z)
+	if dir.length() < 0.01:
+		dir = global_position - from_position
+		dir.y = 0.0
+	if dir.length() < 0.01 and target:
+		dir = global_position - target.global_position
+		dir.y = 0.0
+	dir = dir.normalized()
+	linear_velocity = dir * hit_knockback_force + Vector3.UP * hit_knockback_up
  
 func finished_attacking() -> void:
 	if not is_floating:
@@ -479,6 +517,10 @@ func finished_attacking() -> void:
 func finished_get_hit() -> void:
 	if not is_floating:
 		set_current_state(EnemyState.CHASING)
+	elif current_state == EnemyState.HIT:
+		# Ainda no ar: repete só a animação (sem tocar o som de hit de novo).
+		anim_player.stop()
+		anim_player.play("hit", -1, hit_anim_speed)
 	else:
 		set_current_state(EnemyState.HIT)
  

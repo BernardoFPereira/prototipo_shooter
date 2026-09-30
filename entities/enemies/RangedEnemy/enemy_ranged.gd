@@ -8,6 +8,10 @@ extends EnemyBase
 var enemy_projectile_scene = preload("uid://bkecmbnogq48m")
 
 func spawn_projectile() -> void:
+	# Com blend entre animações, a trilha de método do "attack" ainda pode rodar logo depois de
+	# sair do ATTACKING (ex: levou tiro no meio do disparo) — não atira em stagger/morto.
+	if current_state != EnemyState.ATTACKING or not target:
+		return
 	var projectile = enemy_projectile_scene.instantiate()
 	get_parent().add_child(projectile, true)
 	projectile.global_transform = muzzle_point.global_transform

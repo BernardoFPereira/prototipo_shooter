@@ -39,6 +39,7 @@ func start(dir) -> void:
 	direction = dir
 
 func explode():
+	var shot_direction := direction # guarda antes de zerar, pra empurrar os inimigos na direção do tiro
 	explosion_timer.start()
 	projectile_light.visible = false
 	speed = 0
@@ -70,11 +71,11 @@ func explode():
 		
 		if collision.collider is EnemyMelee:
 			var enemy = collision.collider as EnemyMelee
-			enemy.receive_rocket_impact(global_position, damage)
+			enemy.receive_rocket_impact(global_position, damage, shot_direction)
 		
 		if collision.collider is EnemyRanged:
 			var enemy = collision.collider as EnemyRanged
-			enemy.receive_rocket_impact(global_position, damage)
+			enemy.receive_rocket_impact(global_position, damage, shot_direction)
 			
 		if collision.collider is BreakableVent:
 			var vent = collision.collider as BreakableVent

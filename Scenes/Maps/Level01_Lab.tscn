@@ -1,4 +1,4 @@
-[gd_scene load_steps=1320 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1321 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_3xgkq"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://djriivifdcxl4" path="res://prefabs/button.tscn" id="23_1ioem"]
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="23_eda7h"]
 [ext_resource type="PackedScene" uid="uid://b8bw8al37q20m" path="res://entities/enemies/RangedEnemy/enemy_ranged.tscn" id="24_rediu"]
+[ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="25_lyv37"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -14148,27 +14149,22 @@ visible = false
 linked_obj = NodePath("../portadiorama")
 
 [node name="EnemyRanged" parent="." node_paths=PackedStringArray("target") instance=ExtResource("24_rediu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3638, 0, -2.80249)
-target = NodePath("../Player")
-shield_mode = 0
-shield_up = true
-
-[node name="EnemyRanged2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("24_rediu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.78521, 0, 1.95323)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0173445, 0, -41.3524)
 target = NodePath("../Player")
 shield_mode = 1
 shield_up = true
 
-[node name="EnemyRanged3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("24_rediu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2087, 0, 4.62919)
+[node name="EnemyMelee" parent="." node_paths=PackedStringArray("target") instance=ExtResource("25_lyv37")]
+transform = Transform3D(0.99525, 0, 0.0973571, 0, 1, 0, -0.0973571, 0, 0.99525, 0, 0, -2.28999)
 target = NodePath("../Player")
-shield_up = true
 
-[node name="EnemyRanged4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("24_rediu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27571, 0, 9.38491)
+[node name="EnemyMelee2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("25_lyv37")]
+transform = Transform3D(0.99525, 0, 0.0973571, 0, 1, 0, -0.0973571, 0, 0.99525, -4.53898, 0, -2.28999)
 target = NodePath("../Player")
-shield_mode = 3
-shield_up = true
+
+[node name="EnemyMelee3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("25_lyv37")]
+transform = Transform3D(0.99525, 0, 0.0973571, 0, 1, 0, -0.0973571, 0, 0.99525, 4.22099, 0, -2.28999)
+target = NodePath("../Player")
 
 [editable path="Pilar"]
 [editable path="Pilar2"]
