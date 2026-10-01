@@ -16,7 +16,7 @@
 [ext_resource type="Material" uid="uid://x7ah2e0ht273" path="res://materials/Prototype/ship_hall_light.tres" id="14_dblub"]
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="15_5pdvw"]
 [ext_resource type="PackedScene" uid="uid://c6uc418mpdn06" path="res://prefabs/prefabprops/pilares.tscn" id="16_55176"]
-[ext_resource type="PackedScene" uid="uid://dw2b15lk21d4q" path="res://prefabs/prefabprops/BreakableVent.tscn" id="17_1cohr"]
+[ext_resource type="PackedScene" uid="uid://qthuiqlchfys" path="res://prefabs/prefabprops/BreakableVent.tscn" id="17_1cohr"]
 [ext_resource type="Texture2D" uid="uid://dfegkkwln373d" path="res://UI/Radar/vent-crack_texture.png" id="18_s2iln"]
 [ext_resource type="PackedScene" uid="uid://dwsxqeoj0fwvx" path="res://prefabs/prefabprops/plataformavoadora.tscn" id="19_rk8tb"]
 [ext_resource type="Script" path="res://scripts/plataform_movement.gd" id="20_o4kvh"]
