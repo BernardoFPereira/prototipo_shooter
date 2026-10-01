@@ -32,15 +32,28 @@ var _patrol_loop: bool = true
  
 @export_category("Combat Properties")
 @export var max_health: float = 100
-## Distância máxima pra atacar (com linha de visão livre).
 @export var attack_range: float = 2
-## Tempo mínimo (s) entre o fim de um ataque e o começo do próximo.
 @export var attack_cooldown: float = 0.5
-## Distância em que ele para de se aproximar pra atacar. 0 = para logo dentro do attack_range
-## (attack_range - engagement_buffer). Útil no ranged: ex. 15 pra atirar de longe sem vir até o player.
 @export var preferred_distance: float = 0.0
+
+@export_group("Kiting")
+## Depois de cada ataque, se o player estiver mais perto que preferred_distance, ele se afasta até
+## essa distância antes de atacar de novo ("kite"). Precisa de preferred_distance > 0.
+@export var kite_after_attack: bool = false
+## Só se afasta se o player estiver mais perto que preferred_distance - kite_tolerance (evita ficar
+## se mexendo por diferenças pequenas).
+@export var kite_tolerance: float = 3.0
+## Tempo máximo (s) se reposicionando antes de voltar a atacar (ex: encurralado numa parede).
+@export var kite_max_time: float = 2.5
+## Velocidade enquanto se afasta. 0 = usa chase_speed.
+@export var kite_speed: float = 0.0
+## true = anda de costas olhando pro player; false = vira e corre.
+@export var kite_face_player: bool = false
+
 var current_health: float
 var _attack_cooldown_left: float = 0.0
+var _kite_goal: Vector3
+var _kite_timer: float = 0.0
  
 @export_category("Movement Properties")
 @export var patrol_speed: float = 2.0
@@ -49,26 +62,15 @@ var _attack_cooldown_left: float = 0.0
 var is_floating: bool
  
 @export_category("Detection & Engagement")
-## Até onde ele enxerga (dentro do ângulo de visão).
 @export var detection_range: float = 20.0
-## Ângulo de visão total, centrado na frente dele. 360 = enxerga em volta toda.
 @export_range(10.0, 360.0) var fov_degrees: float = 120.0
-## Abaixo dessa distância ele percebe o player mesmo pelas costas (ainda precisa de linha de visão).
-@export var hearing_range: float = 4.0
-## Altura dos "olhos" (e do ponto mirado no player) pro teste de linha de visão.
+@export var hearing_range: float = 5.0
 @export var eye_height: float = 1.5
-## Folga pra ele parar um pouco DENTRO do attack_range, sem ficar alternando perseguir/atacar
-## quando o player se mexe na borda do alcance.
 @export var engagement_buffer: float = 0.5
-## De quanto em quanto tempo (s) ele checa se está vendo o player.
 @export var perception_interval: float = 0.15
-## Sem ver o player por esse tempo (s), desiste da perseguição e vai até a última posição vista.
 @export var lose_target_time: float = 4.0
-## Tempo (s) que ele fica parado na última posição vista antes de voltar a patrulhar.
 @export var search_time: float = 2.5
-## Distância pra considerar um ponto de patrulha/busca alcançado.
 @export var waypoint_reach_distance: float = 1.0
-## Começa já perseguindo o player (ex: inimigos que saem de uma porta de spawn).
 @export var start_alerted: bool = false
 
 var _can_see_target: bool = false
@@ -96,10 +98,10 @@ var _hit_was_airborne: bool = false
 enum AttackType { SWORD, SHOOT }
 
 enum ShieldMode {
-	SWORD_BLOCK_SWORD_BREAK, # braço bloqueado, braço quebra - tiro normal
-	SWORD_BLOCK_SHOOT_BREAK, # Bbraço bloqueado, tiro quebra
-	SHOOT_BLOCK_SHOOT_BREAK, # tiro bloqueado, tiro quebra - braço normal
-	SHOOT_BLOCK_SWORD_BREAK, # tiro bloqueado, braço quebra
+	SWORD_BLOCK_SWORD_BREAK, #Braço bloqueado, braço quebra. Tiro normal.
+	SWORD_BLOCK_SHOOT_BREAK, #Braço bloqueado, tiro quebra.
+	SHOOT_BLOCK_SHOOT_BREAK, #Tiro bloqueado, tiro quebra. Braço normal.
+	SHOOT_BLOCK_SWORD_BREAK, #Tiro bloqueado, braço quebra.
 }
 
 
@@ -152,7 +154,8 @@ enum EnemyState {
 	HIT,
 	ATTACKING,
 	DEAD,
-	SEARCHING, ## perdeu o player de vista: vai até a última posição vista e espera um pouco
+	SEARCHING,
+	REPOSITIONING, ## se afastando do player até preferred_distance (kiting)
 }
  
 func _ready() -> void:
@@ -167,7 +170,7 @@ func _ready() -> void:
 	_resolve_patrol_route()
 	if _legacy_sight_area:
 		_legacy_sight_area.monitoring = false
-	_perception_timer = randf() * perception_interval # espalha as checagens entre inimigos
+	_perception_timer = randf() * perception_interval 
 	_ready_extra()
 	if start_alerted:
 		alert()
@@ -253,11 +256,9 @@ func _physics_process(delta: float) -> void:
 				return
 
 			if _can_see_target:
-				# Vendo: aproxima até a distância de combate e fica de frente pro player.
 				_move_to(target.global_position, chase_speed, _engage_distance())
 				_face_target()
 			else:
-				# Não vendo: vai até onde viu o player pela última vez.
 				_move_to(_last_known_position, chase_speed, waypoint_reach_distance)
 				_face_movement()
 
@@ -271,6 +272,17 @@ func _physics_process(delta: float) -> void:
 			else:
 				_face_movement()
 
+		EnemyState.REPOSITIONING:
+			_kite_timer -= delta
+			var speed := kite_speed if kite_speed > 0.0 else chase_speed
+			var arrived := _move_to(_kite_goal, speed, waypoint_reach_distance)
+			if kite_face_player:
+				_face_target()
+			else:
+				_face_movement()
+			if arrived or _kite_timer <= 0.0 or not _has_valid_target():
+				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
+
 		EnemyState.HIT:
 			_face_target()
 			if not is_floating:
@@ -278,8 +290,6 @@ func _physics_process(delta: float) -> void:
 				linear_velocity.x = lerpf(linear_velocity.x, 0.0, slow)
 				linear_velocity.z = lerpf(linear_velocity.z, 0.0, slow)
 
-			# A animação de hit fica em loop enquanto ele está no ar; assim que encosta no chão
-			# (depois de ter saído dele, ou depois do stagger mínimo) volta a perseguir.
 			_hit_elapsed += delta
 			if is_floating:
 				_hit_was_airborne = true
@@ -293,7 +303,6 @@ func _physics_process(delta: float) -> void:
 			rotation.y = 0
 
 #region PERCEPTION
-## Checa a visão a cada perception_interval segundos (não todo frame: o raycast tem custo).
 func _update_perception(delta: float) -> void:
 	_time_since_seen += delta
 	_perception_timer -= delta
@@ -305,8 +314,6 @@ func _update_perception(delta: float) -> void:
 		_time_since_seen = 0.0
 		_last_known_position = target.global_position
 
-## O inimigo enxerga o player se: está a até detection_range, dentro do ângulo de visão (ou perto
-## o bastante pra "ouvir", hearing_range) e com linha de visão livre.
 func can_see_target() -> bool:
 	if not _has_valid_target() or current_state == EnemyState.DEAD:
 		return false
@@ -316,15 +323,12 @@ func can_see_target() -> bool:
 		return false
 	if distance > hearing_range and fov_degrees < 360.0:
 		var flat := Vector3(to_target.x, 0.0, to_target.z).normalized()
-		# A frente do modelo é +Z (o look_at do script usa use_model_front = true).
 		var forward := global_transform.basis.z
 		forward.y = 0.0
 		if forward.normalized().dot(flat) < cos(deg_to_rad(fov_degrees * 0.5)):
 			return false
 	return has_line_of_sight()
 
-## Raio dos "olhos" do inimigo até a mesma altura no player; true se nada da camada 1 (cenário)
-## estiver no caminho. Usado pela detecção e pelo ataque.
 func has_line_of_sight() -> bool:
 	if not _has_valid_target():
 		return false
@@ -335,7 +339,6 @@ func has_line_of_sight() -> bool:
 	ray_params.collision_mask = 1
 	return get_world_3d().direct_space_state.intersect_ray(ray_params).is_empty()
 
-## Faz o inimigo perseguir o player imediatamente (ex: ao levar dano, ou spawnar já alerta).
 func alert(at_position: Vector3 = Vector3.INF) -> void:
 	if not _has_valid_target() or current_state == EnemyState.DEAD:
 		return
@@ -347,7 +350,6 @@ func alert(at_position: Vector3 = Vector3.INF) -> void:
 func _has_valid_target() -> bool:
 	return target != null and is_instance_valid(target)
 
-## Distância em que ele para de se aproximar quando está vendo o player.
 func _engage_distance() -> float:
 	var max_stop := maxf(0.1, attack_range - engagement_buffer)
 	if preferred_distance > 0.0:
@@ -356,17 +358,9 @@ func _engage_distance() -> float:
 #endregion
 
 #region MOVEMENT
-## Anda até `point` pela navmesh. Retorna true quando chegou (a `reach_distance` dele).
-## Toda a movimentação (patrulha, perseguição, busca) passa por aqui:
-##   1. diz ao NavigationAgent pra onde ir e com que tolerância de chegada;
-##   2. pega o próximo ponto do caminho e calcula a velocidade DESEJADA;
-##   3. com avoidance: entrega a desejada pro agente (nav_agent.velocity) e o servidor devolve
-##      uma velocidade SEGURA pelo sinal velocity_computed -> _on_velocity_computed aplica.
-##      Sem avoidance: aplica a desejada direto.
 func _move_to(point: Vector3, speed: float, reach_distance: float) -> bool:
 	nav_agent.target_desired_distance = reach_distance
 	nav_agent.max_speed = speed
-	# Só recalcula o caminho se o destino mudou de verdade (setar todo frame força repath).
 	if nav_agent.target_position.distance_to(point) > 0.25:
 		nav_agent.target_position = point
 
@@ -389,7 +383,6 @@ func _stop_moving() -> void:
 		nav_agent.velocity = Vector3.ZERO
 	_apply_horizontal_velocity(Vector3.ZERO)
 
-## Só mexe em X/Z: o Y fica com a física (gravidade, rampas, knockback).
 func _apply_horizontal_velocity(v: Vector3) -> void:
 	linear_velocity.x = v.x
 	linear_velocity.z = v.z
@@ -407,7 +400,6 @@ func _face_movement() -> void:
 #endregion
 
 func take_damage(amount: float) -> void:
-	# Levar dano sempre alerta (ex: tiro pelas costas, fora do ângulo de visão).
 	if _has_valid_target():
 		_last_known_position = target.global_position
 		_time_since_seen = 0.0
@@ -478,8 +470,6 @@ func _apply_shield_color() -> void:
 	if _shield_material:
 		_shield_material.set_shader_parameter("color", SHIELD_MODE_COLORS[shield_mode])
 
-## Quebra o escudo: na lógica ele já some na hora (o próximo arremesso teleporta), e o visual faz
-## hitstop -> glitch forte -> explosão de glifos -> some.
 func break_shield() -> void:
 	if not shield_up:
 		return
@@ -589,6 +579,13 @@ func set_current_state(new_state: EnemyState) -> void:
 			_search_timer = search_time
 			_play_anim("patrol", true)
 			resume_idle_sounds()
+
+		EnemyState.REPOSITIONING:
+			if current_state == EnemyState.DEAD:
+				return
+			_pre_state_change(new_state)
+			_kite_timer = kite_max_time
+			_play_anim("chase", true)
  
 		EnemyState.CHASING:
 			if current_state == EnemyState.DEAD:
@@ -665,18 +662,58 @@ func apply_knockback(from_position: Vector3, shot_direction: Vector3 = Vector3.Z
  
 func finished_attacking() -> void:
 	_attack_cooldown_left = attack_cooldown
-	if not is_floating:
-		set_current_state(EnemyState.CHASING)
-	else:
+	if is_floating:
 		set_current_state(EnemyState.HIT)
- 
+	elif _should_kite():
+		_kite_goal = _find_kite_goal()
+		set_current_state(EnemyState.REPOSITIONING)
+	else:
+		set_current_state(EnemyState.CHASING)
 
+#region KITING
+func _should_kite() -> bool:
+	if not kite_after_attack or preferred_distance <= 0.0 or not _has_valid_target():
+		return false
+	return _flat_distance_to(target.global_position) < preferred_distance - kite_tolerance
+
+func _flat_distance_to(p: Vector3) -> float:
+	return Vector2(p.x - global_position.x, p.z - global_position.z).length()
+
+## Ponto a preferred_distance do player, na direção oposta a ele. Se esse ponto não der (parede,
+## beirada), testa outras direções (±45°, ±90°, ±135°) e fica com a que, já ajustada à navmesh,
+## deixa o inimigo mais longe do player.
+func _find_kite_goal() -> Vector3:
+	var player_pos := target.global_position
+	var away := global_position - player_pos
+	away.y = 0.0
+	if away.length() < 0.01:
+		away = global_transform.basis.z * -1.0
+		away.y = 0.0
+	away = away.normalized()
+
+	var nav_map := nav_agent.get_navigation_map()
+	var best := global_position
+	var best_distance := _flat_distance_to(player_pos)
+	for angle_deg in [0.0, 45.0, -45.0, 90.0, -90.0, 135.0, -135.0]:
+		var dir := away.rotated(Vector3.UP, deg_to_rad(angle_deg))
+		var candidate := player_pos + dir * preferred_distance
+		candidate.y = global_position.y
+		if nav_map.is_valid():
+			candidate = NavigationServer3D.map_get_closest_point(nav_map, candidate)
+		var d := Vector2(candidate.x - player_pos.x, candidate.z - player_pos.z).length()
+		if d > best_distance + 0.5:
+			best = candidate
+			best_distance = d
+			if d >= preferred_distance - kite_tolerance:
+				break # bom o bastante, prefere a direção mais "pra trás"
+	return best
+#endregion
+ 
 func finished_get_hit() -> void:
 	if current_state == EnemyState.DEAD and anim_player.current_animation == "hit":
 		set_collision_layer_value(20, false)
 		_play_anim("dead", false)
  
-
 func _play_anim(anim_name: String, loop: bool, speed: float = 1.0) -> void:
 	if not anim_player.has_animation(anim_name):
 		return
@@ -686,6 +723,23 @@ func _play_anim(anim_name: String, loop: bool, speed: float = 1.0) -> void:
 	if anim:
 		anim.loop_mode = Animation.LOOP_LINEAR if loop else Animation.LOOP_NONE
 	anim_player.play(anim_name, anim_blend_time, speed)
+	if anim_blend_time > 0.0 and anim:
+		_trigger_start_sounds(anim)
+
+
+func _trigger_start_sounds(anim: Animation) -> void:
+	for t in anim.get_track_count():
+		if anim.track_get_type(t) != Animation.TYPE_VALUE:
+			continue
+		var path := anim.track_get_path(t)
+		if path.get_concatenated_subnames() != "playing":
+			continue
+		var first_key := anim.track_find_key(t, 0.0, Animation.FIND_MODE_EXACT)
+		if first_key == -1 or anim.track_get_key_value(t, first_key) != true:
+			continue
+		var player := anim_player.get_node(anim_player.root_node).get_node_or_null(NodePath(path.get_concatenated_names()))
+		if player and player.has_method("play"):
+			player.play()
 
 func finished_dead() -> void:
 	await get_tree().create_timer(5).timeout
@@ -700,9 +754,10 @@ func target_is_in_range() -> bool:
 
 func check_is_floating() -> void:
 	is_floating = not ground_raycast.is_colliding()
+ 
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
-	if current_state in [EnemyState.CHASING, EnemyState.PATROLLING, EnemyState.SEARCHING]:
+	if current_state in [EnemyState.CHASING, EnemyState.PATROLLING, EnemyState.SEARCHING, EnemyState.REPOSITIONING]:
 		_apply_horizontal_velocity(safe_velocity)
  
 #region SOUNDS
