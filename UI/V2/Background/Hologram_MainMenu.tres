@@ -10,3 +10,4 @@ shader_parameter/lines1 = 257.0
 shader_parameter/lines2 = 42.0
 shader_parameter/_emission = 0.958
 shader_parameter/_fresnel = 1.552
+shader_parameter/break_progress = 0.0
