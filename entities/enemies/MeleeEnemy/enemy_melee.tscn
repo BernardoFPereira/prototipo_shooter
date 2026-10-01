@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bl6itlv6uspjd"]
+[gd_scene load_steps=64 format=3 uid="uid://bl6itlv6uspjd"]
 
 [ext_resource type="Script" path="res://entities/enemies/MeleeEnemy/enemy_melee.gd" id="1_x23wf"]
 [ext_resource type="Texture2D" uid="uid://bj181a00mvyqh" path="res://textures/enemies/captainv2_standardSurface1_BaseColor.1001.png" id="2_0kbl7"]
@@ -43,6 +43,7 @@
 [ext_resource type="Shader" path="res://UI/V2/HUD/Enemy/rotating_and_glow.gdshader" id="40_thpls"]
 [ext_resource type="Script" path="res://UI/V2/HUD/Enemy/rotating_and_glow.gd" id="42_lyato"]
 [ext_resource type="Texture2D" uid="uid://dxo7v14kun22o" path="res://UI/ConfigMenu/v2_radar_blip.png" id="43_hgxr8"]
+[ext_resource type="Shader" path="res://entities/hologram.gdshader" id="44_7k1vq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nn11o"]
 transparency = 2
@@ -175,9 +176,6 @@ height = 2.5
 radius = 0.733483
 height = 2.5
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_cg7ux"]
-radius = 20.0
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_udn50"]
 random_pitch = 1.1
 streams_count = 11
@@ -251,7 +249,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_3uxr4")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hjb1m"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2may5"]
 shader = ExtResource("40_thpls")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -322,6 +320,25 @@ _data = {
 "detected": SubResource("Animation_lvm2u")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_dw5cl"]
+radius = 1.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ttnc8"]
+render_priority = 0
+shader = ExtResource("44_7k1vq")
+shader_parameter/color = Color(1, 0.333333, 0, 1)
+shader_parameter/lines1 = 300.0
+shader_parameter/lines2 = 2.0
+shader_parameter/_emission = 6.505
+shader_parameter/_fresnel = 4.789
+shader_parameter/break_progress = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_0fwrs"]
+radius = 1.7
+height = 3.4
+radial_segments = 8
+rings = 4
+
 [node name="EnemyMelee" type="RigidBody3D" groups=["Enemies"]]
 collision_layer = 528640
 axis_lock_angular_x = true
@@ -330,6 +347,13 @@ linear_damp = 0.25
 script = ExtResource("1_x23wf")
 idle_sound_interval = 4.0
 attack_range = 2.5
+detection_range = 50.0
+hearing_range = 20.0
+eye_height = 2.3
+perception_interval = 0.2
+lose_target_time = 6.0
+search_time = 3.0
+hit_knockback_up = 5.0
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(0.28, 0, 0, 0, 0.28, 0, 0, 0, 0.28, 0, 0, 0)
@@ -553,14 +577,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 visible = false
 shape = SubResource("CapsuleShape3D_cvyrw")
 
-[node name="SightArea" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="SightCollision" type="CollisionShape3D" parent="SightArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
-shape = SubResource("SphereShape3D_cg7ux")
-
 [node name="GroundRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 target_position = Vector3(0, -0.5, 0)
@@ -573,31 +589,24 @@ debug_shape_thickness = 5
 [node name="Walk" parent="SFX" instance=ExtResource("11_n6mje")]
 visible = false
 stream = SubResource("AudioStreamRandomizer_udn50")
-attenuation_model = 1
-volume_db = -5.0
 pitch_scale = 0.6
 bus = &"SFX"
 
 [node name="Idle" parent="SFX" instance=ExtResource("11_n6mje")]
 visible = false
 stream = SubResource("AudioStreamRandomizer_nw835")
-attenuation_model = 1
-volume_db = 5.0
 pitch_scale = 0.6
 bus = &"SFX"
 
 [node name="Hit" parent="SFX" instance=ExtResource("11_n6mje")]
 visible = false
 stream = SubResource("AudioStreamRandomizer_ee20k")
-attenuation_model = 1
-volume_db = -10.0
 pitch_scale = 0.6
 bus = &"SFX"
 
 [node name="Death" parent="SFX" instance=ExtResource("11_n6mje")]
 visible = false
 stream = SubResource("AudioStreamRandomizer_8xf0j")
-attenuation_model = 1
 pitch_scale = 0.6
 bus = &"SFX"
 
@@ -607,7 +616,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_hjb1m")
+material = SubResource("ShaderMaterial_2may5")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -646,8 +655,18 @@ modulate = Color(0.822, 0, 0.19258, 1)
 texture_filter = 0
 texture = ExtResource("43_hgxr8")
 
+[node name="ShieldArea3D" type="Area3D" parent="."]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShieldArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35436, 0)
+shape = SubResource("SphereShape3D_dw5cl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ShieldArea3D/CollisionShape3D"]
+material_override = SubResource("ShaderMaterial_ttnc8")
+mesh = SubResource("SphereMesh_0fwrs")
+
 [connection signal="area_entered" from="Armature/Skeleton3D/BoneAttachment3D/AttackArea" to="." method="_on_attack_area_entered"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
 [connection signal="body_entered" from="SwordCollisionArea" to="." method="_on_sword_entered"]
-[connection signal="body_entered" from="SightArea" to="." method="_on_sight_area_body_entered"]
-[connection signal="body_exited" from="SightArea" to="." method="_on_sight_area_body_exited"]

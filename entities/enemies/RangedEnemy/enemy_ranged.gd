@@ -8,6 +8,8 @@ extends EnemyBase
 var enemy_projectile_scene = preload("uid://bkecmbnogq48m")
 
 func spawn_projectile() -> void:
+	if current_state != EnemyState.ATTACKING or not target:
+		return
 	var projectile = enemy_projectile_scene.instantiate()
 	get_parent().add_child(projectile, true)
 	projectile.global_transform = muzzle_point.global_transform

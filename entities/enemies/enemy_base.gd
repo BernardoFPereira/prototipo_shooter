@@ -2,12 +2,14 @@ class_name EnemyBase
 extends RigidBody3D
  
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
-@onready var sight_area: Area3D = $SightArea
-@onready var sight_collision: CollisionShape3D = $SightArea/SightCollision
+# SightArea antiga não é mais usada (a detecção agora é por can_see_target()). O script desliga ela
+# no _ready se ainda existir na cena — pode apagar o nó no editor.
+@onready var _legacy_sight_area: Area3D = get_node_or_null("SightArea")
 @onready var sword_collision_area: Area3D = $SwordCollisionArea
 @onready var sword_hit_collision: CollisionShape3D = $SwordCollisionArea/SwordHitCollision
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var ground_raycast: RayCast3D = $GroundRaycast
+@onready var shield_area: Area3D = get_node_or_null("ShieldArea3D")
  
 #region SOUNDS
 @onready var idle_sfx: AudioStreamPlayer3D = $SFX/Idle
@@ -18,9 +20,6 @@ extends RigidBody3D
 var _idle_timer: Timer
 var _is_idle_sounds_enabled: bool = true
 #endregion
- 
-var player_in_sight_area: bool = false
-var has_target: bool
  
 var blood_particles_scene = preload("uid://dauurgt5mibfk")
  
@@ -34,7 +33,27 @@ var _patrol_loop: bool = true
 @export_category("Combat Properties")
 @export var max_health: float = 100
 @export var attack_range: float = 2
+@export var attack_cooldown: float = 0.5
+@export var preferred_distance: float = 0.0
+
+@export_group("Kiting")
+## Depois de cada ataque, se o player estiver mais perto que preferred_distance, ele se afasta até
+## essa distância antes de atacar de novo ("kite"). Precisa de preferred_distance > 0.
+@export var kite_after_attack: bool = false
+## Só se afasta se o player estiver mais perto que preferred_distance - kite_tolerance (evita ficar
+## se mexendo por diferenças pequenas).
+@export var kite_tolerance: float = 3.0
+## Tempo máximo (s) se reposicionando antes de voltar a atacar (ex: encurralado numa parede).
+@export var kite_max_time: float = 2.5
+## Velocidade enquanto se afasta. 0 = usa chase_speed.
+@export var kite_speed: float = 0.0
+## true = anda de costas olhando pro player; false = vira e corre.
+@export var kite_face_player: bool = false
+
 var current_health: float
+var _attack_cooldown_left: float = 0.0
+var _kite_goal: Vector3
+var _kite_timer: float = 0.0
  
 @export_category("Movement Properties")
 @export var patrol_speed: float = 2.0
@@ -44,9 +63,84 @@ var is_floating: bool
  
 @export_category("Detection & Engagement")
 @export var detection_range: float = 20.0
-@export var engagement_buffer: float = 0.5
+@export_range(10.0, 360.0) var fov_degrees: float = 120.0
+@export var hearing_range: float = 5.0
 @export var eye_height: float = 1.5
+@export var engagement_buffer: float = 0.5
+@export var perception_interval: float = 0.15
+@export var lose_target_time: float = 4.0
+@export var search_time: float = 2.5
+@export var waypoint_reach_distance: float = 1.0
+@export var start_alerted: bool = false
+
+var _can_see_target: bool = false
+var _time_since_seen: float = INF
+var _last_known_position: Vector3
+var _perception_timer: float = 0.0
+var _search_timer: float = 0.0
  
+@export_category("Hit Reaction")
+@export var hit_knockback_force: float = 5.0
+@export var hit_knockback_up: float = 6.0
+@export var hit_gravity_scale: float = 2.0
+@export var hit_anim_speed: float = 1
+@export var hit_ground_friction: float = 5.0
+@export var hit_min_stagger: float = 0.2
+var _base_gravity_scale: float = 1.0
+var _hit_elapsed: float = 0.0
+var _hit_was_airborne: bool = false
+
+@export_category("Animation")
+@export var anim_blend_time: float = 0.15
+
+@export_category("Shield")
+
+enum AttackType { SWORD, SHOOT }
+
+enum ShieldMode {
+	SWORD_BLOCK_SWORD_BREAK, #Braço bloqueado, braço quebra. Tiro normal.
+	SWORD_BLOCK_SHOOT_BREAK, #Braço bloqueado, tiro quebra.
+	SHOOT_BLOCK_SHOOT_BREAK, #Tiro bloqueado, tiro quebra. Braço normal.
+	SHOOT_BLOCK_SWORD_BREAK, #Tiro bloqueado, braço quebra.
+}
+
+
+@export var SHIELD_MODE_COLORS := {
+	ShieldMode.SWORD_BLOCK_SWORD_BREAK: Color(0.545, 0.0, 1.0),
+	ShieldMode.SWORD_BLOCK_SHOOT_BREAK: Color(0.0, 0.75, 1.0),
+	ShieldMode.SHOOT_BLOCK_SHOOT_BREAK: Color(1.0, 0.45, 0.0),
+	ShieldMode.SHOOT_BLOCK_SWORD_BREAK: Color(1.0, 0.1, 0.25),
+}
+
+@export var shield_mode: ShieldMode = ShieldMode.SWORD_BLOCK_SWORD_BREAK:
+	set(value):
+		shield_mode = value
+		_apply_shield_color()
+
+@export var shield_up: bool = false:
+	set(value):
+		shield_up = value
+		if is_node_ready() and not _is_breaking_shield:
+			_update_shield_visual()
+@export var shield_str: int = 1
+
+@export_group("Shield Break FX")
+@export var shield_break_fx: PackedScene = preload("res://entities/enemies/ShieldBreakGlyphs.tscn")
+@export var shield_glitch_time: float = 0.3
+@export var hitstop_duration: float = 0.07
+@export var hitstop_time_scale: float = 0.05
+
+var _shield_hits_left: int = 1
+var _shield_mesh: MeshInstance3D
+var _shield_material: ShaderMaterial
+var _is_breaking_shield: bool = false
+var _shield_break_tween: Tween
+
+static var _hitstop_owner: EnemyBase = null
+static var _hitstop_previous_scale: float = 1.0
+
+signal shield_broken
+
 #HUD
 @onready var hud_animations = $HUDAnimations
 @onready var detection_ch = $SubViewport/DetectionCH
@@ -60,6 +154,8 @@ enum EnemyState {
 	HIT,
 	ATTACKING,
 	DEAD,
+	SEARCHING,
+	REPOSITIONING, ## se afastando do player até preferred_distance (kiting)
 }
  
 func _ready() -> void:
@@ -67,8 +163,17 @@ func _ready() -> void:
 	_configure_engagement_ranges()
 	_setup_idle_sound_timer()
 	current_health = max_health
+	_base_gravity_scale = gravity_scale
+	_shield_hits_left = max(shield_str, 1)
+	_setup_shield_material()
+	_update_shield_visual()
 	_resolve_patrol_route()
+	if _legacy_sight_area:
+		_legacy_sight_area.monitoring = false
+	_perception_timer = randf() * perception_interval 
 	_ready_extra()
+	if start_alerted:
+		alert()
  
 func _ready_extra() -> void:
 	pass
@@ -77,16 +182,6 @@ func _pre_state_change(new_state: EnemyState) -> void:
 	pass
  
 func _configure_engagement_ranges() -> void:
-	nav_agent.target_desired_distance = max(0.1, attack_range - engagement_buffer)
- 
-	var shape := sight_collision.shape
-	if shape is SphereShape3D:
-		shape = shape.duplicate()
-		shape.radius = detection_range
-		sight_collision.shape = shape
-	else:
-		push_warning("%s: SightArea/SightCollision não usa SphereShape3D — detection_range não tem efeito automático nele." % name)
- 
 	if attack_range > detection_range:
 		push_warning("%s: attack_range (%.1f) é maior que detection_range (%.1f) — o inimigo vai atacar assim que detectar o jogador, sem perseguir de verdade. Ajuste um dos dois." % [name, attack_range, detection_range])
  
@@ -126,73 +221,192 @@ func _advance_patrol_waypoint() -> void:
  
 func _physics_process(delta: float) -> void:
 	check_is_floating()
- 
+	_update_perception(delta)
+	if _attack_cooldown_left > 0.0:
+		_attack_cooldown_left -= delta
+
 	match current_state:
 		EnemyState.IDLE:
-			if not _patrol_waypoints.is_empty():
+			_stop_moving()
+			if _can_see_target:
+				set_current_state(EnemyState.CHASING)
+			elif not _patrol_waypoints.is_empty():
 				set_current_state(EnemyState.PATROLLING)
- 
-			if player_in_sight_area:
-				sight_area.monitoring = false
-				sight_area.monitoring = true
- 
+
 		EnemyState.PATROLLING:
-			if _patrol_waypoints.is_empty():
+			if _can_see_target:
+				set_current_state(EnemyState.CHASING)
+			elif _patrol_waypoints.is_empty():
 				set_current_state(EnemyState.IDLE)
+			elif _move_to(_patrol_waypoints[_patrol_index], patrol_speed, waypoint_reach_distance):
+				_advance_patrol_waypoint()
 			else:
-				nav_agent.target_position = _patrol_waypoints[_patrol_index]
-				var next_path_pos: Vector3 = nav_agent.get_next_path_position()
-				var direction = global_position.direction_to(next_path_pos)
-				if nav_agent.avoidance_enabled:
-					nav_agent.velocity = direction * patrol_speed
-				else:
-					_on_velocity_computed(direction * patrol_speed)
- 
-				if direction.length() > 0.01:
-					look_at(global_position + Vector3(direction.x, 0, direction.z), Vector3.UP, true)
- 
-				if nav_agent.is_navigation_finished():
-					nav_agent.velocity = Vector3.ZERO
-					_advance_patrol_waypoint()
- 
+				_face_movement()
+
 		EnemyState.CHASING:
-			# Null target safeguard
-			if !target:
-				#push_warning("No target found")
-				queue_free()
+			if not _has_valid_target():
+				set_current_state(EnemyState.IDLE)
 				return
-				
-			nav_agent.target_position = target.position
-			var next_path_pos: Vector3 = nav_agent.get_next_path_position()
-			var direction = global_position.direction_to(next_path_pos)
-			if nav_agent.avoidance_enabled:
-				nav_agent.velocity = direction * chase_speed
-			else:
-				_on_velocity_computed(direction * chase_speed)
- 
-			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
- 
-			if target_is_in_range():
+			if _time_since_seen > lose_target_time:
+				set_current_state(EnemyState.SEARCHING)
+				return
+
+			if _attack_cooldown_left <= 0.0 and target_is_in_range():
 				set_current_state(EnemyState.ATTACKING)
- 
-			if nav_agent.is_navigation_finished():
-				nav_agent.velocity = Vector3.ZERO
-				if target_is_in_range():
-					set_current_state(EnemyState.ATTACKING)
- 
+				return
+
+			if _can_see_target:
+				_move_to(target.global_position, chase_speed, _engage_distance())
+				_face_target()
+			else:
+				_move_to(_last_known_position, chase_speed, waypoint_reach_distance)
+				_face_movement()
+
+		EnemyState.SEARCHING:
+			if _can_see_target:
+				set_current_state(EnemyState.CHASING)
+			elif _move_to(_last_known_position, patrol_speed, waypoint_reach_distance):
+				_search_timer -= delta
+				if _search_timer <= 0.0:
+					set_current_state(EnemyState.PATROLLING if not _patrol_waypoints.is_empty() else EnemyState.IDLE)
+			else:
+				_face_movement()
+
+		EnemyState.REPOSITIONING:
+			_kite_timer -= delta
+			var speed := kite_speed if kite_speed > 0.0 else chase_speed
+			var arrived := _move_to(_kite_goal, speed, waypoint_reach_distance)
+			if kite_face_player:
+				_face_target()
+			else:
+				_face_movement()
+			if arrived or _kite_timer <= 0.0 or not _has_valid_target():
+				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
+
 		EnemyState.HIT:
-			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
- 
+			_face_target()
+			if not is_floating:
+				var slow := clampf(hit_ground_friction * delta, 0.0, 1.0)
+				linear_velocity.x = lerpf(linear_velocity.x, 0.0, slow)
+				linear_velocity.z = lerpf(linear_velocity.z, 0.0, slow)
+
+			_hit_elapsed += delta
+			if is_floating:
+				_hit_was_airborne = true
+			elif _hit_was_airborne or _hit_elapsed >= hit_min_stagger:
+				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
+
 		EnemyState.ATTACKING:
-			look_at(Vector3(target.global_position.x, global_position.y, target.global_position.z), Vector3.UP, true)
- 
+			_face_target()
+
 		EnemyState.DEAD:
 			rotation.y = 0
- 
+
+#region PERCEPTION
+func _update_perception(delta: float) -> void:
+	_time_since_seen += delta
+	_perception_timer -= delta
+	if _perception_timer > 0.0:
+		return
+	_perception_timer = perception_interval
+	_can_see_target = can_see_target()
+	if _can_see_target:
+		_time_since_seen = 0.0
+		_last_known_position = target.global_position
+
+func can_see_target() -> bool:
+	if not _has_valid_target() or current_state == EnemyState.DEAD:
+		return false
+	var to_target := target.global_position - global_position
+	var distance := to_target.length()
+	if distance > detection_range:
+		return false
+	if distance > hearing_range and fov_degrees < 360.0:
+		var flat := Vector3(to_target.x, 0.0, to_target.z).normalized()
+		var forward := global_transform.basis.z
+		forward.y = 0.0
+		if forward.normalized().dot(flat) < cos(deg_to_rad(fov_degrees * 0.5)):
+			return false
+	return has_line_of_sight()
+
+func has_line_of_sight() -> bool:
+	if not _has_valid_target():
+		return false
+	var from := global_position + Vector3(0, eye_height, 0)
+	var to := target.global_position + Vector3(0, eye_height, 0)
+	var ray_params := PhysicsRayQueryParameters3D.create(from, to)
+	ray_params.exclude = [self, target]
+	ray_params.collision_mask = 1
+	return get_world_3d().direct_space_state.intersect_ray(ray_params).is_empty()
+
+func alert(at_position: Vector3 = Vector3.INF) -> void:
+	if not _has_valid_target() or current_state == EnemyState.DEAD:
+		return
+	_last_known_position = target.global_position if at_position == Vector3.INF else at_position
+	_time_since_seen = 0.0
+	if current_state in [EnemyState.IDLE, EnemyState.PATROLLING, EnemyState.SEARCHING]:
+		set_current_state(EnemyState.CHASING)
+
+func _has_valid_target() -> bool:
+	return target != null and is_instance_valid(target)
+
+func _engage_distance() -> float:
+	var max_stop := maxf(0.1, attack_range - engagement_buffer)
+	if preferred_distance > 0.0:
+		return clampf(preferred_distance, 0.1, max_stop)
+	return max_stop
+#endregion
+
+#region MOVEMENT
+func _move_to(point: Vector3, speed: float, reach_distance: float) -> bool:
+	nav_agent.target_desired_distance = reach_distance
+	nav_agent.max_speed = speed
+	if nav_agent.target_position.distance_to(point) > 0.25:
+		nav_agent.target_position = point
+
+	var next_path_pos := nav_agent.get_next_path_position()
+	if nav_agent.is_navigation_finished():
+		_stop_moving()
+		return true
+
+	var direction := next_path_pos - global_position
+	direction.y = 0.0
+	var desired := direction.normalized() * speed
+	if nav_agent.avoidance_enabled:
+		nav_agent.velocity = desired
+	else:
+		_apply_horizontal_velocity(desired)
+	return false
+
+func _stop_moving() -> void:
+	if nav_agent.avoidance_enabled:
+		nav_agent.velocity = Vector3.ZERO
+	_apply_horizontal_velocity(Vector3.ZERO)
+
+func _apply_horizontal_velocity(v: Vector3) -> void:
+	linear_velocity.x = v.x
+	linear_velocity.z = v.z
+
+func _face_target() -> void:
+	if _has_valid_target():
+		var p := target.global_position
+		if Vector2(p.x - global_position.x, p.z - global_position.z).length() > 0.05:
+			look_at(Vector3(p.x, global_position.y, p.z), Vector3.UP, true)
+
+func _face_movement() -> void:
+	var v := Vector3(linear_velocity.x, 0.0, linear_velocity.z)
+	if v.length() > 0.1:
+		look_at(global_position + v, Vector3.UP, true)
+#endregion
+
 func take_damage(amount: float) -> void:
+	if _has_valid_target():
+		_last_known_position = target.global_position
+		_time_since_seen = 0.0
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
 		if current_health <= 0:
+			break_shield()
 			set_current_state(EnemyState.DEAD)
 		else:
 			set_current_state(EnemyState.HIT)
@@ -206,42 +420,179 @@ func spawn_blood(position: Vector3) -> void:
 func _on_sword_entered(body: Node) -> void:
 	if body.get_parent() is Sword:
 		var sword := body.get_parent() as Sword
-		spawn_blood(sword.global_position)
- 
+
 		match sword.state:
 			sword.SwordState.THROWN:
-				var tween = get_tree().create_tween()
-				tween.tween_property(sword.sword_owner, "global_position", sword.global_position, 0.16)
 				sword.speed = 0
 				sword.set_state(sword.SwordState.PULLED_BACK)
- 
+
+				if _shield_absorbs(AttackType.SWORD):
+					sword.impact_sfx.play()
+					return
+
+				var tween = get_tree().create_tween()
+				tween.tween_property(sword.sword_owner, "global_position", sword.global_position, 0.16)
 				receive_sword_impact(current_health, sword.global_position, 250)
- 
+
 			sword.SwordState.PULLED_BACK:
+				if shield_up and _shield_reacts_to(AttackType.SWORD):
+					return
 				receive_sword_impact(sword.damage, sword.global_position, 250)
  
+#region SHIELD
+func _block_type() -> AttackType:
+	match shield_mode:
+		ShieldMode.SWORD_BLOCK_SWORD_BREAK, ShieldMode.SWORD_BLOCK_SHOOT_BREAK:
+			return AttackType.SWORD
+		_:
+			return AttackType.SHOOT
+
+func _break_type() -> AttackType:
+	match shield_mode:
+		ShieldMode.SWORD_BLOCK_SWORD_BREAK, ShieldMode.SHOOT_BLOCK_SWORD_BREAK:
+			return AttackType.SWORD
+		_:
+			return AttackType.SHOOT
+
+func _shield_reacts_to(attack: AttackType) -> bool:
+	return attack == _block_type() or attack == _break_type()
+
+func _shield_absorbs(attack: AttackType) -> bool:
+	if not shield_up or not _shield_reacts_to(attack):
+		return false
+	if attack == _break_type():
+		_shield_hits_left -= 1
+		if _shield_hits_left <= 0:
+			break_shield()
+	return true
+
+func _apply_shield_color() -> void:
+	if _shield_material:
+		_shield_material.set_shader_parameter("color", SHIELD_MODE_COLORS[shield_mode])
+
+func break_shield() -> void:
+	if not shield_up:
+		return
+	_is_breaking_shield = true
+	shield_up = false
+	shield_broken.emit()
+	_hitstop()
+	_play_shield_break_animation()
+
+func restore_shield() -> void:
+	if _is_breaking_shield:
+		_finish_shield_break()
+	_shield_hits_left = max(shield_str, 1)
+	shield_up = true
+
+func _setup_shield_material() -> void:
+	if shield_area == null:
+		return
+	for node in shield_area.find_children("*", "MeshInstance3D", true, false):
+		_shield_mesh = node
+		break
+	if _shield_mesh and _shield_mesh.material_override is ShaderMaterial:
+		_shield_material = _shield_mesh.material_override.duplicate()
+		_shield_mesh.material_override = _shield_material
+	_apply_shield_color()
+
+func _play_shield_break_animation() -> void:
+	if _shield_break_tween and _shield_break_tween.is_valid():
+		_shield_break_tween.kill()
+
+	if _shield_material == null:
+		_spawn_shield_glyphs()
+		_finish_shield_break()
+		return
+
+	var half := shield_glitch_time * 0.5
+	_shield_break_tween = create_tween()
+	_shield_break_tween.tween_method(_set_shield_break_progress, 0.0, 0.5, half)
+	_shield_break_tween.tween_callback(_spawn_shield_glyphs)
+	_shield_break_tween.tween_method(_set_shield_break_progress, 0.5, 1.0, half)
+	_shield_break_tween.tween_callback(_finish_shield_break)
+
+func _set_shield_break_progress(value: float) -> void:
+	if _shield_material:
+		_shield_material.set_shader_parameter("break_progress", value)
+
+func _spawn_shield_glyphs() -> void:
+	if shield_break_fx == null:
+		return
+	var fx := shield_break_fx.instantiate()
+	get_tree().root.add_child(fx)
+	if fx.has_method("play_from_shield"):
+		fx.play_from_shield(_shield_mesh)
+	elif _shield_mesh:
+		fx.global_position = _shield_mesh.global_position
+
+func _finish_shield_break() -> void:
+	_is_breaking_shield = false
+	_set_shield_break_progress(0.0)
+	_update_shield_visual()
+
+func _hitstop() -> void:
+	if hitstop_duration <= 0.0 or _hitstop_owner != null:
+		return
+	_hitstop_owner = self
+	_hitstop_previous_scale = Engine.time_scale
+	Engine.time_scale = hitstop_time_scale
+	await get_tree().create_timer(hitstop_duration, true, false, true).timeout
+	_end_hitstop()
+
+func _end_hitstop() -> void:
+	if _hitstop_owner == self:
+		Engine.time_scale = _hitstop_previous_scale
+		_hitstop_owner = null
+
+func _exit_tree() -> void:
+	_end_hitstop()
+
+func _update_shield_visual() -> void:
+	if shield_area == null:
+		if shield_up:
+			push_warning("%s: shield_up está ligado, mas a cena não tem um nó ShieldArea3D — o escudo funciona, só não aparece." % name)
+		return
+	shield_area.visible = shield_up
+	shield_area.set_deferred("monitorable", shield_up)
+#endregion
+
 func set_current_state(new_state: EnemyState) -> void:
 	match new_state:
 		EnemyState.IDLE:
 			if current_state == EnemyState.DEAD:
 				return
 			_pre_state_change(new_state)
-			anim_player.play("idle")
+			_play_anim("idle", true)
 			resume_idle_sounds()
  
 		EnemyState.PATROLLING:
 			_pre_state_change(new_state)
 			nav_agent.max_speed = patrol_speed
-			anim_player.play("patrol")
+			_play_anim("patrol", true)
 			resume_idle_sounds()
+
+		EnemyState.SEARCHING:
+			if current_state == EnemyState.DEAD:
+				return
+			_pre_state_change(new_state)
+			_search_timer = search_time
+			_play_anim("patrol", true)
+			resume_idle_sounds()
+
+		EnemyState.REPOSITIONING:
+			if current_state == EnemyState.DEAD:
+				return
+			_pre_state_change(new_state)
+			_kite_timer = kite_max_time
+			_play_anim("chase", true)
  
 		EnemyState.CHASING:
 			if current_state == EnemyState.DEAD:
 				return
 			_pre_state_change(new_state)
-			has_target = true
 			nav_agent.max_speed = chase_speed
-			anim_player.play("chase")
+			_play_anim("chase", true)
 			if _idle_timer:
 				_idle_timer.wait_time = idle_sound_interval / 2.0
  
@@ -250,7 +601,10 @@ func set_current_state(new_state: EnemyState) -> void:
 				return
 			_pre_state_change(new_state)
 			nav_agent.max_speed = 0
-			anim_player.play("hit")
+			gravity_scale = _base_gravity_scale * hit_gravity_scale
+			_hit_elapsed = 0.0
+			_hit_was_airborne = false
+			_play_anim("hit", true, hit_anim_speed)
 			pause_idle_sounds()
 			hit_sfx.play()
  
@@ -258,8 +612,8 @@ func set_current_state(new_state: EnemyState) -> void:
 			if current_state == EnemyState.DEAD:
 				return
 			_pre_state_change(new_state)
-			linear_velocity = Vector3.ZERO
-			anim_player.play("attack")
+			_stop_moving()
+			_play_anim("attack", false)
 			pause_idle_sounds()
  
 		EnemyState.DEAD:
@@ -267,9 +621,11 @@ func set_current_state(new_state: EnemyState) -> void:
 			nav_agent.set_avoidance_enabled(false)
 			sword_collision_area.set_collision_mask_value(6, false)
 			nav_agent.max_speed = 0
-			anim_player.play("hit")
+			_play_anim("hit", true, hit_anim_speed)
 			stop_idle_sounds()
  
+	if new_state != EnemyState.HIT:
+		gravity_scale = _base_gravity_scale
 	current_state = new_state
  
 func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int) -> void:
@@ -281,92 +637,128 @@ func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: i
 	linear_velocity.y += 5
 	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
  
-func receive_rocket_impact(hit_position: Vector3, damage: int) -> void:
+
+func receive_rocket_impact(hit_position: Vector3, damage: int, shot_direction: Vector3 = Vector3.ZERO) -> void:
 	if current_state == EnemyState.DEAD:
+		return
+	if _shield_absorbs(AttackType.SHOOT):
 		return
 	set_current_state(EnemyState.HIT)
 	spawn_blood(hit_position)
 	take_damage(damage)
-	linear_velocity.y += 5
-	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
+	apply_knockback(hit_position, shot_direction)
+
+
+func apply_knockback(from_position: Vector3, shot_direction: Vector3 = Vector3.ZERO) -> void:
+	var dir := Vector3(shot_direction.x, 0.0, shot_direction.z)
+	if dir.length() < 0.01:
+		dir = global_position - from_position
+		dir.y = 0.0
+	if dir.length() < 0.01 and target:
+		dir = global_position - target.global_position
+		dir.y = 0.0
+	dir = dir.normalized()
+	linear_velocity = dir * hit_knockback_force + Vector3.UP * hit_knockback_up
  
 func finished_attacking() -> void:
-	if not is_floating:
-		set_current_state(EnemyState.CHASING)
-	else:
+	_attack_cooldown_left = attack_cooldown
+	if is_floating:
 		set_current_state(EnemyState.HIT)
+	elif _should_kite():
+		_kite_goal = _find_kite_goal()
+		set_current_state(EnemyState.REPOSITIONING)
+	else:
+		set_current_state(EnemyState.CHASING)
+
+#region KITING
+func _should_kite() -> bool:
+	if not kite_after_attack or preferred_distance <= 0.0 or not _has_valid_target():
+		return false
+	return _flat_distance_to(target.global_position) < preferred_distance - kite_tolerance
+
+func _flat_distance_to(p: Vector3) -> float:
+	return Vector2(p.x - global_position.x, p.z - global_position.z).length()
+
+## Ponto a preferred_distance do player, na direção oposta a ele. Se esse ponto não der (parede,
+## beirada), testa outras direções (±45°, ±90°, ±135°) e fica com a que, já ajustada à navmesh,
+## deixa o inimigo mais longe do player.
+func _find_kite_goal() -> Vector3:
+	var player_pos := target.global_position
+	var away := global_position - player_pos
+	away.y = 0.0
+	if away.length() < 0.01:
+		away = global_transform.basis.z * -1.0
+		away.y = 0.0
+	away = away.normalized()
+
+	var nav_map := nav_agent.get_navigation_map()
+	var best := global_position
+	var best_distance := _flat_distance_to(player_pos)
+	for angle_deg in [0.0, 45.0, -45.0, 90.0, -90.0, 135.0, -135.0]:
+		var dir := away.rotated(Vector3.UP, deg_to_rad(angle_deg))
+		var candidate := player_pos + dir * preferred_distance
+		candidate.y = global_position.y
+		if nav_map.is_valid():
+			candidate = NavigationServer3D.map_get_closest_point(nav_map, candidate)
+		var d := Vector2(candidate.x - player_pos.x, candidate.z - player_pos.z).length()
+		if d > best_distance + 0.5:
+			best = candidate
+			best_distance = d
+			if d >= preferred_distance - kite_tolerance:
+				break # bom o bastante, prefere a direção mais "pra trás"
+	return best
+#endregion
  
 func finished_get_hit() -> void:
-	if not is_floating:
-		set_current_state(EnemyState.CHASING)
-	else:
-		set_current_state(EnemyState.HIT)
- 
-	if current_state == EnemyState.DEAD:
+	if current_state == EnemyState.DEAD and anim_player.current_animation == "hit":
 		set_collision_layer_value(20, false)
-		anim_player.play("dead")
+		_play_anim("dead", false)
  
+func _play_anim(anim_name: String, loop: bool, speed: float = 1.0) -> void:
+	if not anim_player.has_animation(anim_name):
+		return
+	if anim_player.current_animation == anim_name and anim_player.is_playing():
+		return
+	var anim := anim_player.get_animation(anim_name)
+	if anim:
+		anim.loop_mode = Animation.LOOP_LINEAR if loop else Animation.LOOP_NONE
+	anim_player.play(anim_name, anim_blend_time, speed)
+	if anim_blend_time > 0.0 and anim:
+		_trigger_start_sounds(anim)
+
+
+func _trigger_start_sounds(anim: Animation) -> void:
+	for t in anim.get_track_count():
+		if anim.track_get_type(t) != Animation.TYPE_VALUE:
+			continue
+		var path := anim.track_get_path(t)
+		if path.get_concatenated_subnames() != "playing":
+			continue
+		var first_key := anim.track_find_key(t, 0.0, Animation.FIND_MODE_EXACT)
+		if first_key == -1 or anim.track_get_key_value(t, first_key) != true:
+			continue
+		var player := anim_player.get_node(anim_player.root_node).get_node_or_null(NodePath(path.get_concatenated_names()))
+		if player and player.has_method("play"):
+			player.play()
+
 func finished_dead() -> void:
 	await get_tree().create_timer(5).timeout
 	queue_free()
  
 func target_is_in_range() -> bool:
-	if not target:
+	if not _has_valid_target():
 		return false
- 
-	var distance = global_position.distance_to(target.global_position)
-	if distance > attack_range:
+	if global_position.distance_to(target.global_position) > attack_range:
 		return false
- 
-	var space_state = get_world_3d().direct_space_state
- 
-	var from = global_position + Vector3(0, eye_height, 0)
-	var to = target.global_position + Vector3(0, eye_height, 0)
- 
-	var ray_params = PhysicsRayQueryParameters3D.create(from, to)
-	ray_params.exclude = [self, target]
-	ray_params.collision_mask = 1
- 
-	var result = space_state.intersect_ray(ray_params)
- 
-	return result.is_empty()
- 
-func move_to_parent(new_parent: Node) -> void:
-	var current_global_position = global_position
- 
-	get_parent().remove_child(self)
-	new_parent.add_child(self)
- 
-	global_position = current_global_position
- 
+	return has_line_of_sight()
+
 func check_is_floating() -> void:
 	is_floating = not ground_raycast.is_colliding()
  
-func _on_sight_area_body_entered(body: Node) -> void:
-	if body == target:
-		player_in_sight_area = true
- 
-		var space_state = get_world_3d().direct_space_state
- 
-		var from = global_position + Vector3(0, 1.5, 0)
-		var to = body.global_position + Vector3(0, 1.5, 0)
- 
-		var ray_params = PhysicsRayQueryParameters3D.create(from, to)
-		ray_params.exclude = [self, body]
-		ray_params.collision_mask = 1
- 
-		var result = space_state.intersect_ray(ray_params)
- 
-		if result.is_empty():
-			set_current_state(EnemyState.CHASING)
- 
-func _on_sight_area_body_exited(body: Node) -> void:
-	if body == target:
-		player_in_sight_area = false
- 
+
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
-	if current_state == EnemyState.CHASING or current_state == EnemyState.PATROLLING:
-		linear_velocity = safe_velocity
+	if current_state in [EnemyState.CHASING, EnemyState.PATROLLING, EnemyState.SEARCHING, EnemyState.REPOSITIONING]:
+		_apply_horizontal_velocity(safe_velocity)
  
 #region SOUNDS
 func _setup_idle_sound_timer() -> void:

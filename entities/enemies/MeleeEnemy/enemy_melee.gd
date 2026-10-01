@@ -12,6 +12,8 @@ func _pre_state_change(new_state: EnemyState) -> void:
 		attack_area.set_collision_mask_value(10, false)
  
 func turn_attack_collision_on() -> void:
+	if current_state != EnemyState.ATTACKING:
+		return
 	attack_area.set_collision_mask_value(10, true)
  
 func turn_attack_collision_off() -> void:

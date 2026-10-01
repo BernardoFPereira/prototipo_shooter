@@ -151,16 +151,14 @@ func _ready():
 	assistant_pupil.scale = Vector2(0,0)
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
+	UI.is_introduction = false
+	UI.is_walk_introduction = false
+	UI.is_fire_introduction = false
+	
 	is_introduction = UI.is_introduction
 	is_walk_introduction = UI.is_walk_introduction 
 	is_fire_introduction = UI.is_fire_introduction
-	print(is_introduction)
-	print(UI.is_introduction)
-	#if is_introduction:
-		#loading_screen.modulate = Color(1,1,1,0)
-	#else:
-		#loading_screen.modulate = Color(1,1,1,1)
-		#hud_animations.play("loading_screen_out")
+	
  
 func _process(delta):
 	if is_dead:
