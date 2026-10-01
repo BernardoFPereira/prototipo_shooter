@@ -670,13 +670,15 @@ func finished_attacking() -> void:
 	else:
 		set_current_state(EnemyState.HIT)
  
-
+## Chamado pela trilha de método da animação "hit" (a cada volta do loop). A saída do HIT agora
+## é pelo _physics_process (quando encosta no chão); aqui só trata a morte.
 func finished_get_hit() -> void:
 	if current_state == EnemyState.DEAD and anim_player.current_animation == "hit":
 		set_collision_layer_value(20, false)
 		_play_anim("dead", false)
  
-
+## Mesmo esquema do play_animation_with_blend() do player: transição suave (anim_blend_time),
+## define se a animação faz loop e não reinicia a que já está tocando.
 func _play_anim(anim_name: String, loop: bool, speed: float = 1.0) -> void:
 	if not anim_player.has_animation(anim_name):
 		return
@@ -691,6 +693,7 @@ func finished_dead() -> void:
 	await get_tree().create_timer(5).timeout
 	queue_free()
  
+## Pode atacar agora: dentro do attack_range e com linha de visão.
 func target_is_in_range() -> bool:
 	if not _has_valid_target():
 		return false
@@ -700,7 +703,17 @@ func target_is_in_range() -> bool:
 
 func check_is_floating() -> void:
 	is_floating = not ground_raycast.is_colliding()
+ 
+# Ainda conectados na cena (SightArea). Não fazem mais nada — quando apagarem o nó SightArea das
+# cenas dos inimigos, podem apagar essas duas funções também.
+func _on_sight_area_body_entered(_body: Node) -> void:
+	pass
 
+func _on_sight_area_body_exited(_body: Node) -> void:
+	pass
+
+## Velocidade SEGURA devolvida pelo avoidance (ver _move_to). Só aplica nos estados em que o
+## inimigo está andando por conta própria, e só em X/Z.
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	if current_state in [EnemyState.CHASING, EnemyState.PATROLLING, EnemyState.SEARCHING]:
 		_apply_horizontal_velocity(safe_velocity)
