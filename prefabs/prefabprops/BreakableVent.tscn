@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dw2b15lk21d4q"]
+[gd_scene load_steps=5 format=3 uid="uid://qthuiqlchfys"]
 
 [ext_resource type="Script" path="res://prefabs/prefabprops/BreakableVent.gd" id="1_sw2nr"]
 [ext_resource type="PackedScene" uid="uid://43p4oygb15uw" path="res://models/heroassets/vent.glb" id="2_viieh"]
@@ -19,7 +19,7 @@ shape = SubResource("BoxShape3D_4q53q")
 transform = Transform3D(2.8281, 0, 0, 0, 2.8281, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="ventplane_geo2" type="MeshInstance3D" parent="vent"]
-transform = Transform3D(1.70968, 0, 0, 0, 0, -1.70968, 0, 1.70968, 0, 0.0159476, 1.10467, 0.331091)
+transform = Transform3D(1.70968, 0, 0, 0, 0, -1.70968, 0, 1.70968, 0, 0.0159476, 1.16499, 0.331091)
 mesh = ExtResource("3_j16s0")
 skeleton = NodePath("")
 

@@ -1,7 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpqer2rvjis3b"]
+[gd_scene load_steps=4 format=3 uid="uid://cpqer2rvjis3b"]
 
 [ext_resource type="PackedScene" uid="uid://c4uv8no8hgsa6" path="res://models/heroassets/Pilar.glb" id="1_21m0x"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g816k"]
+points = PackedVector3Array(-54.976, 0, 3.05176e-05, 54.976, 0, 3.05176e-05, -54.976, 94.5367, 3.05176e-05, -54.976, 5.10809, -442.609, 54.976, 94.5367, 3.05176e-05, 54.976, 5.10809, -442.609, -22.9892, 189.073, 3.05176e-05, -54.976, 72.0315, -442.609, 22.9784, 189.073, 3.05176e-05, 54.976, 72.0315, -442.609, -22.9892, 125.851, -249.986, 22.9784, 125.851, -249.986)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_db6rg"]
+points = PackedVector3Array(-31.0734, 0, 3.05176e-05, 31.0734, 0, 3.05176e-05, -31.0734, 64.795, 3.05176e-05, -31.0734, 5.10809, -442.609, 31.0734, 64.795, 3.05176e-05, 31.0734, 5.10809, -442.609, -22.0336, 141.805, 3.05176e-05, -31.0734, 64.795, -442.609, 22.0276, 141.805, 3.05176e-05, 31.0734, 64.795, -442.609, -12.9939, 189.073, 3.05176e-05, -12.9939, 125.851, -249.986, 12.9878, 189.073, 3.05176e-05, 12.9878, 125.851, -249.986)
 
 [node name="Pilar" type="Node3D"]
 
 [node name="Pilar" parent="." instance=ExtResource("1_21m0x")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/fatwall_geo" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pilar/fatwall_geo/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_g816k")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/thinwall_geo" index="0"]
+collision_layer = 17
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Pilar/thinwall_geo/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_db6rg")
+
+[editable path="Pilar"]

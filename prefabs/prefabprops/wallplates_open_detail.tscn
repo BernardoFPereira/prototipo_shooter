@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://k5t6yhfdd8j7"]
+
+[ext_resource type="PackedScene" uid="uid://2cylr4dx1fq7" path="res://models/heroassets/props/bevel.glb" id="1_gu2cx"]
+[ext_resource type="PackedScene" uid="uid://cen2ixhd8n6l3" path="res://prefabs/prefabprops/prefabsl3/plano1.glb" id="2_30qgr"]
+
+[node name="Wallplates Open Detail" type="Node3D"]
+
+[node name="bevel6" parent="." instance=ExtResource("1_gu2cx")]
+transform = Transform3D(-1, 0, -8.74228e-08, -1.22349e-08, 0.990158, 0.139951, 8.65624e-08, 0.139951, -0.990158, 9.90089, -0.241104, -1.44292)
+
+[node name="bevel7" parent="." instance=ExtResource("1_gu2cx")]
+transform = Transform3D(-1, 0, -8.74228e-08, -2.35332e-08, 0.963087, 0.269189, 8.41958e-08, 0.269189, -0.963087, 6.24469, -0.257605, -1.89802)
+
+[node name="bevel8" parent="." instance=ExtResource("1_gu2cx")]
+transform = Transform3D(-1, 0, -8.74228e-08, -2.35332e-08, 0.963087, 0.269189, 8.41958e-08, 0.269189, -0.963087, 2.40529, 0.255496, -1.67687)
+
+[node name="bevel9" parent="." instance=ExtResource("1_gu2cx")]
+transform = Transform3D(-1, 0, -8.74228e-08, -2.35332e-08, 0.963087, 0.269189, 8.41958e-08, 0.269189, -0.963087, 4.09119, 5.2208, -1.8203)
+
+[node name="plano1" parent="." instance=ExtResource("2_30qgr")]
+transform = Transform3D(1, 0, 0, 0, 0.996018, -0.0891551, 0, 0.0891551, 0.996018, 1.39979, -2.39843, -1.63599)
+
+[node name="plano3" parent="." instance=ExtResource("2_30qgr")]
+transform = Transform3D(1, 0, 0, 0, 0.97622, -0.21678, 0, 0.21678, 0.97622, 0.0582905, 3.4783, -2.0136)

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpprp5qyb521u"]
+
+[ext_resource type="PackedScene" uid="uid://bmbmnrlfpsby" path="res://models/heroassets/props/andar.glb" id="1_ssnkx"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2pvfc"]
+points = PackedVector3Array(-114.954, -122.601, -1.22363, 114.954, -122.601, -1.22363, -114.954, -122.601, 59.0484, -114.954, 122.597, -1.22363, 114.954, -122.601, 59.0484, 114.954, 122.597, -1.22363, -114.954, 122.597, 59.0484, 114.954, 122.597, 59.0484)
+
+[node name="andaime" type="Node3D"]
+
+[node name="andar" parent="." instance=ExtResource("1_ssnkx")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="andar/noguard_geo" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="andar/noguard_geo/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_2pvfc")
+
+[editable path="andar"]

@@ -10,6 +10,6 @@ class_name Door
 
 func _ready():
 	if is_broken:
-		animation_player.play("broken")
+		animation_player.play("break_open")
 	if is_open:
 		animation_player.play("door_open")

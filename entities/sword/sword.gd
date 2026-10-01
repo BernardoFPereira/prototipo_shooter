@@ -127,6 +127,8 @@ func _on_sword_impact(result: KinematicCollision3D):
 	var impact_particle_instance = impact_particles.instantiate()
 	impact_particle_instance.global_transform = impact_particle_marker.global_transform
 	impact_particle_instance.emitting = true
+	for child: GPUParticles3D in impact_particle_instance.get_children():
+		child.emitting = true
 	impact_sfx.play()
 	get_tree().root.add_child(impact_particle_instance)
 	
@@ -138,7 +140,7 @@ func _on_old_sword_impact(result: KinematicCollision3D):
 		if sword_owner == collider:
 			collision_area.set_collision_layer_value(4, true)
 		return
-		
+	
 	var forward_motion = -global_transform.basis.z * 0.5
 	var collision_result: KinematicCollision3D = collision_area.move_and_collide(forward_motion)
 	if collision_result:

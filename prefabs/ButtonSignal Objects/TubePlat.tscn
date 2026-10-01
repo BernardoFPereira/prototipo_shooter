@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bblapq6ow7iqr"]
 
-[ext_resource type="PackedScene" uid="uid://uba6x51b8byj" path="res://ST_cenarioPrefab/ST_manilhaQuina.tscn" id="1_ae86i"]
-[ext_resource type="PackedScene" uid="uid://ienb15lcaux2" path="res://ST_cenarioPrefab/ST_manilhaReta.tscn" id="2_dlnqr"]
+[ext_resource type="PackedScene" uid="uid://uba6x51b8byj" path="res://prefabs/ST_cenarioPrefab/ST_manilhaQuina.tscn" id="1_ae86i"]
+[ext_resource type="PackedScene" uid="uid://ienb15lcaux2" path="res://prefabs/ST_cenarioPrefab/ST_manilhaReta.tscn" id="2_dlnqr"]
 
 [sub_resource type="Animation" id="Animation_abxyq"]
 length = 0.001

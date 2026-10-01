@@ -8,7 +8,6 @@ var current_node: Marker3D
 var current_node_idx: int
 var target
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	current_node = path[start_node]
 	current_node_idx = start_node
@@ -25,9 +24,6 @@ func move_to_next_target(speed):
 		current_node_idx = 0
 	
 	global_position = global_position.move_toward(target.global_position, speed)
-	
-	print("current pos: %s", global_position)
-	print("target_pos: %s", target.global_position)
 	
 	if global_position == target.global_position:
 		current_node = target

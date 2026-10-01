@@ -1,7 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkf1hkmei3q1o"]
+[gd_scene load_steps=8 format=3 uid="uid://bkf1hkmei3q1o"]
 
-[ext_resource type="PackedScene" uid="uid://c0y48dsxoctix" path="res://models/heroassets/props/plano1.glb" id="1_7e2i3"]
+[ext_resource type="PackedScene" uid="uid://gv17vrccmqq0" path="res://models/heroassets/props/plano1.glb" id="1_7e2i3"]
+[ext_resource type="PackedScene" uid="uid://dhu8r1t8dkhnq" path="res://models/heroassets/props/plano2.glb" id="2_5gb6d"]
+[ext_resource type="PackedScene" uid="uid://t5vdkx502c8c" path="res://models/heroassets/props/plano3.glb" id="3_fuk4u"]
+[ext_resource type="PackedScene" uid="uid://2myofq2g3xgs" path="res://models/heroassets/props/plano4.glb" id="4_oqlqk"]
+[ext_resource type="PackedScene" uid="uid://o5lwr61pdudw" path="res://models/heroassets/props/plano5.glb" id="5_6oavv"]
+[ext_resource type="PackedScene" uid="uid://bnv6v5k5rugxb" path="res://models/heroassets/props/plano6.glb" id="6_akf8o"]
+[ext_resource type="PackedScene" uid="uid://dyb8cmsdiiecf" path="res://models/heroassets/props/plano7.glb" id="7_pw55a"]
 
 [node name="Plano1" type="Node3D"]
 
-[node name="Plano de jogar Textura em cima" parent="." instance=ExtResource("1_7e2i3")]
+[node name="plano1" parent="." instance=ExtResource("1_7e2i3")]
+
+[node name="plano2" parent="." instance=ExtResource("2_5gb6d")]
+visible = false
+
+[node name="plano3" parent="." instance=ExtResource("3_fuk4u")]
+visible = false
+
+[node name="plano4" parent="." instance=ExtResource("4_oqlqk")]
+visible = false
+
+[node name="plano5" parent="." instance=ExtResource("5_6oavv")]
+visible = false
+
+[node name="plano6" parent="." instance=ExtResource("6_akf8o")]
+visible = false
+
+[node name="plano7" parent="." instance=ExtResource("7_pw55a")]
+visible = false

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlo1vt6qx5qyy"]
+
+[ext_resource type="PackedScene" uid="uid://bf0dxku11ojo4" path="res://models/heroassets/props/grate.glb" id="1_g5u8t"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_a8l21"]
+points = PackedVector3Array(-0.5, 1.09208, 0.362566, -0.5, 1.09208, -0.362567, -0.5, -1.0921, 0.362566, -0.5, -1.0921, -0.362567)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_sgy8s"]
+data = PackedVector3Array(-0.1528, 1.8658, 0, 0, 1.8658, -0.1438, 0, 1.8658, 0, -0.1528, 1.8658, 0, 0, -1.8659, -0.1438, 0, 1.8658, -0.1438, -0.1528, 1.8658, 0, -0.1528, -1.8659, 0, 0, -1.8659, -0.1438, -0.1528, -1.8659, 0, 0, 1.8658, 0.1438, 0, -1.8659, 0.1438, -0.1528, -1.8659, 0, -0.1528, 1.8658, 0, 0, 1.8658, 0.1438, -0.1528, 1.8658, 0, 0, 1.8658, 0, 0, 1.8658, 0.1438, 0, -1.8659, 0.1438, 0.1528, 1.8658, 0, 0.1528, -1.8659, 0, 0, -1.8659, 0.1438, 0, 1.8658, 0.1438, 0.1528, 1.8658, 0, 0, 1.8658, 0, 0.1528, 1.8658, 0, 0, 1.8658, 0.1438, 0, 1.8658, -0.1438, 0.1528, 1.8658, 0, 0, 1.8658, 0, 0, -1.8659, -0.1438, 0.1528, 1.8658, 0, 0, 1.8658, -0.1438, 0, -1.8659, -0.1438, 0.1528, -1.8659, 0, 0.1528, 1.8658, 0)
+
+[node name="grade" type="Node3D"]
+
+[node name="grate" parent="." instance=ExtResource("1_g5u8t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28726, -9.5377, -0.308213)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="grate/grate_geo" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="grate/grate_geo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_a8l21")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="grate/pole_geo" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="grate/pole_geo/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_sgy8s")
+
+[editable path="grate"]

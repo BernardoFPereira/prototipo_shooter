@@ -5,6 +5,13 @@ extends Node3D
 @onready var collision_area = $CollisionArea
 @onready var explosion_area: ShapeCast3D = $ExplosionArea
 @onready var explosion_timer = $ExplosionTimer
+
+@onready var propulsion_mesh = $propulsion_mesh
+@onready var propulsion_mesh_2 = $propulsion_mesh2
+@onready var tail = $Tail
+@onready var impact_fx = $ImpactFX
+@onready var impact_wave_fx = $ImpactWaveFX
+
 @onready var particles = $GPUParticles3D
 @onready var mesh = $MeshInstance3D
 @onready var impact_sfx = $ImpactSFX
@@ -37,12 +44,16 @@ func explode():
 	speed = 0
 	direction = Vector3.ZERO
 	mesh.visible = false
-	particles.emitting = false
+	#particles.emitting = false
+	propulsion_mesh.visible = false
+	propulsion_mesh_2.visible = false
+	tail.visible = false
+	impact_fx.emitting = true
+	impact_wave_fx.emitting = true
 	collision_area.set_deferred("monitoring", false)
 	collision_area.set_deferred("monitorable", false)
 	impact_sfx.play()
 	#print(explosion_area.collision_result)
-	
 	var explosion = preload("res://entities/projectile/ProjectileExplosion.tscn").instantiate()
 	explosion.global_transform = global_transform
 	get_tree().root.add_child(explosion)
@@ -53,7 +64,7 @@ func explode():
 			var player = collision.collider as Player
 			var knockback_force = global_position.direction_to(player.global_position) * knockback
 			print(knockback_force)
-			knockback_force.y = minf(knockback_force.y, max_jump_height)
+			knockback_force.y = min(knockback_force.y, max_jump_height)
 			player.velocity += knockback_force
 			print(player.velocity)
 		

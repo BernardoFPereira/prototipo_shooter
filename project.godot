@@ -133,6 +133,7 @@ look_up={
 3d_physics/layer_10="PlayerHitbox"
 3d_physics/layer_12="Inimigos"
 3d_physics/layer_13="SwordHit"
+3d_physics/layer_16="SpawnDoor"
 
 [navigation]
 

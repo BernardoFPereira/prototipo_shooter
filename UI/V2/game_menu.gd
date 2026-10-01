@@ -64,6 +64,11 @@ func open_as_main_menu() -> void:
 	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	visible = true
+	
+	UI.is_introduction = true
+	UI.is_walk_introduction = true
+	UI.is_fire_introduction = true
+	
 	_reset_groups()
 
 func enter_gameplay_context(player: Player) -> void:
@@ -112,6 +117,9 @@ func _reset_groups() -> void:
 #region BUTTON HANDLERS
 func _on_play_pressed() -> void:
 	UI.play_sound("confirm_button")
+	UI.is_introduction = true
+	UI.is_walk_introduction = true
+	UI.is_fire_introduction = true
 	UI.save_settings()
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
