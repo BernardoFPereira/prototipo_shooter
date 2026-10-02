@@ -146,6 +146,14 @@ var intro_done: bool = false
 ## Enquanto true, a caixa do assistente não fecha sozinha (o tutorial controla quando fechar).
 var assistant_hold_open: bool = false
 var _assistant_open: bool = false
+
+## Cada mensagem mostrada ganha um id. Serve pra quem mostrou saber se a mensagem dela ainda é a
+## que está na tela (ou se outra já substituiu) antes de fechar.
+signal assistant_message_shown(id: int)
+signal assistant_message_closed(id: int)
+var assistant_message_id: int = 0
+## Se a mensagem atual fecha sozinha pelo timer da caixa (message_display_time).
+var _message_auto_close: bool = true
 #endregion
 
 @export_category("VFX")
@@ -586,7 +594,7 @@ func _finish_intro():
 	intro_finished.emit()
 
 func _on_assistant_message_timeout():
-	if not assistant_hold_open:
+	if not assistant_hold_open and _message_auto_close:
 		hide_assistant_message()
 
 #region HABILIDADES / MENSAGENS (usado pelo Tutorial e pelas áreas de mensagem)
@@ -601,18 +609,32 @@ func unlock_abilities(abilities: int) -> void:
 
 ## Mostra uma mensagem na caixa do assistente (canto direito), com a animação de popup.
 ## A mensagem aparece de fato quando o popup termina (_on_avic_animations_animation_finished).
-func show_assistant_message(message: String) -> void:
+## auto_close = false: a caixa não fecha sozinha pelo timer; quem mostrou decide quando fechar.
+## Retorna o id da mensagem (use em hide_assistant_message(id) / is_assistant_message_showing(id)).
+func show_assistant_message(message: String, auto_close: bool = true) -> int:
+	assistant_message_id += 1
+	_message_auto_close = auto_close
 	get_message_data(message)
 	_assistant_open = true
 	avic_animations.play("avic/assistant_popup")
+	assistant_message_shown.emit(assistant_message_id)
+	return assistant_message_id
 
-## Fecha a caixa do assistente (se estiver aberta).
-func hide_assistant_message() -> void:
-	assistant_hold_open = false
+## Fecha a caixa do assistente. Com id: só fecha se essa mensagem ainda for a que está na tela
+## (se outra já substituiu, não faz nada).
+func hide_assistant_message(id: int = -1) -> void:
+	if id != -1 and id != assistant_message_id:
+		return
+	if id == -1:
+		assistant_hold_open = false
 	if not _assistant_open:
 		return
 	_assistant_open = false
 	avic_animations.play("avic/assistant_popout")
+	assistant_message_closed.emit(assistant_message_id)
+
+func is_assistant_message_showing(id: int) -> bool:
+	return _assistant_open and id == assistant_message_id
 #endregion
 
 func get_message_data(message: String):

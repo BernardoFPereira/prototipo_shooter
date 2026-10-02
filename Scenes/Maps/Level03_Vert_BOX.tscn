@@ -1,4 +1,4 @@
-[gd_scene load_steps=3983 format=3 uid="uid://ddeco0b34517h"]
+[gd_scene load_steps=3987 format=3 uid="uid://ddeco0b34517h"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="3_kld1k"]
@@ -40054,6 +40054,18 @@ size = Vector3(37.3975, 6.05302, 63.709)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gln1x"]
 size = Vector3(6.99014, 4.57568, 6.6394)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0oec"]
+size = Vector3(15.7843, 4.57568, 3.75378)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6t3k8"]
+size = Vector3(8.68539, 4.57568, 6.09064)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e1div"]
+size = Vector3(3.65088, 5.41425, 4.25391)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2yunp"]
+size = Vector3(35.7422, 4.57568, 39.8633)
+
 [node name="Level03Vert" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -42368,10 +42380,64 @@ script = ExtResource("21_6jwj4")
 player = NodePath("../Player")
 message = "%SISTEMA AVANÇADO%
 Atire em direção ao chão logo após pular para ganhar impulso vertical"
+hide_mode = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1266, 6.74233, -15.3808)
 shape = SubResource("BoxShape3D_gln1x")
 
+[node name="AssistantTextArea2" type="Area3D" parent="." node_paths=PackedStringArray("player", "hide_area")]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../Player")
+message = "%SISTEMA AVANÇADO%
+Atire em direção ao chão logo após pular para ganhar impulso vertical"
+hide_mode = 1
+hide_area = NodePath("AssistantTextArea3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.72953, 12.3753, 17.8026)
+shape = SubResource("BoxShape3D_a0oec")
+
+[node name="AssistantTextArea3" type="Area3D" parent="AssistantTextArea2" node_paths=PackedStringArray("player")]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2/AssistantTextArea3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.65609, 12.3753, 25.9055)
+shape = SubResource("BoxShape3D_6t3k8")
+
+[node name="AssistantTextArea3" type="Area3D" parent="." node_paths=PackedStringArray("player", "hide_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.243, 34.2164, -3.94759)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../Player")
+message = "%SISTEMA AVANÇADO%
+Desacople seu braço em direção a um inimigo para avançar em sua direção"
+hide_mode = 1
+hide_area = NodePath("AssistantTextArea3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83187, 1.01419, 0.674355)
+shape = SubResource("BoxShape3D_e1div")
+
+[node name="AssistantTextArea3" type="Area3D" parent="AssistantTextArea3" node_paths=PackedStringArray("player")]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea3/AssistantTextArea3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9875, 0, 3.4877)
+shape = SubResource("BoxShape3D_2yunp")
+
 [connection signal="body_entered" from="SpawnerDoor/SpawnTriggerArea" to="SpawnerDoor" method="_on_spawn_trigger_area_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea" to="AssistantTextArea" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea2" to="AssistantTextArea2" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea2/AssistantTextArea3" to="AssistantTextArea2/AssistantTextArea3" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea3" to="AssistantTextArea3" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea3/AssistantTextArea3" to="AssistantTextArea3/AssistantTextArea3" method="_on_body_entered"]
