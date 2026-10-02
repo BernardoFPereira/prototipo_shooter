@@ -1,4 +1,4 @@
-[gd_scene load_steps=1580 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1588 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_3xgkq"]
@@ -15,7 +15,7 @@
 [ext_resource type="Material" uid="uid://bf5tpsfyy2l71" path="res://materials/mapmaterials/DioramaMats/PlateWalldirty.tres" id="10_67e6u"]
 [ext_resource type="Material" uid="uid://dgadiubdu1nq6" path="res://materials/mapmaterials/DioramaMats/PlateWallexposeds.tres" id="10_yctok"]
 [ext_resource type="Material" uid="uid://d27g86vke7lpg" path="res://materials/mapmaterials/ground1.tres" id="11_egvjx"]
-[ext_resource type="Material" path="res://materials/Prototype/ShieldGlassInternal.tres" id="11_iqhna"]
+[ext_resource type="Material" uid="uid://cdl4gefatqikk" path="res://materials/Prototype/ShieldGlassInternal.tres" id="11_iqhna"]
 [ext_resource type="PackedScene" uid="uid://dwsxqeoj0fwvx" path="res://prefabs/prefabprops/plataformavoadora.tscn" id="12_hqdqu"]
 [ext_resource type="Material" uid="uid://dvnlnrthg3cb7" path="res://materials/mapmaterials/DioramaMats/PlateWall.tres" id="12_lyqev"]
 [ext_resource type="Material" uid="uid://chk4frd4pycwa" path="res://materials/mapmaterials/DioramaMats/PlateWallgreens.tres" id="13_ol26d"]
@@ -45,6 +45,14 @@
 [ext_resource type="PackedScene" uid="uid://cen2ixhd8n6l3" path="res://prefabs/prefabprops/prefabsl3/plano1.glb" id="40_d2qvy"]
 [ext_resource type="PackedScene" uid="uid://dcj3yqwdv0enk" path="res://prefabs/prefabprops/lab_capsule.tscn" id="41_6wqu5"]
 [ext_resource type="PackedScene" uid="uid://k5t6yhfdd8j7" path="res://prefabs/prefabprops/wallplates_open_detail.tscn" id="44_f2rss"]
+[ext_resource type="PackedScene" uid="uid://bn0man2cs0b7v" path="res://entities/assistant/Tutorial.tscn" id="46_82ven"]
+[ext_resource type="Resource" uid="uid://dqnhqouf0xiak" path="res://entities/assistant/Steps/visao.tres" id="47_dkwpy"]
+[ext_resource type="Resource" uid="uid://bibkaruf1bhdg" path="res://entities/assistant/Steps/movimento.tres" id="48_f3844"]
+[ext_resource type="Resource" uid="uid://cumlbwict3n3w" path="res://entities/assistant/Steps/pulo.tres" id="49_jd1kq"]
+[ext_resource type="Resource" uid="uid://drq4rcftr5sid" path="res://entities/assistant/Steps/tiro.tres" id="50_h71nm"]
+[ext_resource type="Resource" uid="uid://co4vj87lp6i83" path="res://entities/assistant/Steps/braco.tres" id="51_utego"]
+[ext_resource type="Resource" uid="uid://bbakv0761ubqm" path="res://entities/assistant/Steps/recolher_braco.tres" id="52_bvus0"]
+[ext_resource type="Resource" uid="uid://u22m4p73npxo" path="res://entities/assistant/Steps/fim.tres" id="53_5fi18"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -16905,6 +16913,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1431, 11.0645, 0)
 
 [node name="LabCapsule" parent="." instance=ExtResource("41_6wqu5")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 42.1947, 0, 28.4682)
+
+[node name="Tutorial" parent="." node_paths=PackedStringArray("player") instance=ExtResource("46_82ven")]
+player = NodePath("../Player")
+steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
 
 [editable path="AlamLights/AlarmLight"]
 [editable path="AlamLights/AlarmLight5"]

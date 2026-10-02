@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://bbakv0761ubqm"]
+
+[ext_resource type="Script" path="res://entities/assistant/tutorial_step.gd" id="1_b07y3"]
+
+[resource]
+resource_name = "6 - Recolher braço"
+script = ExtResource("1_b07y3")
+message = "Calibrar sistemas de reacoplamento:
+Botão Direito do Mouse (enquanto desacoplado)"
+align_right = true
+delay_before = 0.3
+close_box_on_complete = false
+unlock = 0
+unlock_when = 1
+lock = 0
+complete_when = 0
+required_action = 5
+required_amount = 1.0
+wait_time = 3.0
+min_time = 2.0
+timeout = 12.0
