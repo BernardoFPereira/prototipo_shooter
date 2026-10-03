@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7u7jvyxg7n1a"]
+
+[ext_resource type="Script" path="res://UI/V2/Loading/loading_screen.gd" id="1_load"]
+[ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="2_font"]
+
+[node name="LoadingScreen" type="CanvasLayer"]
+process_mode = 3
+layer = 128
+script = ExtResource("1_load")
+min_duration = 5.0
+fade_time = 0.5
+first_level_name = ""
+max_arrows = 3
+rain_prewarm_seconds = 15.0
+
+[node name="Root" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Black" type="ColorRect" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RainHolder" type="Control" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Texts" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -70.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="Root/Texts"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 54
+text = ">> CARREGANDO"
+horizontal_alignment = 1
+
+[node name="LevelName" type="Label" parent="Root/Texts"]
+modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 36
+text = "% NOME DA FASE %"
+horizontal_alignment = 1

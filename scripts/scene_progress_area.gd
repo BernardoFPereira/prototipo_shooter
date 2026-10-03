@@ -3,13 +3,16 @@ extends Area3D
 @onready var level_complete_screen = $LevelCompleteScreen
 
 @export var level_to_load: PackedScene = null
+## Nome da próxima fase, mostrado na tela de load embaixo do "CARREGANDO".
+@export var next_level_name: String = ""
 @export var is_final_level: bool = false
 
-var main_menu_scene = load("uid://d2rqkagxvdfhw")
-var first_level = load("uid://cw50tmi4jwwv4")
+# Caminhos (a tela de load carrega em segundo plano).
+const MAIN_MENU_SCENE := "uid://d2rqkagxvdfhw"
+const FIRST_LEVEL_SCENE := "uid://cw50tmi4jwwv4"
 
 func load_next_level(level_to_load):
-	get_tree().change_scene_to_packed(level_to_load)
+	SceneLoader.change_scene(level_to_load, next_level_name)
 
 func _on_body_entered(body):
 	if body is Player:
@@ -19,19 +22,17 @@ func _on_body_entered(body):
 		level_complete_screen.visible = true
 
 func _on_continue_button_down():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
 	UI.is_introduction = false
 	UI.is_walk_introduction = false
 	UI.is_fire_introduction = false
 	
 	if is_final_level:
 		UI.save_settings()
-		get_tree().change_scene_to_packed(first_level)
+		SceneLoader.change_scene(FIRST_LEVEL_SCENE, SceneLoader.first_level_name)
 		return
 		
 	UI.save_settings()
 	load_next_level(level_to_load)
 
 func _on_quit_button_down():
-	get_tree().change_scene_to_packed(main_menu_scene)
+	SceneLoader.go_to_main_menu(MAIN_MENU_SCENE)

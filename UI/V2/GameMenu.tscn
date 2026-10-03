@@ -827,6 +827,17 @@ offset_bottom = 867.0
 theme = ExtResource("4_u88di")
 text = "SIM"
 
+[node name="QuitLabel" type="Label" parent="Background/MainPanel/QuitGroup"]
+offset_left = 966.0
+offset_top = 198.0
+offset_right = 1578.0
+offset_bottom = 405.0
+theme = ExtResource("5_4pg0q")
+theme_override_font_sizes/font_size = 48
+text = "SAIR?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="mouse_entered" from="Background/MainPanel/VBoxContainer/ResumeButton" to="Background/MainPanel/ConfigGroup" method="_on_button_hovered"]
 [connection signal="pressed" from="Background/MainPanel/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="mouse_entered" from="Background/MainPanel/VBoxContainer/RetryButton" to="Background/MainPanel/ConfigGroup" method="_on_button_hovered"]

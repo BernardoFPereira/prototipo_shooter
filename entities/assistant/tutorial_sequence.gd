@@ -202,14 +202,12 @@ func _can_continue() -> bool:
 	return is_running and not _stopped and is_instance_valid(player) and not player.is_dead
 
 
-## Espera X segundos de jogo (não conta tempo com o jogo pausado).
 func _wait(seconds: float) -> void:
 	var end_time := _clock + seconds
 	while _clock < end_time and _can_continue():
 		await get_tree().process_frame
 
 
-## Espera a condição ficar verdadeira. limit > 0 = desiste depois de X segundos.
 func _wait_until(condition: Callable, limit: float = 0.0) -> void:
 	var start_time := _clock
 	while _can_continue() and not condition.call():
