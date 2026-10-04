@@ -102,6 +102,7 @@ func _setup_audio_players() -> void:
 	for bus in AudioBus.values():
 		var player = AudioStreamPlayer.new()
 		player.bus = AudioServer.get_bus_name(bus)
+		player.process_mode = Node.PROCESS_MODE_ALWAYS # sons de UI tocam mesmo com o jogo pausado (menu de pausa, tela de load)
 		add_child(player)
 		audio_players[bus] = player
 	current_music_player = AudioStreamPlayer.new()

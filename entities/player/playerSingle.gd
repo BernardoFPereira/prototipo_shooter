@@ -31,10 +31,7 @@ var is_disarmed: bool
 var is_dead: bool = false
 var is_next_level: bool = false
 var was_in_air: bool = false
-var is_introduction: bool
-var is_walk_introduction: bool
-var is_fire_introduction: bool
- 
+
 enum PlayerStates {
 	IDLE,
 	RUN,
@@ -125,6 +122,40 @@ const quit_background = preload("uid://dmel4nekr0nx4")
 var resolution_button_group: ButtonGroup
 #endregion
  
+#region TUTORIAL / HABILIDADES
+## Quem controla isso é o nó Tutorial (TutorialSequence) da fase. Sem Tutorial na fase, o jogador
+## começa com tudo liberado e sem a animação de introdução.
+
+## Emitido quando a introdução termina (animação "start" do HUD + popup centralizado, se tiver).
+signal intro_finished
+## Emitido sempre que o jogador FAZ algo. O tutorial usa isso pra saber quando avançar.
+## amount = graus girados (LOOK), metros andados (MOVE) ou 1 (o resto).
+signal action_performed(action: Action, amount: float)
+
+## Habilidades que podem ser travadas/liberadas. São flags: dá pra combinar (ex: FIRE | ARM).
+enum Ability { LOOK = 1, MOVE = 2, JUMP = 4, FIRE = 8, ARM = 16, PUSH = 32 }
+const ALL_ABILITIES: int = 63
+## Ações que o tutorial pode pedir pro jogador fazer.
+enum Action { LOOK, MOVE, JUMP, FIRE, THROW_ARM, ARM_RETURNED, PUSH }
+
+## Habilidades travadas agora (flags de Ability). 0 = tudo liberado.
+var locked_abilities: int = 0
+## Se true, toca o popup centralizado ("INICIANDO ROTINA...") depois da animação "start" do HUD.
+var play_intro: bool = false
+var intro_done: bool = false
+## Enquanto true, a caixa do assistente não fecha sozinha (o tutorial controla quando fechar).
+var assistant_hold_open: bool = false
+var _assistant_open: bool = false
+
+## Cada mensagem mostrada ganha um id. Serve pra quem mostrou saber se a mensagem dela ainda é a
+## que está na tela (ou se outra já substituiu) antes de fechar.
+signal assistant_message_shown(id: int)
+signal assistant_message_closed(id: int)
+var assistant_message_id: int = 0
+## Se a mensagem atual fecha sozinha pelo timer da caixa (message_display_time).
+var _message_auto_close: bool = true
+#endregion
+
 @export_category("VFX")
 @export var muzzle_flash_particles: PackedScene = preload("uid://b8edqmwpwyrwk")
 @onready var muzzle_flash_position = $Head/MuzzleFlashPosition
@@ -151,15 +182,7 @@ func _ready():
 	assistant_pupil.scale = Vector2(0,0)
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
-	UI.is_introduction = false
-	UI.is_walk_introduction = false
-	UI.is_fire_introduction = false
-	
-	is_introduction = UI.is_introduction
-	is_walk_introduction = UI.is_walk_introduction 
-	is_fire_introduction = UI.is_fire_introduction
-	
- 
+
 func _process(delta):
 	if is_dead:
 		return
@@ -228,16 +251,17 @@ func _return_to_ground_state():
 func handle_input():
 	if is_dead: #or is_next_level:
 		return
-	if Input.is_action_just_pressed("attack") and !is_fire_introduction:
+	if Input.is_action_just_pressed("attack") and has_ability(Ability.PUSH):
 		try_attack()
-	if Input.is_action_just_pressed("fire") and !is_fire_introduction:
+	if Input.is_action_just_pressed("fire") and has_ability(Ability.FIRE):
 		try_fire()
-	if Input.is_action_just_pressed("throw_sword") and !is_fire_introduction: 
+	if Input.is_action_just_pressed("throw_sword"):
 		if !is_disarmed:
-			try_throw_sword()
+			if has_ability(Ability.ARM):
+				try_throw_sword()
 		else:
-			try_pull_sword()
-	if Input.is_action_just_pressed("jump") and !is_walk_introduction:
+			try_pull_sword() # recolher sempre funciona, pra nunca ficar sem o braço
+	if Input.is_action_just_pressed("jump") and has_ability(Ability.JUMP):
 		try_jump()
  
 func _physics_process(delta):
@@ -261,15 +285,18 @@ func _physics_process(delta):
 			set_state(PlayerStates.FALL)
 	handle_states(delta)
 	move_and_slide()
- 
+	if movement_vector:
+		action_performed.emit(Action.MOVE, Vector2(velocity.x, velocity.z).length() * delta)
+
 func _on_land():
 	walk_sfx.play()
 	camera_juice.add_fall_kick(3)
  
 func handle_states(delta):
-	if is_walk_introduction:
-		return
-	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	if has_ability(Ability.MOVE):
+		movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	else:
+		movement_vector = Vector2.ZERO
 	direction = (transform.basis * Vector3(movement_vector.x, 0, movement_vector.y)).normalized()
 	var horizontal_velocity = Vector3(velocity.x, 0 , velocity.z)
 	var target_velocity = Vector3.ZERO
@@ -328,9 +355,10 @@ func handle_states(delta):
 func _rotate_camera():
 	if is_dead:
 		return
-	if input_mouse:
+	if input_mouse and has_ability(Ability.LOOK):
 		rotate_y(-input_mouse.x * UI.mouse_sensitivity)
 		head.rotate_x(-input_mouse.y * UI.mouse_sensitivity)
+		action_performed.emit(Action.LOOK, rad_to_deg(input_mouse.length() * UI.mouse_sensitivity))
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
 	head.rotation.y = clamp(head.rotation.y, deg_to_rad(0), deg_to_rad(0))
@@ -379,6 +407,7 @@ func try_throw_sword():
 	ring_geo.visible = false
 	thumb_geo.visible = false
 	arm_throw_sfx.play()
+	action_performed.emit(Action.THROW_ARM, 1.0)
 	#hud_animations.play("hand_flying")
  
 func try_attack():
@@ -387,6 +416,7 @@ func try_attack():
 	if state != PlayerStates.PUSH:
 		previous_state = state
 		set_state(PlayerStates.PUSH)
+		action_performed.emit(Action.PUSH, 1.0)
  
 func try_fire():
 	if state == PlayerStates.PUSH:
@@ -399,6 +429,7 @@ func try_fire():
 		previous_state = state
 		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
+		action_performed.emit(Action.FIRE, 1.0)
 		#camera_juice.add_weapon_kick(5, 0.5, 0.5)
 		
 		var muzzle_flash = muzzle_flash_particles.instantiate()
@@ -418,6 +449,7 @@ func try_jump():
 	jump_sfx.play()
 	can_coyote_jump = false
 	set_state(PlayerStates.JUMP)
+	action_performed.emit(Action.JUMP, 1.0)
  
 func check_fall_speed() -> bool:
 	if current_fall_velocity < fall_velocity_threshhold:
@@ -473,6 +505,7 @@ func _on_sword_back(body):
 		ring_geo.visible = true
 		thumb_geo.visible = true
 		arm_back_sfx.play()
+		action_performed.emit(Action.ARM_RETURNED, 1.0)
  
 func take_damage(amount: float):
 	if current_health > 0:
@@ -532,8 +565,10 @@ func _check_visibility():
 func _on_hud_animations_animation_finished(anim_name):
 	match anim_name:
 		"start":
-			if is_introduction:
+			if play_intro:
 				avic_animations.play("avic/centered_assistant_popup")
+			else:
+				_finish_intro()
 		#"loading_screen_in":
 			#change_level.emit()
 		#"loading_screen_out":
@@ -542,6 +577,7 @@ func _on_hud_animations_animation_finished(anim_name):
 func _on_avic_animations_animation_finished(anim_name):
 	match anim_name:
 		"avic/assistant_popup":
+			_assistant_open = true
 			avic_animations.play("avic/assistant_idle")
 			assistant_text_box.set_message(new_message, true)
 		"avic/centered_assistant_popup":
@@ -549,35 +585,58 @@ func _on_avic_animations_animation_finished(anim_name):
 		"avic/centered_assistant_idle":
 			avic_animations.play("avic/centered_assistant_popout")
 		"avic/centered_assistant_popout":
-			await get_tree().create_timer(1.0).timeout
-			get_message_data("[right]Calibrar sistemas de locomoção:\nW,A,S,D")
-			avic_animations.play("avic/assistant_popup")
-			await get_tree().create_timer(3.0).timeout
-			UI.is_walk_introduction = false
-			is_walk_introduction = false
-			await get_tree().create_timer(4.0).timeout
-			get_message_data("[right]Calibrar amortecedores:\nBarra de Espaço")
-			avic_animations.play("avic/assistant_popup")
-			await get_tree().create_timer(8.0).timeout
-			get_message_data("[right]Calibrar sistemas de visão:\nMouse")
-			avic_animations.play("avic/assistant_popup")
-			await get_tree().create_timer(8.0).timeout
-			get_message_data("[right]Calibrar sistemas de disparo:\nBotão Esquerdo do Mouse")
-			avic_animations.play("avic/assistant_popup")
-			UI.is_fire_introduction = false
-			is_fire_introduction = false
-			await get_tree().create_timer(8.0).timeout
-			get_message_data("[right]Calibrar sistemas de desacoplamento:\nBotão Direito do Mouse")
-			avic_animations.play("avic/assistant_popup")
-			await get_tree().create_timer(8.0).timeout
-			UI.is_introduction = false
-			is_introduction = false
-			#UI.save_settings()
- 
+			_finish_intro()
+
+func _finish_intro():
+	if intro_done:
+		return
+	intro_done = true
+	intro_finished.emit()
+
 func _on_assistant_message_timeout():
-	if !is_introduction:
-		avic_animations.play("avic/assistant_popout")
- 
+	if not assistant_hold_open and _message_auto_close:
+		hide_assistant_message()
+
+#region HABILIDADES / MENSAGENS (usado pelo Tutorial e pelas áreas de mensagem)
+func has_ability(ability: int) -> bool:
+	return (locked_abilities & ability) == 0
+
+func lock_abilities(abilities: int) -> void:
+	locked_abilities |= abilities
+
+func unlock_abilities(abilities: int) -> void:
+	locked_abilities &= ~abilities
+
+## Mostra uma mensagem na caixa do assistente (canto direito), com a animação de popup.
+## A mensagem aparece de fato quando o popup termina (_on_avic_animations_animation_finished).
+## auto_close = false: a caixa não fecha sozinha pelo timer; quem mostrou decide quando fechar.
+## Retorna o id da mensagem (use em hide_assistant_message(id) / is_assistant_message_showing(id)).
+func show_assistant_message(message: String, auto_close: bool = true) -> int:
+	assistant_message_id += 1
+	_message_auto_close = auto_close
+	get_message_data(message)
+	_assistant_open = true
+	avic_animations.play("avic/assistant_popup")
+	assistant_message_shown.emit(assistant_message_id)
+	return assistant_message_id
+
+## Fecha a caixa do assistente. Com id: só fecha se essa mensagem ainda for a que está na tela
+## (se outra já substituiu, não faz nada).
+func hide_assistant_message(id: int = -1) -> void:
+	if id != -1 and id != assistant_message_id:
+		return
+	if id == -1:
+		assistant_hold_open = false
+	if not _assistant_open:
+		return
+	_assistant_open = false
+	avic_animations.play("avic/assistant_popout")
+	assistant_message_closed.emit(assistant_message_id)
+
+func is_assistant_message_showing(id: int) -> bool:
+	return _assistant_open and id == assistant_message_id
+#endregion
+
 func get_message_data(message: String):
 	new_message = message
 	if assistant_text_box:

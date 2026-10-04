@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://co4vj87lp6i83"]
+
+[ext_resource type="Script" path="res://entities/assistant/tutorial_step.gd" id="1_8pfxx"]
+
+[resource]
+resource_name = "5 - Braço"
+script = ExtResource("1_8pfxx")
+message = "Calibrar sistemas de desacoplamento:
+Botão Direito do Mouse"
+align_right = true
+delay_before = 0.5
+close_box_on_complete = false
+unlock = 16
+unlock_when = 1
+lock = 0
+complete_when = 0
+required_action = 4
+required_amount = 1.0
+wait_time = 3.0
+min_time = 2.0
+timeout = 0.0

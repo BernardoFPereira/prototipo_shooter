@@ -28,8 +28,9 @@ const quit_background = preload("uid://dmel4nekr0nx4")
 var context: Context = Context.MAIN_MENU
 var current_player: Player = null
 
-var level_scene: PackedScene = load("uid://cw50tmi4jwwv4")
-var menu_scene: PackedScene = load("uid://d2rqkagxvdfhw")
+# Caminhos (não carrega as cenas na hora: quem carrega é a tela de load, em segundo plano).
+const LEVEL_SCENE := "uid://cw50tmi4jwwv4"
+const MENU_SCENE := "uid://d2rqkagxvdfhw"
 
 
 func _ready() -> void:
@@ -43,6 +44,8 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if SceneLoader.is_loading:
+		return
 	if context == Context.PAUSE_MENU and event.is_action_pressed("ui_cancel"):
 		if visible:
 			close_pause_menu()
@@ -61,8 +64,9 @@ func open_as_main_menu() -> void:
 	retry_button.visible = false
 	credits_button.visible = true
 
-	get_tree().paused = false
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if not SceneLoader.is_loading: # durante o load quem despausa é a tela de load
+		get_tree().paused = false
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	visible = true
 	
 	UI.is_introduction = true
@@ -75,7 +79,8 @@ func enter_gameplay_context(player: Player) -> void:
 	context = Context.PAUSE_MENU
 	current_player = player
 	visible = false
-	get_tree().paused = false
+	if not SceneLoader.is_loading: # durante o load quem despausa é a tela de load
+		get_tree().paused = false
 
 func _open_pause_menu() -> void:
 	title_label.text = "PAUSE"
@@ -122,8 +127,7 @@ func _on_play_pressed() -> void:
 	UI.is_fire_introduction = true
 	UI.save_settings()
 	visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	get_tree().change_scene_to_packed(level_scene)
+	SceneLoader.change_scene(LEVEL_SCENE, SceneLoader.first_level_name)
 
 func _on_resume_button_pressed() -> void:
 	UI.play_sound("confirm_button")
@@ -131,10 +135,8 @@ func _on_resume_button_pressed() -> void:
 
 func _on_retry_button_pressed() -> void:
 	UI.play_sound("confirm_button")
-	get_tree().paused = false
 	visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	get_tree().reload_current_scene()
+	SceneLoader.reload_current_scene()
 
 func _on_config_button_toggled(toggled_on: bool) -> void:
 	if toggled_on:
@@ -204,8 +206,6 @@ func _on_really_quit_pressed() -> void:
 	if context == Context.MAIN_MENU:
 		get_tree().quit(0)
 	else:
-		get_tree().paused = false
 		visible = false
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		get_tree().change_scene_to_packed(menu_scene)
+		SceneLoader.go_to_main_menu(MENU_SCENE)
 #endregion

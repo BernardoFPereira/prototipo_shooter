@@ -1,4 +1,4 @@
-[gd_scene load_steps=3985 format=3 uid="uid://ddeco0b34517h"]
+[gd_scene load_steps=3987 format=3 uid="uid://ddeco0b34517h"]
 
 [ext_resource type="Texture2D" uid="uid://bim7vf5pjq2g7" path="res://textures/Captura de tela 2026-08-29 161203.png" id="1_5sflr"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="3_kld1k"]
@@ -12,9 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="9_e2kfd"]
 [ext_resource type="Material" uid="uid://byq7v6r2vv3i7" path="res://materials/Prototype/default_grey.tres" id="9_js4wg"]
 [ext_resource type="PackedScene" uid="uid://bl4641hb7ar1k" path="res://prefabs/prefabprops/portadiorama.tscn" id="10_4532i"]
-[ext_resource type="PackedScene" path="res://prefabs/prefabprops/chute.tscn" id="11_6sjiu"]
+[ext_resource type="PackedScene" uid="uid://bc3gi1d4k2rxo" path="res://prefabs/prefabprops/chute.tscn" id="11_6sjiu"]
 [ext_resource type="PackedScene" uid="uid://qthuiqlchfys" path="res://prefabs/prefabprops/BreakableVent.tscn" id="12_a7xl6"]
-[ext_resource type="PackedScene" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
+[ext_resource type="PackedScene" uid="uid://dtr5nxp103bif" path="res://prefabs/prefabprops/door_explosion.tscn" id="13_uwry2"]
 [ext_resource type="Script" path="res://scripts/SpawnerDoor.gd" id="16_bpoks"]
 [ext_resource type="Texture2D" uid="uid://bkfpgctco5bs6" path="res://textures/porta_doorscover_Doorcover_mtl_BaseColor.png" id="17_kfj15"]
 [ext_resource type="PackedScene" uid="uid://3piewsvrrigx" path="res://prefabs/scene_progress_area.tscn" id="18_lkbti"]
@@ -40051,14 +40051,20 @@ size = Vector3(5.79004, 4.71375, 0.844788)
 [sub_resource type="BoxShape3D" id="BoxShape3D_mnpes"]
 size = Vector3(37.3975, 6.05302, 63.709)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m7uql"]
-size = Vector3(15.4079, 4.75452, 10)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_gln1x"]
-size = Vector3(5.51855, 5.23425, 5.0697)
+size = Vector3(6.99014, 4.57568, 6.6394)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hr37t"]
-size = Vector3(4.00031, 5.05835, 4.00439)
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0oec"]
+size = Vector3(15.7843, 4.57568, 3.75378)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6t3k8"]
+size = Vector3(8.68539, 4.57568, 6.09064)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e1div"]
+size = Vector3(3.65088, 5.41425, 4.25391)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2yunp"]
+size = Vector3(35.7422, 4.57568, 39.8633)
 
 [node name="Level03Vert" type="Node3D"]
 
@@ -42165,37 +42171,30 @@ mesh_vector_data = SubResource("Resource_c13qk")
 [node name="EnemyMelee4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(0.893089, 0, -0.44988, 0, 1, 0, 0.44988, 0, 0.893089, -14.2304, 0.0157796, -11.1727)
 target = NodePath("../Player")
-detection_range = 50.0
 
 [node name="EnemyMelee5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(-0.780136, 0, 0.625611, 0, 1, 0, -0.625611, 0, -0.780136, -16.8229, 0.0157796, -8.49848)
 target = NodePath("../Player")
-detection_range = 50.0
 
 [node name="EnemyMelee7" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(0.103765, 0, -0.994602, 0, 1, 0, 0.994602, 0, 0.103765, -1.41116, 0.0157796, -9.49727)
 target = NodePath("../Player")
-detection_range = 50.0
 
 [node name="EnemyMelee8" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(-0.933825, 0, 0.357733, 0, 1, 0, -0.357733, 0, -0.933825, -11.2364, 0.0157796, 1.31468)
 target = NodePath("../Player")
-detection_range = 50.0
 
 [node name="EnemyMelee9" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(-0.405923, 0, -0.913907, 0, 1, 0, 0.913907, 0, -0.405923, 11.142, 0.0157796, -11.8474)
 target = NodePath("../Player")
-detection_range = 50.0
 
 [node name="EnemyMelee10" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(0.949322, 0, 0.314307, 0, 1, 0, -0.314307, 0, 0.949322, 7.46052, 0.0157796, -14.3068)
 target = NodePath("../Player")
-detection_range = 50.0
 
 [node name="EnemyMelee6" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_spe2c")]
 transform = Transform3D(-0.250279, 0, -0.968174, 0, 1, 0, 0.968174, 0, -0.250279, 36.9882, 20.0054, 5.32602)
 target = NodePath("../Player")
-detection_range = 50.0
 
 [node name="Button" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("9_834kp")]
 transform = Transform3D(-0.597041, 0, 1.0164e-07, 0, 0.597041, 0, -9.01506e-08, 0, -0.673132, -2.44811, 11.8126, 19.7403)
@@ -42375,50 +42374,70 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.9831, -2.55891, 10.9171)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.00863, -2.55891, 15.9045)
 
 [node name="AssistantTextArea" type="Area3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.47657, 13.7148, 15.7824)
 collision_layer = 0
 collision_mask = 512
 script = ExtResource("21_6jwj4")
 player = NodePath("../Player")
-message = "% SISTEMA AVANÇADO %
-Desacople seu braço
-em direção ao botão vermelho
-para abrir portas"
+message = "%SISTEMA AVANÇADO%
+Atire em direção ao chão logo após pular para ganhar impulso vertical"
+hide_mode = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.70395, 0.323059, 0)
-shape = SubResource("BoxShape3D_m7uql")
-
-[node name="AssistantTextArea2" type="Area3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.82761, 9.71041, -14.6779)
-collision_layer = 0
-collision_mask = 512
-script = ExtResource("21_6jwj4")
-player = NodePath("../Player")
-message = "% SISTEMA AVANÇADO %
-Dispare em direção ao chão após pular
-para ganhar impulso vertical"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.591309, -2.38287, -0.718689)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1266, 6.74233, -15.3808)
 shape = SubResource("BoxShape3D_gln1x")
 
-[node name="AssistantTextArea3" type="Area3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4586, 35.086, -3.15875)
+[node name="AssistantTextArea2" type="Area3D" parent="." node_paths=PackedStringArray("player", "hide_area")]
 collision_layer = 0
 collision_mask = 512
 script = ExtResource("21_6jwj4")
 player = NodePath("../Player")
-message = "% SISTEMA AVANÇADO %
-Desacople seu braço
-em direção a um inimigo
-para avançar em direção à ele"
+message = "%SISTEMA AVANÇADO%
+Atire em direção ao chão logo após pular para ganhar impulso vertical"
+hide_mode = 1
+hide_area = NodePath("AssistantTextArea3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.72953, 12.3753, 17.8026)
+shape = SubResource("BoxShape3D_a0oec")
+
+[node name="AssistantTextArea3" type="Area3D" parent="AssistantTextArea2" node_paths=PackedStringArray("player")]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea2/AssistantTextArea3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.65609, 12.3753, 25.9055)
+shape = SubResource("BoxShape3D_6t3k8")
+
+[node name="AssistantTextArea3" type="Area3D" parent="." node_paths=PackedStringArray("player", "hide_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.243, 34.2164, -3.94759)
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../Player")
+message = "%SISTEMA AVANÇADO%
+Desacople seu braço em direção a um inimigo para avançar em sua direção"
+hide_mode = 1
+hide_area = NodePath("AssistantTextArea3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.65231, 0, -0.169189)
-shape = SubResource("BoxShape3D_hr37t")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83187, 1.01419, 0.674355)
+shape = SubResource("BoxShape3D_e1div")
+
+[node name="AssistantTextArea3" type="Area3D" parent="AssistantTextArea3" node_paths=PackedStringArray("player")]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("21_6jwj4")
+player = NodePath("../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AssistantTextArea3/AssistantTextArea3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9875, 0, 3.4877)
+shape = SubResource("BoxShape3D_2yunp")
 
 [connection signal="body_entered" from="SpawnerDoor/SpawnTriggerArea" to="SpawnerDoor" method="_on_spawn_trigger_area_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea" to="AssistantTextArea" method="_on_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea2" to="AssistantTextArea2" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea2/AssistantTextArea3" to="AssistantTextArea2/AssistantTextArea3" method="_on_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea3" to="AssistantTextArea3" method="_on_body_entered"]
+[connection signal="body_entered" from="AssistantTextArea3/AssistantTextArea3" to="AssistantTextArea3/AssistantTextArea3" method="_on_body_entered"]
