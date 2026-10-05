@@ -1,4 +1,4 @@
-[gd_scene load_steps=701 format=3 uid="uid://deqxtj76jd2jf"]
+[gd_scene load_steps=702 format=3 uid="uid://deqxtj76jd2jf"]
 
 [ext_resource type="Texture2D" uid="uid://dy1yxhvp6170b" path="res://textures/Captura de tela 2026-08-30 123016.png" id="1_51tbl"]
 [ext_resource type="Script" path="res://addons/cyclops_level_builder/nodes/cyclops_block.gd" id="3_3f0kp"]
@@ -17,6 +17,12 @@ volumetric_fog_albedo = Color(0.717647, 0.756863, 1, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_io6jf"]
 size = Vector3(128.07, 1, 117.362)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_85ytr"]
+vertices = PackedVector3Array(12.75, 23.52, -51, 14.75, 23.52, -51, 14.75, 23.52, -54.5, 8.5, 23.52, -48, 12, 23.52, -48, 12, 23.52, -50.25, 12, 23.52, -50.25, 12.75, 23.52, -51, 14.75, 23.52, -54.5, 8.5, 23.52, -54.5, 8.5, 23.52, -48, 14.75, 23.52, -51, 32.25, 23.52, -51, 32.25, 23.52, -54.5, 14.75, 23.52, -54.5, 32.25, 23.52, -54.5, 32.25, 23.52, -51, 34.25, 23.52, -51, 36.75, 23.5, -54.5, 32.25, 23.52, -54.5, 34.25, 23.52, -51, 43.5, 23.02, -41.5, 47.5, 23.02, -42.25, 46.25, 23.04, -45.75, 40.9722, 23.3, -50.6111, 35.625, 23.52, -54.5, 36.3056, 23.42, -48.8889, 42.4722, 23.06, -42.5556, 44.9902, 23.02, -43.5162, 43.5052, 23.04, -43.4772, 41.9802, 23.18, -46.4822, 42.0002, 23.13, -45.0102, 29.5, 0.02, 33.75, 29.5, 0.02, 33.25, 28, 0.02, 32, 26.75, 0.02, 36.5, 35.5, 0.02, 24.5, 36.75, 0.02, 26, 37.25, 0.02, 26, 41, 0.02, 22.25, 37.75, 0.02, -34, 37.25, 0.02, -34, 36, 0.02, -32.5, 41, 0.02, -30.75, 28.5, 0.02, -40, 30, 0.02, -41.25, 30, 0.02, -41.75, 27, 0.02, -44.75, 40.5, 0.02, -16.5, 40.5, 0.02, -18.25, 35, 0.02, -32.5, 28.5, 0.02, -39, 28, 0.02, 31, 40.5, 0.02, -16.5, 28.5, 0.02, -39, -33.75, 0.02, -44.75, -47.25, 0.02, 22.5, -8.5, 0.02, 36.5, -8.5, 0.02, 36.5, 5.75, 0.02, 36.5, 28, 0.02, 31, 26.75, 0.02, 36.5, 28, 0.02, 32, 28, 0.02, 31, 5.75, 0.02, 36.5, 34.5, 0.02, 24.5, 40.5, 0.02, 12, 40.5, 0.02, 10.25, 28.5, 0.02, -39, 28.5, 0.02, -40, 27, 0.02, -44.75, -33.75, 0.02, -44.75, 41, 0.02, -30.75, 36, 0.02, -32.5, 35, 0.02, -32.5, 40.5, 0.02, -18.25, 41, 0.02, -18.5, 34.5, 0.02, 24.5, 35.5, 0.02, 24.5, 41, 0.02, 22.25, 41, 0.02, 12.25, 40.5, 0.02, 12, 40.5, 0.02, 10.25, 41, 0.02, 10, 41, 0.02, -16.25, 28, 0.02, 31, 34.5, 0.02, 24.5, 40.5, 0.02, 10.25, 41, 0.02, -16.25, 40.5, 0.02, -16.5, -7.75, 0.02, 39, 5, 0.02, 39, 5, 0.02, 37.25, -7.75, 0.02, 37.25, -47.25, 0.02, 22.5, -33.5, 0.02, 36.5, -8.5, 0.02, 36.5, -8.5, 0.02, 36.5, -7.75, 0.02, 37.25, 5, 0.02, 37.25, 5.75, 0.02, 36.5, -33.75, 0.02, -44.75, -47.25, 0.02, -31, -47.25, 0.02, 22.5, -31, 13.52, -44.75, -28, 13.52, -35.5, 13.5, 13.52, -35.5, 17.5, 13.52, -44.5, -45.25, 17.02, -37.75, -44.75, 17.02, -37.75, -42.75, 17.02, -40, -45.5, 17.02, -43, -48, 17.02, -40.75, 47.5, 23.02, -42.25, 43.5, 23.02, -41.5, 48, 23.02, -31.25, 52, 23.02, -31.5, 48, 23.02, -31.25, 48, 26.51, -12.5, 52, 26.51, -12.5, 52, 23.02, -31.5, 48, 23.25, -29.8077, 48, 24.09, -25.4808, 48, 24.32, -24.0385, 48, 25.16, -19.7115, 48, 25.39, -18.2692, 52, 24.83, -21.2692, 52, 24.6, -22.7308, 52, 23.2, -30.0385, 49.5152, 25.21, -19.5212, 51.01, 23.25, -30.014, 51.0002, 25.21, -19.5102, 49.4852, 25.49, -17.9992, 49.4751, 24.65, -22.5151, 49.475, 23.25, -30.025, 50.9802, 24.93, -20.9822, 49.5052, 25.76, -16.4772, 31.5, 18.64, -40.25, 30.75, 18.01, -39.75, 30.75, 17.76, -39.25, 35.25, 17.76, -34.75, 36.25, 18.51, -35.25, 32.45, 18.39, -39.25, 31, 0.02, -39.25, 35.25, 0.02, -35, 36, 0.02, -35.25, 36, 0.02, -35.75, 31.75, 0.02, -40, 31, 0.02, -39.75, -40.5, 17.02, -37.75, -42.75, 17.02, -35.5, -41.25, 17.02, -33.75, -40.75, 17.02, -33.75, -38.75, 17.02, -35.75, -38.75, 17.02, -36.25, 35, 21.52, 3.25, 41, 21.52, 6.75, 41, 21.52, -29.5, 35, 21.52, -26.5, -47.25, 7.52, 17.5, -38, 7.52, 14, -38, 7.52, -24, -47.25, 7.52, -28, -54.5, 21.02, -18.5, -54.5, 21.02, -14, -50.5, 21.02, -14, -50.5, 21.02, -18.5, 48, 39.02, -10.5, 48, 39.02, -7, 52, 39.02, -7, 52, 39.02, -10.5, 48, 28.52, 13.25, 52, 28.52, 13.25, 52, 27.96, -4.75, 48, 27.96, -4.75, 48, 28.19, -3.36538, 48, 28.47, -1.98077, 48, 28.52, -0.596153, 52, 28.52, -0.596153, 52, 28.47, -1.98077, 52, 28.19, -3.36538, 49.495, 28.52, -1.50303, 49.475, 28.28, -3.025, 50.98, 28.52, -1.49204, 51.01, 28.28, -3.01401, 47.25, 28.52, 16, 44.25, 28.52, 16, 44.25, 28.52, 19, 52, 28.52, 19, 52, 28.52, 13.25, 48, 28.52, 13.25, 48, 28.52, 15.25, 52, 28.52, 19, 52, 28.52, 13.25, 48, 28.52, 15.25, 47.25, 28.52, 16, 37, 28.52, 16, 37, 28.52, 19, 41, 28.52, 19, 41, 28.52, 16, 37, 23.52, 16.75, 37, 23.52, 18.5, 52, 23.52, 18.5, 52, 23.52, 16.75, 30.5, 32.85, 30.5, 31.75, 34.1, 31.5, 35, 34.1, 28.25, 34, 32.85, 27, 33.125, 32.71, 27.875, 32.25, 32.85, 28.75, 31.375, 32.71, 29.625, 31.125, 33.4, 31, 32.5625, 33.96, 30.6875, 34.1875, 33.96, 29.0625, 34.5, 33.4, 27.625, 34.75, 0.02, 27, 30.5, 0.02, 31.25, 30.5, 0.02, 31.75, 31.25, 0.02, 32, 35.5, 0.02, 27.75, 35.25, 0.02, 27, -16, 30.02, 27.5, -16, 30.02, 36.5, 19, 30.02, 36.5, 19, 30.02, 27.5, 5, 0.02, 39, -7.75, 0.02, 39, -7.75, 0.02, 60.5, 5, 0.02, 60.5, -9, 14.02, 39.75, -9, 14.02, 60.5, 6, 14.02, 60.5, 6, 14.02, 39.75)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(9, 6, 10), PackedInt32Array(14, 13, 11), PackedInt32Array(11, 13, 12), PackedInt32Array(17, 16, 15), PackedInt32Array(22, 28, 23), PackedInt32Array(23, 30, 24), PackedInt32Array(24, 26, 18), PackedInt32Array(18, 20, 25), PackedInt32Array(25, 20, 19), PackedInt32Array(20, 18, 26), PackedInt32Array(26, 31, 27), PackedInt32Array(27, 29, 21), PackedInt32Array(21, 28, 22), PackedInt32Array(28, 29, 23), PackedInt32Array(30, 26, 24), PackedInt32Array(23, 31, 30), PackedInt32Array(31, 29, 27), PackedInt32Array(26, 30, 31), PackedInt32Array(29, 28, 21), PackedInt32Array(29, 31, 23), PackedInt32Array(33, 32, 34), PackedInt32Array(34, 32, 35), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 39), PackedInt32Array(41, 40, 42), PackedInt32Array(42, 40, 43), PackedInt32Array(45, 44, 46), PackedInt32Array(46, 44, 47), PackedInt32Array(49, 48, 50), PackedInt32Array(50, 48, 51), PackedInt32Array(53, 52, 54), PackedInt32Array(54, 52, 57), PackedInt32Array(54, 57, 56), PackedInt32Array(54, 56, 55), PackedInt32Array(60, 59, 58), PackedInt32Array(62, 61, 63), PackedInt32Array(63, 61, 64), PackedInt32Array(65, 67, 66), PackedInt32Array(69, 68, 70), PackedInt32Array(70, 68, 71), PackedInt32Array(73, 72, 74), PackedInt32Array(74, 72, 76), PackedInt32Array(74, 76, 75), PackedInt32Array(78, 77, 79), PackedInt32Array(79, 77, 80), PackedInt32Array(80, 77, 81), PackedInt32Array(84, 83, 82), PackedInt32Array(86, 85, 87), PackedInt32Array(87, 85, 88), PackedInt32Array(88, 85, 89), PackedInt32Array(93, 92, 90), PackedInt32Array(90, 92, 91), PackedInt32Array(94, 96, 95), PackedInt32Array(98, 97, 99), PackedInt32Array(99, 97, 100), PackedInt32Array(103, 102, 101), PackedInt32Array(105, 104, 106), PackedInt32Array(106, 104, 107), PackedInt32Array(109, 108, 110), PackedInt32Array(110, 108, 111), PackedInt32Array(111, 108, 112), PackedInt32Array(114, 113, 115), PackedInt32Array(115, 113, 116), PackedInt32Array(128, 130, 120), PackedInt32Array(120, 134, 117), PackedInt32Array(117, 134, 121), PackedInt32Array(121, 134, 122), PackedInt32Array(122, 133, 123), PackedInt32Array(123, 133, 124), PackedInt32Array(124, 129, 125), PackedInt32Array(125, 136, 118), PackedInt32Array(118, 136, 119), PackedInt32Array(119, 131, 126), PackedInt32Array(126, 135, 127), PackedInt32Array(127, 130, 128), PackedInt32Array(130, 134, 120), PackedInt32Array(134, 130, 122), PackedInt32Array(122, 127, 133), PackedInt32Array(133, 129, 124), PackedInt32Array(129, 132, 125), PackedInt32Array(125, 132, 136), PackedInt32Array(136, 131, 119), PackedInt32Array(131, 135, 126), PackedInt32Array(135, 133, 127), PackedInt32Array(127, 122, 130), PackedInt32Array(133, 135, 129), PackedInt32Array(129, 131, 132), PackedInt32Array(132, 131, 136), PackedInt32Array(131, 129, 135), PackedInt32Array(138, 137, 139), PackedInt32Array(139, 137, 142), PackedInt32Array(139, 142, 140), PackedInt32Array(140, 142, 141), PackedInt32Array(148, 147, 143), PackedInt32Array(143, 147, 146), PackedInt32Array(143, 146, 145), PackedInt32Array(143, 145, 144), PackedInt32Array(154, 153, 149), PackedInt32Array(149, 153, 152), PackedInt32Array(149, 152, 151), PackedInt32Array(149, 151, 150), PackedInt32Array(158, 157, 155), PackedInt32Array(155, 157, 156), PackedInt32Array(160, 159, 161), PackedInt32Array(161, 159, 162), PackedInt32Array(166, 165, 163), PackedInt32Array(163, 165, 164), PackedInt32Array(170, 169, 167), PackedInt32Array(167, 169, 168), PackedInt32Array(173, 182, 174), PackedInt32Array(174, 182, 175), PackedInt32Array(175, 182, 176), PackedInt32Array(176, 181, 177), PackedInt32Array(177, 178, 171), PackedInt32Array(171, 178, 172), PackedInt32Array(178, 183, 179), PackedInt32Array(179, 184, 180), PackedInt32Array(180, 184, 173), PackedInt32Array(173, 184, 182), PackedInt32Array(182, 181, 176), PackedInt32Array(181, 178, 177), PackedInt32Array(183, 184, 179), PackedInt32Array(178, 181, 183), PackedInt32Array(184, 181, 182), PackedInt32Array(183, 181, 184), PackedInt32Array(186, 185, 187), PackedInt32Array(187, 185, 188), PackedInt32Array(191, 190, 189), PackedInt32Array(194, 193, 195), PackedInt32Array(195, 193, 192), PackedInt32Array(199, 198, 196), PackedInt32Array(196, 198, 197), PackedInt32Array(203, 202, 200), PackedInt32Array(200, 202, 201), PackedInt32Array(205, 211, 212), PackedInt32Array(212, 211, 204), PackedInt32Array(212, 204, 210), PackedInt32Array(212, 210, 209), PackedInt32Array(212, 209, 208), PackedInt32Array(212, 208, 213), PackedInt32Array(213, 208, 206), PackedInt32Array(206, 208, 214), PackedInt32Array(214, 208, 207), PackedInt32Array(220, 219, 215), PackedInt32Array(215, 219, 218), PackedInt32Array(215, 218, 216), PackedInt32Array(216, 218, 217), PackedInt32Array(224, 223, 221), PackedInt32Array(221, 223, 222), PackedInt32Array(228, 227, 225), PackedInt32Array(225, 227, 226), PackedInt32Array(232, 231, 229), PackedInt32Array(229, 231, 230)]
+cell_height = 0.01
+agent_radius = 1.0
 
 [sub_resource type="Resource" id="Resource_tdts1"]
 script = ExtResource("4_tj6ss")
@@ -6970,7 +6976,6 @@ environment = SubResource("Environment_wviyp")
 transform = Transform3D(0.0965266, -0.993567, 0.0592231, 0.0649446, 0.0656613, 0.995726, -0.993209, -0.0922679, 0.0708648, -3.53213, 26.7314, -5.32704)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1.0501, 0, 0, 0, 1, 0, 0, 0, 1.01427, 0, 0, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="StaticBody3D"]
 transform = Transform3D(22.1597, 0, 0, 0, -9.40108e-07, 1.55378, 0, -21.5072, -6.79178e-08, 0, -1, 0)
@@ -6978,326 +6983,6 @@ texture = ExtResource("1_51tbl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_io6jf")
-
-[node name="Node3D" type="Node3D" parent="."]
-
-[node name="Block_3" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, -1, 37.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_4jecu")
-collision_layer = 17
-
-[node name="Block_0" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_tv3qg")
-collision_layer = 17
-
-[node name="Block_1" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, -1, -47)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_8xgq3")
-collision_layer = 17
-
-[node name="Block_2" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_qhyk1")
-collision_layer = 17
-
-[node name="Block_4" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -1, 37.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_rra5p")
-collision_layer = 17
-
-[node name="Block_5" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_ekhkm")
-collision_layer = 17
-
-[node name="Block_6" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, -1, 38.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_4qsed")
-collision_layer = 17
-
-[node name="Block_7" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 0, 38.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_o7ssf")
-collision_layer = 17
-
-[node name="Block_8" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, 0, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_0pwge")
-collision_layer = 17
-
-[node name="Block_9" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -1, 37.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_3eeyw")
-collision_layer = 17
-
-[node name="Block_10" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -1, 37.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_dj7oj")
-collision_layer = 17
-
-[node name="Block_11" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -1, 37.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_qr1mt")
-collision_layer = 17
-
-[node name="Block_12" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 20.5, -27)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_upwqm")
-collision_layer = 17
-
-[node name="Block_13" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5, 12.5, -46)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_lein7")
-collision_layer = 17
-
-[node name="Block_14" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, 6.5, -29.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_ge8yf")
-collision_layer = 17
-
-[node name="Block_15" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, 38.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_ity6h")
-collision_layer = 17
-
-[node name="Block_16" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1, 38.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_6j6ro")
-collision_layer = 17
-
-[node name="Block_17" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 13, 38.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_hdyk3")
-collision_layer = 17
-
-[node name="Block_18" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 29, 26.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_323tw")
-collision_layer = 17
-
-[node name="Block_19" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 33.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_bae64")
-collision_layer = 17
-
-[node name="Block_20" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5, 0, -33.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_dfgce")
-collision_layer = 17
-
-[node name="Block_21" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 23.5, 34)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_1aywu")
-collision_layer = 17
-
-[node name="Block_22" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_gtfxk")
-collision_layer = 17
-
-[node name="Block_23" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 23, -1.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_rn66g")
-collision_layer = 17
-
-[node name="Block_24" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 23, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_nnj8o")
-collision_layer = 17
-
-[node name="Block_25" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 27.5, -11.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_2pma4")
-collision_layer = 17
-
-[node name="Block_26" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 17.5, -41.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_iglwc")
-collision_layer = 17
-
-[node name="Block_27" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 18.5, -55.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_olqrx")
-collision_layer = 17
-
-[node name="Block_28" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 18.5, -55.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_tyruy")
-collision_layer = 17
-
-[node name="Block_29" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 18.5, -55.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_c5x6f")
-collision_layer = 17
-
-[node name="Block_30" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_h788t")
-collision_layer = 17
-
-[node name="Block_31" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_uaarn")
-collision_layer = 17
-
-[node name="Block_33" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_puh0n")
-collision_layer = 17
-
-[node name="Block_32" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_pv2g2")
-collision_layer = 17
-
-[node name="Block_34" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_loh68")
-collision_layer = 17
-
-[node name="Block_35" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_m1gy1")
-collision_layer = 17
-
-[node name="Block_36" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 15, -19.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_ytbvx")
-collision_layer = 17
-
-[node name="Block_37" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 15.5, -37.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_1cduu")
-collision_layer = 17
-
-[node name="Block_38" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_h1v4d")
-collision_layer = 17
-
-[node name="Block_39" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_1o18l")
-collision_layer = 17
-
-[node name="Block_40" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_tn2b6")
-collision_layer = 17
-
-[node name="Block_41" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_jeppg")
-collision_layer = 17
-
-[node name="Block_42" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_1lkx6")
-collision_layer = 17
-
-[node name="Block_43" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_f51gl")
-collision_layer = 17
-
-[node name="Block_44" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_wau3l")
-collision_layer = 17
-
-[node name="Block_45" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_w0fr3")
-collision_layer = 17
-
-[node name="Block_46" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_4ivoh")
-collision_layer = 17
-
-[node name="Block_47" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_6kv33")
-collision_layer = 17
-
-[node name="Block_48" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_tyuby")
-collision_layer = 17
-
-[node name="Block_49" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_ru3gj")
-collision_layer = 17
-
-[node name="Block_50" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0, -18)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_lis6o")
-collision_layer = 17
-
-[node name="Block_51" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 14, -17)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_88bcu")
-collision_layer = 17
-
-[node name="Block_52" type="Node3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0, 10.5)
-script = ExtResource("3_3f0kp")
-mesh_vector_data = SubResource("Resource_j2dce")
-collision_layer = 17
 
 [node name="EnemyMelee" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_ko41r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5595, 0.5, -28.8488)
@@ -7365,3 +7050,326 @@ target = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("9_mscfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.60996, 0.5, 43.2626)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_85ytr")
+
+[node name="Node3D" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="Block_3" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, -1, 37.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_4jecu")
+collision_layer = 17
+
+[node name="Block_0" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_tv3qg")
+collision_layer = 17
+
+[node name="Block_1" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, -1, -47)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_8xgq3")
+collision_layer = 17
+
+[node name="Block_2" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49.5, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_qhyk1")
+collision_layer = 17
+
+[node name="Block_4" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -1, 37.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_rra5p")
+collision_layer = 17
+
+[node name="Block_5" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_ekhkm")
+collision_layer = 17
+
+[node name="Block_6" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5, -1, 38.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_4qsed")
+collision_layer = 17
+
+[node name="Block_7" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.5, 0, 38.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_o7ssf")
+collision_layer = 17
+
+[node name="Block_8" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, 0, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_0pwge")
+collision_layer = 17
+
+[node name="Block_9" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -1, 37.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_3eeyw")
+collision_layer = 17
+
+[node name="Block_10" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, -1, 37.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_dj7oj")
+collision_layer = 17
+
+[node name="Block_11" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, -1, 37.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_qr1mt")
+collision_layer = 17
+
+[node name="Block_12" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 20.5, -27)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_upwqm")
+collision_layer = 17
+
+[node name="Block_13" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.5, 12.5, -46)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_lein7")
+collision_layer = 17
+
+[node name="Block_14" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.5, 6.5, -29.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_ge8yf")
+collision_layer = 17
+
+[node name="Block_15" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -1, 38.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_ity6h")
+collision_layer = 17
+
+[node name="Block_16" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, -1, 38.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_6j6ro")
+collision_layer = 17
+
+[node name="Block_17" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 13, 38.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_hdyk3")
+collision_layer = 17
+
+[node name="Block_18" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 29, 26.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_323tw")
+collision_layer = 17
+
+[node name="Block_19" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 0, 33.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_bae64")
+collision_layer = 17
+
+[node name="Block_20" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.5, 0, -33.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_dfgce")
+collision_layer = 17
+
+[node name="Block_21" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5, 23.5, 34)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_1aywu")
+collision_layer = 17
+
+[node name="Block_22" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_gtfxk")
+collision_layer = 17
+
+[node name="Block_23" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 23, -1.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_rn66g")
+collision_layer = 17
+
+[node name="Block_24" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 23, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_nnj8o")
+collision_layer = 17
+
+[node name="Block_25" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 27.5, -11.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_2pma4")
+collision_layer = 17
+
+[node name="Block_26" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47, 17.5, -41.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_iglwc")
+collision_layer = 17
+
+[node name="Block_27" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 18.5, -55.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_olqrx")
+collision_layer = 17
+
+[node name="Block_28" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 18.5, -55.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_tyruy")
+collision_layer = 17
+
+[node name="Block_29" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 18.5, -55.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_c5x6f")
+collision_layer = 17
+
+[node name="Block_30" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_h788t")
+collision_layer = 17
+
+[node name="Block_31" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_uaarn")
+collision_layer = 17
+
+[node name="Block_33" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36, 23, 15)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_puh0n")
+collision_layer = 17
+
+[node name="Block_32" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_pv2g2")
+collision_layer = 17
+
+[node name="Block_34" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_loh68")
+collision_layer = 17
+
+[node name="Block_35" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_m1gy1")
+collision_layer = 17
+
+[node name="Block_36" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 15, -19.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_ytbvx")
+collision_layer = 17
+
+[node name="Block_37" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 15.5, -37.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_1cduu")
+collision_layer = 17
+
+[node name="Block_38" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_h1v4d")
+collision_layer = 17
+
+[node name="Block_39" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_1o18l")
+collision_layer = 17
+
+[node name="Block_40" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_tn2b6")
+collision_layer = 17
+
+[node name="Block_41" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_jeppg")
+collision_layer = 17
+
+[node name="Block_42" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_1lkx6")
+collision_layer = 17
+
+[node name="Block_43" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_f51gl")
+collision_layer = 17
+
+[node name="Block_44" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_wau3l")
+collision_layer = 17
+
+[node name="Block_45" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_w0fr3")
+collision_layer = 17
+
+[node name="Block_46" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_4ivoh")
+collision_layer = 17
+
+[node name="Block_47" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_6kv33")
+collision_layer = 17
+
+[node name="Block_48" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_tyuby")
+collision_layer = 17
+
+[node name="Block_49" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43, -1, -31)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_ru3gj")
+collision_layer = 17
+
+[node name="Block_50" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0, -18)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_lis6o")
+collision_layer = 17
+
+[node name="Block_51" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 14, -17)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_88bcu")
+collision_layer = 17
+
+[node name="Block_52" type="Node3D" parent="NavigationRegion3D/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5, 0, 10.5)
+script = ExtResource("3_3f0kp")
+mesh_vector_data = SubResource("Resource_j2dce")
+collision_layer = 17
