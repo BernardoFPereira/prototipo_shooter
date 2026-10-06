@@ -2,7 +2,7 @@ class_name EnemyRanged
 extends EnemyBase
 
 @onready var muzzle_point: Marker3D = $Armature/Skeleton3D/BoneAttachment3D/MuzzlePoint
-@onready var muzze_flash: PackedScene = preload("res://vfx/muzzle_flash.tscn")
+@onready var muzze_flash: PackedScene = preload("res://particles/EnemyMuzzleFlash.tscn")
 @onready var shot_sfx: AudioStreamPlayer3D = $SFX/Shot
 
 var enemy_projectile_scene = preload("uid://bkecmbnogq48m")

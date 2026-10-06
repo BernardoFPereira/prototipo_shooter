@@ -145,7 +145,9 @@ signal shield_broken
 @onready var hud_animations = $HUDAnimations
 @onready var detection_ch = $SubViewport/DetectionCH
 var detected := false
- 
+
+var gibs: PackedScene = preload("res://prefabs/enemy_gibs.tscn")
+
 var current_state: EnemyState = EnemyState.IDLE
 enum EnemyState {
 	IDLE,
@@ -425,15 +427,22 @@ func _on_sword_entered(body: Node) -> void:
 			sword.SwordState.THROWN:
 				sword.speed = 0
 				sword.set_state(sword.SwordState.PULLED_BACK)
-
+				
 				if _shield_absorbs(AttackType.SWORD):
 					sword.impact_sfx.play()
 					return
-
+					
 				var tween = get_tree().create_tween()
-				tween.tween_property(sword.sword_owner, "global_position", sword.global_position, 0.16)
-				receive_sword_impact(current_health, sword.global_position, 250)
-
+				var y_offset = Vector3(0, 0.5, 0)
+				var stopping_distance = 3.0
+				var direction = (global_position - sword.sword_owner.global_position).normalized()
+				var target_position = global_position - direction * stopping_distance
+				
+				tween.tween_property(sword.sword_owner, "global_position", target_position + y_offset, 0.16)
+				if global_position.distance_to(sword.sword_owner.global_position) > stopping_distance:
+					await tween.finished
+				receive_sword_impact(current_health, target.global_position, 250)
+				
 			sword.SwordState.PULLED_BACK:
 				if shield_up and _shield_reacts_to(AttackType.SWORD):
 					return
@@ -631,11 +640,23 @@ func set_current_state(new_state: EnemyState) -> void:
 func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int) -> void:
 	if current_state == EnemyState.DEAD:
 		return
+	
+	target.camera_juice.add_screen_shake(.6, 0.3)
+	target.arm_kill.play()
+	
 	set_current_state(EnemyState.HIT)
 	spawn_blood(hit_position)
-	take_damage(damage)
-	linear_velocity.y += 5
-	linear_velocity.y = clamp(linear_velocity.y, -6, 6)
+	
+	var gibs_inst = gibs.instantiate()
+	var offset = Vector3(0, -2, 0)
+	gibs_inst.global_position = global_position - offset
+	gibs_inst.rotation = rotation
+	get_tree().root.add_child(gibs_inst)
+	
+	queue_free()
+	#take_damage(damage)
+	#linear_velocity.y += 5
+	#linear_velocity.y = clamp(linear_velocity.y, -6, 6)
  
 
 func receive_rocket_impact(hit_position: Vector3, damage: int, shot_direction: Vector3 = Vector3.ZERO) -> void:
@@ -644,7 +665,7 @@ func receive_rocket_impact(hit_position: Vector3, damage: int, shot_direction: V
 	if _shield_absorbs(AttackType.SHOOT):
 		return
 	set_current_state(EnemyState.HIT)
-	spawn_blood(hit_position)
+	spawn_blood(global_position + Vector3(0, 1, 0))
 	take_damage(damage)
 	apply_knockback(hit_position, shot_direction)
 
