@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=111 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="2_6hu70"]
@@ -51,6 +51,13 @@
 [ext_resource type="AudioStream" uid="uid://cowcfscnu61ul" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 11-walk_metal.wav" id="46_g3t8v"]
 [ext_resource type="AudioStream" uid="uid://scdrwgxxkfq0" path="res://assets/sounds/sfx/player/firing_arm-1.wav" id="49_t5wby"]
 [ext_resource type="AudioStream" uid="uid://dyktqgqav5wfm" path="res://assets/sounds/sfx/player/arm_back.ogg" id="50_0tyie"]
+[ext_resource type="Script" path="res://scripts/TempDeathScreen.gd" id="54_v7qwy"]
+[ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="55_25lxg"]
+[ext_resource type="Texture2D" uid="uid://d11ku73422civ" path="res://UI/GameOver/_old/v2_btn_sim_vermelho.png" id="56_1fgh8"]
+[ext_resource type="Texture2D" uid="uid://cqajtmav5x7g2" path="res://UI/GameOver/_old/v2_btn_sim_vermelho_selected.png" id="57_gsxvn"]
+[ext_resource type="Texture2D" uid="uid://i0bmeqyekqyl" path="res://UI/GameOver/_old/v2_btn_não_vermelho.png" id="58_ufoj6"]
+[ext_resource type="Texture2D" uid="uid://chk7nggky8tp4" path="res://UI/GameOver/_old/v2_btn_não_vermelho_selected.png" id="59_dnj22"]
+[ext_resource type="FontFile" uid="uid://bd7hb4xsg7u2n" path="res://UI/Fonts/PixeloidMono.otf" id="60_fv4ib"]
 [ext_resource type="Texture2D" uid="uid://dun31hnablal8" path="res://UI/Radar/radar_mask.png" id="67_bcwdr"]
 [ext_resource type="Script" path="res://entities/player/RadarCam.gd" id="68_ddupl"]
 [ext_resource type="Texture2D" uid="uid://dxo7v14kun22o" path="res://UI/ConfigMenu/v2_radar_blip.png" id="69_pvhsd"]
@@ -762,7 +769,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_we5c5"]
 size = Vector3(1.36, 1, 1.84)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_210py"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nbb66"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -772,7 +779,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("31_1l4ih")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xegcs"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_whh67"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -782,7 +789,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("32_nbj6u")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p052t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qv0hn"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -792,7 +799,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("34_brvs5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6phpk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1u5n"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -817,7 +824,7 @@ shader_parameter/displacement_strength = 0.15
 shader_parameter/displacement_frequency = 10.0
 shader_parameter/displacement_wave_speed = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sdx8r"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0c1k"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -827,7 +834,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qtgl4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sk63g"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -837,7 +844,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("27_frtra")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fle1a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f38fm"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -847,7 +854,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("28_y4ty8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uo8uc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oba15"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -983,7 +990,7 @@ shader_parameter/blur_size = 1.2
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u0w4v"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mu1tp"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -992,6 +999,32 @@ shader_parameter/intensity = 2.0
 shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.6
 shader_parameter/glow_source = ExtResource("26_bypws")
+
+[sub_resource type="Gradient" id="Gradient_36myi"]
+colors = PackedColorArray(0.254902, 0.0745098, 0.129412, 0.313726, 0.627451, 0.0156863, 0.0784314, 0.235294)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p6evs"]
+seed = -70
+frequency = 0.0026
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t58pf"]
+generate_mipmaps = false
+normalize = false
+color_ramp = SubResource("Gradient_36myi")
+noise = SubResource("FastNoiseLite_p6evs")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rlpkk"]
+diffuse_texture = SubResource("NoiseTexture2D_t58pf")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0m1yr"]
+font = ExtResource("60_fv4ib")
+font_size = 91
+font_color = Color(1, 0, 0.0352941, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dlmca"]
+font = ExtResource("60_fv4ib")
+font_size = 86
+font_color = Color(0.878431, 0, 0, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8esgh"]
 
@@ -1363,7 +1396,7 @@ color = Color(0.160784, 0.2, 0.211765, 0.960784)
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_210py")
+material = SubResource("ShaderMaterial_nbb66")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1379,7 +1412,7 @@ line_opacity = 0.3
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_xegcs")
+material = SubResource("ShaderMaterial_whh67")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1393,7 +1426,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_p052t")
+material = SubResource("ShaderMaterial_qv0hn")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1424,7 +1457,7 @@ texture = ExtResource("3_5hn21")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_6phpk")
+material = SubResource("ShaderMaterial_p1u5n")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1460,13 +1493,13 @@ texture = ExtResource("24_4dgpa")
 [node name="AssistantFrame" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_sdx8r")
+material = SubResource("ShaderMaterial_e0c1k")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 220595.0
+offset_left = 228275.0
 offset_top = 49.0
-offset_right = 220787.0
+offset_right = 228467.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1479,13 +1512,13 @@ line_opacity = 0.5
 [node name="AssistantIris" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_qtgl4")
+material = SubResource("ShaderMaterial_sk63g")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 220595.0
+offset_left = 228275.0
 offset_top = 49.0
-offset_right = 220787.0
+offset_right = 228467.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1498,13 +1531,13 @@ line_opacity = 0.5
 [node name="AssistantPupil" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_fle1a")
+material = SubResource("ShaderMaterial_f38fm")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 220595.0
+offset_left = 228275.0
 offset_top = 49.0
-offset_right = 220787.0
+offset_right = 228467.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1518,7 +1551,7 @@ line_opacity = 0.5
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_uo8uc")
+material = SubResource("ShaderMaterial_oba15")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1659,7 +1692,7 @@ mouse_filter = 2
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_u0w4v")
+material = SubResource("ShaderMaterial_mu1tp")
 layout_direction = 3
 layout_mode = 1
 anchors_preset = 1
@@ -1753,6 +1786,107 @@ near = 0.111
 script = ExtResource("68_ddupl")
 cam_target = NodePath("../../../../..")
 
+[node name="DeathCanvas" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="DeathScreen" type="Control" parent="DeathCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("54_v7qwy")
+
+[node name="TextureRect2" type="TextureRect" parent="DeathCanvas/DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_rlpkk")
+
+[node name="TextureRect" type="TextureRect" parent="DeathCanvas/DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("55_25lxg")
+
+[node name="TextureButton" type="TextureButton" parent="DeathCanvas/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -269.0
+offset_top = 211.0
+offset_right = -62.0
+offset_bottom = 313.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("56_1fgh8")
+texture_hover = ExtResource("57_gsxvn")
+
+[node name="TextureButton2" type="TextureButton" parent="DeathCanvas/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 65.0
+offset_top = 211.0
+offset_right = 272.0
+offset_bottom = 313.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("58_ufoj6")
+texture_hover = ExtResource("59_dnj22")
+
+[node name="Label" type="Label" parent="DeathCanvas/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -671.0
+offset_top = -389.0
+offset_right = 671.0
+offset_bottom = -162.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SISTEMAS FALHARAM
+INICIANDO DESLIGAMENTO"
+label_settings = SubResource("LabelSettings_0m1yr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="DeathCanvas/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -575.0
+offset_top = -23.0
+offset_right = 601.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "TENTAR NOVAMENTE?"
+label_settings = SubResource("LabelSettings_dlmca")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HitBoxArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 512
@@ -1790,3 +1924,5 @@ one_shot = true
 
 [connection signal="animation_finished" from="GameHUD/HUDAnimations" to="." method="_on_hud_animations_animation_finished"]
 [connection signal="animation_finished" from="GameHUD/AVICAnimations" to="." method="_on_avic_animations_animation_finished"]
+[connection signal="button_up" from="DeathCanvas/DeathScreen/TextureButton" to="DeathCanvas/DeathScreen" method="_on_texture_button_button_up"]
+[connection signal="button_down" from="DeathCanvas/DeathScreen/TextureButton2" to="DeathCanvas/DeathScreen" method="_on_texture_button_2_button_down"]

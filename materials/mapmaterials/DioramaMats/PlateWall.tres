@@ -23,4 +23,4 @@ anisotropy = 0.09
 heightmap_enabled = true
 heightmap_scale = 0.0
 heightmap_texture = ExtResource("3_b12jr")
-texture_filter = 2
+texture_filter = 0
