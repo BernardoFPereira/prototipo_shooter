@@ -134,6 +134,7 @@ _data = {
 [node name="ProjectileExplosion" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 4
 mesh = SubResource("SphereMesh_dilfu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

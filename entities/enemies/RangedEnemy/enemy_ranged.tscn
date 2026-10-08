@@ -225,7 +225,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_sfd88")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0gpxx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blnii"]
 shader = ExtResource("40_sb3w2")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -450,6 +450,7 @@ bones/15/rotation = Quaternion(0.666375, 0.112709, 0.236524, 0.698066)
 bones/15/scale = Vector3(1, 1, 1)
 
 [node name="ranged_enemy_01_geo" type="MeshInstance3D" parent="Armature/Skeleton3D"]
+layers = 2
 material_override = SubResource("StandardMaterial3D_cstil")
 mesh = SubResource("ArrayMesh_024hr")
 skin = SubResource("Skin_pgcwt")
@@ -498,6 +499,7 @@ hit_from_inside = true
 [node name="Walk" parent="SFX" instance=ExtResource("10_l2fey")]
 visible = false
 stream = SubResource("AudioStreamRandomizer_1p3hs")
+volume_db = -17.0
 pitch_scale = 1.2
 bus = &"SFX"
 
@@ -531,7 +533,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_0gpxx")
+material = SubResource("ShaderMaterial_blnii")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -579,6 +581,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10221, 0)
 shape = SubResource("SphereShape3D_a7v0k")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ShieldArea3D/CollisionShape3D"]
+layers = 2
 material_override = SubResource("ShaderMaterial_vn3ks")
 mesh = SubResource("SphereMesh_a6jhn")
 

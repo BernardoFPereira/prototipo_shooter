@@ -25,10 +25,10 @@ enum StartMode {
 ## Jogador. Se ficar vazio, procura sozinho o Player na fase.
 @export var player: Player
 ## Desligado = o tutorial não roda e o jogador começa com tudo liberado (bom pra testar a fase rápido).
-@export var enabled: bool = true
+@export var enabled: bool = false
 @export var start_mode: StartMode = StartMode.AFTER_INTRO
 ## Toca o popup centralizado ("INICIANDO ROTINA...") antes do tutorial.
-@export var play_intro_animation: bool = true
+@export var play_intro_animation: bool = false
 ## Espera (s) entre o início do tutorial e o primeiro passo.
 @export var start_delay: float = 1.0
 ## Habilidades travadas desde o começo da fase (cada passo vai liberando).

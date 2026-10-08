@@ -291,9 +291,9 @@ func load_settings() -> void:
 	sfx_muted = config.get_value("audio", "sfx_muted", false)
 	hud_muted = config.get_value("audio", "hud_muted", false)
 	mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", 0.001)
-	is_introduction = config.get_value("controls", "is_introduction", true)
-	is_walk_introduction = config.get_value("controls", "is_walk_introduction", true)
-	is_fire_introduction = config.get_value("controls", "is_fire_introduction", true)
+	is_introduction = config.get_value("controls", "is_introduction", false)
+	is_walk_introduction = config.get_value("controls", "is_walk_introduction", false)
+	is_fire_introduction = config.get_value("controls", "is_fire_introduction", false)
 	apply_settings()
 	print("Settings loaded from: ", SETTINGS_FILE)
 #endregion

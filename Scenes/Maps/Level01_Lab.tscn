@@ -1,4 +1,4 @@
-[gd_scene load_steps=1588 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1589 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_3xgkq"]
@@ -53,6 +53,7 @@
 [ext_resource type="Resource" uid="uid://co4vj87lp6i83" path="res://entities/assistant/Steps/braco.tres" id="51_utego"]
 [ext_resource type="Resource" uid="uid://bbakv0761ubqm" path="res://entities/assistant/Steps/recolher_braco.tres" id="52_bvus0"]
 [ext_resource type="Resource" uid="uid://u22m4p73npxo" path="res://entities/assistant/Steps/fim.tres" id="53_5fi18"]
+[ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="54_gjoc0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -16616,11 +16617,14 @@ is_broken = true
 [node name="portadiorama3" parent="." instance=ExtResource("15_r2o2d")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 19.9676, -0.0140808, -44.9187)
 
+[node name="portadiorama4" parent="." instance=ExtResource("15_r2o2d")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.8825, -15.5328, -6.64347)
+
 [node name="Node3D" parent="." instance=ExtResource("23_ydroa")]
 transform = Transform3D(0.921069, 0, 0, 0, 0.916176, 0, 0, 0, 0.795023, -0.397827, 0, -47.5115)
 
 [node name="portadiorama2" parent="." instance=ExtResource("15_r2o2d")]
-transform = Transform3D(1.63021, 0, 0, 0, 1.2866, 0, 0, 0, 1.40712, -0.25066, 0, -45.6732)
+transform = Transform3D(1.63021, 0, 0, 0, 1.2866, 0, 0, 0, 1.40712, -0.25066, 0, -50.3816)
 
 [node name="Pilar" parent="." instance=ExtResource("16_bfy5c")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.6419, 4.76837e-07, 24.8486)
@@ -16693,6 +16697,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21.99
 
 [node name="Decal" type="Decal" parent="vent2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3.75237, 0.239319)
+visible = false
 size = Vector3(5.19141, 2.47864, 4.99438)
 texture_albedo = ExtResource("14_x17lw")
 texture_orm = ExtResource("14_x17lw")
@@ -16740,20 +16745,38 @@ linked_obj = NodePath("../portadiorama")
 [node name="Cube" parent="." instance=ExtResource("25_vyen0")]
 transform = Transform3D(0.54, 0, 0, 0, 0.54, 0, 0, 0, 0.54, -15.3221, -14.7436, -44.4295)
 
+[node name="Cube7" parent="." instance=ExtResource("25_vyen0")]
+transform = Transform3D(0.54, 0, 0, 0, 0.54, 0, 0, 0, 0.54, -16.2121, -14.7436, 1.48907)
+
 [node name="Cube2" parent="." instance=ExtResource("25_vyen0")]
 transform = Transform3D(0.32, 0, 0, 0, 0.32, 0, 0, 0, 0.32, -20.6538, -15.0123, -45.2638)
+
+[node name="Cube9" parent="." instance=ExtResource("25_vyen0")]
+transform = Transform3D(0.31883, 0, -0.027339, 0, 0.32, 0, 0.027339, 0, 0.31883, -14.698, -15.0123, -4.43144)
+
+[node name="Cube11" parent="." instance=ExtResource("25_vyen0")]
+transform = Transform3D(0.311741, 0, -0.0722347, 0, 0.32, 0, 0.0722347, 0, 0.311741, -22.1441, -15.0123, 2.58386)
 
 [node name="Cube3" parent="." instance=ExtResource("25_vyen0")]
 transform = Transform3D(0.17562, 0, 0.0847505, 0, 0.195, 0, -0.0847505, 0, 0.17562, -24.3492, -15.3826, -45.275)
 
+[node name="Cube8" parent="." instance=ExtResource("25_vyen0")]
+transform = Transform3D(0.164392, -0.104883, 7.41507e-09, 7.45058e-09, -8.52372e-09, -0.195, 0.104883, 0.164392, -3.79547e-09, -13.7976, -14.4824, -9.60256)
+
+[node name="Cube10" parent="." instance=ExtResource("25_vyen0")]
+transform = Transform3D(-0.0499599, -5.70444e-09, -0.188491, 5.61986e-08, -0.195, -1.04064e-09, -0.188491, -2.62508e-08, 0.0499599, -18.8715, -13.4219, -3.80179)
+
+[node name="Cube12" parent="." instance=ExtResource("25_vyen0")]
+transform = Transform3D(-0.0279641, -2.64944e-09, -0.192985, 5.61986e-08, -0.195, -1.04064e-09, -0.192985, -2.67325e-08, 0.0279641, -21.6219, -9.52354, 2.87669)
+
 [node name="Cube4" parent="." instance=ExtResource("25_vyen0")]
-transform = Transform3D(0.17562, 0, 0.0847505, 0, 0.195, 0, -0.0847505, 0, 0.17562, 22.4098, 0.400619, -43.0441)
+transform = Transform3D(0.17562, 0, 0.0847505, 0, 0.195, 0, -0.0847505, 0, 0.17562, 27.6112, 0.400619, -43.0441)
 
 [node name="Cube5" parent="." instance=ExtResource("25_vyen0")]
-transform = Transform3D(0.182086, 0, -0.0697832, 0, 0.195, 0, 0.0697832, 0, 0.182086, 18.8895, 0.400619, -43.0441)
+transform = Transform3D(0.182086, 0, -0.0697832, 0, 0.195, 0, 0.0697832, 0, 0.182086, 24.0909, 0.400619, -43.0441)
 
 [node name="Cube6" parent="." instance=ExtResource("25_vyen0")]
-transform = Transform3D(0.182086, 0, -0.0697832, 0, 0.195, 0, 0.0697832, 0, 0.182086, 20.7628, 2.80381, -43.0441)
+transform = Transform3D(0.182086, 0, -0.0697832, 0, 0.195, 0, 0.0697832, 0, 0.182086, 25.9642, 2.80381, -43.0441)
 
 [node name="Details Divider" type="Node" parent="."]
 
@@ -16917,6 +16940,10 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 42.194
 [node name="Tutorial" parent="." node_paths=PackedStringArray("player") instance=ExtResource("46_82ven")]
 player = NodePath("../Player")
 steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
+
+[node name="EnemyMelee" parent="." node_paths=PackedStringArray("target") instance=ExtResource("54_gjoc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.861306, 4.76837e-07, -20.5705)
+target = NodePath("../Player")
 
 [editable path="AlamLights/AlarmLight"]
 [editable path="AlamLights/AlarmLight5"]

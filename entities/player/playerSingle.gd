@@ -5,7 +5,7 @@ extends CharacterBody3D
 @export_category("Move and Look Properties")
 @export var camera_juice : camera_effects
 @export var fall_velocity_threshhold : float = -5.0
-@export var move_speed := 22
+@export var move_speed := 16
 @export var drag := 25
 @export var gravity := 42
  
@@ -57,6 +57,8 @@ var blend_time: float = 0.15
 @onready var fire_sfx = $SFX/Fire
 @onready var arm_throw_sfx = $SFX/ArmThrow
 @onready var arm_back_sfx = $SFX/ArmBack
+@onready var arm_kill = $SFX/ArmKill
+
 #endregion
  
 #region SCENE VARIABLES
