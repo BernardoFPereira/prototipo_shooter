@@ -146,7 +146,8 @@ signal shield_broken
 @onready var detection_ch = $SubViewport/DetectionCH
 var detected := false
 
-var gibs: PackedScene = preload("res://prefabs/enemy_gibs.tscn")
+@export_category("GIBS")
+@export var gibs: PackedScene = preload("res://prefabs/enemy_gibs.tscn")
 
 var current_state: EnemyState = EnemyState.IDLE
 enum EnemyState {
@@ -647,13 +648,23 @@ func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: i
 	set_current_state(EnemyState.HIT)
 	spawn_blood(hit_position)
 	
-	var gibs_inst = gibs.instantiate()
+	#if ResourceLoader.has_cached("res://prefabs/enemy_gibs.tscn"):
+		#call_deferred("queue_free")
+		
 	var offset = Vector3(0, -2, 0)
-	gibs_inst.global_position = global_position - offset
-	gibs_inst.rotation = rotation
-	get_tree().root.add_child(gibs_inst)
 	
-	queue_free()
+	if gibs.can_instantiate():
+		var gibs_inst = gibs.instantiate()
+		
+		#await is_instance_valid(gibs_inst)
+		
+		gibs_inst.global_position = global_position - offset
+		gibs_inst.rotation = rotation
+		add_sibling(gibs_inst)
+		#get_tree().root.add_child(gibs_inst)
+	
+	call_deferred("queue_free")
+	#queue_free()
 	#take_damage(damage)
 	#linear_velocity.y += 5
 	#linear_velocity.y = clamp(linear_velocity.y, -6, 6)

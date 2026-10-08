@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=3 uid="uid://cvegn6ga70b2u"]
 
-[ext_resource type="Script" path="res://Scripts/enemy_gibs.gd" id="1_u6vmk"]
+[ext_resource type="Script" path="res://scripts/enemy_gibs.gd" id="1_fh3xl"]
 [ext_resource type="Shader" uid="uid://epm1yivou7pv" path="res://vfx/pixelated_particle_billboard.tres" id="2_igj76"]
 [ext_resource type="Texture2D" uid="uid://b4m46sdyj512p" path="res://textures/blood_spatter_01.png" id="2_yyxla"]
 [ext_resource type="ArrayMesh" uid="uid://dbefu23oq6s8n" path="res://models/gib01_mesh.res" id="3_hwu71"]
@@ -128,7 +128,7 @@ section_segments = 5
 curve = SubResource("Curve_f00tx")
 
 [node name="EnemyGibs" type="Node3D"]
-script = ExtResource("1_u6vmk")
+script = ExtResource("1_fh3xl")
 spatter_decal_textures = Array[Texture]([ExtResource("2_yyxla"), ExtResource("3_nxhcw"), ExtResource("4_8n3mg"), ExtResource("5_bmukn")])
 decal_amount = 3
 
@@ -184,6 +184,7 @@ layers = 4
 size = Vector3(22.6309, 1.45068, 21.3633)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 5.0
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

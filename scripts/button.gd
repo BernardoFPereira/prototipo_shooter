@@ -7,6 +7,8 @@ extends Node3D
 @export var pressed_mat: Material
 
 @onready var button_geo = $button/button_geo
+@onready var button_on = $ButtonOn
+@onready var button_off = $ButtonOff
 
 enum button_states {
 	PRESSED,
@@ -31,6 +33,8 @@ func set_state(new_state):
 				#linked_obj.spawn_enemy()
 				#return
 			
+			button_on.play()
+			
 			if linked_obj is Door and linked_obj.is_broken:
 				print("DOOR BROKEN BRUH")
 				#var moving_blocks = get_tree().get_first_node_in_group("ExplosionBlocks")
@@ -44,6 +48,8 @@ func set_state(new_state):
 		button_states.UNPRESSED:
 			#if linked_obj is SpawnerDoor:
 				#return
-				
-				linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
-				button_geo.material_override = null
+			
+			button_off.play()
+			
+			linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
+			button_geo.material_override = null

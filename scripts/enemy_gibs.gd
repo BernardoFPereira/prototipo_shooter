@@ -19,7 +19,7 @@ func spawn_decals():
 		decal_to_spawn.lower_fade = 0
 		decal_to_spawn.cull_mask = 1
 		
-		get_tree().root.add_child(decal_to_spawn)
+		add_sibling(decal_to_spawn)
 		decal_to_spawn.global_position = global_position + Vector3(randf_range(-3.0, 3.0), -2, randf_range(-3.0, 3.0))
 		
 		await get_tree().create_timer(.5).timeout

@@ -1,4 +1,4 @@
-[gd_scene load_steps=1588 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1589 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_3xgkq"]
@@ -53,6 +53,7 @@
 [ext_resource type="Resource" uid="uid://co4vj87lp6i83" path="res://entities/assistant/Steps/braco.tres" id="51_utego"]
 [ext_resource type="Resource" uid="uid://bbakv0761ubqm" path="res://entities/assistant/Steps/recolher_braco.tres" id="52_bvus0"]
 [ext_resource type="Resource" uid="uid://u22m4p73npxo" path="res://entities/assistant/Steps/fim.tres" id="53_5fi18"]
+[ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="54_gjoc0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -16617,7 +16618,7 @@ is_broken = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 19.9676, -0.0140808, -44.9187)
 
 [node name="portadiorama4" parent="." instance=ExtResource("15_r2o2d")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.9899, -15.5328, -6.64347)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.8825, -15.5328, -6.64347)
 
 [node name="Node3D" parent="." instance=ExtResource("23_ydroa")]
 transform = Transform3D(0.921069, 0, 0, 0, 0.916176, 0, 0, 0, 0.795023, -0.397827, 0, -47.5115)
@@ -16696,6 +16697,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21.99
 
 [node name="Decal" type="Decal" parent="vent2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3.75237, 0.239319)
+visible = false
 size = Vector3(5.19141, 2.47864, 4.99438)
 texture_albedo = ExtResource("14_x17lw")
 texture_orm = ExtResource("14_x17lw")
@@ -16938,6 +16940,10 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 42.194
 [node name="Tutorial" parent="." node_paths=PackedStringArray("player") instance=ExtResource("46_82ven")]
 player = NodePath("../Player")
 steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
+
+[node name="EnemyMelee" parent="." node_paths=PackedStringArray("target") instance=ExtResource("54_gjoc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.861306, 4.76837e-07, -20.5705)
+target = NodePath("../Player")
 
 [editable path="AlamLights/AlarmLight"]
 [editable path="AlamLights/AlarmLight5"]
