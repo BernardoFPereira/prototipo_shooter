@@ -35,6 +35,16 @@ func set_state(new_state):
 			
 			button_on.play()
 			
+			if linked_obj == null:
+				push_warning("Botão %s sem Linked Obj." % name)
+				return
+			
+			# Objetos com script próprio (ex: Triturador) decidem o que fazer.
+			if linked_obj.has_method("on_button_pressed"):
+				linked_obj.on_button_pressed()
+				button_geo.material_override = pressed_mat
+				return
+			
 			if linked_obj is Door and linked_obj.is_broken:
 				print("DOOR BROKEN BRUH")
 				#var moving_blocks = get_tree().get_first_node_in_group("ExplosionBlocks")
@@ -50,6 +60,14 @@ func set_state(new_state):
 				#return
 			
 			button_off.play()
+			
+			if linked_obj == null:
+				return
+			
+			if linked_obj.has_method("on_button_released"):
+				linked_obj.on_button_released()
+				button_geo.material_override = null
+				return
 			
 			linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
 			button_geo.material_override = null
