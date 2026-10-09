@@ -1,6 +1,10 @@
 class_name Triturador
 extends Node3D
 
+## Emitido toda vez que as lâminas se encostam (segundo `crush_time` da grinder_on).
+## crushed_count = quantos objetos foram esmagados nessa batida.
+signal blades_closed(crushed_count: int)
+
 @export_group("Animações")
 @export var lift_animation: StringName = &"lift"
 @export var unlift_animation: StringName = &"unlift"
@@ -25,6 +29,21 @@ extends Node3D
 ## Abaixo dessa velocidade (0 a 1) o giro conta como "parado" pro dano.
 @export_range(0.0, 1.0) var harmless_below_speed: float = 0.1
 
+@export_group("Esmagar")
+## Momento (s) da grinder_on em que as lâminas se encostam. A cada volta da animação, ao passar
+## por esse ponto, tudo que estiver em cima do triturador (com função crush()) é esmagado.
+@export var crush_time: float = 1.9
+## Layers dos objetos que podem ser esmagados (padrão: 18, a do lixo).
+@export_flags_3d_physics var crush_mask: int = 1 << 17
+## Só esmaga enquanto gira (parado/levantado não esmaga).
+@export var crush_only_while_spinning: bool = true
+## Quanto (m, no espaço do triturador) a área de esmagar é maior que o bloqueio, pra pegar o lixo
+## que está apoiado em cima dos rolos.
+@export var crush_area_margin: float = 0.6
+## Só esmaga o que está ENCOSTADO nos rolos (Blocker). Sem isso, lixo caindo que só passou pela
+## área na hora da batida explodia no ar, acima do triturador.
+@export var require_contact: bool = true
+
 @onready var level_animations: AnimationPlayer = $LevelAnimations
 @onready var self_animations: AnimationPlayer = $SelfAnimations
 @onready var damage_area: Area3D = $Area3D
@@ -34,16 +53,23 @@ var _spin_tween: Tween
 var _bodies_inside: Array[Player] = []
 var _next_hit_time: Dictionary = {} # Player -> tempo (s) em que pode levar dano de novo
 var _clock: float = 0.0 # tempo de jogo (não anda com o jogo pausado)
+var _crush_area: Area3D
+var _last_grinder_pos: float = -1.0
 
 
 func _ready() -> void:
 	damage_area.body_entered.connect(_on_damage_area_body_entered)
 	damage_area.body_exited.connect(_on_damage_area_body_exited)
+	_setup_crush_area()
 	if start_lowered and level_animations.has_animation(unlift_animation):
 		level_animations.play(unlift_animation)
 		level_animations.seek(level_animations.current_animation_length, true)
 	if not self_animations.is_playing() and self_animations.has_animation(grinder_animation):
 		self_animations.play(grinder_animation)
+
+
+func _process(_delta: float) -> void:
+	_check_blades_closed()
 
 
 func _physics_process(delta: float) -> void:
@@ -53,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	var now := _clock
 	for body in _bodies_inside.duplicate():
 		if not is_instance_valid(body):
-			_bodies_inside.erase(body)
+			_remove_invalid_bodies()
 			continue
 		if now >= _next_hit_time.get(body, 0.0):
 			_next_hit_time[body] = now + damage_interval
@@ -132,6 +158,96 @@ func _play_level_animation(anim_name: StringName) -> void:
 #endregion
 
 
+#region ESMAGAR
+## Detecta quando a grinder_on passa pelo `crush_time` (funciona com qualquer velocidade e na volta
+## do loop) e esmaga tudo que está em cima.
+func _check_blades_closed() -> void:
+	if not self_animations.is_playing() or self_animations.current_animation != grinder_animation:
+		_last_grinder_pos = -1.0
+		return
+	var pos := self_animations.current_animation_position
+	var last := _last_grinder_pos
+	_last_grinder_pos = pos
+	if last < 0.0:
+		return
+	var crossed := false
+	if pos >= last:
+		crossed = last < crush_time and pos >= crush_time
+	else: # deu a volta no loop
+		crossed = last < crush_time or pos >= crush_time
+	if crossed:
+		crush_now()
+
+
+## Esmaga tudo que está encostado no triturador agora. Pode ser chamado de fora também.
+func crush_now() -> int:
+	if crush_only_while_spinning and not is_hurting():
+		return 0
+	var count := 0
+	var ignore := get_crush_exceptions()
+	for body in _crush_area.get_overlapping_bodies():
+		if not body.has_method("crush"):
+			continue
+		if require_contact and not _is_touching_blades(body, ignore):
+			continue
+		body.crush(ignore)
+		count += 1
+	blades_closed.emit(count)
+	return count
+
+
+## true se o corpo está encostado nos rolos. RigidBody com contact_monitor (o Trash liga sozinho)
+## informa com quem está colidindo; outros objetos com crush() usam só a área.
+func _is_touching_blades(body: Node, blade_bodies: Array) -> bool:
+	if body is RigidBody3D and body.contact_monitor:
+		for other in body.get_colliding_bodies():
+			if blade_bodies.has(other):
+				return true
+		return false
+	return true
+
+
+## Corpos do próprio triturador: os pedaços do lixo esmagado atravessam eles e caem por baixo.
+func get_crush_exceptions() -> Array:
+	var bodies: Array = []
+	for child in find_children("*", "PhysicsBody3D", true, false):
+		bodies.append(child)
+	return bodies
+
+
+## Cria (em tempo de jogo) uma área igual à de dano, só que um pouco maior e procurando as layers
+## de `crush_mask` — assim não precisa mexer na cena.
+func _setup_crush_area() -> void:
+	_crush_area = Area3D.new()
+	_crush_area.name = "CrushArea"
+	_crush_area.collision_layer = 0
+	_crush_area.collision_mask = crush_mask
+	_crush_area.monitorable = false
+	for shape_node in damage_area.get_children():
+		if not (shape_node is CollisionShape3D) or shape_node.shape == null:
+			continue
+		var copy := CollisionShape3D.new()
+		copy.transform = shape_node.transform
+		copy.shape = _grown_shape(shape_node.shape)
+		_crush_area.add_child(copy)
+	damage_area.add_sibling(_crush_area)
+	_crush_area.transform = damage_area.transform
+
+
+func _grown_shape(shape: Shape3D) -> Shape3D:
+	var grown: Shape3D = shape.duplicate()
+	if grown is CylinderShape3D:
+		grown.radius += crush_area_margin
+	elif grown is SphereShape3D:
+		grown.radius += crush_area_margin
+	elif grown is CapsuleShape3D:
+		grown.radius += crush_area_margin
+	elif grown is BoxShape3D:
+		grown.size += Vector3.ONE * crush_area_margin * 2.0
+	return grown
+#endregion
+
+
 #region DANO
 func _on_damage_area_body_entered(body: Node3D) -> void:
 	if body is Player and not _bodies_inside.has(body):
@@ -139,5 +255,17 @@ func _on_damage_area_body_entered(body: Node3D) -> void:
 
 
 func _on_damage_area_body_exited(body: Node3D) -> void:
-	_bodies_inside.erase(body)
+	if is_instance_valid(body):
+		_bodies_inside.erase(body)
+	else:
+		_remove_invalid_bodies()
+
+
+# Array tipado não aceita erase() de objeto já destruído (dá erro), então reconstrói a lista.
+func _remove_invalid_bodies() -> void:
+	var valid: Array[Player] = []
+	for body in _bodies_inside:
+		if is_instance_valid(body):
+			valid.append(body)
+	_bodies_inside = valid
 #endregion

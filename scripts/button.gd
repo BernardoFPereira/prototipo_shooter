@@ -54,6 +54,7 @@ func set_state(new_state):
 				return
 			
 			linked_obj.get_node("AnimationPlayer").play("door_open")
+			linked_obj.get_node("Door_Open").playing = true
 			button_geo.material_override = pressed_mat
 		button_states.UNPRESSED:
 			#if linked_obj is SpawnerDoor:
@@ -70,4 +71,5 @@ func set_state(new_state):
 				return
 			
 			linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
+			linked_obj.get_node("Door_Close").playing = true
 			button_geo.material_override = null
