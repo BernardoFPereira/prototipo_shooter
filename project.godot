@@ -135,6 +135,9 @@ look_up={
 3d_physics/layer_12="Inimigos"
 3d_physics/layer_13="SwordHit"
 3d_physics/layer_16="SpawnDoor"
+3d_physics/layer_17="Triturador"
+3d_physics/layer_18="Lixo"
+3d_physics/layer_19="Detritos"
 
 [navigation]
 

@@ -828,6 +828,7 @@ theme = ExtResource("4_u88di")
 text = "SIM"
 
 [node name="QuitLabel" type="Label" parent="Background/MainPanel/QuitGroup"]
+layout_mode = 0
 offset_left = 966.0
 offset_top = 198.0
 offset_right = 1578.0

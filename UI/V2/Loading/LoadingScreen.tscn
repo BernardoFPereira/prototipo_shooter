@@ -9,7 +9,6 @@ layer = 128
 script = ExtResource("1_load")
 min_duration = 5.0
 fade_time = 0.5
-first_level_name = ""
 max_arrows = 3
 rain_prewarm_seconds = 15.0
 
