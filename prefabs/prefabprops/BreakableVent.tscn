@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://qthuiqlchfys"]
+[gd_scene load_steps=6 format=3 uid="uid://qthuiqlchfys"]
 
 [ext_resource type="Script" path="res://prefabs/prefabprops/BreakableVent.gd" id="1_sw2nr"]
 [ext_resource type="PackedScene" uid="uid://43p4oygb15uw" path="res://models/heroassets/vent.glb" id="2_viieh"]
 [ext_resource type="ArrayMesh" uid="uid://dj0cgr8hmy6qe" path="res://models/heroassets/props/ventplane.res" id="3_j16s0"]
+[ext_resource type="AudioStream" uid="uid://cn4s0td315frx" path="res://assets/sounds/sfx/Props/vent_break.wav" id="4_82gha"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4q53q"]
 size = Vector3(6.9104, 7.01453, 0.964722)
@@ -22,5 +23,9 @@ transform = Transform3D(2.8281, 0, 0, 0, 2.8281, 0, 0, 0, 1, 0, 0, 0)
 transform = Transform3D(1.70968, 0, 0, 0, 0, -1.70968, 0, 1.70968, 0, 0.0159476, 1.16499, 0.331091)
 mesh = ExtResource("3_j16s0")
 skeleton = NodePath("")
+
+[node name="BreakAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_82gha")
+pitch_scale = 0.73
 
 [editable path="vent"]

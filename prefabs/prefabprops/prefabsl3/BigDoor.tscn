@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cmt6r0hgmc5tb"]
+[gd_scene load_steps=16 format=3 uid="uid://cmt6r0hgmc5tb"]
 
 [ext_resource type="Script" path="res://prefabs/prefabprops/prefabsl3/BigDoor.gd" id="1_0afoi"]
 [ext_resource type="PackedScene" uid="uid://dqv8313qaqghw" path="res://models/level3/bigdoor.glb" id="1_3rycr"]
@@ -68,10 +68,10 @@ tracks/0/path = NodePath("bigdoor/bigupperdor_geo:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.1, 1.3),
-"transitions": PackedFloat32Array(0.594603, 1, 4.2871),
+"times": PackedFloat32Array(0, 0.1, 0.2, 1.1, 1.3),
+"transitions": PackedFloat32Array(0.594603, 0.210224, 0.210224, 1, 4.2871),
 "update": 0,
-"values": [Vector3(0, 2.50548, 3.12881), Vector3(0, 4.6, 3.129), Vector3(0, 5, 3.129)]
+"values": [Vector3(0, 2.50548, 3.12881), Vector3(0, 2.70122, 3.129), Vector3(0, 2.70122, 3.129), Vector3(0, 4.6, 3.129), Vector3(0, 5, 3.129)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -80,10 +80,10 @@ tracks/1/path = NodePath("bigdoor/biglowdor_geo:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.1, 1.3),
-"transitions": PackedFloat32Array(0.592476, 1, 4.28438),
+"times": PackedFloat32Array(0, 0.1, 0.2, 1.1, 1.3),
+"transitions": PackedFloat32Array(0.592476, 0.210224, 0.210224, 1, 4.28438),
 "update": 0,
-"values": [Vector3(0, 2.50548, 3.12881), Vector3(0, 0.53, 3.129), Vector3(0, 0.13, 3.129)]
+"values": [Vector3(0, 2.50548, 3.12881), Vector3(0, 2.17817, 3.12885), Vector3(0, 2.17817, 3.12885), Vector3(0, 0.53, 3.129), Vector3(0, 0.13, 3.129)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -98,8 +98,36 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_mxmb6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bigdoor/bigupperdor_geo:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.48801, 3.129)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bigdoor/biglowdor_geo:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 2.39515, 3.12885)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wbvcx"]
 _data = {
+"RESET": SubResource("Animation_mxmb6"),
 "close": SubResource("Animation_4f2l1"),
 "open": SubResource("Animation_dpsw7")
 }
@@ -133,7 +161,7 @@ shape = SubResource("BoxShape3D_xh0kd")
 shape = SubResource("ConcavePolygonShape3D_06nyp")
 
 [node name="biglowdor_geo" parent="bigdoor" index="1"]
-transform = Transform3D(5.39094, 0, 0, 0, 0, -5.38843, 0, 5.21613, 0, 0, 2.505, 3.129)
+transform = Transform3D(5.39094, 0, 0, 0, 0, -5.38843, 0, 5.21613, 0, 0, 2.39515, 3.12885)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="bigdoor/biglowdor_geo" index="0"]
 
@@ -142,7 +170,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.265671)
 shape = SubResource("BoxShape3D_gdf0u")
 
 [node name="bigupperdor_geo" parent="bigdoor" index="2"]
-transform = Transform3D(5.39094, 0, 0, 0, 0, -5.38843, 0, 5.21613, 0, 0, 2.505, 3.129)
+transform = Transform3D(5.39094, 0, 0, 0, 0, -5.38843, 0, 5.21613, 0, 0, 2.48801, 3.129)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="bigdoor/bigupperdor_geo" index="0"]
 

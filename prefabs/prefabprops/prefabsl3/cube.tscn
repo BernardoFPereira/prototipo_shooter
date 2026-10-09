@@ -9,6 +9,7 @@ cull_mode = 2
 albedo_texture = ExtResource("1_mssa8")
 emission_enabled = true
 emission_texture = ExtResource("2_d0gax")
+texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_x4216"]
 _surfaces = [{
@@ -56,6 +57,7 @@ mesh = SubResource("ArrayMesh_5vfjd")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Cube and DiagBevel/cubon_geo"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Cube and DiagBevel/cubon_geo/StaticBody3D"]
 shape = SubResource("BoxShape3D_2vnl0")

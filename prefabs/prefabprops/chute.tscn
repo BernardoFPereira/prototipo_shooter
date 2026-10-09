@@ -1,4 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bc3gi1d4k2rxo"]
+[gd_scene load_steps=19 format=3 uid="uid://bc3gi1d4k2rxo"]
+
+[ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="1_esll8"]
+[ext_resource type="AudioStream" uid="uid://gc2qcni7ql43" path="res://assets/sounds/sfx/Props/Sci-fi_Door_open.wav" id="2_twngx"]
+[ext_resource type="AudioStream" uid="uid://deck7cjhu6gpv" path="res://assets/sounds/sfx/Props/Sci-fi_Door_close.wav" id="3_dvi2x"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8pr0"]
 resource_name = "ChuteBorder_mtl"
@@ -39,34 +43,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vcenv")
-
-[sub_resource type="Animation" id="Animation_rtei3"]
-resource_name = "door_open"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DoorB:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.95779)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DoorA:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -1.99889)]
-}
 
 [sub_resource type="Animation" id="Animation_0082c"]
 length = 0.001
@@ -117,6 +93,34 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rtei3"]
+resource_name = "door_open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorB:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.95779)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorA:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -1.99889)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f31cd"]
@@ -205,6 +209,16 @@ shadow_mesh = SubResource("ArrayMesh_03r18")
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hj2uh"]
 data = PackedVector3Array(46.8151, 74.3195, -22.0999, 116.373, 74.2991, 22.0999, 46.8151, 74.3195, 22.0999, 46.8151, 74.3195, -22.0999, 116.373, 74.2991, -22.0999, 116.373, 74.2991, 22.0999, -116.412, 74.3649, -22.0999, -22.7388, 74.3376, 22.0992, -116.412, 74.3626, 22.0999, -116.412, 74.3649, -22.0999, -22.7388, 74.3376, -22.0999, -22.7388, 74.3376, 22.0992, -22.7388, 74.3376, -22.0999, 46.8151, 74.3195, 22.0999, -22.7388, 74.3376, 22.0992, -22.7388, 74.3376, -22.0999, 46.8151, 74.3195, -22.0999, 46.8151, 74.3195, 22.0999, 116.39, -0.0329, -22.0999, 46.8151, 74.3195, -22.0999, 49.8456, -0.0148, -22.0999, 116.39, -0.0329, -22.0999, 116.373, 74.2991, -22.0999, 46.8151, 74.3195, -22.0999, 116.373, 74.2991, 22.0999, 116.39, -0.0329, -22.0999, 116.39, 0.1259, 22.0999, 116.373, 74.2991, 22.0999, 116.373, 74.2991, -22.0999, 116.39, -0.0329, -22.0999, 46.8151, 74.3195, 22.0999, 116.39, 0.1259, 22.0999, 49.8456, 0.1441, 22.0999, 46.8151, 74.3195, 22.0999, 116.373, 74.2991, 22.0999, 116.39, 0.1259, 22.0999, -116.412, 74.3626, 22.0999, -21.3959, 24.1074, 22.0999, -116.401, 24.171, 22.0999, -116.412, 74.3626, 22.0999, -22.7388, 74.3376, 22.0992, -21.3959, 24.1074, 22.0999, -116.412, 74.3626, 22.0999, -116.401, 23.9236, -22.0999, -116.412, 74.3649, -22.0999, -116.412, 74.3626, 22.0999, -116.401, 24.171, 22.0999, -116.401, 23.9236, -22.0999, -21.3959, 23.8601, -22.0999, -116.412, 74.3649, -22.0999, -116.401, 23.9236, -22.0999, -21.3959, 23.8601, -22.0999, -22.7388, 74.3376, -22.0999, -116.412, 74.3649, -22.0999, 46.8151, 74.3195, -22.0999, -21.3959, 23.8601, -22.0999, 49.8456, -0.0148, -22.0999, 46.8151, 74.3195, -22.0999, -22.7388, 74.3376, -22.0999, -21.3959, 23.8601, -22.0999, -22.7388, 74.3376, 22.0992, 49.8456, 0.1441, 22.0999, -21.3959, 24.1074, 22.0999, -22.7388, 74.3376, 22.0992, 46.8151, 74.3195, 22.0999, 49.8456, 0.1441, 22.0999, 52.876, -74.349, -22.0999, -20.0565, -26.125, 22.0999, 52.8724, -74.0313, 22.0999, 52.876, -74.349, -22.0999, -20.053, -26.6198, -22.0999, -20.0565, -26.125, 22.0999, 116.412, -74.3649, -22.0999, 52.8724, -74.0313, 22.0999, 116.408, -74.0449, 22.0999, 116.412, -74.3649, -22.0999, 52.876, -74.349, -22.0999, 52.8724, -74.0313, 22.0999, -20.053, -26.6198, -22.0999, -116.387, -26.0206, 22.0999, -20.0565, -26.125, 22.0999, -20.053, -26.6198, -22.0999, -116.387, -26.5177, -22.0999, -116.387, -26.0206, 22.0999, -20.053, -26.6198, -22.0999, -116.401, 23.9236, -22.0999, -116.387, -26.5177, -22.0999, -20.053, -26.6198, -22.0999, -21.3959, 23.8601, -22.0999, -116.401, 23.9236, -22.0999, -116.401, 24.171, 22.0999, -116.387, -26.5177, -22.0999, -116.401, 23.9236, -22.0999, -116.401, 24.171, 22.0999, -116.387, -26.0206, 22.0999, -116.387, -26.5177, -22.0999, -21.3959, 24.1074, 22.0999, -116.387, -26.0206, 22.0999, -116.401, 24.171, 22.0999, -21.3959, 24.1074, 22.0999, -20.0565, -26.125, 22.0999, -116.387, -26.0206, 22.0999, 49.8456, 0.1441, 22.0999, -20.0565, -26.125, 22.0999, -21.3959, 24.1074, 22.0999, 49.8456, 0.1441, 22.0999, 52.8724, -74.0313, 22.0999, -20.0565, -26.125, 22.0999, 116.39, 0.1259, 22.0999, 52.8724, -74.0313, 22.0999, 49.8456, 0.1441, 22.0999, 116.39, 0.1259, 22.0999, 116.408, -74.0449, 22.0999, 52.8724, -74.0313, 22.0999, 116.39, -0.0329, -22.0999, 116.408, -74.0449, 22.0999, 116.39, 0.1259, 22.0999, 116.39, -0.0329, -22.0999, 116.412, -74.3649, -22.0999, 116.408, -74.0449, 22.0999, 116.412, -74.3649, -22.0999, 49.8456, -0.0148, -22.0999, 52.876, -74.349, -22.0999, 116.412, -74.3649, -22.0999, 116.39, -0.0329, -22.0999, 49.8456, -0.0148, -22.0999, -21.3959, 23.8601, -22.0999, 52.876, -74.349, -22.0999, 49.8456, -0.0148, -22.0999, -21.3959, 23.8601, -22.0999, -20.053, -26.6198, -22.0999, 52.876, -74.349, -22.0999)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xk6eh"]
+streams_count = 1
+stream_0/stream = ExtResource("2_twngx")
+stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ggegi"]
+streams_count = 1
+stream_0/stream = ExtResource("3_dvi2x")
+stream_0/weight = 1.0
+
 [node name="Chute" type="Node3D"]
 
 [node name="ChuteBorder_geo" type="MeshInstance3D" parent="."]
@@ -238,3 +252,17 @@ skeleton = NodePath("")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="DoorB"]
 transform = Transform3D(0.00999993, 3.67254e-05, 2.32831e-12, -2.32831e-12, 1.19209e-09, -0.01, -3.67254e-05, 0.00999993, 1.19209e-09, 0, 0, 0.501994)
 shape = SubResource("ConcavePolygonShape3D_hj2uh")
+
+[node name="Door_Open" parent="." instance=ExtResource("1_esll8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90961, 0)
+stream = SubResource("AudioStreamRandomizer_xk6eh")
+max_distance = 60.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="Door_Close" parent="." instance=ExtResource("1_esll8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90961, 0)
+stream = SubResource("AudioStreamRandomizer_ggegi")
+max_distance = 60.0
+max_polyphony = 4
+bus = &"SFX"

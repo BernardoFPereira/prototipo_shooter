@@ -16620,7 +16620,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 19.967
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.8825, -15.5328, -6.64347)
 
 [node name="Node3D" parent="." instance=ExtResource("23_ydroa")]
-transform = Transform3D(-0.921069, 0, -6.95031e-08, 0, 0.916176, 0, 8.05224e-08, 0, -0.795023, -0.397827, 0.139123, -43.3947)
+transform = Transform3D(-0.921069, 0, -6.95031e-08, 0, 0.916176, 0, 8.05224e-08, 0, -0.795023, -0.397827, 0.139123, -43.0483)
 can_open = false
 detect_enemies = false
 detect_player = false
