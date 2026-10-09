@@ -1,10 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://bc3gi1d4k2rxo"]
+[gd_scene load_steps=17 format=3 uid="uid://bc3gi1d4k2rxo"]
+
+[ext_resource type="Texture2D" uid="uid://i4dq7bigrk5l" path="res://models/heroassets/props/Chute_CeilingChute_geo_ChuteBorder_mtl_BaseColor.png" id="1_nsaht"]
+[ext_resource type="Texture2D" uid="uid://d3y5jyl0t0ghb" path="res://models/heroassets/props/Chute_CeilingChute_geo_ChuteBorder_mtl_Emissive.png" id="2_mf055"]
+[ext_resource type="Texture2D" uid="uid://buikf3oe31yqb" path="res://models/heroassets/props/Chute_CeilingChute_geo_lambert27_BaseColor.png" id="3_rg7m4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a8pr0"]
 resource_name = "ChuteBorder_mtl"
 cull_mode = 2
 albedo_color = Color(0.735357, 0.735357, 0.735357, 1)
-roughness = 0.5
+albedo_texture = ExtResource("1_nsaht")
+emission_enabled = true
+emission_texture = ExtResource("2_mf055")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vcenv"]
 _surfaces = [{
@@ -39,34 +45,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vcenv")
-
-[sub_resource type="Animation" id="Animation_rtei3"]
-resource_name = "door_open"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DoorB:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.95779)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("DoorA:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, -1.99889)]
-}
 
 [sub_resource type="Animation" id="Animation_0082c"]
 length = 0.001
@@ -119,6 +97,34 @@ tracks/3/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_rtei3"]
+resource_name = "door_open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorB:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.95779)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorA:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -1.99889)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f31cd"]
 _data = {
 "RESET": SubResource("Animation_0082c"),
@@ -129,7 +135,7 @@ _data = {
 resource_name = "lambert27"
 cull_mode = 2
 albedo_color = Color(0.735357, 0.735357, 0.735357, 1)
-roughness = 0.5
+albedo_texture = ExtResource("3_rg7m4")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_f2xh3"]
 _surfaces = [{
