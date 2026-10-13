@@ -1,16 +1,18 @@
-[gd_scene load_steps=23 format=3 uid="uid://djriivifdcxl4"]
+[gd_scene load_steps=25 format=3 uid="uid://djriivifdcxl4"]
 
 [ext_resource type="Material" uid="uid://d4fdteuscil61" path="res://materials/testmats/testmat4.tres" id="1_obhs3"]
 [ext_resource type="Script" path="res://scripts/button.gd" id="1_q8bb1"]
 [ext_resource type="Material" uid="uid://cq0pket5afcw0" path="res://materials/testmats/testmat2.tres" id="2_kgc1c"]
-[ext_resource type="Material" path="res://materials/button_pressed.tres" id="2_qjo38"]
-[ext_resource type="Material" path="res://materials/button_unpressed.tres" id="5_8k8f7"]
+[ext_resource type="Material" uid="uid://bu41vkikvk035" path="res://materials/button_pressed.tres" id="2_qjo38"]
+[ext_resource type="Material" uid="uid://g8e5iddj6e0i" path="res://materials/button_unpressed.tres" id="5_8k8f7"]
 [ext_resource type="Texture2D" uid="uid://djxg55ukugdtc" path="res://textures/button_button_buttoncase_mtl_BaseColor.png" id="6_bftod"]
 [ext_resource type="Texture2D" uid="uid://qpieexwm6rgv" path="res://textures/button_button_buttoncase_mtl_Emissive.png" id="7_s7drv"]
 [ext_resource type="Texture2D" uid="uid://dm7kj1ytqjmh4" path="res://textures/button_buttoncase_mtl_Metallic.1001.png" id="9_wb0en"]
 [ext_resource type="Texture2D" uid="uid://b7tuff4kvbckl" path="res://textures/button_buttoncase_mtl_Roughness.1001.png" id="10_5b4e0"]
 [ext_resource type="Texture2D" uid="uid://bg165v4430a2f" path="res://textures/button_button_buttondtls_mtl_BaseColor.png" id="10_ugbm8"]
 [ext_resource type="Texture2D" uid="uid://hxkyxoqkmb7t" path="res://textures/button_buttondtls_mtl_BaseColor.1001.png" id="11_gih1k"]
+[ext_resource type="AudioStream" uid="uid://do0g0p08tm551" path="res://assets/sounds/sfx/Props/button_on.wav" id="12_yrnl5"]
+[ext_resource type="AudioStream" uid="uid://dlgsrdqcuxtpb" path="res://assets/sounds/sfx/Props/button_off.wav" id="13_r7e62"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1fwao"]
 
@@ -184,3 +186,9 @@ skeleton = NodePath("")
 transform = Transform3D(1.98498, 1.70282e-07, -2.05463, -2.05463, 5.10846e-07, -1.98498, 1.70282e-07, 2.85686, 5.10846e-07, -6.54818, 4.42733, 1.16256)
 mesh = SubResource("ArrayMesh_ivreb")
 skeleton = NodePath("")
+
+[node name="ButtonOn" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("12_yrnl5")
+
+[node name="ButtonOff" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("13_r7e62")

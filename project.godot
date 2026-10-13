@@ -20,6 +20,7 @@ config/icon="res://Scenes/Assets/icon.svg"
 CyclopsAutoload="*res://addons/cyclops_level_builder/cyclops_global_scene.tscn"
 UI="*res://UI/scripts/ui_autoload.gd"
 Menu="*res://UI/V2/GameMenu.tscn"
+SceneLoader="*res://UI/V2/Loading/LoadingScreen.tscn"
 
 [display]
 
@@ -134,6 +135,9 @@ look_up={
 3d_physics/layer_12="Inimigos"
 3d_physics/layer_13="SwordHit"
 3d_physics/layer_16="SpawnDoor"
+3d_physics/layer_17="Triturador"
+3d_physics/layer_18="Lixo"
+3d_physics/layer_19="Detritos"
 
 [navigation]
 
@@ -142,4 +146,5 @@ look_up={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/decals/filter=0
 viewport/hdr_2d=true
