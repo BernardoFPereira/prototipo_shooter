@@ -16695,7 +16695,7 @@ transform = Transform3D(2.63362e-12, 3.08742e-10, 0.00816427, 0.0172606, -2.4655
 transform = Transform3D(9.06332e-05, -3.06877e-10, -0.00815429, -0.0173095, -3.08489e-10, -4.26962e-05, -7.52671e-10, 0.00705749, -3.56435e-10, -6.38723, 6.26568, -2.30558)
 
 [node name="vent2" parent="." instance=ExtResource("15_00gqf")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -21.9988, 0.135071, 4.79888)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -21.9988, 0.135071, 4.79888)
 
 [node name="Decal" type="Decal" parent="vent2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 3.75237, 0.239319)
@@ -16737,7 +16737,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0614, 3.25388, 32.0181)
 level_to_load = ExtResource("33_vehqe")
 
 [node name="vent" parent="." instance=ExtResource("15_00gqf")]
-transform = Transform3D(-2.3399e-08, 0, 1, 0, 0.531346, 0, -0.535308, 0, -4.37114e-08, 19.8953, 1.94492, 20.6266)
+transform = Transform3D(-2.33991e-08, 0, 1, 0, 0.531346, 0, -0.535308, 0, -4.37114e-08, 19.8953, 1.94492, 20.6266)
 
 [node name="Button" parent="." node_paths=PackedStringArray("linked_obj") instance=ExtResource("23_1ioem")]
 transform = Transform3D(-2.65593e-08, 0, 0.607605, 0, 0.607605, 0, -0.607605, 0, -2.65593e-08, 20, 1.93189, 32.8023)
