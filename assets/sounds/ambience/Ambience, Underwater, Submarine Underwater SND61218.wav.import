@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://csediybstgngy"
+path="res://.godot/imported/Ambience, Underwater, Submarine Underwater SND61218.wav-4133e02907fd43e70afbecfb10bbddde.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ambience/Ambience, Underwater, Submarine Underwater SND61218.wav"
+dest_files=["res://.godot/imported/Ambience, Underwater, Submarine Underwater SND61218.wav-4133e02907fd43e70afbecfb10bbddde.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

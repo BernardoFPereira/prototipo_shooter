@@ -1,4 +1,4 @@
-[gd_scene load_steps=1588 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1593 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_3xgkq"]
@@ -46,6 +46,7 @@
 [ext_resource type="PackedScene" uid="uid://dcj3yqwdv0enk" path="res://prefabs/prefabprops/lab_capsule.tscn" id="41_6wqu5"]
 [ext_resource type="PackedScene" uid="uid://k5t6yhfdd8j7" path="res://prefabs/prefabprops/wallplates_open_detail.tscn" id="44_f2rss"]
 [ext_resource type="PackedScene" uid="uid://bn0man2cs0b7v" path="res://entities/assistant/Tutorial.tscn" id="46_82ven"]
+[ext_resource type="AudioStream" uid="uid://dr4arnwlhysor" path="res://assets/sounds/ambience/Water, Underwater, Bubbles, Bubble, Deep, Tonal, Weird SND12423.wav" id="46_abbtk"]
 [ext_resource type="Resource" uid="uid://dqnhqouf0xiak" path="res://entities/assistant/Steps/visao.tres" id="47_dkwpy"]
 [ext_resource type="Resource" uid="uid://bibkaruf1bhdg" path="res://entities/assistant/Steps/movimento.tres" id="48_f3844"]
 [ext_resource type="Resource" uid="uid://cumlbwict3n3w" path="res://entities/assistant/Steps/pulo.tres" id="49_jd1kq"]
@@ -53,6 +54,10 @@
 [ext_resource type="Resource" uid="uid://co4vj87lp6i83" path="res://entities/assistant/Steps/braco.tres" id="51_utego"]
 [ext_resource type="Resource" uid="uid://bbakv0761ubqm" path="res://entities/assistant/Steps/recolher_braco.tres" id="52_bvus0"]
 [ext_resource type="Resource" uid="uid://u22m4p73npxo" path="res://entities/assistant/Steps/fim.tres" id="53_5fi18"]
+[ext_resource type="AudioStream" uid="uid://cvnk15skmnuwk" path="res://assets/sounds/ambience/Ambience, Warfare, Battlefield, Sci-fi, Distant, Low Intensity 03 SND28475.wav" id="55_u0v0s"]
+[ext_resource type="AudioStream" uid="uid://dwrtrj2xwpu4d" path="res://assets/sounds/ambience/Designed, Drone, Abstract Machinery, Static 03 SND12649.wav" id="56_qfpct"]
+[ext_resource type="AudioStream" uid="uid://csediybstgngy" path="res://assets/sounds/ambience/Ambience, Underwater, Submarine Underwater SND61218.wav" id="57_0fmno"]
+[ext_resource type="AudioStream" uid="uid://kdb1uc5gis0h" path="res://assets/sounds/ambience/Ambience, Underground, Garage 04 SND43191.wav" id="57_woe2l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -16420,7 +16425,7 @@ shadow_enabled = true
 omni_range = 38.4386
 
 [node name="OmniLight3D17" type="OmniLight3D" parent="CorridorLights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.56925, 4.80058, -15.0914)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.30354, 4.80058, -15.0914)
 light_color = Color(0.123234, 0.880866, 0.411102, 1)
 light_energy = 6.375
 shadow_enabled = true
@@ -16939,9 +16944,57 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1431, 11.0645, 0)
 [node name="LabCapsule" parent="." instance=ExtResource("41_6wqu5")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 42.1947, 0, 28.4682)
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="LabCapsule"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.26259, 0)
+stream = ExtResource("46_abbtk")
+autoplay = true
+max_distance = 20.0
+bus = &"SFX"
+
 [node name="Tutorial" parent="." node_paths=PackedStringArray("player") instance=ExtResource("46_82ven")]
 player = NodePath("../Player")
 steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0093, 2.81368, -44.4939)
+stream = ExtResource("55_u0v0s")
+autoplay = true
+stream_paused = true
+max_distance = 30.0
+bus = &"SFX"
+
+[node name="Ambience1" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9223, 3.94766, 36.6828)
+stream = ExtResource("56_qfpct")
+volume_db = -5.0
+pitch_scale = 0.85
+autoplay = true
+max_distance = 41.35
+bus = &"SFX"
+
+[node name="Ambience2" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.6771, -4.24545, -23.2105)
+stream = ExtResource("57_0fmno")
+volume_db = -15.0
+unit_size = 73.69
+pitch_scale = 0.85
+autoplay = true
+stream_paused = true
+max_distance = 50.0
+max_polyphony = 2
+panning_strength = 0.0
+bus = &"SFX"
+
+[node name="Ambience3" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.22384, 3.91372, -13.0377)
+stream = ExtResource("57_woe2l")
+unit_size = 49.48
+pitch_scale = 0.85
+autoplay = true
+stream_paused = true
+max_distance = 50.0
+panning_strength = 0.0
+bus = &"SFX"
 
 [editable path="AlamLights/AlarmLight"]
 [editable path="AlamLights/AlarmLight5"]

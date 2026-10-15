@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bwe5y8pxbs3gb"
+path="res://.godot/imported/Machines, Antique, Printing Press, Heidelberg OHZ, Engine On SND69409.wav-36ec74da27ff45f526f2f8c2ca1e098d.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ambience/Machines, Antique, Printing Press, Heidelberg OHZ, Engine On SND69409.wav"
+dest_files=["res://.godot/imported/Machines, Antique, Printing Press, Heidelberg OHZ, Engine On SND69409.wav-36ec74da27ff45f526f2f8c2ca1e098d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

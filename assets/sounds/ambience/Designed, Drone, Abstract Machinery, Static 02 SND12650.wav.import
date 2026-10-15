@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ecuxlwiowcd5"
+path="res://.godot/imported/Designed, Drone, Abstract Machinery, Static 02 SND12650.wav-2b20e2d5795cabdc72bd4141e81a8121.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ambience/Designed, Drone, Abstract Machinery, Static 02 SND12650.wav"
+dest_files=["res://.godot/imported/Designed, Drone, Abstract Machinery, Static 02 SND12650.wav-2b20e2d5795cabdc72bd4141e81a8121.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
