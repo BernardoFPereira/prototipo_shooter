@@ -50,6 +50,9 @@ transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
 albedo_texture = ExtResource("2_lur2i")
+emission_enabled = true
+emission_energy_multiplier = 0.19
+emission_texture = ExtResource("2_lur2i")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exua0"]
 resource_name = "standardSurface1"
@@ -225,7 +228,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_sfd88")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_blnii"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fl8vo"]
 shader = ExtResource("40_sb3w2")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -533,7 +536,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_blnii")
+material = SubResource("ShaderMaterial_fl8vo")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

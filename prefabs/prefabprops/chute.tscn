@@ -12,7 +12,7 @@ resource_name = "ChuteBorder_mtl"
 cull_mode = 2
 albedo_color = Color(0.735357, 0.735357, 0.735357, 1)
 albedo_texture = ExtResource("1_oyswi")
-roughness = 0.5
+roughness = 0.0
 emission_enabled = true
 emission_texture = ExtResource("2_mivap")
 
@@ -140,7 +140,7 @@ resource_name = "lambert27"
 cull_mode = 2
 albedo_color = Color(0.735357, 0.735357, 0.735357, 1)
 albedo_texture = ExtResource("3_y0b8e")
-roughness = 0.5
+roughness = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_f2xh3"]
 _surfaces = [{
