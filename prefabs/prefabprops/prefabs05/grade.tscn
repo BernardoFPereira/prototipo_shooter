@@ -16,7 +16,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.28726, -9.5377, -0.308213)
 [node name="StaticBody3D" type="StaticBody3D" parent="grate/grate_geo" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="grate/grate_geo/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_a8l21")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="grate/pole_geo" index="0"]

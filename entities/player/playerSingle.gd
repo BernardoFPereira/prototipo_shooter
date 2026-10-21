@@ -523,6 +523,7 @@ func take_damage(amount: float):
 			is_dead = true
 			game_hud_canvas.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			$DeathCanvas.visible = true
  
 func bar_take_damage(damage: float):
 	real_value -= damage

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbclnohx75s8x"]
+
+[ext_resource type="PackedScene" uid="uid://ckywfhmtd1sps" path="res://models/heroassets/props/mesao.glb" id="1_uh3bm"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3l4fw"]
+points = PackedVector3Array(-225.767, 13.6286, -120.994, 255.133, 195.767, -109.461, 252.536, 186.835, -53.9343, -255.133, 195.767, -109.461, -217.008, 143.84, 0.568283, 244.626, -2.52176, -53.9343, 234.416, 126.48, -155.741, -244.626, -2.52176, -53.9343, 200.287, 60.0698, -5.4536, -243.121, 126.48, -155.741, 234.416, 4.95923, -112.303, 217.008, 143.84, 0.568283, 256.516, 196.307, -133.673, -186.897, 53.2991, -7.50018, -252.536, 186.835, -53.9343, -256.516, 196.307, -133.673, -264.619, 1.0347, -69.3397, 264.633, 1.02956, -69.3392, 234.416, 39.6793, -129.669, -250.996, -5.0903, -69.5113, -234.416, 4.95923, -112.303, 250.996, -5.0903, -69.5113, 225.767, 152.53, -8.12237, 260.049, 165.155, -134.445, -200.272, 60.0726, -5.45912, -225.767, 152.53, -8.12237, -218.825, 154.696, -147.931, 186.916, 53.2946, -7.49285, 243.121, 74.4207, -138.344, 225.767, 13.6286, -120.994, -259.376, 156.865, -134.298, -258.128, 35.6384, -101.776)
+
+[node name="mesão" type="Node3D"]
+
+[node name="mesao" parent="." instance=ExtResource("1_uh3bm")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="mesao/cybermachinerydesk/apparatus_geo" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="mesao/cybermachinerydesk/apparatus_geo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.87226, 0)
+shape = SubResource("ConvexPolygonShape3D_3l4fw")
+
+[editable path="mesao"]
