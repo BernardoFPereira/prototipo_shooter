@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" path="res://prefabs/prefabprops/BreakableVent.gd" id="1_sw2nr"]
 [ext_resource type="PackedScene" uid="uid://43p4oygb15uw" path="res://models/heroassets/vent.glb" id="2_viieh"]
-[ext_resource type="ArrayMesh" uid="uid://dj0cgr8hmy6qe" path="res://models/heroassets/props/ventplane.res" id="3_j16s0"]
-[ext_resource type="AudioStream" uid="uid://cn4s0td315frx" path="res://assets/sounds/sfx/Props/vent_break.wav" id="4_82gha"]
+[ext_resource type="ArrayMesh" uid="uid://cc0j6agtf6dll" path="res://models/heroassets/props/ventplane.res" id="3_j16s0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4q53q"]
 size = Vector3(6.9104, 7.01453, 0.964722)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y5lcq"]
+streams_count = 1
+stream_0/weight = 1.0
 
 [node name="vent" type="StaticBody3D"]
 collision_layer = 273
@@ -25,7 +28,7 @@ mesh = ExtResource("3_j16s0")
 skeleton = NodePath("")
 
 [node name="BreakAudio" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_82gha")
+stream = SubResource("AudioStreamRandomizer_y5lcq")
 pitch_scale = 0.73
 
 [editable path="vent"]
