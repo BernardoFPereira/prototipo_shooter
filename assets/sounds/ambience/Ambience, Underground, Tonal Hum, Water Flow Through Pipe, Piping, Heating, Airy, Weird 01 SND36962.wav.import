@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cil8lqfw2mspb"
+path="res://.godot/imported/Ambience, Underground, Tonal Hum, Water Flow Through Pipe, Piping, Heating, Airy, Weird 01 SND36962.wav-fb5b42b7ae305052928d2216ac11f02e.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ambience/Ambience, Underground, Tonal Hum, Water Flow Through Pipe, Piping, Heating, Airy, Weird 01 SND36962.wav"
+dest_files=["res://.godot/imported/Ambience, Underground, Tonal Hum, Water Flow Through Pipe, Piping, Heating, Airy, Weird 01 SND36962.wav-fb5b42b7ae305052928d2216ac11f02e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

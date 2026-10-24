@@ -9,6 +9,7 @@ cull_mode = 2
 albedo_texture = ExtResource("1_boo0w")
 emission_enabled = true
 emission_texture = ExtResource("2_oalxg")
+texture_filter = 0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_g7g2o"]
 _surfaces = [{

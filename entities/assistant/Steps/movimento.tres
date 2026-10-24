@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://bibkaruf1bhdg"]
+
+[ext_resource type="Script" path="res://entities/assistant/tutorial_step.gd" id="1_0y0v8"]
+
+[resource]
+resource_name = "2 - Movimento"
+script = ExtResource("1_0y0v8")
+message = "Calibrar sistemas de locomoção:
+W, A, S, D"
+align_right = true
+delay_before = 0.5
+close_box_on_complete = false
+unlock = 2
+unlock_when = 1
+lock = 0
+complete_when = 0
+required_action = 1
+required_amount = 5.0
+wait_time = 3.0
+min_time = 1.5
+timeout = 0.0

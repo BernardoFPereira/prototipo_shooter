@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c8wku7638rifw"
+path="res://.godot/imported/Scifi, Computer, Glitch Or Malfunction SND32463.wav-4c4d50a0fcb15f604fb5722b39f40fc0.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ambience/Scifi, Computer, Glitch Or Malfunction SND32463.wav"
+dest_files=["res://.godot/imported/Scifi, Computer, Glitch Or Malfunction SND32463.wav-4c4d50a0fcb15f604fb5722b39f40fc0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

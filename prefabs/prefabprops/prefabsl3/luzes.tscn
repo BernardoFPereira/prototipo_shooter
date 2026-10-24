@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba3qcsnxr1cyp"]
+
+[ext_resource type="PackedScene" uid="uid://w05qqot1qbo3" path="res://models/heroassets/props/lanterninha.glb" id="1_2u3jj"]
+
+[node name="lanterna" type="Node3D"]
+
+[node name="lanterninha" parent="." instance=ExtResource("1_2u3jj")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3.32397, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lanterninha"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.66364, -2.32863e-07)
+light_color = Color(1, 0.545486, 0.224786, 1)
+light_energy = 28.215
+light_bake_mode = 1
+spot_range = 10.1873
+spot_angle = 26.1659

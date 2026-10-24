@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://cumlbwict3n3w"]
+
+[ext_resource type="Script" path="res://entities/assistant/tutorial_step.gd" id="1_c6e3w"]
+
+[resource]
+resource_name = "3 - Pulo"
+script = ExtResource("1_c6e3w")
+message = "Calibrar amortecedores:
+Barra de Espaço"
+align_right = true
+delay_before = 0.5
+close_box_on_complete = false
+unlock = 4
+unlock_when = 1
+lock = 0
+complete_when = 0
+required_action = 2
+required_amount = 1.0
+wait_time = 3.0
+min_time = 2.0
+timeout = 0.0
