@@ -1,0 +1,499 @@
+[gd_scene load_steps=5 format=3 uid="uid://m06osjc3mcoi"]
+
+[ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="1_ha2uo"]
+[ext_resource type="Script" path="res://UI/V2/Settings/settings_menu.gd" id="2_defka"]
+
+[sub_resource type="Theme" id="Theme_uy3pn"]
+default_font = ExtResource("1_ha2uo")
+default_font_size = 30
+Button/colors/font_color = Color(0.1, 1, 0.3, 1)
+CheckButton/colors/font_color = Color(0.1, 1, 0.3, 1)
+Label/colors/font_color = Color(0.1, 1, 0.3, 1)
+OptionButton/colors/font_color = Color(0.1, 1, 0.3, 1)
+TabContainer/colors/font_color = Color(0.1, 1, 0.3, 1)
+TabContainer/colors/font_selected_color = Color(1, 1, 1, 1)
+TabContainer/colors/font_unselected_color = Color(0.07, 0.7, 0.21, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pq33e"]
+content_margin_left = 24.0
+content_margin_top = 24.0
+content_margin_right = 24.0
+content_margin_bottom = 24.0
+bg_color = Color(0.01, 0.05, 0.03, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.1, 0.8, 0.3, 1)
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = SubResource("Theme_uy3pn")
+script = ExtResource("2_defka")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 720.0
+offset_top = 110.0
+offset_right = 1840.0
+offset_bottom = 990.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pq33e")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@2" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 54
+text = "CONFIGURAÇÕES"
+vertical_alignment = 1
+
+[node name="Tabs" type="TabContainer" parent="Panel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
+current_tab = 2
+
+[node name="Vídeo" type="ScrollContainer" parent="Panel/VBox/Tabs"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="@MarginContainer@4" type="MarginContainer" parent="Panel/VBox/Tabs/Vídeo"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Rows" type="VBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="MododetelaRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@11" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/MododetelaRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Modo de tela"
+vertical_alignment = 1
+
+[node name="WindowModeOption" type="OptionButton" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/MododetelaRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+flat = true
+
+[node name="Resolucao3DRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@18" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/Resolucao3DRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Resolução (3D)"
+vertical_alignment = 1
+
+[node name="ResolutionOption" type="OptionButton" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/Resolucao3DRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+flat = true
+
+[node name="VSyncRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@19" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/VSyncRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "VSync"
+vertical_alignment = 1
+
+[node name="VSyncCheck" type="CheckButton" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/VSyncRow"]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true
+
+[node name="LimitedeFPSRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@26" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/LimitedeFPSRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Limite de FPS"
+vertical_alignment = 1
+
+[node name="MaxFpsOption" type="OptionButton" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/LimitedeFPSRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+flat = true
+
+[node name="CampodevisaoRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@27" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/CampodevisaoRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Campo de visão"
+vertical_alignment = 1
+
+[node name="FovSlider" type="HSlider" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/CampodevisaoRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 60.0
+max_value = 120.0
+value = 60.0
+
+[node name="FovValue" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/CampodevisaoRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BrilhoRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@28" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/BrilhoRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Brilho"
+vertical_alignment = 1
+
+[node name="BrightnessSlider" type="HSlider" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/BrilhoRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 50.0
+max_value = 150.0
+value = 50.0
+
+[node name="BrightnessValue" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/BrilhoRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MostrarFPSRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@29" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/MostrarFPSRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Mostrar FPS"
+vertical_alignment = 1
+
+[node name="ShowFpsCheck" type="CheckButton" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/MostrarFPSRow"]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true
+
+[node name="Áudio" type="ScrollContainer" parent="Panel/VBox/Tabs"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="@MarginContainer@30" type="MarginContainer" parent="Panel/VBox/Tabs/Áudio"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Rows" type="VBoxContainer" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="MúsicaRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@31" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/MúsicaRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Música"
+vertical_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/MúsicaRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="MusicValue" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/MúsicaRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MusicMute" type="CheckButton" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/MúsicaRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Mudo"
+flat = true
+
+[node name="EfeitosRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@32" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/EfeitosRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Efeitos"
+vertical_alignment = 1
+
+[node name="SFXSlider" type="HSlider" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/EfeitosRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="SFXValue" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/EfeitosRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SFXMute" type="CheckButton" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/EfeitosRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Mudo"
+flat = true
+
+[node name="InterfaceRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@33" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/InterfaceRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Interface"
+vertical_alignment = 1
+
+[node name="HUDSlider" type="HSlider" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/InterfaceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HUDValue" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/InterfaceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HUDMute" type="CheckButton" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/InterfaceRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Mudo"
+flat = true
+
+[node name="Controles" type="ScrollContainer" parent="Panel/VBox/Tabs"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="@MarginContainer@34" type="MarginContainer" parent="Panel/VBox/Tabs/Controles"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Rows" type="VBoxContainer" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="SensibilidadedomouseRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@35" type="Label" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows/SensibilidadedomouseRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Sensibilidade do mouse"
+vertical_alignment = 1
+
+[node name="SensSlider" type="HSlider" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows/SensibilidadedomouseRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 20.0
+step = 0.5
+
+[node name="SensValue" type="Label" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows/SensibilidadedomouseRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="InvertereixoYRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@36" type="Label" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows/InvertereixoYRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Inverter eixo Y"
+vertical_alignment = 1
+
+[node name="InvertYCheck" type="CheckButton" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows/InvertereixoYRow"]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true
+
+[node name="Acessibilidade" type="ScrollContainer" parent="Panel/VBox/Tabs"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="@MarginContainer@37" type="MarginContainer" parent="Panel/VBox/Tabs/Acessibilidade"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Rows" type="VBoxContainer" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="MovimentodacâmeraRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@38" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/MovimentodacâmeraRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Movimento da câmera"
+vertical_alignment = 1
+
+[node name="CameraMotionSlider" type="HSlider" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/MovimentodacâmeraRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+
+[node name="CameraMotionValue" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/MovimentodacâmeraRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TremordatelaRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="@Label@39" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/TremordatelaRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Tremor da tela"
+vertical_alignment = 1
+
+[node name="ScreenShakeSlider" type="HSlider" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/TremordatelaRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+step = 5.0
+
+[node name="ScreenShakeValue" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/TremordatelaRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "100%"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="@Label@40" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Balanço ao andar, inclinação e coices.
+Reduza se sentir enjoo."
+vertical_alignment = 1
+
+[node name="Bottom" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+alignment = 2
+
+[node name="ResetButton" type="Button" parent="Panel/VBox/Bottom"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Restaurar padrão"

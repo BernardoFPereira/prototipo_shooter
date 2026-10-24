@@ -146,7 +146,10 @@ func _on_config_button_toggled(toggled_on: bool) -> void:
 		credits_button.button_pressed = false
 		quit_group.visible = false
 		quit_button.button_pressed = false
-		active_background.texture = config_background
+		# O fundo antigo da tela de config (com os rótulos do layout velho) não combina com o
+		# painel novo — volte a linha abaixo quando o visual novo estiver pronto.
+		active_background.texture = null # config_background
+		settings_panel.refresh_from_settings()
 		UI.play_sound("confirm_button")
 	else:
 		config_group.visible = false

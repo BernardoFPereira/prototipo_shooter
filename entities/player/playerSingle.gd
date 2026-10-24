@@ -352,14 +352,16 @@ func handle_states(delta):
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
  
-	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag, delta * 6)
+	# Inclinação ao andar de lado — reduzida por Configurações > Conforto > Movimento da câmera.
+	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag * UI.camera_motion, delta * 6)
  
 func _rotate_camera():
 	if is_dead:
 		return
 	if input_mouse and has_ability(Ability.LOOK):
 		rotate_y(-input_mouse.x * UI.mouse_sensitivity)
-		head.rotate_x(-input_mouse.y * UI.mouse_sensitivity)
+		var invert := -1.0 if UI.invert_y else 1.0 # Configurações > Controles > Inverter eixo Y
+		head.rotate_x(-input_mouse.y * UI.mouse_sensitivity * invert)
 		action_performed.emit(Action.LOOK, rad_to_deg(input_mouse.length() * UI.mouse_sensitivity))
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
