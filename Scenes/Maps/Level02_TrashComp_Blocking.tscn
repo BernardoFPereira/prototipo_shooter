@@ -21788,7 +21788,7 @@ ranged = 2
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer" parent="AudioStreamers"]
 stream = ExtResource("28_n2fe1")
-volume_db = 17.434
+volume_db = 10.0
 autoplay = true
 
 [connection signal="body_entered" from="UI Messages/AssistantTextArea2" to="UI Messages/AssistantTextArea2" method="_on_body_entered"]
