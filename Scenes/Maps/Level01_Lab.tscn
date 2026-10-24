@@ -16956,11 +16956,10 @@ player = NodePath("../Player")
 steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0093, 2.81368, -44.4939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2194, 2.81368, -44.4939)
 stream = ExtResource("55_u0v0s")
 autoplay = true
-stream_paused = true
-max_distance = 30.0
+max_distance = 37.0
 bus = &"SFX"
 
 [node name="Ambience1" type="AudioStreamPlayer3D" parent="."]
@@ -16972,26 +16971,20 @@ autoplay = true
 max_distance = 41.35
 bus = &"SFX"
 
-[node name="Ambience2" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.6771, -4.24545, -23.2105)
+[node name="Ambience2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("57_0fmno")
-volume_db = -15.0
-unit_size = 73.69
 pitch_scale = 0.85
 autoplay = true
-stream_paused = true
-max_distance = 50.0
 max_polyphony = 2
-panning_strength = 0.0
 bus = &"SFX"
 
 [node name="Ambience3" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.22384, 3.91372, -13.0377)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.95364, 3.91372, -13.0377)
 stream = ExtResource("57_woe2l")
+volume_db = 10.0
 unit_size = 49.48
 pitch_scale = 0.85
 autoplay = true
-stream_paused = true
 max_distance = 50.0
 panning_strength = 0.0
 bus = &"SFX"
