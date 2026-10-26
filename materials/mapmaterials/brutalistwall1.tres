@@ -5,4 +5,5 @@
 [resource]
 diffuse_mode = 3
 specular_mode = 1
+albedo_color = Color(0.581033, 0.581033, 0.581033, 1)
 albedo_texture = ExtResource("1_t5850")

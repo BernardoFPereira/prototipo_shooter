@@ -15,6 +15,9 @@ points = PackedVector3Array(-0.304774, -0.511032, -0.5449, 0.507937, 0.895731, 0
 
 [node name="Tubinho" parent="." instance=ExtResource("1_m1y5w")]
 
+[node name="Lab_vat" parent="Tubinho" index="0"]
+transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
+
 [node name="inverted_hull1" parent="Tubinho/Lab_vat" index="1"]
 layers = 17
 
