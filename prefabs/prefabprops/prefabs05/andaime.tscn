@@ -9,9 +9,6 @@ points = PackedVector3Array(-114.954, -122.601, -1.22363, 114.954, -122.601, -1.
 
 [node name="andar" parent="." instance=ExtResource("1_ssnkx")]
 
-[node name="noguard_geo" parent="andar" index="0"]
-layers = 17
-
 [node name="StaticBody3D" type="StaticBody3D" parent="andar/noguard_geo" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="andar/noguard_geo/StaticBody3D"]

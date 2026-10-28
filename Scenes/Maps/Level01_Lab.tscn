@@ -34,8 +34,8 @@
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="23_eda7h"]
 [ext_resource type="PackedScene" uid="uid://cmt6r0hgmc5tb" path="res://prefabs/prefabprops/prefabsl3/BigDoor.tscn" id="23_ydroa"]
 [ext_resource type="PackedScene" uid="uid://c1lx7l4mmragh" path="res://prefabs/prefabprops/prefabsl3/cube.tscn" id="25_vyen0"]
+[ext_resource type="PackedScene" uid="uid://dao0r7la1y2am" path="res://Scenes/Maps/Level02_TrashComp.tscn" id="33_40npb"]
 [ext_resource type="PackedScene" uid="uid://dpow2sxmvwmho" path="res://prefabs/prefabprops/prefabsl3/bevel_details.tscn" id="33_puccs"]
-[ext_resource type="PackedScene" uid="uid://5ay78lg8usi1" path="res://Scenes/Maps/Level02_TrashComp_Blocking.tscn" id="33_vehqe"]
 [ext_resource type="Texture2D" uid="uid://bttoc4uhwspmx" path="res://textures/propstextures/level3textures/platforms and bevels stars_platforms borders and stars_level3props_mtl_BaseColor.png" id="34_toyrk"]
 [ext_resource type="Texture2D" uid="uid://t3hr81bwxssm" path="res://textures/propstextures/level3textures/platforms and bevels stars_platforms borders and stars_level3props_mtl_Emissive.png" id="35_8vfiy"]
 [ext_resource type="PackedScene" uid="uid://b6vh85cn0h1av" path="res://prefabs/prefabprops/prefabsl3/diagonal_bevel.tscn" id="36_2mylm"]
@@ -16494,18 +16494,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.2805, -9, -30.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_t85dd")
 materials = Array[Material]([ExtResource("20_l8ern")])
+collision_layer = 17
 
 [node name="Block_110" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.2805, -9, -25.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_3g8c6")
 materials = Array[Material]([ExtResource("20_l8ern")])
+collision_layer = 17
 
 [node name="Block_115" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -70.2805, -8, -31.3257)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_u7xg8")
 materials = Array[Material]([ExtResource("16_7b5c2")])
+collision_layer = 17
 
 [node name="Block_111" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -49.2805, 0, 16.6743)
@@ -16935,7 +16938,7 @@ start_node = 3
 
 [node name="SceneProgressArea" parent="." instance=ExtResource("20_2kun6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.0614, 3.25388, 32.0181)
-level_to_load = ExtResource("33_vehqe")
+level_to_load = ExtResource("33_40npb")
 
 [node name="vent" parent="." instance=ExtResource("15_00gqf")]
 transform = Transform3D(-2.33991e-08, 0, 1, 0, 0.531346, 0, -0.535308, 0, -4.37114e-08, 19.8953, 1.94492, 20.6266)
