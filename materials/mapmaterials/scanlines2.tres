@@ -4,3 +4,12 @@
 
 [resource]
 albedo_texture = ExtResource("1_aytfd")
+metallic_specular = 0.0
+metallic_texture = ExtResource("1_aytfd")
+emission_enabled = true
+emission_energy_multiplier = 2.05
+emission_texture = ExtResource("1_aytfd")
+normal_scale = 16.0
+normal_texture = ExtResource("1_aytfd")
+heightmap_enabled = true
+heightmap_scale = 16.0

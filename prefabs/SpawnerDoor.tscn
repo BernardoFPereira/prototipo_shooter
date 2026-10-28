@@ -393,6 +393,7 @@ collision_layer = 32768
 
 [node name="DoorCover_geo" type="MeshInstance3D" parent="portadiorama/porta"]
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
+layers = 17
 mesh = SubResource("ArrayMesh_odyea")
 skeleton = NodePath("")
 
@@ -406,6 +407,7 @@ sync_to_physics = false
 
 [node name="Doorbars_concave_geo" type="MeshInstance3D" parent="portadiorama/porta/ConcaveDoor"]
 transform = Transform3D(0.01, 0, 1.16415e-10, 1.16415e-10, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
+layers = 17
 mesh = SubResource("ArrayMesh_7a5pb")
 skeleton = NodePath("")
 
@@ -419,6 +421,7 @@ sync_to_physics = false
 
 [node name="Doorbars_convex_geo" type="MeshInstance3D" parent="portadiorama/porta/ConvexDoor"]
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
+layers = 17
 mesh = SubResource("ArrayMesh_2bcfh")
 skeleton = NodePath("")
 

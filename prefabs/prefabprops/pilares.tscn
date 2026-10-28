@@ -184,7 +184,7 @@ transform = Transform3D(1, 0, -3.03316e-15, 0, 1, -2.22045e-16, 3.79557e-15, 2.2
 shape = SubResource("ConvexPolygonShape3D_cj8fv")
 
 [node name="thinwall_geo3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.0101891, 3.43349e-05, 6.91597e-10, 4.44848e-10, 2.14122e-11, 0.0158437, 3.49868e-05, 0.00999924, -3.6302e-11, -6.79407, 11.1752, -2.35738)
+transform = Transform3D(-0.0101891, 3.43349e-05, 6.11185e-10, 4.44848e-10, 2.14122e-11, 0.0140015, 3.49868e-05, 0.00999924, -3.20812e-11, -6.79407, 10.3253, -2.35738)
 mesh = SubResource("ArrayMesh_v2bnb")
 skeleton = NodePath("")
 
