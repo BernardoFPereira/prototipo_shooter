@@ -25191,11 +25191,16 @@ shadow_enabled = true
 omni_range = 20.0173
 
 [node name="OmniLight3D4" type="OmniLight3D" parent="Luzes/Node/OmniLight3D7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.6016, 12.0147, 18.2872)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.1149, 12.0147, 18.5241)
 light_color = Color(0.649818, 0.933303, 0.215316, 1)
-light_energy = 11.61
+light_energy = 5.36
+light_indirect_energy = 3.75
+light_volumetric_fog_energy = 0.0
+light_specular = 0.375
 light_bake_mode = 1
 shadow_enabled = true
+shadow_bias = 0.0
+shadow_blur = 0.0
 omni_range = 20.0173
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Luzes/Node/OmniLight3D7/OmniLight3D4"]
