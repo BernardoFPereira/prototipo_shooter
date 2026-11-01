@@ -2,7 +2,7 @@ class_name SwordButton
 extends Node3D
 
 @export_category("Objetos que são ativados")
-@export var linked_obj: Node3D
+@export var linked_obj: Node
 
 @export var pressed_mat: Material
 
@@ -45,11 +45,15 @@ func set_state(new_state):
 				button_geo.material_override = pressed_mat
 				return
 			
-			if linked_obj is BlastDoor:
-				linked_obj.open_blast_door()
-				await get_tree().create_timer(2).timeout
-				linked_obj.start_decompress()
+			if linked_obj is EndCinematic:
+				linked_obj.start_decompression_sequence()
 				return
+			
+			#if linked_obj is BlastDoor:
+				#linked_obj.open_blast_door()
+				#await get_tree().create_timer(2).timeout
+				#linked_obj.start_decompress()
+				#return
 			
 			#if linked_obj is Door:
 				#print("DOOR BROKEN BRUH")
@@ -68,6 +72,9 @@ func set_state(new_state):
 				return
 			
 			if linked_obj is BlastDoor:
+				return
+			
+			if linked_obj is EndCinematic:
 				return
 			
 			if linked_obj.has_method("on_button_released"):

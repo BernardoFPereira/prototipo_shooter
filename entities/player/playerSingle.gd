@@ -13,7 +13,8 @@ var current_fall_velocity : float
 var input_mouse: Vector2
 var movement_vector: Vector2
 var direction: Vector3
- 
+var is_end_cinematic: bool
+
 const JUMP_VELOCITY := 18
  
 @export_category("Combat Properties")
@@ -39,6 +40,7 @@ enum PlayerStates {
 	FALL,
 	PUSH,
 	FIRE,
+	DECOMPRESSING,
 }
  
 var state: PlayerStates = PlayerStates.IDLE
@@ -162,6 +164,8 @@ var _message_auto_close: bool = true
 @export var muzzle_flash_particles: PackedScene = preload("uid://b8edqmwpwyrwk")
 @onready var muzzle_flash_position = $Head/MuzzleFlashPosition
 
+var blast_door: BlastDoor
+
 func _ready():
 	Menu.enter_gameplay_context(self)
  
@@ -209,6 +213,11 @@ func set_state(new_state: PlayerStates):
 	previous_state = state
 	state = new_state
 	match new_state:
+		PlayerStates.DECOMPRESSING:
+			blast_door = get_tree().get_first_node_in_group("BlastDoor")
+			camera_juice.update_screen_shake(1, 0.3)
+			#camera_juice.add_screen_shake(0.5, 10)
+			pass
 		PlayerStates.IDLE:
 			is_animating_action = false
 			play_animation_with_blend("idle", true)
@@ -303,6 +312,12 @@ func handle_states(delta):
 	var horizontal_velocity = Vector3(velocity.x, 0 , velocity.z)
 	var target_velocity = Vector3.ZERO
 	match state:
+		PlayerStates.DECOMPRESSING:
+			if global_position.distance_to(blast_door.global_position) < 5:
+				print("getting close!")
+				camera_juice.update_screen_shake(1, 0.5)
+			#global_position.distance_to(blast_door.global_position)
+			pass
 		PlayerStates.IDLE:
 			if movement_vector and is_on_floor():
 				set_state(PlayerStates.RUN)
@@ -357,6 +372,8 @@ func handle_states(delta):
  
 func _rotate_camera():
 	if is_dead:
+		return
+	if is_end_cinematic:
 		return
 	if input_mouse and has_ability(Ability.LOOK):
 		rotate_y(-input_mouse.x * UI.mouse_sensitivity)

@@ -21723,7 +21723,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -383.272, 0, -138.387)
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Triturador"]
 transform = Transform3D(0.569801, 0, 0, 0, 0.569801, 0, 0, 0, 0.569801, 0, 7.91512, -15.2866)
 stream = ExtResource("24_u6fik")
-volume_db = -5.0
+volume_db = -4.0
+pitch_scale = 0.7
 autoplay = true
 
 [node name="BigDoor" parent="." instance=ExtResource("24_04o15")]

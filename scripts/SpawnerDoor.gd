@@ -55,5 +55,6 @@ func _on_spawn_trigger_area_body_entered(body):
 	if one_shot and !is_spawning:
 		spawn_enemy()
 		spawn_trigger_area.queue_free()
+		
 	elif !is_spawning:
 		spawn_enemy()
