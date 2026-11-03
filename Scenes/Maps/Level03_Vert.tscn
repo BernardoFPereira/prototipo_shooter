@@ -55351,11 +55351,13 @@ transform = Transform3D(0.502914, 0, 0, 0, 0.88178, 0, -3.55271e-15, 0, 0.88178,
 [node name="SpawnerDoor2" parent="." instance=ExtResource("71_xq23j")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 49.1063, 39.8472, 18.0324)
 melee = 1
+ranged = 1
 is_triggered = true
 
 [node name="SpawnerDoor3" parent="." instance=ExtResource("71_xq23j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 68.4729, 39.8472, -19.119)
 melee = 1
+ranged = 1
 is_triggered = true
 
 [node name="portadiorama9" parent="." instance=ExtResource("12_t4qnw")]
