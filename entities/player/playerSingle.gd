@@ -15,6 +15,9 @@ var movement_vector: Vector2
 var direction: Vector3
 var is_end_cinematic: bool
 
+@onready var finale_canvas = $FinaleCanvas
+@onready var end_anim_player = $FinaleCanvas/EndFade/AnimationPlayer
+
 const JUMP_VELOCITY := 18
  
 @export_category("Combat Properties")
@@ -210,14 +213,13 @@ func _process(delta):
 func set_state(new_state: PlayerStates):
 	if state == new_state:
 		return
+	if is_end_cinematic:
+		return
 	previous_state = state
 	state = new_state
 	match new_state:
 		PlayerStates.DECOMPRESSING:
 			blast_door = get_tree().get_first_node_in_group("BlastDoor")
-			camera_juice.update_screen_shake(1, 0.3)
-			#camera_juice.add_screen_shake(0.5, 10)
-			pass
 		PlayerStates.IDLE:
 			is_animating_action = false
 			play_animation_with_blend("idle", true)
@@ -304,7 +306,7 @@ func _on_land():
 	camera_juice.add_fall_kick(3)
  
 func handle_states(delta):
-	if has_ability(Ability.MOVE):
+	if has_ability(Ability.MOVE) and state != PlayerStates.DECOMPRESSING:
 		movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	else:
 		movement_vector = Vector2.ZERO
@@ -313,11 +315,17 @@ func handle_states(delta):
 	var target_velocity = Vector3.ZERO
 	match state:
 		PlayerStates.DECOMPRESSING:
-			if global_position.distance_to(blast_door.global_position) < 5:
-				print("getting close!")
+			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
+			movement_vector = Vector2.ZERO
+			#print(global_position.distance_to(blast_door.global_position))
+			if is_on_floor():
+				var target_transform = global_transform.looking_at(blast_door.global_position, Vector3.UP)
+				global_transform = global_transform.interpolate_with(target_transform, 0.3)
+			
+			if global_position.distance_to(blast_door.global_position) < 22:
+				#print("getting close!")
 				camera_juice.update_screen_shake(1, 0.5)
-			#global_position.distance_to(blast_door.global_position)
-			pass
+			return
 		PlayerStates.IDLE:
 			if movement_vector and is_on_floor():
 				set_state(PlayerStates.RUN)

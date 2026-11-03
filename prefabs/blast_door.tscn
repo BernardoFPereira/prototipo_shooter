@@ -1,8 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://r7nd1lumga1h"]
+[gd_scene load_steps=28 format=3 uid="uid://r7nd1lumga1h"]
 
 [ext_resource type="Script" path="res://scripts/blast_door.gd" id="1_dlyf2"]
 [ext_resource type="Shader" uid="uid://bgue4s5hvwq08" path="res://vfx/decompression.tres" id="1_incsv"]
 [ext_resource type="Shader" uid="uid://epm1yivou7pv" path="res://vfx/pixelated_particle_billboard.tres" id="2_cmhrr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kt3s4"]
+size = Vector3(2.3866, 11.2417, 15.5654)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i10ff"]
 
@@ -228,6 +231,12 @@ _data = {
 
 [node name="blast_door" type="Node3D"]
 script = ExtResource("1_dlyf2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.228455, 5.12085, 0)
+shape = SubResource("BoxShape3D_kt3s4")
 
 [node name="blast_door_top" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.699193, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
