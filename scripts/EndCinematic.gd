@@ -34,8 +34,15 @@ func start_decompression_sequence():
 func player_start_cinematic_states():
 	player.camera_juice.add_screen_shake(0.1, 15)
 	player.set_state(player.PlayerStates.DECOMPRESSING)
+	#center_player_sight()
 	player.is_end_cinematic = true
 	#player_is_turning = true
+
+#func center_player_sight():
+	#var rot_tween = create_tween()
+	#rot_tween.tween_property(player.head, "global_rotation", 0, 0.5)
+	#player.head.rotation.x
+	#pass
 
 #func player_turn_to_door():
 	#var target_transform = player.head.transform.looking_at(blast_door.global_position, Vector3.UP)

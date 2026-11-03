@@ -219,6 +219,7 @@ func set_state(new_state: PlayerStates):
 	state = new_state
 	match new_state:
 		PlayerStates.DECOMPRESSING:
+			play_animation_with_blend("idle", true)
 			blast_door = get_tree().get_first_node_in_group("BlastDoor")
 		PlayerStates.IDLE:
 			is_animating_action = false
@@ -315,17 +316,15 @@ func handle_states(delta):
 	var target_velocity = Vector3.ZERO
 	match state:
 		PlayerStates.DECOMPRESSING:
-			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
-			movement_vector = Vector2.ZERO
 			#print(global_position.distance_to(blast_door.global_position))
 			if is_on_floor():
 				var target_transform = global_transform.looking_at(blast_door.global_position, Vector3.UP)
 				global_transform = global_transform.interpolate_with(target_transform, 0.3)
-			
+				head.rotation.x = lerp(head.rotation.x, 0.0, delta * 4)
 			if global_position.distance_to(blast_door.global_position) < 22:
 				#print("getting close!")
 				camera_juice.update_screen_shake(1, 0.5)
-			return
+			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * 4)
 		PlayerStates.IDLE:
 			if movement_vector and is_on_floor():
 				set_state(PlayerStates.RUN)

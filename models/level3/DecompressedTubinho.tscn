@@ -11,6 +11,21 @@ data = PackedVector3Array(-0.5, -0.866, 0.2022, 0, 0, 0.2022, 0.5, -0.866, 0.202
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x1y8e"]
 points = PackedVector3Array(-0.304774, -0.511032, -0.5449, 0.507937, 0.895731, 0.2328, 0.539558, 0.863892, 0.2328, -0.539558, -0.881699, 0.2328, 0.539558, -0.881699, 0.2328, -0.603001, 0.768722, 0.2328, 0.301475, 0.519457, -0.540777, 0.932513, -0.0511179, -0.0329014, -0.942657, 0.0363989, -0.0314759, -0.301475, 0.519457, -0.540777, 0.304774, -0.511032, -0.5449, 1.01587, 0.0386811, 0.2328, -0.473286, 0.835105, -0.0309255, -1.01587, -0.0563146, 0.2328, -0.570835, -0.0529365, -0.539532, 0.570835, -0.0529365, -0.539532, -0.495158, -0.808567, -0.0329346, 0.473286, 0.835105, -0.0309255, 0.495157, -0.808566, -0.0329347, 0.942658, 0.036399, -0.0314757, -0.507937, 0.895731, 0.2328, -0.932515, -0.051118, -0.0329011, 0.563197, 0.066166, -0.534506, -0.563197, 0.066166, -0.534506, 1.01587, -0.0563146, 0.2328, -1.01587, 0.0386811, 0.2328, -0.500598, 0.802019, -0.0314952, 0.500599, 0.80202, -0.031495, 0.825347, 0.387869, 0.2328, -0.825347, 0.387869, 0.2328, 0.603001, 0.768722, 0.2328, -0.952232, 0.16569, 0.2328)
 
+[sub_resource type="Animation" id="Animation_mq4dd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.566534, -1.73976, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ei3p1"]
 resource_name = "float"
 length = 4.0
@@ -28,21 +43,6 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0.566534, -1.73976, 0), Vector3(2.39808, -2.988, 0.383972), Vector3(0.879646, -2.0752, 3.09098)]
 }
 
-[sub_resource type="Animation" id="Animation_mq4dd"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.566534, -1.73976, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2qfy0"]
 _data = {
 "RESET": SubResource("Animation_mq4dd"),
@@ -50,7 +50,7 @@ _data = {
 }
 
 [node name="Tubinho" type="Node3D"]
-transform = Transform3D(-0.168163, -0.529068, -0.83175, 0, 0.843767, -0.536711, 0.985759, -0.0902547, -0.14189, 0, 0, 0)
+transform = Transform3D(-0.168161, -0.529068, -0.831751, 0, 0.843767, -0.536711, 0.985759, -0.0902538, -0.141888, 0, 0, 0)
 
 [node name="Tubinho" parent="." instance=ExtResource("1_mffo2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.21559, 0)
