@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnpb7icafdapp"]
+
+[ext_resource type="PackedScene" uid="uid://bw1srs0i0h7im" path="res://models/level2/placatr_geo.glb" id="1_0eqvl"]
+
+[node name="placatr" type="Node3D"]
+
+[node name="placatr_geo2" parent="." instance=ExtResource("1_0eqvl")]
+transform = Transform3D(74.275, 0, 0, 0, 74.275, 0, 0, 0, 74.275, 0, 0, 0)

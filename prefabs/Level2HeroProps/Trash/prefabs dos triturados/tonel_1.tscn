@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dl5m4qhee6nno"]
+
+[ext_resource type="PackedScene" uid="uid://cji3bf1iv4irj" path="res://models/level2/triturados/tonel1_geo.glb" id="1_hc10i"]
+
+[node name="tonel1" type="Node3D"]
+
+[node name="tonel1_geo" parent="." instance=ExtResource("1_hc10i")]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://h10pwapy8030"]
+
+[ext_resource type="PackedScene" uid="uid://dsu6l3arqdb6y" path="res://models/level2/tonel_geo.glb" id="1_sa3et"]
+
+[node name="tonel" type="Node3D"]
+
+[node name="tonel_geo2" parent="." instance=ExtResource("1_sa3et")]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8uxslsenc5ig"]
+
+[ext_resource type="PackedScene" uid="uid://hs2gtrwweerp" path="res://models/level2/triturados/placatr1_geo.glb" id="1_ivke4"]
+
+[node name="placatr1" type="Node3D"]
+
+[node name="placatr1_geo2" parent="." instance=ExtResource("1_ivke4")]

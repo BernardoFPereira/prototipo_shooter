@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bp2mpgnunjob7"]
+
+[ext_resource type="PackedScene" uid="uid://btix1r0fk3ngh" path="res://models/level2/triturados/placaret1_geo.glb" id="1_1umwm"]
+
+[node name="placaret1" type="Node3D"]
+
+[node name="placaret1_geo2" parent="." instance=ExtResource("1_1umwm")]
