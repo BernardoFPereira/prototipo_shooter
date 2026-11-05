@@ -57,6 +57,7 @@ mesh = SubResource("ArrayMesh_68ugt")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="platforms and bevels stars/gaveta_geo"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="platforms and bevels stars/gaveta_geo/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_k61tq")

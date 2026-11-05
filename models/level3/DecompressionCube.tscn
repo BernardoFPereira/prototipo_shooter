@@ -1,7 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhp0ui2yp8sku"]
+[gd_scene load_steps=12 format=3 uid="uid://bhp0ui2yp8sku"]
 
+[ext_resource type="Script" path="res://scripts/DecompressedObject.gd" id="1_a1m61"]
 [ext_resource type="Texture2D" uid="uid://de0srofdy40h6" path="res://textures/propstextures/level3textures/Cube and DiagBevel_block and diagonalbevel_blocksandbevel_mtl_BaseColor.png" id="1_xno2i"]
 [ext_resource type="Texture2D" uid="uid://c2vgna31xk0d3" path="res://textures/propstextures/level3textures/Cube and DiagBevel_block and diagonalbevel_blocksandbevel_mtl_Emissive.png" id="2_tc7ty"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ld5v"]
+size = Vector3(12.5625, 12.441, 12.302)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2vnl0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6pl1c"]
 resource_name = "blocksandbevel_mtl.1001"
@@ -45,8 +51,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_x4216")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2vnl0"]
-
 [sub_resource type="Animation" id="Animation_qwgr4"]
 length = 0.001
 tracks/0/type = "value"
@@ -85,7 +89,20 @@ _data = {
 "floating": SubResource("Animation_lpucv")
 }
 
-[node name="Cube" type="Node3D"]
+[node name="Cube" type="StaticBody3D"]
+script = ExtResource("1_a1m61")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 32768
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.430359, -0.525513)
+shape = SubResource("BoxShape3D_5ld5v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(12.3301, 0, 0, 0, 0, -12.3301, 0, 12.3301, 0, 0.0342512, 0.41052, -0.475413)
+shape = SubResource("BoxShape3D_2vnl0")
 
 [node name="Cube and DiagBevel" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.04972, 0)
@@ -94,12 +111,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.04972, 0)
 transform = Transform3D(12.3301, 0, 0, 0, 0, -12.3301, 0, 12.3301, 0, 0.0342512, 4.46024, -0.475413)
 mesh = SubResource("ArrayMesh_5vfjd")
 skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Cube and DiagBevel/cubon_geo"]
-collision_layer = 17
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube and DiagBevel/cubon_geo/StaticBody3D"]
-shape = SubResource("BoxShape3D_2vnl0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

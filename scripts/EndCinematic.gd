@@ -15,7 +15,7 @@ class_name EndCinematic
 #@onready var box_spawn_point = $BoxSpawnPoint
 #@onready var box_spawn_point_2 = $BoxSpawnPoint2
 
-@onready var decompression_move_target = $DecompressionMoveTarget
+@onready var decompression_move_target = $DecompressionMoveTarget1
 
 @onready var timer: Timer = $Timer
 @onready var enemy_detect_area = $EnemyDetectArea
@@ -50,11 +50,11 @@ func swap_enemy_models(enemies: Array[Node3D]):
 	
 	for enemy in enemies:
 		#enemy = enemy as EnemyBase
-		enemy.current_state = EnemyBase.EnemyState.IDLE
+		#enemy.current_state = EnemyBase.EnemyState.IDLE
+		enemy.set_current_state(enemy.EnemyState.IDLE)
 		enemy.target = null
 	
 	for enemy in enemies:
-		enemy.set_current_state(enemy.EnemyState.IDLE)
 		var enemy_inst
 		
 		if enemy is EnemyMelee:
@@ -74,9 +74,10 @@ func spawn_boxes():
 		var box_inst: Node3D = box_to_spawn.instantiate()
 		box_inst.global_position = box.global_position
 		box_inst.scale = box.scale
+		#box_inst.move_target = decompression_move_target
 		$MovingObjects.add_child(box_inst)
-		var move_tween = box_inst.create_tween()
-		move_tween.tween_property(box_inst, "global_position", decompression_move_target.global_position, 2)
+		#var move_tween = box_inst.create_tween()
+		#move_tween.tween_property(box_inst, "global_position", decompression_move_target.global_position, 2)
 		var _time = randf_range(0.4, 2.0)
 		await get_tree().create_timer(_time).timeout
 
@@ -86,9 +87,10 @@ func spawn_tubes():
 		var tube_inst: Node3D = tube_to_spawn.instantiate()
 		tube_inst.global_position = tube.global_position
 		tube_inst.scale = tube.scale
+		#tube_inst.move_target = decompression_move_target
 		$MovingObjects.add_child(tube_inst)
-		var move_tween = tube_inst.create_tween()
-		move_tween.tween_property(tube_inst, "global_position", decompression_move_target.global_position, 2)
+		#var move_tween = tube_inst.create_tween()
+		#move_tween.tween_property(tube_inst, "global_position", decompression_move_target.global_position, 2)
 		var _time = randf_range(0.8, 3.0)
 		await get_tree().create_timer(_time).timeout
 

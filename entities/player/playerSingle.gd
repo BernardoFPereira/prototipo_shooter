@@ -536,6 +536,9 @@ func _on_sword_back(body):
 		action_performed.emit(Action.ARM_RETURNED, 1.0)
  
 func take_damage(amount: float):
+	if is_end_cinematic:
+		return
+	
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
 		bar_take_damage(clampf(amount, 0, max_health))

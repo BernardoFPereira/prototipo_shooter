@@ -228,7 +228,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_52qx1")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1kty"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_33lbq"]
 shader = ExtResource("40_rgh1r")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -319,7 +319,7 @@ radial_segments = 8
 rings = 4
 
 [node name="EnemyRanged" type="RigidBody3D"]
-collision_layer = 528640
+collision_layer = 561408
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 linear_damp = 0.25
@@ -448,7 +448,7 @@ mesh = SubResource("ArrayMesh_024hr")
 skin = SubResource("Skin_pgcwt")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(0.091853, -0.304453, 0.948088, 0.701715, -0.655745, -0.278558, 0.706512, 0.690874, 0.153407, -0.387046, 0.996513, -0.00858033)
+transform = Transform3D(0.0918532, -0.304453, 0.948088, 0.701715, -0.655745, -0.278558, 0.706512, 0.690875, 0.153407, -0.387046, 0.996512, -0.00858069)
 bone_name = "lowerArm.R"
 bone_idx = 7
 
@@ -525,7 +525,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_a1kty")
+material = SubResource("ShaderMaterial_33lbq")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
