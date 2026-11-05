@@ -13,7 +13,11 @@ var current_fall_velocity : float
 var input_mouse: Vector2
 var movement_vector: Vector2
 var direction: Vector3
- 
+var is_end_cinematic: bool
+
+@onready var finale_canvas = $FinaleCanvas
+@onready var end_anim_player = $FinaleCanvas/EndFade/AnimationPlayer
+
 const JUMP_VELOCITY := 18
  
 @export_category("Combat Properties")
@@ -39,6 +43,7 @@ enum PlayerStates {
 	FALL,
 	PUSH,
 	FIRE,
+	DECOMPRESSING,
 }
  
 var state: PlayerStates = PlayerStates.IDLE
@@ -162,6 +167,8 @@ var _message_auto_close: bool = true
 @export var muzzle_flash_particles: PackedScene = preload("uid://b8edqmwpwyrwk")
 @onready var muzzle_flash_position = $Head/MuzzleFlashPosition
 
+var blast_door: BlastDoor
+
 func _ready():
 	Menu.enter_gameplay_context(self)
  
@@ -206,9 +213,14 @@ func _process(delta):
 func set_state(new_state: PlayerStates):
 	if state == new_state:
 		return
+	if is_end_cinematic:
+		return
 	previous_state = state
 	state = new_state
 	match new_state:
+		PlayerStates.DECOMPRESSING:
+			play_animation_with_blend("idle", true)
+			blast_door = get_tree().get_first_node_in_group("BlastDoor")
 		PlayerStates.IDLE:
 			is_animating_action = false
 			play_animation_with_blend("idle", true)
@@ -295,7 +307,7 @@ func _on_land():
 	camera_juice.add_fall_kick(3)
  
 func handle_states(delta):
-	if has_ability(Ability.MOVE):
+	if has_ability(Ability.MOVE) and state != PlayerStates.DECOMPRESSING:
 		movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	else:
 		movement_vector = Vector2.ZERO
@@ -303,6 +315,16 @@ func handle_states(delta):
 	var horizontal_velocity = Vector3(velocity.x, 0 , velocity.z)
 	var target_velocity = Vector3.ZERO
 	match state:
+		PlayerStates.DECOMPRESSING:
+			#print(global_position.distance_to(blast_door.global_position))
+			if is_on_floor():
+				var target_transform = global_transform.looking_at(blast_door.global_position, Vector3.UP)
+				global_transform = global_transform.interpolate_with(target_transform, 0.3)
+				head.rotation.x = lerp(head.rotation.x, 0.0, delta * 4)
+			if global_position.distance_to(blast_door.global_position) < 22:
+				#print("getting close!")
+				camera_juice.update_screen_shake(1, 0.5)
+			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * 4)
 		PlayerStates.IDLE:
 			if movement_vector and is_on_floor():
 				set_state(PlayerStates.RUN)
@@ -357,6 +379,8 @@ func handle_states(delta):
  
 func _rotate_camera():
 	if is_dead:
+		return
+	if is_end_cinematic:
 		return
 	if input_mouse and has_ability(Ability.LOOK):
 		rotate_y(-input_mouse.x * UI.mouse_sensitivity)
@@ -512,6 +536,9 @@ func _on_sword_back(body):
 		action_performed.emit(Action.ARM_RETURNED, 1.0)
  
 func take_damage(amount: float):
+	if is_end_cinematic:
+		return
+	
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
 		bar_take_damage(clampf(amount, 0, max_health))

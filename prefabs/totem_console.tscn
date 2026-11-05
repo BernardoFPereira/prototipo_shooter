@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://jd7iovr4fgtk"]
+[gd_scene load_steps=6 format=3 uid="uid://jd7iovr4fgtk"]
+
+[ext_resource type="Material" uid="uid://b08lr3fp1a0nl" path="res://materials/mapmaterials/brutalistwall1.tres" id="1_ijr0q"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6o4lp"]
 
@@ -34,9 +36,19 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_m7dnq")
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8jndy"]
+points = PackedVector3Array(-0.432247, 3.72959, 0.356093, -1.22059, -0.0316392, -0.778714, -0.772818, -0.0309826, -1.2258, 0.813928, -0.00263816, 1.18537, 1.29392, 2.50749, -0.814911, -0.867755, 3.53376, -1.26806, -1.19759, 3.89631, 0.804132, -0.819753, 0.00756653, 1.17955, 0.926803, 2.75781, 1.16782, 0.804885, 0.0214753, -1.19442, 1.19203, -0.0029693, 0.807268, -1.26466, 3.86475, -0.871077, -0.70081, 3.78391, 1.18984, -1.19612, 0.00749513, 0.803178, 0.924041, 2.75545, -1.18743, 1.29786, 2.50907, 0.79411, 1.17847, 0.0211481, -0.820834, -0.87957, 4.01379, -0.699237, 0.708767, -0.0695, 1.22507, 0.696856, -0.031383, -1.2258, 1.04483, 2.75318, -0.751967, -0.500781, 3.68943, -1.19131, -0.874167, 4.00226, 0.7341, 0.855952, 2.87271, 0.970556, -1.08471, 4.04518, 0.813488, -0.812463, 3.56759, 1.16965, -1.07406, 4.02626, -0.829163, 0.675228, 3.00088, -0.999384, -0.374749, 3.68244, 0.97744, -0.619424, 3.86052, -0.7506, 0.488587, 3.12147, 0.973204, -0.702368, 3.72403, -1.21566)
+
 [node name="totem_console" type="Node3D"]
 transform = Transform3D(0.50082, 0, 0, 0, 0.500821, 0, 0, 0, 0.50082, 0, 0, 0)
 
 [node name="Cube" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_etq3i")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("1_ijr0q")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 17
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_8jndy")

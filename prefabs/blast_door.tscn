@@ -1,8 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://r7nd1lumga1h"]
+[gd_scene load_steps=29 format=3 uid="uid://r7nd1lumga1h"]
 
 [ext_resource type="Script" path="res://scripts/blast_door.gd" id="1_dlyf2"]
 [ext_resource type="Shader" uid="uid://bgue4s5hvwq08" path="res://vfx/decompression.tres" id="1_incsv"]
 [ext_resource type="Shader" uid="uid://epm1yivou7pv" path="res://vfx/pixelated_particle_billboard.tres" id="2_cmhrr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kt3s4"]
+size = Vector3(2.3866, 11.2417, 15.5654)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i10ff"]
 
@@ -114,6 +117,33 @@ albedo_color = Color(0.568973, 0.568973, 0.568973, 1)
 metallic = 0.72
 metallic_specular = 0.74
 
+[sub_resource type="Animation" id="Animation_io4n0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blast_door_bot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blast_door_top:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_v2ult"]
 resource_name = "open"
 length = 2.0
@@ -141,33 +171,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 2, 0.5, 0.5),
 "update": 0,
 "values": [Vector3(0, 1, 0), Vector3(0, 1.4143, 0), Vector3(0, 1.18659, 0), Vector3(0, 1.18659, 0), Vector3(0, 6.68412, 0), Vector3(0, 6.68412, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_io4n0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("blast_door_bot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("blast_door_top:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sle2o"]
@@ -220,14 +223,48 @@ size = Vector2(0.5, 0.5)
 
 [sub_resource type="Animation" id="Animation_f0fru"]
 resource_name = "start_fx"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:top_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 8.313]
+}
+
+[sub_resource type="Animation" id="Animation_g5wel"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:top_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [8.313]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8mfso"]
 _data = {
+"RESET": SubResource("Animation_g5wel"),
 "start_fx": SubResource("Animation_f0fru")
 }
 
 [node name="blast_door" type="Node3D"]
 script = ExtResource("1_dlyf2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.228455, 5.12085, 0)
+shape = SubResource("BoxShape3D_kt3s4")
 
 [node name="blast_door_top" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.699193, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

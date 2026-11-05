@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=115 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="2_6hu70"]
@@ -51,6 +51,7 @@
 [ext_resource type="AudioStream" uid="uid://cowcfscnu61ul" path="res://assets/sounds/sfx/player/footsteps/metal/metal_footsteps 11-walk_metal.wav" id="46_g3t8v"]
 [ext_resource type="AudioStream" uid="uid://scdrwgxxkfq0" path="res://assets/sounds/sfx/player/firing_arm-1.wav" id="49_t5wby"]
 [ext_resource type="AudioStream" uid="uid://dyktqgqav5wfm" path="res://assets/sounds/sfx/player/arm_back.ogg" id="50_0tyie"]
+[ext_resource type="Texture2D" uid="uid://bwqnpi1pgxoii" path="res://UI/Radar/radar_texture.png" id="53_k4ijk"]
 [ext_resource type="Script" path="res://scripts/TempDeathScreen.gd" id="54_v7qwy"]
 [ext_resource type="Texture2D" uid="uid://d4mrt0kyelj12" path="res://UI/GameOver/GAMEOVER BASE.png" id="55_25lxg"]
 [ext_resource type="Texture2D" uid="uid://d11ku73422civ" path="res://UI/GameOver/_old/v2_btn_sim_vermelho.png" id="56_1fgh8"]
@@ -769,7 +770,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_we5c5"]
 size = Vector3(1.36, 1, 1.84)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbr7j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u56c6"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -779,7 +780,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("31_1l4ih")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eflyh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpsnk"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -789,7 +790,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("32_nbj6u")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ngffv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6u03l"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -799,7 +800,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("34_brvs5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ujjj7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t71kp"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -824,7 +825,7 @@ shader_parameter/displacement_strength = 0.15
 shader_parameter/displacement_frequency = 10.0
 shader_parameter/displacement_wave_speed = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjpxr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7hdlt"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -834,7 +835,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6j7q6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m7lub"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -844,7 +845,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("27_frtra")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uqie"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_abhs8"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -854,7 +855,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("28_y4ty8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oi33a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_atxb2"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -990,7 +991,7 @@ shader_parameter/blur_size = 1.2
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hr7r6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4jj2l"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1000,25 +1001,66 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.6
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="Gradient" id="Gradient_36myi"]
-colors = PackedColorArray(0.254902, 0.0745098, 0.129412, 0.313726, 0.627451, 0.0156863, 0.0784314, 0.235294)
+[sub_resource type="Animation" id="Animation_l4vt7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.00392157, 0.0235294, 0.0509804, 0)]
+}
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_p6evs"]
-seed = -70
-frequency = 0.0026
+[sub_resource type="Animation" id="Animation_b4jhb"]
+resource_name = "fade_to_end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.00392157, 0.0235294, 0.0509804, 0), Color(0, 0, 0, 1)]
+}
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_t58pf"]
-generate_mipmaps = false
-normalize = false
-color_ramp = SubResource("Gradient_36myi")
-noise = SubResource("FastNoiseLite_p6evs")
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pkw4g"]
+_data = {
+"RESET": SubResource("Animation_l4vt7"),
+"fade_to_end": SubResource("Animation_b4jhb")
+}
+
+[sub_resource type="Gradient" id="Gradient_u0f5i"]
+offsets = PackedFloat32Array(0.131783, 1)
+colors = PackedColorArray(1, 0, 0, 0.262745, 0.301961, 0.0666667, 0.0666667, 0.356863)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sbb68"]
+noise_type = 3
+seed = 55
+frequency = 0.0051
+fractal_octaves = 6
+fractal_lacunarity = 1.915
+fractal_gain = 0.63
+fractal_weighted_strength = 0.32
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xhjno"]
+seamless = true
+color_ramp = SubResource("Gradient_u0f5i")
+noise = SubResource("FastNoiseLite_sbb68")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_rlpkk"]
-diffuse_texture = SubResource("NoiseTexture2D_t58pf")
+diffuse_texture = SubResource("NoiseTexture2D_xhjno")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0m1yr"]
 font = ExtResource("60_fv4ib")
-font_size = 91
+font_size = 66
 font_color = Color(1, 0, 0.0352941, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_dlmca"]
@@ -1034,7 +1076,7 @@ radius = 0.7
 [sub_resource type="SphereShape3D" id="SphereShape3D_ag83q"]
 radius = 100.0
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice") groups=["Player"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_juice") groups=["player"]]
 collision_layer = 772
 collision_mask = 3
 script = ExtResource("1_wj731")
@@ -1404,7 +1446,7 @@ color = Color(0.160784, 0.2, 0.211765, 0.960784)
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_jbr7j")
+material = SubResource("ShaderMaterial_u56c6")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1420,7 +1462,7 @@ line_opacity = 0.3
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_eflyh")
+material = SubResource("ShaderMaterial_bpsnk")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1434,7 +1476,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_ngffv")
+material = SubResource("ShaderMaterial_6u03l")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1465,7 +1507,7 @@ texture = ExtResource("3_5hn21")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_ujjj7")
+material = SubResource("ShaderMaterial_t71kp")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1501,13 +1543,13 @@ texture = ExtResource("24_4dgpa")
 [node name="AssistantFrame" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_wjpxr")
+material = SubResource("ShaderMaterial_7hdlt")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 241715.0
+offset_left = 276275.0
 offset_top = 49.0
-offset_right = 241907.0
+offset_right = 276467.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1520,13 +1562,13 @@ line_opacity = 0.5
 [node name="AssistantIris" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_6j7q6")
+material = SubResource("ShaderMaterial_m7lub")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 241715.0
+offset_left = 276275.0
 offset_top = 49.0
-offset_right = 241907.0
+offset_right = 276467.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1539,13 +1581,13 @@ line_opacity = 0.5
 [node name="AssistantPupil" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_8uqie")
+material = SubResource("ShaderMaterial_abhs8")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 241715.0
+offset_left = 276275.0
 offset_top = 49.0
-offset_right = 241907.0
+offset_right = 276467.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1559,7 +1601,7 @@ line_opacity = 0.5
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_oi33a")
+material = SubResource("ShaderMaterial_atxb2")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1700,7 +1742,7 @@ mouse_filter = 2
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_hr7r6")
+material = SubResource("ShaderMaterial_4jj2l")
 layout_direction = 3
 layout_mode = 1
 anchors_preset = 1
@@ -1764,6 +1806,22 @@ offset_bottom = -41.0
 grow_vertical = 0
 texture = ExtResource("67_bcwdr")
 
+[node name="RadarDetail" type="TextureRect" parent="GameHUD/RadarUI"]
+self_modulate = Color(1, 1, 1, 0.419608)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -113.5
+offset_right = 115.0
+offset_bottom = 113.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("53_k4ijk")
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="GameHUD/RadarUI"]
 layout_mode = 1
 anchors_preset = 8
@@ -1793,6 +1851,34 @@ size = 41.721
 near = 0.111
 script = ExtResource("68_ddupl")
 cam_target = NodePath("../../../../..")
+
+[node name="FinaleCanvas" type="CanvasLayer" parent="."]
+layer = 0
+visible = false
+
+[node name="EndFade" type="Control" parent="FinaleCanvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect2" type="ColorRect" parent="FinaleCanvas/EndFade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.00392157, 0.0235294, 0.0509804, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FinaleCanvas/EndFade"]
+libraries = {
+"": SubResource("AnimationLibrary_pkw4g")
+}
 
 [node name="DeathCanvas" type="CanvasLayer" parent="."]
 visible = false
@@ -1866,9 +1952,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -671.0
-offset_top = -389.0
+offset_top = -317.0
 offset_right = 671.0
-offset_bottom = -162.0
+offset_bottom = -90.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "SISTEMAS FALHARAM

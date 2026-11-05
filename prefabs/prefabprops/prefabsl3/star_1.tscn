@@ -53,6 +53,8 @@ mesh = SubResource("ArrayMesh_pev18")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_clgga")
+disabled = true
