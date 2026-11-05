@@ -1,4 +1,4 @@
-[gd_scene load_steps=1613 format=3 uid="uid://cw50tmi4jwwv4"]
+[gd_scene load_steps=1614 format=3 uid="uid://cw50tmi4jwwv4"]
 
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_8v7iu"]
 [ext_resource type="Texture2D" uid="uid://ly8vqlqvj4uh" path="res://textures/Captura de tela 2026-08-22 123324.png" id="2_3xgkq"]
@@ -60,6 +60,7 @@
 [ext_resource type="AudioStream" uid="uid://kdb1uc5gis0h" path="res://assets/sounds/ambience/Ambience, Underground, Garage 04 SND43191.wav" id="57_woe2l"]
 [ext_resource type="Material" uid="uid://b08lr3fp1a0nl" path="res://materials/mapmaterials/brutalistwall1.tres" id="59_p1iy3"]
 [ext_resource type="Material" uid="uid://bhwohs3t662kv" path="res://materials/mapmaterials/ground2.tres" id="60_7cwer"]
+[ext_resource type="PackedScene" uid="uid://cilki820ynbi3" path="res://vfx/spark_fx.tscn" id="61_krepu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxfqo"]
 shader = ExtResource("1_8v7iu")
@@ -16823,7 +16824,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 19.967
 [node name="portadiorama4" parent="." instance=ExtResource("15_r2o2d")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11.8825, -15.5328, -6.64347)
 
-[node name="Node3D" parent="." instance=ExtResource("23_ydroa")]
+[node name="BigDoor" parent="." instance=ExtResource("23_ydroa")]
 transform = Transform3D(-0.921069, 0, -6.95031e-08, 0, 0.916176, 0, 8.05224e-08, 0, -0.795023, -0.397827, 0.139123, -43.0483)
 can_open = false
 detect_enemies = false
@@ -17156,7 +17157,7 @@ player = NodePath("../Player")
 steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
 
 [node name="AmbienceCombat" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2194, 2.81368, -44.4939)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.53923, 2.81368, -43.3126)
 stream = ExtResource("55_u0v0s")
 autoplay = true
 max_distance = 37.0
@@ -17227,6 +17228,9 @@ transform = Transform3D(0.0210233, 0.0365726, -0.00734463, -9.42496e-10, 0.01601
 mesh = SubResource("ArrayMesh_nmw4j")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="SparkFX" parent="." instance=ExtResource("61_krepu")]
+transform = Transform3D(0.262223, 0, 0.965007, 0.125374, 0.991524, -0.0340681, -0.956828, 0.129921, 0.26, -9.82014, 9.09978, -16.0641)
 
 [editable path="AlamLights/AlarmLight"]
 [editable path="AlamLights/AlarmLight5"]

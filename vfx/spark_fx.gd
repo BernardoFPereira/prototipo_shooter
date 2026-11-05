@@ -3,7 +3,7 @@ extends Node3D
 @onready var spark_main = $SparkMain
 @onready var circle_spark = $CircleSpark
 @onready var glare = $Glare
-@onready var animation_player = $"../SparkFX2/AnimationPlayer"
+@onready var animation_player = $AnimationPlayer
 
 func _process(delta):
 	var _time = randf_range(1.2, 3.0)
