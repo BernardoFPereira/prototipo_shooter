@@ -56439,6 +56439,70 @@ skeleton = NodePath("")
 transform = Transform3D(1, 2.98023e-08, -1.77636e-15, -2.98023e-08, 1, 0, 1.77636e-15, -1.77636e-15, 1, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_g816k")
 
+[node name="Pilar5" parent="Pilar" instance=ExtResource("56_mlibp")]
+transform = Transform3D(0.0194242, 0, -0.999812, 0, 1, 0, 0.999812, 0, 0.0194242, -26.9367, 40.0437, 59.2697)
+
+[node name="fatwall_geo" parent="Pilar/Pilar5" index="0"]
+transform = Transform3D(0.0199077, 0.00191866, -1.82135e-10, -9.92685e-11, -8.68574e-10, -0.02, -0.00191866, 0.0199077, -8.55045e-10, 3.2736, -0.559048, -1.81973)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/Pilar5/fatwall_geo" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pilar/Pilar5/fatwall_geo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 4.44089e-15, 0, 4.44089e-15, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_g816k")
+
+[node name="thinwall_geo" parent="Pilar/Pilar5" index="1"]
+transform = Transform3D(0.045, -9.31323e-10, 1.38778e-17, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, 8.12067, -0.485867, -0.569206)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/Pilar5/thinwall_geo" index="0"]
+collision_layer = 17
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Pilar/Pilar5/thinwall_geo/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_db6rg")
+
+[node name="fatwall_geo2" type="MeshInstance3D" parent="Pilar/Pilar5"]
+transform = Transform3D(0.0198958, -0.00203849, 3.76641e-10, 2.94267e-10, -8.23214e-10, -0.02, 0.00203849, 0.0198958, -7.88934e-10, 13.288, -0.52594, -1.84718)
+mesh = SubResource("ArrayMesh_tmd4a")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/Pilar5/fatwall_geo2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pilar/Pilar5/fatwall_geo2/StaticBody3D"]
+transform = Transform3D(1, 2.98023e-08, -1.77636e-15, -2.98023e-08, 1, 0, 1.77636e-15, -1.77636e-15, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_g816k")
+
+[node name="Pilar7" parent="Pilar" instance=ExtResource("56_mlibp")]
+transform = Transform3D(0.0194242, 0, -0.999812, 0, 1, 0, 0.999812, 0, 0.0194242, -26.9368, 50.3889, 59.2697)
+
+[node name="fatwall_geo" parent="Pilar/Pilar7" index="0"]
+transform = Transform3D(0.0199077, 0.00191866, -1.82135e-10, -9.92685e-11, -8.68574e-10, -0.02, -0.00191866, 0.0199077, -8.55045e-10, 3.2736, -0.559048, -1.81973)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/Pilar7/fatwall_geo" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pilar/Pilar7/fatwall_geo/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 4.44089e-15, 0, 4.44089e-15, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_g816k")
+
+[node name="thinwall_geo" parent="Pilar/Pilar7" index="1"]
+transform = Transform3D(0.045, -9.31323e-10, 1.38778e-17, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, 8.12067, -0.485867, -0.569206)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/Pilar7/thinwall_geo" index="0"]
+collision_layer = 17
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Pilar/Pilar7/thinwall_geo/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_db6rg")
+
+[node name="fatwall_geo2" type="MeshInstance3D" parent="Pilar/Pilar7"]
+transform = Transform3D(0.0198958, -0.00203849, 3.76641e-10, 2.94267e-10, -8.23214e-10, -0.02, 0.00203849, 0.0198958, -7.88934e-10, 13.288, -0.52594, -1.84718)
+mesh = SubResource("ArrayMesh_tmd4a")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Pilar/Pilar7/fatwall_geo2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pilar/Pilar7/fatwall_geo2/StaticBody3D"]
+transform = Transform3D(1, 2.98023e-08, -1.77636e-15, -2.98023e-08, 1, 0, 1.77636e-15, -1.77636e-15, 1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_g816k")
+
 [node name="Pilar6" parent="Pilar" instance=ExtResource("56_mlibp")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -18.2104, 9.5968, 32.0039)
 
@@ -57263,6 +57327,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.520351, 22.5106)
 [editable path="Pilar/Pilar2"]
 [editable path="Pilar/Pilar3"]
 [editable path="Pilar/Pilar4"]
+[editable path="Pilar/Pilar5"]
+[editable path="Pilar/Pilar7"]
 [editable path="Pilar/Pilar6"]
 [editable path="Pilar/Pilar8"]
 [editable path="Wallplates Open Detail"]
