@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cso77rpq5acso"]
+
+[ext_resource type="PackedScene" uid="uid://c10avomhjoxjy" path="res://models/level2/triturados/amasso2_geo.glb" id="1_ptls1"]
+
+[node name="amasso2" type="Node3D"]
+
+[node name="amasso2_geo2" parent="." instance=ExtResource("1_ptls1")]

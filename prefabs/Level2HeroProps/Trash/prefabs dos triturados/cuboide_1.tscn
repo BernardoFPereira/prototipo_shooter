@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b41xm5tprpqt0"]
+
+[ext_resource type="PackedScene" uid="uid://cexv7mvf6l7ve" path="res://models/level2/triturados/cuboide1_geo.glb" id="1_ruklj"]
+
+[node name="cuboide1" type="Node3D"]
+
+[node name="cuboide1_geo2" parent="." instance=ExtResource("1_ruklj")]

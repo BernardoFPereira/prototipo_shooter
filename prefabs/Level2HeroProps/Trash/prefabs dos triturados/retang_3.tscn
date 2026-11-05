@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c65wayyja1043"]
+
+[ext_resource type="PackedScene" uid="uid://dephubtst3jt6" path="res://models/level2/triturados/retang3_geo.glb" id="1_em3y4"]
+
+[node name="retang3" type="Node3D"]
+
+[node name="retang3_geo2" parent="." instance=ExtResource("1_em3y4")]

@@ -97,10 +97,10 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.449
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.4496, -4.76837e-07, 3.51864)
 
 [node name="Tubinho" parent="." instance=ExtResource("3_1xvl7")]
-transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 8.71652, 4.76837e-07, -42.1835)
+transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 14.9247, 4.76837e-07, -42.7088)
 
 [node name="Tubinho2" parent="." instance=ExtResource("3_1xvl7")]
-transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 5.10312, 4.76837e-07, -42.1835)
+transform = Transform3D(-0.156865, 0, 0.98762, 0, 1, 0, -0.98762, 0, -0.156865, 11.3113, 4.76837e-07, -42.7088)
 
 [node name="Tubinho3" parent="." instance=ExtResource("3_1xvl7")]
-transform = Transform3D(-0.382183, 0, 0.924086, 0, 1, 0, -0.924086, 0, -0.382183, 7.11172, 4.49147, -42.1835)
+transform = Transform3D(-0.382183, 0, 0.924086, 0, 1, 0, -0.924086, 0, -0.382183, 13.3199, 4.49147, -42.6397)

@@ -10,6 +10,7 @@ points = PackedVector3Array(-225.767, 13.6286, -120.994, 255.133, 195.767, -109.
 [node name="mesao" parent="." instance=ExtResource("1_uh3bm")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="mesao/cybermachinerydesk/apparatus_geo" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="mesao/cybermachinerydesk/apparatus_geo/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.87226, 0)
