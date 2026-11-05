@@ -1,14 +1,3 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c15c5wunweuir"]
-
-[ext_resource type="Shader" path="res://UI/V2/HUD/2DGlowShader.gdshader" id="1_axti3"]
-[ext_resource type="Texture2D" uid="uid://df4v1cg8ume44" path="res://UI/V2/HUD/Enemy/EnemyDetectedCH.png" id="2_n0ogl"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c15c5wunweuir"]
 
 [resource]
-shader = ExtResource("1_axti3")
-shader_parameter/glow_tint = Color(1, 1, 1, 1)
-shader_parameter/detect_color = Color(1, 1, 1, 1)
-shader_parameter/threshold = 0.0
-shader_parameter/intensity = 0.0
-shader_parameter/blur_size = 0.0
-shader_parameter/line_opacity = 0.0
-shader_parameter/glow_source = ExtResource("2_n0ogl")

@@ -28,7 +28,6 @@ const quit_background = preload("uid://dmel4nekr0nx4")
 var context: Context = Context.MAIN_MENU
 var current_player: Player = null
 
-# Caminhos (não carrega as cenas na hora: quem carrega é a tela de load, em segundo plano).
 const LEVEL_SCENE := "uid://cw50tmi4jwwv4"
 const MENU_SCENE := "uid://d2rqkagxvdfhw"
 
@@ -64,7 +63,7 @@ func open_as_main_menu() -> void:
 	retry_button.visible = false
 	credits_button.visible = true
 
-	if not SceneLoader.is_loading: # durante o load quem despausa é a tela de load
+	if not SceneLoader.is_loading: 
 		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	visible = true
@@ -79,7 +78,7 @@ func enter_gameplay_context(player: Player) -> void:
 	context = Context.PAUSE_MENU
 	current_player = player
 	visible = false
-	if not SceneLoader.is_loading: # durante o load quem despausa é a tela de load
+	if not SceneLoader.is_loading: 
 		get_tree().paused = false
 
 func _open_pause_menu() -> void:
@@ -146,9 +145,7 @@ func _on_config_button_toggled(toggled_on: bool) -> void:
 		credits_button.button_pressed = false
 		quit_group.visible = false
 		quit_button.button_pressed = false
-		# O fundo antigo da tela de config (com os rótulos do layout velho) não combina com o
-		# painel novo — volte a linha abaixo quando o visual novo estiver pronto.
-		active_background.texture = null # config_background
+		active_background.texture = null
 		settings_panel.refresh_from_settings()
 		UI.play_sound("confirm_button")
 	else:
