@@ -76,6 +76,7 @@ point_count = 2
 curve = SubResource("Curve_ekf3m")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nmjra"]
+particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_x8w5s")
 color = Color(3.244, 2.703, 1, 1)
@@ -153,6 +154,7 @@ emitting = false
 amount = 1
 lifetime = 0.3
 one_shot = true
+transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_nmjra")
 draw_pass_1 = SubResource("QuadMesh_op668")
 
