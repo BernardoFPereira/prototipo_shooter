@@ -420,7 +420,7 @@ func try_pull_sword():
 	thrown_sword.set_state(thrown_sword.SwordState.PULLED_BACK)
  
 func try_throw_sword():
-	if is_disarmed:
+	if is_disarmed or is_end_cinematic:
 		return
 	var sword = sword_scene.instantiate() as Sword
 	sword.transform = head.global_transform
@@ -440,7 +440,7 @@ func try_throw_sword():
 	#hud_animations.play("hand_flying")
  
 func try_attack():
-	if is_disarmed or is_animating_action:
+	if is_disarmed or is_animating_action or is_end_cinematic:
 		return
 	if state != PlayerStates.PUSH:
 		previous_state = state
@@ -448,6 +448,8 @@ func try_attack():
 		action_performed.emit(Action.PUSH, 1.0)
  
 func try_fire():
+	if is_end_cinematic:
+		return
 	if state == PlayerStates.PUSH:
 		return
 	if state != PlayerStates.FIRE:
@@ -471,6 +473,8 @@ func try_fire():
 			child.emitting = true 
 
 func try_jump():
+	if is_end_cinematic:
+		return
 	print(can_coyote_jump)
 	if !is_on_floor() and coyote_timer.is_stopped():
 		return
