@@ -1,7 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://m06osjc3mcoi"]
+[gd_scene load_steps=17 format=3 uid="uid://m06osjc3mcoi"]
 
 [ext_resource type="FontFile" uid="uid://b5klbglknihdk" path="res://UI/Fonts/m6x11plus.ttf" id="1_ha2uo"]
 [ext_resource type="Script" path="res://UI/V2/Settings/settings_menu.gd" id="2_defka"]
+[ext_resource type="Texture2D" uid="uid://bshudgvtorc6d" path="res://UI/MainMenu/UI_SliderUnchecked.png" id="3_s660o"]
+[ext_resource type="Texture2D" uid="uid://vb7ocv8sxnbf" path="res://UI/MainMenu/UI_Checker2.png" id="4_2h75o"]
+[ext_resource type="Texture2D" uid="uid://bvpkgy3syfp4p" path="res://UI/MainMenu/UI_Checker1.png" id="5_jjiee"]
+[ext_resource type="Texture2D" uid="uid://b8n7qgimv34nr" path="res://UI/MainMenu/UI_SliderChecked-2x.png" id="6_80wnh"]
+[ext_resource type="Texture2D" uid="uid://coq7ey0v4skcl" path="res://UI/MainMenu/UI_SliderChecked.png" id="6_pyhk2"]
+[ext_resource type="Texture2D" uid="uid://cxkou0lkb73eo" path="res://UI/MainMenu/UI_VolumeOn2.png" id="7_klnoy"]
+[ext_resource type="Texture2D" uid="uid://b6q1bxtfuxbcp" path="res://UI/MainMenu/UI_VolumeOff2.png" id="8_3yot5"]
 
 [sub_resource type="Theme" id="Theme_uy3pn"]
 default_font = ExtResource("1_ha2uo")
@@ -26,11 +33,38 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.1, 0.8, 0.3, 1)
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_kjq6x"]
+color = Color(0.118688, 0.236328, 0.143398, 1)
+grow_begin = 0.0
+thickness = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_btkx7"]
+color = Color(0.262745, 0.470588, 0.305882, 1)
+grow_begin = 0.0
+thickness = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_tbnnx"]
+color = Color(0.0980392, 1, 0.298039, 1)
+grow_begin = 0.0
+thickness = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_d4ukk"]
+color = Color(0.262745, 0.470588, 0.305882, 1)
+grow_begin = 0.0
+thickness = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_876ex"]
+color = Color(0.262745, 0.470588, 0.305882, 1)
+grow_begin = 0.0
+thickness = 12
+
 [node name="SettingsMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_uy3pn")
 script = ExtResource("2_defka")
@@ -57,7 +91,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 36
-current_tab = 2
+current_tab = 3
 
 [node name="Vídeo" type="ScrollContainer" parent="Panel/VBox/Tabs"]
 visible = false
@@ -92,7 +126,9 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 36
+theme_override_icons/arrow = ExtResource("3_s660o")
 flat = true
 
 [node name="Resolucao3DRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
@@ -110,7 +146,9 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 36
+theme_override_icons/arrow = ExtResource("3_s660o")
 flat = true
 
 [node name="VSyncRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
@@ -127,7 +165,11 @@ vertical_alignment = 1
 [node name="VSyncCheck" type="CheckButton" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/VSyncRow"]
 unique_name_in_owner = true
 layout_mode = 2
-flat = true
+focus_mode = 0
+theme_override_icons/checked = ExtResource("4_2h75o")
+theme_override_icons/checked_disabled = ExtResource("4_2h75o")
+theme_override_icons/unchecked = ExtResource("5_jjiee")
+theme_override_icons/unchecked_disabled = ExtResource("5_jjiee")
 
 [node name="LimitedeFPSRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
 layout_mode = 2
@@ -144,7 +186,9 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 36
+theme_override_icons/arrow = ExtResource("3_s660o")
 flat = true
 
 [node name="CampodevisaoRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows"]
@@ -164,9 +208,18 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_s660o")
+theme_override_icons/grabber_highlight = ExtResource("6_80wnh")
+theme_override_icons/grabber_disabled = ExtResource("6_80wnh")
+theme_override_icons/tick = ExtResource("6_pyhk2")
+theme_override_styles/slider = SubResource("StyleBoxLine_kjq6x")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_btkx7")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_tbnnx")
 min_value = 60.0
-max_value = 120.0
-value = 60.0
+max_value = 90.0
+value = 75.0
 
 [node name="FovValue" type="Label" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/CampodevisaoRow"]
 unique_name_in_owner = true
@@ -194,6 +247,15 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_s660o")
+theme_override_icons/grabber_highlight = ExtResource("6_80wnh")
+theme_override_icons/grabber_disabled = ExtResource("6_80wnh")
+theme_override_icons/tick = ExtResource("6_pyhk2")
+theme_override_styles/slider = SubResource("StyleBoxLine_kjq6x")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_btkx7")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_tbnnx")
 min_value = 50.0
 max_value = 150.0
 value = 50.0
@@ -221,6 +283,11 @@ vertical_alignment = 1
 [node name="ShowFpsCheck" type="CheckButton" parent="Panel/VBox/Tabs/Vídeo/@MarginContainer@4/Rows/MostrarFPSRow"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
+theme_override_icons/checked = ExtResource("4_2h75o")
+theme_override_icons/checked_disabled = ExtResource("4_2h75o")
+theme_override_icons/unchecked = ExtResource("5_jjiee")
+theme_override_icons/unchecked_disabled = ExtResource("5_jjiee")
 flat = true
 
 [node name="Áudio" type="ScrollContainer" parent="Panel/VBox/Tabs"]
@@ -258,6 +325,15 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_s660o")
+theme_override_icons/grabber_highlight = ExtResource("6_80wnh")
+theme_override_icons/grabber_disabled = ExtResource("6_80wnh")
+theme_override_icons/tick = ExtResource("6_pyhk2")
+theme_override_styles/slider = SubResource("StyleBoxLine_kjq6x")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_d4ukk")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_tbnnx")
 
 [node name="MusicValue" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/MúsicaRow"]
 unique_name_in_owner = true
@@ -271,8 +347,13 @@ vertical_alignment = 1
 [node name="MusicMute" type="CheckButton" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/MúsicaRow"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 36
-text = "Mudo"
+theme_override_icons/checked = ExtResource("8_3yot5")
+theme_override_icons/checked_disabled = ExtResource("8_3yot5")
+theme_override_icons/unchecked = ExtResource("7_klnoy")
+theme_override_icons/unchecked_disabled = ExtResource("7_klnoy")
+button_pressed = true
 flat = true
 
 [node name="EfeitosRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows"]
@@ -292,6 +373,15 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_s660o")
+theme_override_icons/grabber_highlight = ExtResource("6_80wnh")
+theme_override_icons/grabber_disabled = ExtResource("6_80wnh")
+theme_override_icons/tick = ExtResource("6_pyhk2")
+theme_override_styles/slider = SubResource("StyleBoxLine_kjq6x")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_d4ukk")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_tbnnx")
 
 [node name="SFXValue" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/EfeitosRow"]
 unique_name_in_owner = true
@@ -305,8 +395,13 @@ vertical_alignment = 1
 [node name="SFXMute" type="CheckButton" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/EfeitosRow"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 36
-text = "Mudo"
+theme_override_icons/checked = ExtResource("8_3yot5")
+theme_override_icons/checked_disabled = ExtResource("8_3yot5")
+theme_override_icons/unchecked = ExtResource("7_klnoy")
+theme_override_icons/unchecked_disabled = ExtResource("7_klnoy")
+button_pressed = true
 flat = true
 
 [node name="InterfaceRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows"]
@@ -326,6 +421,15 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_s660o")
+theme_override_icons/grabber_highlight = ExtResource("6_80wnh")
+theme_override_icons/grabber_disabled = ExtResource("6_80wnh")
+theme_override_icons/tick = ExtResource("6_pyhk2")
+theme_override_styles/slider = SubResource("StyleBoxLine_kjq6x")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_d4ukk")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_tbnnx")
 
 [node name="HUDValue" type="Label" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/InterfaceRow"]
 unique_name_in_owner = true
@@ -339,11 +443,17 @@ vertical_alignment = 1
 [node name="HUDMute" type="CheckButton" parent="Panel/VBox/Tabs/Áudio/@MarginContainer@30/Rows/InterfaceRow"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 36
-text = "Mudo"
+theme_override_icons/checked = ExtResource("8_3yot5")
+theme_override_icons/checked_disabled = ExtResource("8_3yot5")
+theme_override_icons/unchecked = ExtResource("7_klnoy")
+theme_override_icons/unchecked_disabled = ExtResource("7_klnoy")
+button_pressed = true
 flat = true
 
 [node name="Controles" type="ScrollContainer" parent="Panel/VBox/Tabs"]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 
@@ -377,6 +487,15 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_s660o")
+theme_override_icons/grabber_highlight = ExtResource("6_80wnh")
+theme_override_icons/grabber_disabled = ExtResource("6_80wnh")
+theme_override_icons/tick = ExtResource("6_pyhk2")
+theme_override_styles/slider = SubResource("StyleBoxLine_kjq6x")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_876ex")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_tbnnx")
 max_value = 20.0
 step = 0.5
 
@@ -403,10 +522,14 @@ vertical_alignment = 1
 [node name="InvertYCheck" type="CheckButton" parent="Panel/VBox/Tabs/Controles/@MarginContainer@34/Rows/InvertereixoYRow"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
+theme_override_icons/checked = ExtResource("4_2h75o")
+theme_override_icons/checked_disabled = ExtResource("4_2h75o")
+theme_override_icons/unchecked = ExtResource("5_jjiee")
+theme_override_icons/unchecked_disabled = ExtResource("5_jjiee")
 flat = true
 
 [node name="Acessibilidade" type="ScrollContainer" parent="Panel/VBox/Tabs"]
-visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 
@@ -440,38 +563,18 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_s660o")
+theme_override_icons/grabber_highlight = ExtResource("6_80wnh")
+theme_override_icons/grabber_disabled = ExtResource("6_80wnh")
+theme_override_icons/tick = ExtResource("6_pyhk2")
+theme_override_styles/slider = SubResource("StyleBoxLine_kjq6x")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_876ex")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_tbnnx")
 step = 5.0
 
 [node name="CameraMotionValue" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/MovimentodacâmeraRow"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "100%"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="TremordatelaRow" type="HBoxContainer" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="@Label@39" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/TremordatelaRow"]
-custom_minimum_size = Vector2(420, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "Tremor da tela"
-vertical_alignment = 1
-
-[node name="ScreenShakeSlider" type="HSlider" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/TremordatelaRow"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-step = 5.0
-
-[node name="ScreenShakeValue" type="Label" parent="Panel/VBox/Tabs/Acessibilidade/@MarginContainer@37/Rows/TremordatelaRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(110, 0)
 layout_mode = 2

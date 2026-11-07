@@ -1,12 +1,5 @@
 extends CanvasLayer
 
-## Autoload "UI": sons de interface, música e TODAS as configurações do jogo.
-##
-## Configurações: cada uma tem uma variável e uma função set_* que aplica na hora e emite
-## settings_changed. O menu de configurações (UI/V2/Settings) só chama essas funções; quem
-## precisa reagir (câmera, player) lê as variáveis daqui. save_settings() grava em
-## user://menu_settings.cfg e load_settings() lê (e converte o formato antigo).
-
 signal settings_changed
 
 #region SETTINGS
@@ -15,9 +8,9 @@ const SETTINGS_FILE := "user://menu_settings.cfg"
 enum WindowMode { WINDOWED, FULLSCREEN, BORDERLESS }
 const WINDOW_MODE_NAMES := ["Janela", "Tela cheia", "Tela cheia sem borda"]
 
-## Resolução: em janela muda o tamanho da janela; em qualquer modo, o 3D é renderizado nessa
-## resolução (scaling_3d_scale) e esticado. HUD e menus continuam na base de 1920x1080.
+
 var resolutions: Dictionary = {
+	"2560x1440": Vector2i(2560, 1440),
 	"1920x1080": Vector2i(1920, 1080),
 	"1600x900": Vector2i(1600, 900),
 	"1366x768": Vector2i(1366, 768),
@@ -25,12 +18,12 @@ var resolutions: Dictionary = {
 	"960x540": Vector2i(960, 540),
 	"800x450": Vector2i(800, 450),
 }
-const BASE_HEIGHT: float = 1080.0 # altura do viewport do projeto (display/window/size)
+const BASE_HEIGHT: float = 1080.0 
 
-const FPS_OPTIONS := [30, 60, 120, 144, 0] # 0 = sem limite
+const FPS_OPTIONS := [30, 60, 120, 144, 165, 240, 0] 
 
 const DEFAULTS := {
-	"window_mode": WindowMode.WINDOWED,
+	"window_mode": WindowMode.FULLSCREEN,
 	"resolution": "1920x1080",
 	"vsync": true,
 	"max_fps": 0,
@@ -46,7 +39,6 @@ const DEFAULTS := {
 	"mouse_sensitivity": 0.0012,
 	"invert_y": false,
 	"camera_motion": 1.0,
-	"screen_shake": 1.0,
 }
 
 # Vídeo
@@ -71,7 +63,6 @@ var hud_muted: bool = false
 
 # Conforto (0 a 1)
 var camera_motion: float = DEFAULTS.camera_motion
-var screen_shake: float = DEFAULTS.screen_shake
 #endregion
 
 #region CONTROLS
@@ -149,8 +140,8 @@ var is_fire_introduction: bool
 #endregion
  
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS # o contador de FPS e o brilho funcionam no menu de pausa
-	layer = 120 # acima do HUD e dos menus, abaixo da tela de load (128)
+	process_mode = Node.PROCESS_MODE_ALWAYS 
+	layer = 120
 	_setup_audio_players()
 	_build_overlays()
 	load_settings()
@@ -160,7 +151,7 @@ func _setup_audio_players() -> void:
 	for bus in AudioBus.values():
 		var player = AudioStreamPlayer.new()
 		player.bus = AudioServer.get_bus_name(bus)
-		player.process_mode = Node.PROCESS_MODE_ALWAYS # sons de UI tocam mesmo com o jogo pausado (menu de pausa, tela de load)
+		player.process_mode = Node.PROCESS_MODE_ALWAYS
 		add_child(player)
 		audio_players[bus] = player
 	current_music_player = AudioStreamPlayer.new()
@@ -189,8 +180,7 @@ func _on_music_finished(player: AudioStreamPlayer, stream: AudioStream) -> void:
 	player.play()
  
 func play_music(music_name: String, fade_in: float = 0.0) -> void:
-	# O mudo agora é feito no bus (AudioServer.set_bus_mute), então a música sempre toca e só
-	# fica em silêncio — assim, ao desmutar, ela volta na hora.
+	
 	if not is_instance_valid(current_music_player):
 		_setup_audio_players()
 	var sound_data = sounds[music_name]
@@ -225,11 +215,9 @@ func _fade_out_music(duration: float) -> void:
 
 #region VOLUME
 const MIN_DB: float = -80.0
-## Volume (dB) com a barra no máximo. 0 = volume original dos sons.
 const VOLUME_MAX_DB: float = 0.0
 
-## Barra (0–100) -> dB. Curva de amplitude linear: 50% = -6 dB, 25% = -12 dB, 10% = -20 dB.
-## A antiga tirava 2 dB por passo (metade da barra já era -25 dB, quase mudo).
+
 func percent_to_db(percent: float) -> float:
 	if percent <= 0.0:
 		return MIN_DB
@@ -280,7 +268,7 @@ func set_window_mode(mode: int) -> void:
 		WindowMode.WINDOWED:
 			get_window().mode = Window.MODE_WINDOWED
 			_apply_window_size()
-			_apply_window_size.call_deferred() # alguns sistemas só aceitam o tamanho depois de sair da tela cheia
+			_apply_window_size.call_deferred()
 		WindowMode.FULLSCREEN:
 			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 		WindowMode.BORDERLESS:
@@ -309,8 +297,8 @@ func set_max_fps(fps: int) -> void:
 	settings_changed.emit()
 
 func set_fov(value: float) -> void:
-	fov = clampf(value, 60.0, 120.0)
-	settings_changed.emit() # a câmera do player lê UI.fov
+	fov = clampf(value, 60.0, 90.0)
+	settings_changed.emit()
 
 func set_show_fps(enabled: bool) -> void:
 	show_fps = enabled
@@ -325,11 +313,9 @@ func set_brightness(value: float) -> void:
 		_brightness_rect.material.set_shader_parameter("brightness", brightness)
 	settings_changed.emit()
 
-## O 3D renderiza na resolução escolhida e é esticado pra tela (HUD/menus não mudam).
 func _apply_render_scale() -> void:
 	get_tree().root.scaling_3d_scale = clampf(current_resolution.y / BASE_HEIGHT, 0.25, 1.0)
 
-## Em janela: tamanho da janela = resolução (limitado ao tamanho útil do monitor).
 func _apply_window_size() -> void:
 	var usable := DisplayServer.screen_get_usable_rect().size
 	var size := current_resolution
@@ -355,15 +341,10 @@ func set_invert_y(enabled: bool) -> void:
 	invert_y = enabled
 	settings_changed.emit()
 
-## 0 = câmera parada (sem balanço ao andar, inclinação, coices). 1 = normal.
 func set_camera_motion(value: float) -> void:
 	camera_motion = clampf(value, 0.0, 1.0)
 	settings_changed.emit()
 
-## 0 = sem tremor de tela. 1 = normal.
-func set_screen_shake(value: float) -> void:
-	screen_shake = clampf(value, 0.0, 1.0)
-	settings_changed.emit()
 #endregion
 
 
@@ -382,7 +363,6 @@ func apply_settings() -> void:
 	set_mouse_sensitivity(mouse_sensitivity)
 	set_invert_y(invert_y)
 	set_camera_motion(camera_motion)
-	set_screen_shake(screen_shake)
 
 func reset_to_defaults() -> void:
 	window_mode = DEFAULTS.window_mode
@@ -402,7 +382,6 @@ func reset_to_defaults() -> void:
 	mouse_sensitivity = DEFAULTS.mouse_sensitivity
 	invert_y = DEFAULTS.invert_y
 	camera_motion = DEFAULTS.camera_motion
-	screen_shake = DEFAULTS.screen_shake
 	apply_settings()
 	save_settings()
 
@@ -425,7 +404,6 @@ func save_settings() -> void:
 	config.set_value("controls", "mouse_sensitivity", mouse_sensitivity)
 	config.set_value("controls", "invert_y", invert_y)
 	config.set_value("comfort", "camera_motion", camera_motion)
-	config.set_value("comfort", "screen_shake", screen_shake)
 	config.set_value("controls", "is_introduction", is_introduction)
 	config.set_value("controls", "is_walk_introduction", is_walk_introduction)
 	config.set_value("controls", "is_fire_introduction", is_fire_introduction)
@@ -467,7 +445,6 @@ func load_settings() -> void:
 	mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", DEFAULTS.mouse_sensitivity)
 	invert_y = config.get_value("controls", "invert_y", DEFAULTS.invert_y)
 	camera_motion = config.get_value("comfort", "camera_motion", DEFAULTS.camera_motion)
-	screen_shake = config.get_value("comfort", "screen_shake", DEFAULTS.screen_shake)
 	is_introduction = config.get_value("controls", "is_introduction", false)
 	is_walk_introduction = config.get_value("controls", "is_walk_introduction", false)
 	is_fire_introduction = config.get_value("controls", "is_fire_introduction", false)
@@ -476,13 +453,12 @@ func load_settings() -> void:
 func _old_db_to_percent(db: float) -> float:
 	if db <= -79.0:
 		return 0.0
-	# Escala antiga: barra 0–20, -5 dB no máximo, 2 dB por passo.
 	var old_slider := clampf(20.0 - (-5.0 - db) / 2.0, 0.0, 20.0)
 	return old_slider / 20.0 * 100.0
 #endregion
 
 
-#region OVERLAYS (contador de FPS e brilho)
+#region OVERLAYS
 var _fps_label: Label
 var _brightness_rect: ColorRect
 var _fps_timer: float = 0.0

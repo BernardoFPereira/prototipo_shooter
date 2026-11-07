@@ -36,8 +36,6 @@ extends Control
 # Acessibilidade
 @onready var camera_motion_slider: HSlider = %CameraMotionSlider
 @onready var camera_motion_value: Label = %CameraMotionValue
-@onready var screen_shake_slider: HSlider = %ScreenShakeSlider
-@onready var screen_shake_value: Label = %ScreenShakeValue
 
 @onready var reset_button: Button = %ResetButton
 
@@ -78,7 +76,6 @@ func refresh_from_settings() -> void:
 	sens_slider.value = UI.sensitivity_to_slider(UI.mouse_sensitivity)
 	invert_y_check.button_pressed = UI.invert_y
 	camera_motion_slider.value = UI.camera_motion * 100.0
-	screen_shake_slider.value = UI.screen_shake * 100.0
 	_updating = false
 	_update_value_labels()
 
@@ -114,7 +111,6 @@ func _connect_signals() -> void:
 	sens_slider.value_changed.connect(func(v): _apply(func(): UI.set_mouse_sensitivity(UI.slider_to_sensitivity(v)), false))
 	invert_y_check.toggled.connect(func(on): _apply(func(): UI.set_invert_y(on)))
 	camera_motion_slider.value_changed.connect(func(v): _apply(func(): UI.set_camera_motion(v / 100.0), false))
-	screen_shake_slider.value_changed.connect(func(v): _apply(func(): UI.set_screen_shake(v / 100.0), false))
 
 	reset_button.pressed.connect(_on_reset_pressed)
 
@@ -144,8 +140,7 @@ func _update_value_labels() -> void:
 	hud_value.text = "%d%%" % roundi(hud_slider.value)
 	sens_value.text = "%.1f" % sens_slider.value
 	camera_motion_value.text = "%d%%" % roundi(camera_motion_slider.value)
-	screen_shake_value.text = "%d%%" % roundi(screen_shake_slider.value)
-	resolution_option.tooltip_text = "Em tela cheia, a resolução muda só o 3D (o HUD continua nítido)."
+	resolution_option.tooltip_text = "Fullscreen: Afeta a resolução da câmera 3D / Janela: Afeta o tamanho da janela"
 
 
 func _on_reset_pressed() -> void:
