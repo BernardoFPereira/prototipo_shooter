@@ -7,7 +7,7 @@
 height = 1.23792
 radius = 4.14582
 
-[node name="plataformavoadora" type="AnimatableBody3D"]
+[node name="plataformavoadora" type="AnimatableBody3D" groups=["Unstuckable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.08686, 0)
 collision_layer = 17
 collision_mask = 0

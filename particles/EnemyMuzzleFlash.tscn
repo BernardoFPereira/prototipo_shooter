@@ -95,8 +95,8 @@ point_count = 3
 curve = SubResource("Curve_iybxe")
 
 [sub_resource type="Curve" id="Curve_0omdj"]
-max_value = 5.0
-_data = [Vector2(0, 1.65744), 0.0, 5.66561, 0, 0, Vector2(1, 4.58861), 0.0, 0.0, 0, 0]
+max_value = 10.0
+_data = [Vector2(0, 1.65744), 0.0, 3.36193, 0, 0, Vector2(1, 8.14873), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_66qag"]
@@ -139,7 +139,7 @@ draw_pass_1 = SubResource("QuadMesh_2ox3j")
 [node name="GPUParticles3D3" type="GPUParticles3D" parent="."]
 emitting = false
 amount = 1
-lifetime = 0.2
+lifetime = 0.15
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_dm6me")
 draw_pass_1 = SubResource("QuadMesh_vpg3e")

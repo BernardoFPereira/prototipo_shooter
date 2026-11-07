@@ -27,6 +27,7 @@ var state: SwordState
 var speed: int = 35
 var direction: Vector3
 var damage: float = 25.0
+var attached_to: Node3D
 
 var is_on_button: bool 
 var pressed_button: SwordButton
@@ -79,7 +80,7 @@ func set_state(new_state: SwordState):
 				pressed_button = null
 				is_on_button = false
 			
-			animation_player.play("flying")
+			#animation_player.play("flying")
 			
 		SwordState.STUCK:
 			#stuck_collision.disabled = false
@@ -88,7 +89,7 @@ func set_state(new_state: SwordState):
 			collision_area.set_collision_layer_value(4, false)
 			collision_area.set_collision_layer_value(10, true)
 			
-			animation_player.play("stuck")
+			#animation_player.play("stuck")
 		
 	state = new_state
 
@@ -98,6 +99,11 @@ func register_impact():
 
 func _on_sword_impact(result: KinematicCollision3D):
 	var collider = result.get_collider()
+	
+	if collider.is_in_group("Unstuckable"):
+		set_state(SwordState.PULLED_BACK)
+		return
+	
 	if collider is Player and state == SwordState.PULLED_BACK:
 		if sword_owner == collider:
 			collision_area.set_collision_layer_value(4, true)
@@ -105,6 +111,10 @@ func _on_sword_impact(result: KinematicCollision3D):
 		return
 	
 	var collision_parent = collider.get_parent()
+	
+	if collision_parent.is_in_group("Unstuckable"):
+		set_state(SwordState.PULLED_BACK)
+		return
 	
 	if collision_parent is SwordButton:
 		print("HIT BUTTON")
@@ -127,9 +137,11 @@ func _on_sword_impact(result: KinematicCollision3D):
 	var impact_particle_instance = impact_particles.instantiate()
 	impact_particle_instance.global_transform = impact_particle_marker.global_transform
 	impact_particle_instance.emitting = true
+	
 	for child: GPUParticles3D in impact_particle_instance.get_children():
 		child.emitting = true
 	impact_sfx.play()
+	
 	get_tree().root.add_child(impact_particle_instance)
 	
 	set_state(SwordState.STUCK)

@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cm42np5vcb2pa" path="res://models/player/PlayerArmature_John_RocketArms_Mecharms_mtl_BaseColor.png" id="5_p00k7"]
 [ext_resource type="AudioStream" uid="uid://q3wb4eexmtl1" path="res://assets/sounds/sfx/player/arm_flying_loop.wav" id="8_01ftu"]
 [ext_resource type="AudioStream" uid="uid://dqub51bdg3ynw" path="res://assets/sounds/sfx/player/arm_impact.wav" id="9_cefh6"]
-[ext_resource type="ArrayMesh" uid="uid://3jdst5ao5kox" path="res://vfx/proprulsion_mesh2.res" id="10_ob23j"]
+[ext_resource type="ArrayMesh" uid="uid://bislw4pum6hm1" path="res://vfx/proprulsion_mesh2.res" id="10_ob23j"]
 [ext_resource type="Shader" uid="uid://dmcjgyjeld5f8" path="res://vfx/pixelated_particle.tres" id="11_66vd1"]
-[ext_resource type="Shader" uid="uid://ob06i6gqhhrk" path="res://vfx/propulsion_wave.tres" id="12_p4epw"]
+[ext_resource type="Shader" uid="uid://cnmqlmxmcw5he" path="res://vfx/propulsion_wave.tres" id="12_p4epw"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3aojy"]
 properties/0/path = NodePath(".:global_position")
@@ -603,7 +603,6 @@ replication_config = SubResource("SceneReplicationConfig_3aojy")
 libraries = {
 "": SubResource("AnimationLibrary_44j61")
 }
-autoplay = "flying"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="AnimationPlayer"]
 transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0613556, 0.165778)

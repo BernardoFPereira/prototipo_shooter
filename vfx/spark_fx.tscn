@@ -19,7 +19,7 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_y6iyr"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_1w3sm"]
 curve_x = SubResource("Curve_fcgur")
 curve_y = SubResource("Curve_o1jhe")
 curve_z = SubResource("Curve_tbwow")
@@ -28,16 +28,16 @@ curve_z = SubResource("Curve_tbwow")
 spread = 30.103
 initial_velocity_min = 3.15
 initial_velocity_max = 7.54
-scale_curve = SubResource("CurveXYZTexture_y6iyr")
+scale_curve = SubResource("CurveXYZTexture_1w3sm")
 color = Color(1.2, 1.2, 0.6, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_darss"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_two5u"]
 render_priority = 0
 shader = ExtResource("1_33xfh")
 shader_parameter/Bits = 6.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_74iln"]
-material = SubResource("ShaderMaterial_darss")
+material = SubResource("ShaderMaterial_two5u")
 size = Vector2(0.18, 0.8)
 
 [sub_resource type="Curve" id="Curve_enqsx"]
