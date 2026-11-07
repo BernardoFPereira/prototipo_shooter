@@ -1,10 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://r7nd1lumga1h"]
+[gd_scene load_steps=30 format=3 uid="uid://r7nd1lumga1h"]
 
 [ext_resource type="Script" path="res://scripts/blast_door.gd" id="1_dlyf2"]
 [ext_resource type="Shader" uid="uid://bgue4s5hvwq08" path="res://vfx/decompression.tres" id="1_incsv"]
 [ext_resource type="Shader" uid="uid://epm1yivou7pv" path="res://vfx/pixelated_particle_billboard.tres" id="2_cmhrr"]
-[ext_resource type="AudioStream" uid="uid://cqjt1iyxstovd" path="res://assets/sounds/sfx/blast_door_open.wav" id="4_6evre"]
-[ext_resource type="AudioStream" uid="uid://ddnkuik22xgev" path="res://assets/sounds/sfx/blast_door_loop.wav" id="5_e538j"]
+[ext_resource type="PackedScene" uid="uid://b4pv2bh0eq1jb" path="res://models/blast_door.glb" id="4_s0w2b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kt3s4"]
 size = Vector3(2.3866, 11.2417, 15.5654)
@@ -319,12 +318,5 @@ libraries = {
 "": SubResource("AnimationLibrary_8mfso")
 }
 
-[node name="OpenSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_6evre")
-volume_db = 10.0
-bus = &"SFX"
-
-[node name="DecompressLoop" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_e538j")
-volume_db = 8.0
-bus = &"SFX"
+[node name="blast_door" parent="." instance=ExtResource("4_s0w2b")]
+visible = false

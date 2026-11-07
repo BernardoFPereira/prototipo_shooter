@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwsxqeoj0fwvx"]
+[gd_scene load_steps=5 format=3 uid="uid://dwsxqeoj0fwvx"]
 
 [ext_resource type="PackedScene" uid="uid://gh8igq2rphp" path="res://models/heroassets/plataformavoadora.glb" id="1_jtrro"]
 [ext_resource type="AudioStream" uid="uid://caidkq1miix40" path="res://assets/sounds/sfx/SFX_hoverThruster.wav" id="2_ieq5w"]
+[ext_resource type="Material" uid="uid://b4qgj2h4ji48d" path="res://materials/platform/thrusterfx_mtl.002.tres" id="2_o563w"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wyfee"]
 height = 1.23792
@@ -20,6 +21,9 @@ shape = SubResource("CylinderShape3D_wyfee")
 
 [node name="thrusterboost_grp_003" parent="plataformavoadora/platformmoving_grp/thruster_grp" index="0"]
 transform = Transform3D(0.357396, 1.49012e-08, 0, 0, 0.357396, 0, 0, 7.10543e-15, 0.357396, -6.76381e-05, -435.059, 124.621)
+
+[node name="thruster1_geo_003" parent="plataformavoadora/platformmoving_grp/thruster_grp/thrusterboost_grp_003" index="0"]
+surface_material_override/0 = ExtResource("2_o563w")
 
 [node name="thruster_grp1" parent="plataformavoadora/platformmoving_grp" index="2"]
 transform = Transform3D(-0.713076, 0.701087, 0, -0.701087, -0.713076, 5.68434e-14, 0, 0, 1, 0, 0, -1.52588e-05)
