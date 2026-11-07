@@ -1,8 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://r7nd1lumga1h"]
+[gd_scene load_steps=31 format=3 uid="uid://r7nd1lumga1h"]
 
 [ext_resource type="Script" path="res://scripts/blast_door.gd" id="1_dlyf2"]
 [ext_resource type="Shader" uid="uid://bgue4s5hvwq08" path="res://vfx/decompression.tres" id="1_incsv"]
 [ext_resource type="Shader" uid="uid://epm1yivou7pv" path="res://vfx/pixelated_particle_billboard.tres" id="2_cmhrr"]
+[ext_resource type="AudioStream" uid="uid://cqjt1iyxstovd" path="res://assets/sounds/sfx/blast_door_open.wav" id="4_6evre"]
+[ext_resource type="AudioStream" uid="uid://ddnkuik22xgev" path="res://assets/sounds/sfx/blast_door_loop.wav" id="5_e538j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kt3s4"]
 size = Vector3(2.3866, 11.2417, 15.5654)
@@ -221,21 +223,6 @@ shader_parameter/Bits = 4.0
 material = SubResource("ShaderMaterial_rx5c6")
 size = Vector2(0.5, 0.5)
 
-[sub_resource type="Animation" id="Animation_f0fru"]
-resource_name = "start_fx"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:mesh:top_radius")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 8.313]
-}
-
 [sub_resource type="Animation" id="Animation_g5wel"]
 length = 0.001
 tracks/0/type = "value"
@@ -249,6 +236,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [8.313]
+}
+
+[sub_resource type="Animation" id="Animation_f0fru"]
+resource_name = "start_fx"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:mesh:top_radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 8.313]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8mfso"]
@@ -316,3 +318,13 @@ draw_pass_1 = SubResource("QuadMesh_14l1v")
 libraries = {
 "": SubResource("AnimationLibrary_8mfso")
 }
+
+[node name="OpenSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6evre")
+volume_db = 10.0
+bus = &"SFX"
+
+[node name="DecompressLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_e538j")
+volume_db = 8.0
+bus = &"SFX"

@@ -63,6 +63,7 @@ var blend_time: float = 0.15
 @onready var arm_throw_sfx = $SFX/ArmThrow
 @onready var arm_back_sfx = $SFX/ArmBack
 @onready var arm_kill = $SFX/ArmKill
+@onready var hit_fx = $SFX/HitFX
 
 #endregion
  
@@ -538,6 +539,8 @@ func _on_sword_back(body):
 func take_damage(amount: float):
 	if is_end_cinematic:
 		return
+	
+	hit_fx.play()
 	
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)

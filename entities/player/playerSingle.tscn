@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://dumkd0qt2sxvx"]
+[gd_scene load_steps=126 format=3 uid="uid://dumkd0qt2sxvx"]
 
 [ext_resource type="Script" path="res://entities/player/playerSingle.gd" id="1_wj731"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="2_6hu70"]
@@ -18,15 +18,25 @@
 [ext_resource type="Script" path="res://UI/V2/HUD/Player/glow_texture_rect.gd" id="18_nwpcu"]
 [ext_resource type="AudioStream" uid="uid://mqoryulkdsgp" path="res://assets/sounds/sfx/enemies/gory_impact.wav" id="19_64nry"]
 [ext_resource type="Shader" path="res://UI/V2/HUD/2DGlowShader.gdshader" id="20_lgex4"]
+[ext_resource type="AudioStream" uid="uid://bcbkddgc4ueln" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit1.wav" id="20_oolt6"]
+[ext_resource type="AudioStream" uid="uid://25ktpby7an8m" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit2.wav" id="21_5jmtl"]
+[ext_resource type="AudioStream" uid="uid://cbpae0io1penl" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit3.wav" id="22_ag5rc"]
+[ext_resource type="AudioStream" uid="uid://sb83nxc4xbbf" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit4.wav" id="23_1l28w"]
 [ext_resource type="Shader" path="res://UI/V2/HUD/Player/moving_shader.gdshader" id="23_tqueg"]
 [ext_resource type="Texture2D" uid="uid://bi4ck06oji7aw" path="res://UI/V2/HUD/Player/line-scan-overlay.png" id="24_4dgpa"]
 [ext_resource type="Script" path="res://UI/V2/HUD/Player/glow_texture_bar.gd" id="24_km8vg"]
 [ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="24_mrbwe"]
+[ext_resource type="AudioStream" uid="uid://c2c083dhjrun1" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit5.wav" id="24_y0f1t"]
 [ext_resource type="AudioStream" uid="uid://dxr7hi71peiey" path="res://assets/sounds/sfx/player/breathing.wav" id="25_8jerd"]
+[ext_resource type="AudioStream" uid="uid://kmdhkrejenbe" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit6.wav" id="25_lr12m"]
 [ext_resource type="Texture2D" uid="uid://3wh5eda4tsx7" path="res://UI/V2/HUD/Assistant/assistant-oct-base.png" id="26_bypws"]
+[ext_resource type="AudioStream" uid="uid://cobxiaepsq3pv" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit7.wav" id="26_rqfnk"]
+[ext_resource type="AudioStream" uid="uid://bno8ti4a1e1rp" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit8.wav" id="27_5f22c"]
 [ext_resource type="Texture2D" uid="uid://rluf3parnx6k" path="res://UI/V2/HUD/Assistant/assistant-los-iris.png" id="27_frtra"]
+[ext_resource type="AudioStream" uid="uid://d0j4jskknkmjt" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit9.wav" id="28_7x3l6"]
 [ext_resource type="Texture2D" uid="uid://cj8kq4ci625by" path="res://UI/V2/HUD/Assistant/assistant-text-link.png" id="28_gqq6y"]
 [ext_resource type="Texture2D" uid="uid://cch8o5kfpnr3u" path="res://UI/V2/HUD/Assistant/assistant-double-pupil.png" id="28_y4ty8"]
+[ext_resource type="AudioStream" uid="uid://cglv5pje8s281" path="res://assets/sounds/sfx/hit_impacts/SFX_MeleeHit10.wav" id="29_bkk1b"]
 [ext_resource type="Script" path="res://UI/V2/HUD/Player/glow_ninepatchrect.gd" id="29_oavk8"]
 [ext_resource type="Texture2D" uid="uid://cqiwk5xccunde" path="res://UI/V2/HUD/Player/HUD-HelmetFrame.png" id="30_a6or3"]
 [ext_resource type="AnimationLibrary" uid="uid://dpg8d8y70up4b" path="res://UI/V2/HUD/hud.res" id="30_ffg5o"]
@@ -105,6 +115,29 @@ stream_0/weight = 1.0
 streams_count = 1
 stream_0/stream = ExtResource("49_t5wby")
 stream_0/weight = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4nh1w"]
+streams_count = 10
+stream_0/stream = ExtResource("20_oolt6")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("21_5jmtl")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("22_ag5rc")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("23_1l28w")
+stream_3/weight = 1.0
+stream_4/stream = ExtResource("24_y0f1t")
+stream_4/weight = 1.0
+stream_5/stream = ExtResource("25_lr12m")
+stream_5/weight = 1.0
+stream_6/stream = ExtResource("26_rqfnk")
+stream_6/weight = 1.0
+stream_7/stream = ExtResource("27_5f22c")
+stream_7/weight = 1.0
+stream_8/stream = ExtResource("28_7x3l6")
+stream_8/weight = 1.0
+stream_9/stream = ExtResource("29_bkk1b")
+stream_9/weight = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46sd6"]
 resource_name = "arms_mat.1001"
@@ -770,7 +803,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_we5c5"]
 size = Vector3(1.36, 1, 1.84)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u56c6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_huqpd"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -780,7 +813,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("31_1l4ih")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bpsnk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o1817"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -790,7 +823,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.3
 shader_parameter/glow_source = ExtResource("32_nbj6u")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6u03l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgfbx"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -800,7 +833,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("34_brvs5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t71kp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fvv0w"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -825,7 +858,7 @@ shader_parameter/displacement_strength = 0.15
 shader_parameter/displacement_frequency = 10.0
 shader_parameter/displacement_wave_speed = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7hdlt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dlbq"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -835,7 +868,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m7lub"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7c4qq"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -845,7 +878,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("27_frtra")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_abhs8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1b2ea"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -855,7 +888,7 @@ shader_parameter/blur_size = 1.0
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("28_y4ty8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_atxb2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r737b"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -991,7 +1024,7 @@ shader_parameter/blur_size = 1.2
 shader_parameter/line_opacity = 0.5
 shader_parameter/glow_source = ExtResource("26_bypws")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4jj2l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mi42"]
 shader = ExtResource("20_lgex4")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -1151,6 +1184,11 @@ volume_db = 20.329
 pitch_scale = 0.81
 max_distance = 60.0
 max_polyphony = 4
+bus = &"SFX"
+
+[node name="HitFX" type="AudioStreamPlayer" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_4nh1w")
+volume_db = -10.0
 bus = &"SFX"
 
 [node name="Head" type="Node3D" parent="."]
@@ -1446,7 +1484,7 @@ color = Color(0.160784, 0.2, 0.211765, 0.960784)
 
 [node name="HUDFrame" type="TextureRect" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_u56c6")
+material = SubResource("ShaderMaterial_huqpd")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1462,7 +1500,7 @@ line_opacity = 0.3
 [node name="HandButton" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_bpsnk")
+material = SubResource("ShaderMaterial_o1817")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1476,7 +1514,7 @@ blur_size = 1.0
 line_opacity = 0.3
 
 [node name="HealthBarFrame" type="TextureRect" parent="GameHUD"]
-material = SubResource("ShaderMaterial_6u03l")
+material = SubResource("ShaderMaterial_fgfbx")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1507,7 +1545,7 @@ texture = ExtResource("3_5hn21")
 
 [node name="HealthBar" type="TextureProgressBar" parent="GameHUD"]
 texture_filter = 1
-material = SubResource("ShaderMaterial_t71kp")
+material = SubResource("ShaderMaterial_fvv0w")
 custom_minimum_size = Vector2(128, 26)
 anchors_preset = 5
 anchor_left = 0.5
@@ -1543,13 +1581,13 @@ texture = ExtResource("24_4dgpa")
 [node name="AssistantFrame" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_7hdlt")
+material = SubResource("ShaderMaterial_3dlbq")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 276275.0
+offset_left = 280115.0
 offset_top = 49.0
-offset_right = 276467.0
+offset_right = 280307.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1562,13 +1600,13 @@ line_opacity = 0.5
 [node name="AssistantIris" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_m7lub")
+material = SubResource("ShaderMaterial_7c4qq")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 276275.0
+offset_left = 280115.0
 offset_top = 49.0
-offset_right = 276467.0
+offset_right = 280307.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1581,13 +1619,13 @@ line_opacity = 0.5
 [node name="AssistantPupil" type="TextureRect" parent="GameHUD"]
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_abhs8")
+material = SubResource("ShaderMaterial_1b2ea")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 276275.0
+offset_left = 280115.0
 offset_top = 49.0
-offset_right = 276467.0
+offset_right = 280307.0
 offset_bottom = 241.0
 grow_horizontal = 0
 pivot_offset = Vector2(96, 96)
@@ -1601,7 +1639,7 @@ line_opacity = 0.5
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_atxb2")
+material = SubResource("ShaderMaterial_r737b")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -1742,7 +1780,7 @@ mouse_filter = 2
 visible = false
 modulate = Color(1, 1, 1, 0.470588)
 texture_filter = 1
-material = SubResource("ShaderMaterial_4jj2l")
+material = SubResource("ShaderMaterial_1mi42")
 layout_direction = 3
 layout_mode = 1
 anchors_preset = 1

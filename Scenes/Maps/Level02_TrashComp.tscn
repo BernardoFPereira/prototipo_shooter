@@ -23039,7 +23039,7 @@ points = PackedVector3Array(-31.0734, 0, 0, 31.0734, 0, 0, -31.0734, 64.7949, 0,
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_x5ncc")
 
-[node name="Player" parent="." instance=ExtResource("1_u3ph8")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_u3ph8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.9273, 18.9336, 44.9485)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

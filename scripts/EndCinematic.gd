@@ -65,7 +65,7 @@ func swap_enemy_models(enemies: Array[Node3D]):
 		$DecompressedEnemies.add_child(enemy_inst)
 		enemy_inst.global_transform = enemy.global_transform
 		enemy.call_deferred("queue_free")
-		var _time = randf_range(0.5, 1.5)
+		var _time = randf_range(0.2, 0.7)
 		await get_tree().create_timer(_time).timeout
 
 func spawn_boxes():
@@ -74,10 +74,7 @@ func spawn_boxes():
 		var box_inst: Node3D = box_to_spawn.instantiate()
 		box_inst.global_position = box.global_position
 		box_inst.scale = box.scale
-		#box_inst.move_target = decompression_move_target
 		$MovingObjects.add_child(box_inst)
-		#var move_tween = box_inst.create_tween()
-		#move_tween.tween_property(box_inst, "global_position", decompression_move_target.global_position, 2)
 		var _time = randf_range(0.4, 2.0)
 		await get_tree().create_timer(_time).timeout
 
@@ -87,10 +84,7 @@ func spawn_tubes():
 		var tube_inst: Node3D = tube_to_spawn.instantiate()
 		tube_inst.global_position = tube.global_position
 		tube_inst.scale = tube.scale
-		#tube_inst.move_target = decompression_move_target
 		$MovingObjects.add_child(tube_inst)
-		#var move_tween = tube_inst.create_tween()
-		#move_tween.tween_property(tube_inst, "global_position", decompression_move_target.global_position, 2)
 		var _time = randf_range(0.8, 3.0)
 		await get_tree().create_timer(_time).timeout
 
