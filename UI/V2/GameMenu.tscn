@@ -159,8 +159,6 @@ stretch_mode = 5
 [node name="ConfigGroup" parent="Background/MainPanel" instance=ExtResource("20_settings")]
 visible = false
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ControlsGroup" type="Control" parent="Background/MainPanel"]
 visible = false

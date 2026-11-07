@@ -27,7 +27,8 @@ SceneLoader="*res://UI/V2/Loading/LoadingScreen.tscn"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="res://UI/MainMenu/_old/v2 CURSOR A.png"
+mouse_cursor/custom_image="res://UI/MainMenu/UI_HandCursor.png"
+mouse_cursor/custom_image_hotspot=Vector2(10, 5)
 
 [editor_plugins]
 
