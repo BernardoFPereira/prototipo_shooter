@@ -54,7 +54,7 @@ func _ready():
 			player_controller = get_tree().get_first_node_in_group("player")
 
 func _process(delta: float) -> void:
-	fov = UI.fov # Configurações > Vídeo > Campo de visão
+	fov = UI.fov
 	if not player_controller:
 		return
 	
@@ -117,7 +117,7 @@ func calculate_view_offset(delta):
 		angles.x += bob_sin * bob_pitch
 		angles.z += bob_sin * bob_roll
 	
-	# Configurações > Conforto > Movimento da câmera (0 = câmera parada, pra quem sente enjoo).
+	
 	position = offset * UI.camera_motion
 	rotation = angles * UI.camera_motion
 
@@ -141,8 +141,7 @@ func add_weapon_kick(pitch: float, yaw: float, roll: float):
 	_weapon_kick_angles.z += deg_to_rad(randf_range(-roll, roll))
 
 func add_screen_shake(amount: float, seconds: float) -> void:
-	# Configurações > Conforto > Tremor da tela (0 = desligado).
-	if UI.screen_shake <= 0.0:
+	if UI.camera_motion <= 0.0:
 		h_offset = 0.0
 		v_offset = 0.0
 		return
@@ -154,6 +153,6 @@ func add_screen_shake(amount: float, seconds: float) -> void:
 
 func update_screen_shake(alpha: float, amount: float) -> void:
 	amount = remap(amount, 0.0, 1.0, MIN_SCREEN_SHAKE, MAX_SCREEN_SHAKE)
-	var current_shake_amount = amount * (1.0 - alpha) * UI.screen_shake
+	var current_shake_amount = amount * (1.0 - alpha) * UI.camera_motion
 	h_offset = randf_range(-current_shake_amount, current_shake_amount)
 	v_offset = randf_range(-current_shake_amount, current_shake_amount)

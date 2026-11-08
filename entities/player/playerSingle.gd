@@ -601,10 +601,6 @@ func _on_hud_animations_animation_finished(anim_name):
 				avic_animations.play("avic/centered_assistant_popup")
 			else:
 				_finish_intro()
-		#"loading_screen_in":
-			#change_level.emit()
-		#"loading_screen_out":
-			#is_next_level = false
  
 func _on_avic_animations_animation_finished(anim_name):
 	match anim_name:
@@ -639,10 +635,6 @@ func lock_abilities(abilities: int) -> void:
 func unlock_abilities(abilities: int) -> void:
 	locked_abilities &= ~abilities
 
-## Mostra uma mensagem na caixa do assistente (canto direito), com a animação de popup.
-## A mensagem aparece de fato quando o popup termina (_on_avic_animations_animation_finished).
-## auto_close = false: a caixa não fecha sozinha pelo timer; quem mostrou decide quando fechar.
-## Retorna o id da mensagem (use em hide_assistant_message(id) / is_assistant_message_showing(id)).
 func show_assistant_message(message: String, auto_close: bool = true) -> int:
 	assistant_message_id += 1
 	_message_auto_close = auto_close
@@ -652,8 +644,6 @@ func show_assistant_message(message: String, auto_close: bool = true) -> int:
 	assistant_message_shown.emit(assistant_message_id)
 	return assistant_message_id
 
-## Fecha a caixa do assistente. Com id: só fecha se essa mensagem ainda for a que está na tela
-## (se outra já substituiu, não faz nada).
 func hide_assistant_message(id: int = -1) -> void:
 	if id != -1 and id != assistant_message_id:
 		return
