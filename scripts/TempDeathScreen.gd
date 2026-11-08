@@ -16,6 +16,7 @@ func _process(delta):
 
 # CONTINUE
 func _on_texture_button_button_up():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().reload_current_scene()
 	pass # Replace with function body.
 

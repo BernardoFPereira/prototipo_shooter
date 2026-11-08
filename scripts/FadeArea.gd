@@ -1,16 +1,5 @@
 extends Area3D
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_body_entered(body):
 	if body is Player:
 		var player = body as Player
@@ -18,4 +7,6 @@ func _on_body_entered(body):
 			return
 		player.finale_canvas.visible = true
 		player.end_anim_player.play("fade_to_end")
-	pass # Replace with function body.
+		await get_tree().create_timer(2).timeout
+		player.end_anim_player.play("show_title")
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
