@@ -1,4 +1,4 @@
-[gd_scene load_steps=5306 format=3 uid="uid://7d6u6kjbkco1"]
+[gd_scene load_steps=5307 format=3 uid="uid://7d6u6kjbkco1"]
 
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="1_i001a"]
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_l4xtx"]
@@ -80,6 +80,7 @@
 [ext_resource type="Script" path="res://finale_decompress_target_area.gd" id="77_ysxs7"]
 [ext_resource type="PackedScene" uid="uid://cilki820ynbi3" path="res://vfx/spark_fx.tscn" id="78_waxqe"]
 [ext_resource type="PackedScene" uid="uid://d38b67veaataa" path="res://prefabs/prefabprops/prefabsl3/monitorzim.tscn" id="79_nr31d"]
+[ext_resource type="PackedScene" uid="uid://cca6a5tq4od6j" path="res://prefabs/finale_lights.tscn" id="81_wcmt6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2fq2g"]
 shader = ExtResource("1_l4xtx")
@@ -98,6 +99,8 @@ sky_material = SubResource("ShaderMaterial_2fq2g")
 
 [sub_resource type="Environment" id="Environment_f8cwy"]
 background_mode = 2
+background_color = Color(1.20327e-06, 0, 0.540365, 1)
+background_energy_multiplier = 2.3
 sky = SubResource("Sky_vyje6")
 sky_rotation = Vector3(0, -1.00531, 0)
 ambient_light_source = 2
@@ -56315,10 +56318,13 @@ shadow_enabled = true
 spot_range = 66.3368
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Iluminação/SpotLight3D5"]
-transform = Transform3D(1, 0, -7.45058e-09, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 2.98023e-08, 1, 0, 0, 0)
 light_color = Color(1, 0.583333, 0, 1)
 light_energy = 123.845
 shadow_enabled = true
+
+[node name="Node3D" type="Node3D" parent="Iluminação"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 88.0904, 51.5507, 15.1594)
 
 [node name="plano1" parent="." instance=ExtResource("50_hv2kh")]
 transform = Transform3D(0.251884, 0, -0.967758, 0, 1, 0, 0.967758, 0, 0.251884, -2.71891, 13.8238, -4.67018)
@@ -57284,6 +57290,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.520351, 9.63466)
 
 [node name="Marker3D2" type="Marker3D" parent="PatrolRouteFloor2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.520351, 22.5106)
+
+[node name="Finale Lights" parent="." instance=ExtResource("81_wcmt6")]
 
 [connection signal="body_entered" from="SpawnerDoor/SpawnTriggerArea" to="SpawnerDoor" method="_on_spawn_trigger_area_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea2" to="AssistantTextArea2" method="_on_body_entered"]
