@@ -8,10 +8,11 @@ extends Node3D
 @onready var timer = $Timer
 
 func _on_timer_timeout():
-	timer.wait_time = randf_range(1.2, 4.0)
 	spark_main.emitting = true
 	circle_spark.emitting = true
 	glare.emitting = true
 	animation_player.play("flicker")
 	audio_stream.play()
+	
+	timer.wait_time = randf_range(1.2, 4.0)
 	timer.start()
