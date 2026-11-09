@@ -26,6 +26,27 @@ const JUMP_VELOCITY := 18
 @export var impact_strength: int = 250
 var current_health: float
 @onready var coyote_timer = $CoyoteTimer
+
+@export_category("Death")
+## Animação de morte do personagem.
+@export var death_animation: String = "extra_anims_3/death"
+## Segundos de espera DEPOIS que a animação de morte termina, até aparecer "Tentar novamente".
+@export var death_screen_delay: float = 3.0
+## Tempo do fade-in da tela "Tentar novamente".
+@export var death_screen_fade: float = 0.6
+## Cor que multiplica o HUD depois da morte (preto = some, branco = normal; o alfa deixa mais transparente).
+@export var hud_dead_color: Color = Color(0.32, 0.32, 0.32)
+## Brilho que sobra nos shaders de glow do HUD (0 = sem brilho, 1 = igual a antes).
+@export_range(0.0, 1.0) var hud_dead_glow: float = 0.15
+## Tempo pro HUD apagar (depois das piscadas).
+@export var hud_dim_time: float = 1.2
+## Quantas vezes o HUD pisca ("falha") antes de apagar. 0 = só apaga.
+@export var hud_flickers: int = 3
+## Tremor de câmera no impacto que quebra o vidro.
+@export var death_screen_shake: float = 3.0
+signal died
+@onready var helmet_crack: HelmetCrack = get_node_or_null("HelmetCrack")
+@onready var death_canvas: CanvasLayer = $DeathCanvas
 var can_coyote_jump: bool = true
 #endregion
  
@@ -116,7 +137,7 @@ var new_message: String = ""
 @onready var assistant_iris = $GameHUD/AssistantIris
 @onready var assistant_pupil = $GameHUD/AssistantPupil
 @onready var assistant_text_link = $GameHUD/AssistantTextLink
-@onready var loading_screen = $GameHUD/LoadingScreen
+@onready var loading_screen = get_node_or_null("GameHUD/LoadingScreen") # nó antigo, a tela de load agora é o autoload SceneLoader
 #endregion
  
 #region UI VARIABLES
@@ -541,7 +562,7 @@ func _on_sword_back(body):
 		action_performed.emit(Action.ARM_RETURNED, 1.0)
  
 func take_damage(amount: float):
-	if is_end_cinematic:
+	if is_end_cinematic or is_dead:
 		return
 	
 	hit_fx.play()
@@ -552,14 +573,75 @@ func take_damage(amount: float):
 		camera_juice.add_screen_shake(2.0, 0.3)
 		hud_animations.play("hit_vfx")
 		await get_tree().create_timer(.47).timeout
+		if is_dead:
+			return 
 		if current_health <= max_health/3:
 			idle_sfx.play()
 		if current_health <= 0:
-			current_health = 0
-			is_dead = true
-			game_hud_canvas.visible = false
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			$DeathCanvas.visible = true
+			die()
+
+#region DEATH
+func die() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	current_health = 0
+	died.emit()
+	input_mouse = Vector2.ZERO
+	hide_assistant_message()
+	if camera_juice and death_screen_shake > 0.0:
+		camera_juice.add_screen_shake(death_screen_shake, 0.4)
+	if helmet_crack:
+		helmet_crack.play()
+	_dim_hud()
+
+	var death_length := 0.0
+	if animation_player and animation_player.has_animation(death_animation):
+		var anim := animation_player.get_animation(death_animation)
+		anim.loop_mode = Animation.LOOP_NONE
+		animation_player.play(death_animation, blend_time)
+		death_length = anim.length
+	get_tree().create_timer(death_length + death_screen_delay, false).timeout.connect(_show_death_screen)
+
+func _dim_hud() -> void:
+	var items: Array = []
+	for c in game_hud_canvas.get_children():
+		if c is CanvasItem and c.name != "HelmetFrame":
+			items.append([c, c.modulate])
+	var apply := func(col: Color) -> void:
+		for e in items:
+			if is_instance_valid(e[0]):
+				var o: Color = e[1]
+				e[0].modulate = Color(o.r * col.r, o.g * col.g, o.b * col.b, o.a * col.a)
+	var tween := create_tween()
+	var from := Color.WHITE
+	for i in hud_flickers:
+		var dark := Color(hud_dead_color.r * 0.35, hud_dead_color.g * 0.35, hud_dead_color.b * 0.35, hud_dead_color.a)
+		var back := Color.WHITE.lerp(hud_dead_color, float(i) / maxf(hud_flickers, 1))
+		tween.tween_method(apply, from, dark, 0.04)
+		tween.tween_method(apply, dark, back, randf_range(0.05, 0.12))
+		from = back
+	tween.tween_method(apply, from, hud_dead_color, hud_dim_time).set_ease(Tween.EASE_OUT)
+
+	var glow_tween := create_tween().set_parallel(true)
+	var has_glow := false
+	for node in game_hud_canvas.find_children("*", "CanvasItem", true, false):
+		if node is GlowTextureRect or node is GlowProgressBar:
+			glow_tween.tween_property(node, "intensity", node.intensity * hud_dead_glow, hud_dim_time)
+			has_glow = true
+	if not has_glow:
+		glow_tween.kill()
+
+func _show_death_screen() -> void:
+	if not is_inside_tree():
+		return
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	death_canvas.visible = true
+	var screen := death_canvas.get_node_or_null("DeathScreen") as CanvasItem
+	if screen and death_screen_fade > 0.0:
+		screen.modulate.a = 0.0
+		create_tween().tween_property(screen, "modulate:a", 1.0, death_screen_fade)
+#endregion
  
 func bar_take_damage(damage: float):
 	real_value -= damage

@@ -1,26 +1,15 @@
 extends Control
 
-const MAIN_MENU = preload("res://Scenes/Maps/MainMenu.tscn")
+## Tela "Tentar novamente" (aparece pelo Player.die(), alguns segundos depois da animação de morte).
+## As trocas de cena passam pela tela de load (SceneLoader).
 
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+const MAIN_MENU := "uid://d2rqkagxvdfhw" # res://Scenes/Maps/MainMenu.tscn
 
 
 # CONTINUE
 func _on_texture_button_button_up():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	get_tree().reload_current_scene()
-	pass # Replace with function body.
+	SceneLoader.reload_current_scene()
 
 # QUIT TO MENU
 func _on_texture_button_2_button_down():
-	get_tree().change_scene_to_packed(MAIN_MENU)
-	pass # Replace with function body.
+	SceneLoader.go_to_main_menu(MAIN_MENU)
