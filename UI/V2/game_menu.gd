@@ -117,7 +117,6 @@ func _reset_groups() -> void:
 	quit_button.button_pressed = false
 #endregion
 
-
 #region BUTTON HANDLERS
 func _on_play_pressed() -> void:
 	UI.play_sound("confirm_button")

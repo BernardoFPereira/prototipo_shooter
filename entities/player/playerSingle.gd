@@ -63,6 +63,7 @@ var blend_time: float = 0.15
 @onready var arm_throw_sfx = $SFX/ArmThrow
 @onready var arm_back_sfx = $SFX/ArmBack
 @onready var arm_kill = $SFX/ArmKill
+@onready var hit_fx = $SFX/HitFX
 
 #endregion
  
@@ -419,7 +420,7 @@ func try_pull_sword():
 	thrown_sword.set_state(thrown_sword.SwordState.PULLED_BACK)
  
 func try_throw_sword():
-	if is_disarmed:
+	if is_disarmed or is_end_cinematic:
 		return
 	var sword = sword_scene.instantiate() as Sword
 	sword.transform = head.global_transform
@@ -439,7 +440,7 @@ func try_throw_sword():
 	#hud_animations.play("hand_flying")
  
 func try_attack():
-	if is_disarmed or is_animating_action:
+	if is_disarmed or is_animating_action or is_end_cinematic:
 		return
 	if state != PlayerStates.PUSH:
 		previous_state = state
@@ -447,6 +448,8 @@ func try_attack():
 		action_performed.emit(Action.PUSH, 1.0)
  
 func try_fire():
+	if is_end_cinematic:
+		return
 	if state == PlayerStates.PUSH:
 		return
 	if state != PlayerStates.FIRE:
@@ -470,6 +473,8 @@ func try_fire():
 			child.emitting = true 
 
 func try_jump():
+	if is_end_cinematic:
+		return
 	print(can_coyote_jump)
 	if !is_on_floor() and coyote_timer.is_stopped():
 		return
@@ -538,6 +543,8 @@ func _on_sword_back(body):
 func take_damage(amount: float):
 	if is_end_cinematic:
 		return
+	
+	hit_fx.play()
 	
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)

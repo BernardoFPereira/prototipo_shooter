@@ -423,7 +423,11 @@ func spawn_blood(position: Vector3) -> void:
 func _on_sword_entered(body: Node) -> void:
 	if body.get_parent() is Sword:
 		var sword := body.get_parent() as Sword
-
+		
+		if !target:
+			sword.set_state(sword.SwordState.PULLED_BACK)
+			return
+		
 		match sword.state:
 			sword.SwordState.THROWN:
 				sword.speed = 0

@@ -33,7 +33,8 @@ func spawn_enemy():
 			spawned.global_transform = spawn_point.global_transform
 			spawned.target = get_tree().get_first_node_in_group("Player")
 			spawned.patrol_route_name = patrol_route_name
-			get_tree().root.add_child(spawned)
+			add_sibling(spawned)
+			#get_tree().root.add_child(spawned)
 			if aggro:
 				spawned.current_state = EnemyBase.EnemyState.SEARCHING
 			door_anim_player.play("door_open")
@@ -48,7 +49,8 @@ func spawn_enemy():
 			spawned.global_transform = spawn_point.global_transform
 			spawned.target = get_tree().get_first_node_in_group("Player")
 			spawned.patrol_route_name = patrol_route_name
-			get_tree().root.add_child(spawned)
+			add_sibling(spawned)
+			#get_tree().root.add_child(spawned)
 			if aggro:
 				spawned.current_state = EnemyBase.EnemyState.SEARCHING
 			door_anim_player.play("door_open")

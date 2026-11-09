@@ -1,0 +1,118 @@
+[gd_scene load_steps=2 format=3 uid="uid://cca6a5tq4od6j"]
+
+[ext_resource type="PackedScene" uid="uid://na8ctmu2gfq5" path="res://prefabs/prefabprops/alarm_light.tscn" id="1_hp2nb"]
+
+[node name="Finale Lights" type="Node3D"]
+
+[node name="AlarmLight8" parent="." instance=ExtResource("1_hp2nb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.7959, 58.5587, 24.0837)
+
+[node name="SpotLight3D" parent="AlarmLight8" index="0"]
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="AlarmLight8" index="1"]
+light_energy = 91.27
+
+[node name="AlarmLight9" parent="." instance=ExtResource("1_hp2nb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.7959, 58.5587, 5.37925)
+
+[node name="SpotLight3D" parent="AlarmLight9" index="0"]
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="AlarmLight9" index="1"]
+light_energy = 91.27
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.6108, 39.5701, -5.22936)
+light_color = Color(0.271035, 0.834552, 0, 1)
+light_energy = 81.5
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 28.0104
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.9237, 39.5701, 38.4029)
+light_color = Color(0.271035, 0.834552, 0, 1)
+light_energy = 81.5
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 28.0104
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.868137, 0.149397, -0.473306, 0.0222705, 0.964387, 0.263557, 0.495824, 0.218263, -0.840547, 52.9761, 47.3937, 24.5845)
+light_color = Color(1, 0.583333, 0, 1)
+light_energy = 123.845
+shadow_enabled = true
+
+[node name="AlarmLight10" parent="." instance=ExtResource("1_hp2nb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.1888, 51.3456, 7.55245)
+
+[node name="SpotLight3D" parent="AlarmLight10" index="0"]
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="AlarmLight10" index="1"]
+light_energy = 91.27
+
+[node name="AlarmLight11" parent="." instance=ExtResource("1_hp2nb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.1888, 51.3456, 22.4202)
+
+[node name="SpotLight3D" parent="AlarmLight11" index="0"]
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="AlarmLight11" index="1"]
+light_energy = 91.27
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 86.377, 60.0402, 14.734)
+light_color = Color(1, 0, 0, 1)
+light_energy = 98.455
+light_bake_mode = 1
+omni_range = 39.5649
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 50.2478, 41.102, 11.0818)
+light_color = Color(0.166165, 0.643155, 0, 1)
+light_energy = 98.455
+light_bake_mode = 1
+omni_range = 39.5649
+
+[node name="OmniLight3D20" type="OmniLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 51.7709, 47.5167, 24.4553)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="OmniLight3D21" type="OmniLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 51.7341, 47.5167, 30.2763)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="OmniLight3D22" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.643336, 0, 0.765584, 0, 1, 0, -0.765584, 0, -0.643336, 53.0539, 48.5707, 44.1801)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="OmniLight3D23" type="OmniLight3D" parent="."]
+transform = Transform3D(-0.643336, 0, 0.765584, 0, 1, 0, -0.765584, 0, -0.643336, 56.3535, 48.7209, 47.0661)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="."]
+transform = Transform3D(-0.868137, 0.149397, -0.473306, 0.0222705, 0.964387, 0.263557, 0.495824, 0.218263, -0.840547, 51.5635, 47.3937, 24.5845)
+light_color = Color(1, 0.483333, 0, 1)
+light_energy = 237.775
+light_bake_mode = 1
+shadow_enabled = true
+spot_range = 66.3368
+
+[editable path="AlarmLight8"]
+[editable path="AlarmLight9"]
+[editable path="AlarmLight10"]
+[editable path="AlarmLight11"]
