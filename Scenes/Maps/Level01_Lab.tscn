@@ -54,7 +54,7 @@
 [ext_resource type="Resource" uid="uid://co4vj87lp6i83" path="res://entities/assistant/Steps/braco.tres" id="51_utego"]
 [ext_resource type="Resource" uid="uid://bbakv0761ubqm" path="res://entities/assistant/Steps/recolher_braco.tres" id="52_bvus0"]
 [ext_resource type="Resource" uid="uid://u22m4p73npxo" path="res://entities/assistant/Steps/fim.tres" id="53_5fi18"]
-[ext_resource type="AudioStream" uid="uid://cvnk15skmnuwk" path="res://assets/sounds/ambience/Ambience, Warfare, Battlefield, Sci-fi, Distant, Low Intensity 03 SND28475.wav" id="55_u0v0s"]
+[ext_resource type="AudioStream" uid="uid://cv32y0t4kmfkf" path="res://assets/sounds/ambience/AMB_distant_combat.wav" id="55_rta3h"]
 [ext_resource type="AudioStream" uid="uid://dwrtrj2xwpu4d" path="res://assets/sounds/ambience/Designed, Drone, Abstract Machinery, Static 03 SND12649.wav" id="56_qfpct"]
 [ext_resource type="AudioStream" uid="uid://csediybstgngy" path="res://assets/sounds/ambience/Ambience, Underwater, Submarine Underwater SND61218.wav" id="57_0fmno"]
 [ext_resource type="AudioStream" uid="uid://kdb1uc5gis0h" path="res://assets/sounds/ambience/Ambience, Underground, Garage 04 SND43191.wav" id="57_woe2l"]
@@ -17158,7 +17158,7 @@ steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResourc
 
 [node name="AmbienceCombat" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.53923, 2.81368, -43.3126)
-stream = ExtResource("55_u0v0s")
+stream = ExtResource("55_rta3h")
 autoplay = true
 max_distance = 37.0
 bus = &"SFX"

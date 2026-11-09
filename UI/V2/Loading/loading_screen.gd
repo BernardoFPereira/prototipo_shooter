@@ -14,30 +14,19 @@ extends CanvasLayer
 signal loading_started
 signal loading_finished
 
-## Tempo mínimo (s) que a tela de load fica visível, mesmo se a fase carregar antes.
 @export var min_duration: float = 3.0
-## Duração (s) do fade pro preto na entrada e na saída.
 @export var fade_time: float = 0.4
-## Texto principal da tela.
 @export var loading_text: String = "CARREGANDO"
-## Nome mostrado quando vai do menu pra primeira fase (ou da última fase de volta pra primeira).
 @export var first_level_name: String = "LABORATÓRIO"
-## Nome mostrado quando volta pro menu principal.
 @export var main_menu_name: String = "MENU PRINCIPAL"
-## Buses que ficam mudos durante o load. A música ("Music") fica de fora de propósito.
 @export var muted_buses: PackedStringArray = PackedStringArray(["SFX", "HUD"])
-## Quantos pares de setinhas aparecem em volta do texto (2 = "> TEXTO <" e depois ">> TEXTO <<").
 @export var max_arrows: int = 2
-## Tempo (s) entre cada par de setinhas aparecer.
 @export var arrow_interval: float = 0.4
-## Quantos segundos de chuva são "adiantados" quando a tela aparece, pra ela já surgir cheia.
 @export var rain_prewarm_seconds: float = 25.0
 
 const MATRIX_RAIN_SCENE := preload("res://UI/V2/Background/MatrixRainBackground.tscn")
 
-## true do começo do fade de entrada até o fim do fade de saída.
 var is_loading: bool = false
-## Nome da fase atual (usado pelo reload_current_scene).
 var current_level_name: String = ""
 
 @onready var _root: Control = $Root
@@ -47,7 +36,7 @@ var current_level_name: String = ""
 
 var _rain: Control = null
 var _arrows_time: float = 0.0
-var _elapsed: float = 0.0 # tempo (s) desde que a tela ficou toda preta; anda mesmo com o jogo pausado
+var _elapsed: float = 0.0 
 var _muted_by_me: Array[int] = []
 
 
