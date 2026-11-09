@@ -71,11 +71,11 @@ func explode():
 		
 		if collision.collider is EnemyMelee:
 			var enemy = collision.collider as EnemyMelee
-			enemy.receive_rocket_impact(global_position, damage, shot_direction)
+			enemy.receive_rocket_impact(global_position, damage)
 		
 		if collision.collider is EnemyRanged:
 			var enemy = collision.collider as EnemyRanged
-			enemy.receive_rocket_impact(global_position, damage, shot_direction)
+			enemy.receive_rocket_impact(global_position, damage)
 			
 		if collision.collider is BreakableVent:
 			var vent = collision.collider as BreakableVent
