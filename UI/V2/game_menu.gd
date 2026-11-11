@@ -57,7 +57,6 @@ func open_as_main_menu() -> void:
 	context = Context.MAIN_MENU
 	current_player = null
 
-	title_label.text = "MENU PRINCIPAL"
 	play_button.visible = true
 	resume_button.visible = false
 	retry_button.visible = false

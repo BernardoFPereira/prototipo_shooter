@@ -26,6 +26,19 @@ const JUMP_VELOCITY := 18
 @export var impact_strength: int = 250
 var current_health: float
 @onready var coyote_timer = $CoyoteTimer
+
+@export_category("Death")
+@export var death_animation: String = "extra_anims_3/death"
+@export var death_screen_delay: float = 3.0
+@export var death_screen_fade: float = 0.6
+@export var hud_dead_color: Color = Color(0.32, 0.32, 0.32)
+@export_range(0.0, 1.0) var hud_dead_glow: float = 0.15
+@export var hud_dim_time: float = 1.2
+@export var hud_flickers: int = 3
+@export var death_screen_shake: float = 3.0
+signal died
+@onready var helmet_crack: HelmetCrack = get_node_or_null("HelmetCrack")
+@onready var death_canvas: CanvasLayer = $DeathCanvas
 var can_coyote_jump: bool = true
 #endregion
  
@@ -116,7 +129,7 @@ var new_message: String = ""
 @onready var assistant_iris = $GameHUD/AssistantIris
 @onready var assistant_pupil = $GameHUD/AssistantPupil
 @onready var assistant_text_link = $GameHUD/AssistantTextLink
-@onready var loading_screen = $GameHUD/LoadingScreen
+@onready var loading_screen = get_node_or_null("GameHUD/LoadingScreen")
 #endregion
  
 #region UI VARIABLES
@@ -130,37 +143,23 @@ const quit_background = preload("uid://dmel4nekr0nx4")
 var resolution_button_group: ButtonGroup
 #endregion
  
-#region TUTORIAL / HABILIDADES
-## Quem controla isso é o nó Tutorial (TutorialSequence) da fase. Sem Tutorial na fase, o jogador
-## começa com tudo liberado e sem a animação de introdução.
-
-## Emitido quando a introdução termina (animação "start" do HUD + popup centralizado, se tiver).
+#region TUTORIAL
 signal intro_finished
-## Emitido sempre que o jogador FAZ algo. O tutorial usa isso pra saber quando avançar.
-## amount = graus girados (LOOK), metros andados (MOVE) ou 1 (o resto).
 signal action_performed(action: Action, amount: float)
 
-## Habilidades que podem ser travadas/liberadas. São flags: dá pra combinar (ex: FIRE | ARM).
 enum Ability { LOOK = 1, MOVE = 2, JUMP = 4, FIRE = 8, ARM = 16, PUSH = 32 }
 const ALL_ABILITIES: int = 63
-## Ações que o tutorial pode pedir pro jogador fazer.
 enum Action { LOOK, MOVE, JUMP, FIRE, THROW_ARM, ARM_RETURNED, PUSH }
 
-## Habilidades travadas agora (flags de Ability). 0 = tudo liberado.
 var locked_abilities: int = 0
-## Se true, toca o popup centralizado ("INICIANDO ROTINA...") depois da animação "start" do HUD.
 var play_intro: bool = false
 var intro_done: bool = false
-## Enquanto true, a caixa do assistente não fecha sozinha (o tutorial controla quando fechar).
 var assistant_hold_open: bool = false
 var _assistant_open: bool = false
 
-## Cada mensagem mostrada ganha um id. Serve pra quem mostrou saber se a mensagem dela ainda é a
-## que está na tela (ou se outra já substituiu) antes de fechar.
 signal assistant_message_shown(id: int)
 signal assistant_message_closed(id: int)
 var assistant_message_id: int = 0
-## Se a mensagem atual fecha sozinha pelo timer da caixa (message_display_time).
 var _message_auto_close: bool = true
 #endregion
 
@@ -275,12 +274,12 @@ func handle_input():
 			if has_ability(Ability.ARM):
 				try_throw_sword()
 		else:
-			try_pull_sword() # recolher sempre funciona, pra nunca ficar sem o braço
+			try_pull_sword()
 	if Input.is_action_just_pressed("jump") and has_ability(Ability.JUMP):
 		try_jump()
  
 func _physics_process(delta):
-	if is_dead: #or is_next_level:
+	if is_dead:
 		return
 	velocity.y -= gravity * delta
 	if was_in_air and is_on_floor():
@@ -317,13 +316,11 @@ func handle_states(delta):
 	var target_velocity = Vector3.ZERO
 	match state:
 		PlayerStates.DECOMPRESSING:
-			#print(global_position.distance_to(blast_door.global_position))
 			if is_on_floor():
 				var target_transform = global_transform.looking_at(blast_door.global_position, Vector3.UP)
 				global_transform = global_transform.interpolate_with(target_transform, 0.3)
 				head.rotation.x = lerp(head.rotation.x, 0.0, delta * 4)
 			if global_position.distance_to(blast_door.global_position) < 22:
-				#print("getting close!")
 				camera_juice.update_screen_shake(1, 0.5)
 			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * 4)
 		PlayerStates.IDLE:
@@ -375,7 +372,6 @@ func handle_states(delta):
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
  
-	# Inclinação ao andar de lado — reduzida por Configurações > Conforto > Movimento da câmera.
 	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag * UI.camera_motion, delta * 6)
  
 func _rotate_camera():
@@ -385,7 +381,7 @@ func _rotate_camera():
 		return
 	if input_mouse and has_ability(Ability.LOOK):
 		rotate_y(-input_mouse.x * UI.mouse_sensitivity)
-		var invert := -1.0 if UI.invert_y else 1.0 # Configurações > Controles > Inverter eixo Y
+		var invert := -1.0 if UI.invert_y else 1.0
 		head.rotate_x(-input_mouse.y * UI.mouse_sensitivity * invert)
 		action_performed.emit(Action.LOOK, rad_to_deg(input_mouse.length() * UI.mouse_sensitivity))
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
@@ -541,7 +537,7 @@ func _on_sword_back(body):
 		action_performed.emit(Action.ARM_RETURNED, 1.0)
  
 func take_damage(amount: float):
-	if is_end_cinematic:
+	if is_end_cinematic or is_dead:
 		return
 	
 	hit_fx.play()
@@ -552,14 +548,75 @@ func take_damage(amount: float):
 		camera_juice.add_screen_shake(2.0, 0.3)
 		hud_animations.play("hit_vfx")
 		await get_tree().create_timer(.47).timeout
+		if is_dead:
+			return 
 		if current_health <= max_health/3:
 			idle_sfx.play()
 		if current_health <= 0:
-			current_health = 0
-			is_dead = true
-			game_hud_canvas.visible = false
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			$DeathCanvas.visible = true
+			die()
+
+#region DEATH
+func die() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	current_health = 0
+	died.emit()
+	input_mouse = Vector2.ZERO
+	hide_assistant_message()
+	if camera_juice and death_screen_shake > 0.0:
+		camera_juice.add_screen_shake(death_screen_shake, 0.4)
+	if helmet_crack:
+		helmet_crack.play()
+	_dim_hud()
+
+	var death_length := 0.0
+	if animation_player and animation_player.has_animation(death_animation):
+		var anim := animation_player.get_animation(death_animation)
+		anim.loop_mode = Animation.LOOP_NONE
+		animation_player.play(death_animation, blend_time)
+		death_length = anim.length
+	get_tree().create_timer(death_length + death_screen_delay, false).timeout.connect(_show_death_screen)
+
+func _dim_hud() -> void:
+	var items: Array = []
+	for c in game_hud_canvas.get_children():
+		if c is CanvasItem and c.name != "HelmetFrame":
+			items.append([c, c.modulate])
+	var apply := func(col: Color) -> void:
+		for e in items:
+			if is_instance_valid(e[0]):
+				var o: Color = e[1]
+				e[0].modulate = Color(o.r * col.r, o.g * col.g, o.b * col.b, o.a * col.a)
+	var tween := create_tween()
+	var from := Color.WHITE
+	for i in hud_flickers:
+		var dark := Color(hud_dead_color.r * 0.35, hud_dead_color.g * 0.35, hud_dead_color.b * 0.35, hud_dead_color.a)
+		var back := Color.WHITE.lerp(hud_dead_color, float(i) / maxf(hud_flickers, 1))
+		tween.tween_method(apply, from, dark, 0.04)
+		tween.tween_method(apply, dark, back, randf_range(0.05, 0.12))
+		from = back
+	tween.tween_method(apply, from, hud_dead_color, hud_dim_time).set_ease(Tween.EASE_OUT)
+
+	var glow_tween := create_tween().set_parallel(true)
+	var has_glow := false
+	for node in game_hud_canvas.find_children("*", "CanvasItem", true, false):
+		if node is GlowTextureRect or node is GlowProgressBar:
+			glow_tween.tween_property(node, "intensity", node.intensity * hud_dead_glow, hud_dim_time)
+			has_glow = true
+	if not has_glow:
+		glow_tween.kill()
+
+func _show_death_screen() -> void:
+	if not is_inside_tree():
+		return
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	death_canvas.visible = true
+	var screen := death_canvas.get_node_or_null("DeathScreen") as CanvasItem
+	if screen and death_screen_fade > 0.0:
+		screen.modulate.a = 0.0
+		create_tween().tween_property(screen, "modulate:a", 1.0, death_screen_fade)
+#endregion
  
 func bar_take_damage(damage: float):
 	real_value -= damage

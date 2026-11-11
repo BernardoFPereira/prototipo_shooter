@@ -64,8 +64,9 @@ theme_override_colors/font_color = Color(0.00784314, 0.819608, 0.054902, 1)
 theme_override_constants/line_spacing = -22
 theme_override_fonts/font = ExtResource("3_0xqtw")
 theme_override_font_sizes/font_size = 100
-text = "PUNHO
-DE AÇO"
+text = "VELOCIBORG"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/MainPanel"]
 layout_mode = 0
