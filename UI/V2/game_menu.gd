@@ -31,7 +31,6 @@ var current_player: Player = null
 const LEVEL_SCENE := "uid://cw50tmi4jwwv4"
 const MENU_SCENE := "uid://d2rqkagxvdfhw"
 
-
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	settings_panel.setup()
