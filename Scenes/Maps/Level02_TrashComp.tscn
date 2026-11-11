@@ -1,4 +1,4 @@
-[gd_scene load_steps=2359 format=3 uid="uid://dao0r7la1y2am"]
+[gd_scene load_steps=2358 format=3 uid="uid://dao0r7la1y2am"]
 
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_u3ph8"]
 [ext_resource type="Texture2D" uid="uid://c55p5mrs35hv1" path="res://textures/Captura de tela 2026-08-22 144501.png" id="2_pwg0r"]
@@ -40,7 +40,6 @@
 [ext_resource type="PackedScene" uid="uid://cpprp5qyb521u" path="res://prefabs/prefabprops/prefabs05/andaime.tscn" id="31_j4e53"]
 [ext_resource type="PackedScene" uid="uid://c6uc418mpdn06" path="res://prefabs/prefabprops/pilares.tscn" id="34_kgjhu"]
 [ext_resource type="PackedScene" uid="uid://bkf1hkmei3q1o" path="res://prefabs/prefabprops/plano_1.tscn" id="34_n5xrm"]
-[ext_resource type="Script" path="res://prefabs/prefabprops/prefabsl3/BigDoor.gd" id="34_ub12r"]
 [ext_resource type="PackedScene" uid="uid://na8ctmu2gfq5" path="res://prefabs/prefabprops/alarm_light.tscn" id="35_5oytk"]
 [ext_resource type="Texture2D" uid="uid://c6vqyi1ctpx72" path="res://textures/bigdoor_bigdoor_standardSurface1_BaseColor.png" id="35_brvav"]
 [ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="36_4w865"]
@@ -24776,7 +24775,6 @@ autoplay = "close"
 
 [node name="BigDoor2" type="Node3D" parent="."]
 transform = Transform3D(0.683069, 0, 0, 0, 0.670554, 0, 0, 0, 0.610397, -1.26941, -30.4977, 35.9166)
-script = ExtResource("34_ub12r")
 
 [node name="bigdoor" type="Node3D" parent="BigDoor2"]
 
