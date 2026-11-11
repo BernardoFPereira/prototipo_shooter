@@ -12,10 +12,13 @@ var debris_count: int = 5
 var ignore_bodies: Array = []
 ## Onde o lixo foi esmagado (posição global).
 var spawn_position: Vector3 = Vector3.ZERO
+## Pedaços da mesh que saem desta vez (o Trash sorteia; normalmente vazio).
+var shard_scenes: Array = []
+var shard_scale: float = 1.0
 
 @export_group("Pedaços com física")
 ## Tamanho de cada pedaço, proporcional ao tamanho do lixo (sorteado entre x e y).
-@export var debris_size_ratio: Vector2 = Vector2(0.18, 0.38)
+@export var debris_size_ratio: Vector2 = Vector2(0.12, 0.3)
 ## Velocidade horizontal máxima com que os pedaços se espalham.
 @export var debris_spread_speed: float = 2.5
 ## Velocidade vertical inicial (negativo = já sai indo pra baixo).
@@ -39,6 +42,7 @@ func _ready() -> void:
 			_tint_particles(child)
 			child.emitting = true
 	_spawn_debris()
+	_spawn_shards()
 	get_tree().create_timer(lifetime, false).timeout.connect(queue_free)
 
 
@@ -73,3 +77,25 @@ func _spawn_debris() -> void:
 		var dir := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * debris_spread_speed
 		piece.linear_velocity = Vector3(dir.x, randf_range(debris_vertical_speed.x, debris_vertical_speed.y), dir.y)
 		piece.angular_velocity = Vector3(randf_range(-8, 8), randf_range(-8, 8), randf_range(-8, 8))
+
+
+## Pedaços quebrados do modelo (só às vezes — o Trash decide). Mesmas regras dos pedacinhos:
+## atravessam o triturador, caem e ficam no chão.
+func _spawn_shards() -> void:
+	var holder := get_parent()
+	for scene in shard_scenes:
+		if scene == null or not scene.can_instantiate():
+			continue
+		var shard := TrashShard.create(scene, shard_scale)
+		shard.collision_layer = debris_layer
+		shard.collision_mask = debris_mask
+		for body in ignore_bodies:
+			if body is PhysicsBody3D and is_instance_valid(body):
+				shard.add_collision_exception_with(body)
+		holder.add_child(shard)
+		var offset := Vector3(randf_range(-0.4, 0.4), randf_range(-0.2, 0.2), randf_range(-0.4, 0.4)) * source_size
+		shard.global_position = global_position + offset
+		shard.rotation = Vector3(randf() * TAU, randf() * TAU, randf() * TAU)
+		var dir := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * debris_spread_speed * 0.6
+		shard.linear_velocity = Vector3(dir.x, randf_range(debris_vertical_speed.x, debris_vertical_speed.y), dir.y)
+		shard.angular_velocity = Vector3(randf_range(-4, 4), randf_range(-4, 4), randf_range(-4, 4))

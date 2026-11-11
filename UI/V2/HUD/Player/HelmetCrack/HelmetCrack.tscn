@@ -1,0 +1,107 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxoaogaf2wxgc"]
+
+[ext_resource type="Script" path="res://UI/V2/HUD/Player/HelmetCrack/helmet_crack.gd" id="1_crk"]
+[ext_resource type="Shader" path="res://UI/V2/HUD/Player/HelmetCrack/helmet_crack.gdshader" id="2_crk"]
+[ext_resource type="Texture2D" uid="uid://cqiwk5xccunde" path="res://UI/V2/HUD/Player/HUD-HelmetFrame.png" id="3_crk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crk"]
+resource_local_to_scene = true
+shader = ExtResource("2_crk")
+shader_parameter/crack_progress = 0.0
+shader_parameter/flash = 0.0
+shader_parameter/impact_point = Vector2(0.62, 0.4)
+shader_parameter/pixel_grid = Vector2(640, 360)
+shader_parameter/spokes = 13.0
+shader_parameter/ring_spacing = 0.65
+shader_parameter/jitter = 0.85
+shader_parameter/reach = 1.05
+shader_parameter/reach_variation = 0.45
+shader_parameter/core_radius = 7.0
+shader_parameter/line_width = 0.6
+shader_parameter/seed = 0.0
+shader_parameter/crack_color = Color(0.88, 0.97, 1, 0.8)
+shader_parameter/shadow_color = Color(0, 0.02, 0.03, 0.45)
+shader_parameter/core_color = Color(0.92, 1, 1, 0.8)
+shader_parameter/glass_tint = Color(0.55, 0.75, 0.8, 0.03)
+shader_parameter/shard_shade = 0.04
+shader_parameter/refraction = 1.0
+shader_parameter/visor_mask = ExtResource("3_crk")
+
+[sub_resource type="Animation" id="Animation_reset"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crack:material:shader_parameter/crack_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crack:material:shader_parameter/flash")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_crack"]
+resource_name = "crack"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crack:material:shader_parameter/crack_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.3, 0.36, 0.9, 0.96, 1.6, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.16, 0.2, 0.48, 0.53, 0.8, 0.86, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Crack:material:shader_parameter/flash")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.02, 0.25, 0.36, 0.5, 0.96, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 0.35, 0.0, 0.25, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_crk"]
+_data = {
+"RESET": SubResource("Animation_reset"),
+"crack": SubResource("Animation_crack")
+}
+
+[node name="HelmetCrack" type="CanvasLayer"]
+layer = 0
+script = ExtResource("1_crk")
+
+[node name="Crack" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_crk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_crk")
+}

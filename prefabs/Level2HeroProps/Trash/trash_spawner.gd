@@ -1,32 +1,18 @@
 class_name TrashSpawner
 extends Node3D
 
-## Duto que despeja lixo no triturador. Arraste TrashSpawner.tscn pra fase, posicione acima do
-## triturador e ajuste no Inspector. O lixo sai na posição do nó, caindo pra baixo.
-## Para sozinho enquanto o triturador está levantado (lift) e volta quando ele desce.
-## A seta laranja só aparece no editor.
-
-## Cenas de lixo sorteadas a cada spawn. Vazio = usa o lixo procedural (Trash.tscn).
 @export var trash_scenes: Array[PackedScene] = []
-## Triturador que controla este duto. Vazio = procura o primeiro Triturador da fase.
 @export var triturador: Triturador
-## Liga/desliga o duto manualmente (ex: por um botão ou evento da fase).
 @export var enabled: bool = true
 
 @export_group("Ritmo")
-## Segundos entre um lixo e outro (sorteado entre x e y).
 @export var interval: Vector2 = Vector2(1.5, 4.0)
-## Espera antes do primeiro lixo (bom pra dutos diferentes não soltarem juntos).
 @export var start_delay: float = 0.5
-## Máximo de lixos vivos deste duto ao mesmo tempo (os esmagados não contam).
 @export var max_alive: int = 8
 
 @export_group("Saída")
-## Raio (m) em volta do duto onde o lixo pode aparecer.
 @export var spawn_radius: float = 0.6
-## Velocidade inicial do lixo (padrão: pra baixo).
 @export var initial_velocity: Vector3 = Vector3(0, -3, 0)
-## Giro inicial máximo (rad/s), pra o lixo não cair sempre igual.
 @export var max_spin: float = 3.0
 
 const DEFAULT_TRASH := preload("res://prefabs/Level2HeroProps/Trash/Trash.tscn")
@@ -61,7 +47,6 @@ func _physics_process(delta: float) -> void:
 	spawn_trash()
 
 
-## true quando o duto pode soltar lixo (ligado e o triturador não está levantado).
 func is_active() -> bool:
 	if not enabled:
 		return false

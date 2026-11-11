@@ -60,6 +60,10 @@ var _kite_timer: float = 0.0
 @export var chase_speed: float = 6.0
 @export var rotation_speed: float = 5.0
 var is_floating: bool
+## Tempo parado na vertical (sem cair nem subir) pra contar como "no chão" mesmo quando o
+## GroundRaycast não acha nada embaixo (fresta no piso, beirada, degrau, grade).
+@export var grounded_rest_time: float = 0.15
+var _vertical_rest_time: float = 0.0
  
 @export_category("Detection & Engagement")
 @export var detection_range: float = 20.0
@@ -86,6 +90,8 @@ var _search_timer: float = 0.0
 @export var hit_anim_speed: float = 1
 @export var hit_ground_friction: float = 5.0
 @export var hit_min_stagger: float = 0.2
+## Segurança: tempo máximo no estado HIT, aconteça o que acontecer (0 = sem limite).
+@export var hit_max_time: float = 2.5
 var _base_gravity_scale: float = 1.0
 var _hit_elapsed: float = 0.0
 var _hit_was_airborne: bool = false
@@ -223,7 +229,7 @@ func _advance_patrol_waypoint() -> void:
 #endregion
  
 func _physics_process(delta: float) -> void:
-	check_is_floating()
+	check_is_floating(delta)
 	_update_perception(delta)
 	if _attack_cooldown_left > 0.0:
 		_attack_cooldown_left -= delta
@@ -297,6 +303,8 @@ func _physics_process(delta: float) -> void:
 			if is_floating:
 				_hit_was_airborne = true
 			elif _hit_was_airborne or _hit_elapsed >= hit_min_stagger:
+				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
+			if current_state == EnemyState.HIT and hit_max_time > 0.0 and _hit_elapsed >= hit_max_time:
 				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
 
 		EnemyState.ATTACKING:
@@ -788,8 +796,18 @@ func target_is_in_range() -> bool:
 		return false
 	return has_line_of_sight()
 
-func check_is_floating() -> void:
-	is_floating = not ground_raycast.is_colliding()
+## No ar = o GroundRaycast não acha chão E o corpo está subindo/caindo.
+## Só o raio não basta: com o centro em cima de uma fresta/beirada o inimigo está apoiado,
+## mas o raio passa direto — antes isso deixava ele preso no HIT depois do primeiro tiro.
+func check_is_floating(delta: float = 0.0) -> void:
+	if absf(linear_velocity.y) < 0.3:
+		_vertical_rest_time += delta
+	else:
+		_vertical_rest_time = 0.0
+	if ground_raycast.is_colliding():
+		is_floating = false
+	else:
+		is_floating = _vertical_rest_time < grounded_rest_time
  
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
