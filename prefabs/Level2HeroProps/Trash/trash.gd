@@ -110,6 +110,10 @@ func crush(ignore_bodies: Array = []) -> void:
 		fx.shard_scenes = _pick_shards()
 		fx.shard_scale = shard_scale
 		get_parent().add_child(fx)
+	
+	visible = false
+	$AudioStreamPlayer3D.play()
+	await get_tree().create_timer(2).timeout
 	queue_free()
 
 

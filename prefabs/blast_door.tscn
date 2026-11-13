@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://r7nd1lumga1h"]
+[gd_scene load_steps=33 format=3 uid="uid://r7nd1lumga1h"]
 
 [ext_resource type="Script" path="res://scripts/blast_door.gd" id="1_dlyf2"]
 [ext_resource type="Shader" uid="uid://bgue4s5hvwq08" path="res://vfx/decompression.tres" id="1_incsv"]
@@ -6,8 +6,9 @@
 [ext_resource type="Shader" uid="uid://epm1yivou7pv" path="res://vfx/pixelated_particle_billboard.tres" id="2_cmhrr"]
 [ext_resource type="Texture2D" uid="uid://dmfj317bsqe1" path="res://models/blast_door_blast_door_BotDoor_BaseColor.png" id="3_h1m2q"]
 [ext_resource type="Texture2D" uid="uid://csikub1m1bi3i" path="res://models/blast_door_blast_door_DoorFrame_BaseColor.png" id="4_nr2n2"]
-[ext_resource type="AudioStream" uid="uid://cqjt1iyxstovd" path="res://assets/sounds/sfx/blast_door_open.wav" id="7_vy2fq"]
+[ext_resource type="AudioStream" uid="uid://cqjt1iyxstovd" path="res://assets/sounds/sfx/blast_door_start.wav" id="7_f8sug"]
 [ext_resource type="AudioStream" uid="uid://ddnkuik22xgev" path="res://assets/sounds/sfx/blast_door_loop.wav" id="8_bhw1p"]
+[ext_resource type="AudioStream" uid="uid://dwc72h5tr3ujb" path="res://assets/sounds/sfx/blast_door_open_SFX.wav" id="9_7v50b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kt3s4"]
 size = Vector3(2.3866, 11.2417, 15.5654)
@@ -327,11 +328,15 @@ libraries = {
 "": SubResource("AnimationLibrary_8mfso")
 }
 
-[node name="OpenSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_vy2fq")
+[node name="DecompressStart" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_f8sug")
 volume_db = 8.0
 
 [node name="DecompressLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_bhw1p")
 volume_db = 10.0
 pitch_scale = 1.2
+
+[node name="OpenSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_7v50b")
+pitch_scale = 0.82

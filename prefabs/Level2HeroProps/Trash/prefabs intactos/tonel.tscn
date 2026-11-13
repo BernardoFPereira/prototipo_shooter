@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://h10pwapy8030"]
+[gd_scene load_steps=8 format=3 uid="uid://h10pwapy8030"]
 
 [ext_resource type="Texture2D" uid="uid://dta02rn4fck2k" path="res://models/level2/tonel_geo_tonel txtr.png" id="1_3buq3"]
 [ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash.gd" id="1_35srt"]
+[ext_resource type="AudioStream" uid="uid://c0gc0xatlyb7" path="res://assets/sounds/sfx/trash_crunch/trash_crunch04.wav" id="3_4ni72"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n12th"]
 resource_name = "tonel_mtl5"
@@ -64,3 +65,7 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0.0160296, 0)
 shape = SubResource("ConvexPolygonShape3D_b36a1")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_4ni72")
+bus = &"SFX"
