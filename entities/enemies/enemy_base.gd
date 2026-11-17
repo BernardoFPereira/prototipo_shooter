@@ -14,6 +14,7 @@ extends RigidBody3D
 #region SOUNDS
 @onready var idle_sfx: AudioStreamPlayer3D = $SFX/Idle
 @onready var hit_sfx: AudioStreamPlayer3D = $SFX/Hit
+@onready var hit_impact_sfx: AudioStreamPlayer3D = $SFX/HitImpact
 @export var idle_sound_interval: float = 2.0
 @export var idle_sound_variation: float = 1.5
 @export var enable_idle_sounds: bool = true
@@ -628,6 +629,7 @@ func set_current_state(new_state: EnemyState) -> void:
 			_hit_was_airborne = false
 			_play_anim("hit", true, hit_anim_speed)
 			pause_idle_sounds()
+			hit_impact_sfx.play()
 			hit_sfx.play()
  
 		EnemyState.ATTACKING:

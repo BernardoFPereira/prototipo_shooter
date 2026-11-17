@@ -28,7 +28,7 @@ var current_health: float
 @onready var coyote_timer = $CoyoteTimer
 
 @export_category("Death")
-@export var death_animation: String = "extra_anims_3/death"
+@export var death_animation: String = "extra_anims_3/death_fast"
 @export var death_screen_delay: float = 3.0
 @export var death_screen_fade: float = 0.6
 @export var hud_dead_color: Color = Color(0.32, 0.32, 0.32)

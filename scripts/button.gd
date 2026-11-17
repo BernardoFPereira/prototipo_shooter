@@ -47,13 +47,9 @@ func set_state(new_state):
 			
 			if linked_obj is EndCinematic:
 				linked_obj.start_decompression_sequence()
+				button_geo.material_override = pressed_mat
+				disabled = true
 				return
-			
-			#if linked_obj is BlastDoor:
-				#linked_obj.open_blast_door()
-				#await get_tree().create_timer(2).timeout
-				#linked_obj.start_decompress()
-				#return
 			
 			#if linked_obj is Door:
 				#print("DOOR BROKEN BRUH")
@@ -71,8 +67,8 @@ func set_state(new_state):
 			if linked_obj == null:
 				return
 			
-			if linked_obj is BlastDoor:
-				return
+			#if linked_obj is BlastDoor:
+				#return
 			
 			if linked_obj is EndCinematic:
 				return

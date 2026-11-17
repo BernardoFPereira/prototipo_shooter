@@ -1,4 +1,4 @@
-[gd_scene load_steps=5319 format=3 uid="uid://7d6u6kjbkco1"]
+[gd_scene load_steps=5323 format=3 uid="uid://7d6u6kjbkco1"]
 
 [ext_resource type="PackedScene" uid="uid://bl6itlv6uspjd" path="res://entities/enemies/MeleeEnemy/enemy_melee.tscn" id="1_i001a"]
 [ext_resource type="Shader" path="res://shaders/star_sky.gdshader" id="1_l4xtx"]
@@ -87,7 +87,10 @@
 [ext_resource type="Script" path="res://finale_decompress_target_area.gd" id="77_ysxs7"]
 [ext_resource type="PackedScene" uid="uid://cilki820ynbi3" path="res://vfx/spark_fx.tscn" id="78_waxqe"]
 [ext_resource type="PackedScene" uid="uid://d38b67veaataa" path="res://prefabs/prefabprops/prefabsl3/monitorzim.tscn" id="79_nr31d"]
-[ext_resource type="PackedScene" uid="uid://cca6a5tq4od6j" path="res://prefabs/finale_lights.tscn" id="81_wcmt6"]
+[ext_resource type="AudioStream" uid="uid://bjneab7ch88th" path="res://assets/sounds/sfx/decompress_alarm_loop.wav" id="84_qkk4h"]
+[ext_resource type="AudioStream" uid="uid://428a4mexucti" path="res://assets/sounds/sfx/alarm_klaxon01.wav" id="85_ot66d"]
+[ext_resource type="AudioStream" uid="uid://sdvb4syvsqtr" path="res://assets/sounds/sfx/alarm_klaxon02.wav" id="86_5oyxw"]
+[ext_resource type="AudioStream" uid="uid://dli4ut7nj1eyl" path="res://assets/sounds/sfx/alarm_klaxon03.wav" id="87_f8np8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2fq2g"]
 shader = ExtResource("1_l4xtx")
@@ -52922,6 +52925,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_r4mts")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_s15iq"]
+streams_count = 3
+stream_0/stream = ExtResource("85_ot66d")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("86_5oyxw")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("87_f8np8")
+stream_2/weight = 1.0
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_k2oyd"]
 radius = 5.05271
 
@@ -57103,6 +57115,7 @@ transform = Transform3D(-2.66639e-08, 0, 0.61, 0, 0.61, 0, -0.61, 0, -2.66639e-0
 stream = ExtResource("65_1ifj8")
 volume_db = 5.0
 autoplay = true
+bus = &"SFX"
 
 [node name="Rubble" type="Node3D" parent="."]
 transform = Transform3D(0.839895, 0, -0.542749, 0, 1, 0, 0.542749, 0, 0.839895, -12.4839, -0.0167356, -5.55995)
@@ -57384,6 +57397,87 @@ boxes_to_replace = [NodePath("../Cube2"), NodePath("../Cube")]
 tubes_to_replace = [NodePath("../Tubinho"), NodePath("../Tubinho2")]
 spawn_doors = [NodePath("../EndTriggerDoor1"), NodePath("../EndTriggerDoor3"), NodePath("../EndTriggerDoor2")]
 
+[node name="AlarmLights" type="Node" parent="EndCinematic"]
+
+[node name="AlarmLight8" parent="EndCinematic/AlarmLights" instance=ExtResource("53_o68g7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.7959, 58.5587, 24.0837)
+
+[node name="SpotLight3D" parent="EndCinematic/AlarmLights/AlarmLight8" index="0"]
+visible = false
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="EndCinematic/AlarmLights/AlarmLight8" index="1"]
+visible = false
+light_energy = 91.27
+
+[node name="AnimationPlayer" parent="EndCinematic/AlarmLights/AlarmLight8" index="2"]
+autoplay = ""
+
+[node name="AlarmLight9" parent="EndCinematic/AlarmLights" instance=ExtResource("53_o68g7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.7959, 58.5587, 5.37925)
+
+[node name="SpotLight3D" parent="EndCinematic/AlarmLights/AlarmLight9" index="0"]
+visible = false
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="EndCinematic/AlarmLights/AlarmLight9" index="1"]
+visible = false
+light_energy = 91.27
+
+[node name="AnimationPlayer" parent="EndCinematic/AlarmLights/AlarmLight9" index="2"]
+autoplay = ""
+
+[node name="AlarmLight10" parent="EndCinematic/AlarmLights" instance=ExtResource("53_o68g7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.1888, 51.3456, 7.55245)
+
+[node name="SpotLight3D" parent="EndCinematic/AlarmLights/AlarmLight10" index="0"]
+visible = false
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="EndCinematic/AlarmLights/AlarmLight10" index="1"]
+visible = false
+light_energy = 91.27
+
+[node name="AnimationPlayer" parent="EndCinematic/AlarmLights/AlarmLight10" index="2"]
+autoplay = ""
+
+[node name="AlarmLight11" parent="EndCinematic/AlarmLights" instance=ExtResource("53_o68g7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.1888, 51.3456, 22.4202)
+
+[node name="SpotLight3D" parent="EndCinematic/AlarmLights/AlarmLight11" index="0"]
+visible = false
+light_energy = 91.27
+
+[node name="SpotLight3D2" parent="EndCinematic/AlarmLights/AlarmLight11" index="1"]
+visible = false
+light_energy = 91.27
+
+[node name="AnimationPlayer" parent="EndCinematic/AlarmLights/AlarmLight11" index="2"]
+autoplay = ""
+
+[node name="lanterninha" parent="EndCinematic/AlarmLights/AlarmLight11" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0497971, -3.04759, 0)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="EndCinematic/AlarmLights"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 86.377, 60.0402, 14.734)
+light_color = Color(1, 0, 0, 1)
+light_energy = 0.0
+light_bake_mode = 1
+omni_range = 39.5649
+
+[node name="AlarmSFX" type="Node" parent="EndCinematic"]
+
+[node name="AlarmLoop" type="AudioStreamPlayer" parent="EndCinematic/AlarmSFX"]
+stream = ExtResource("84_qkk4h")
+bus = &"SFX"
+
+[node name="KlaxonSFX" type="AudioStreamPlayer" parent="EndCinematic/AlarmSFX"]
+stream = SubResource("AudioStreamRandomizer_s15iq")
+bus = &"SFX"
+
+[node name="KlaxonTimer" type="Timer" parent="EndCinematic/AlarmSFX"]
+wait_time = 4.0
+
 [node name="MovingObjects" type="Node" parent="EndCinematic"]
 
 [node name="DecompressedEnemies" type="Node" parent="EndCinematic"]
@@ -57533,13 +57627,79 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.520351, 9.63466)
 [node name="Marker3D2" type="Marker3D" parent="PatrolRouteFloor2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.520351, 22.5106)
 
-[node name="Finale Lights" parent="." instance=ExtResource("81_wcmt6")]
+[node name="Finale Lights" type="Node3D" parent="."]
+
+[node name="OmniLight3D9" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 85.6108, 39.5701, -5.22936)
+light_color = Color(0.271035, 0.834552, 0, 1)
+light_energy = 81.5
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 28.0104
+
+[node name="OmniLight3D10" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.9237, 39.5701, 38.4029)
+light_color = Color(0.271035, 0.834552, 0, 1)
+light_energy = 81.5
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 28.0104
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(-0.868137, 0.149397, -0.473306, 0.0222705, 0.964387, 0.263557, 0.495824, 0.218263, -0.840547, 52.9761, 47.3937, 24.5845)
+light_color = Color(1, 0.583333, 0, 1)
+light_energy = 123.845
+shadow_enabled = true
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 50.2478, 41.102, 11.0818)
+light_color = Color(0.166165, 0.643155, 0, 1)
+light_energy = 98.455
+light_bake_mode = 1
+omni_range = 39.5649
+
+[node name="OmniLight3D20" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 51.7709, 47.5167, 24.4553)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="OmniLight3D21" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 51.7341, 47.5167, 30.2763)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="OmniLight3D22" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(-0.643336, 0, 0.765584, 0, 1, 0, -0.765584, 0, -0.643336, 53.0539, 48.5707, 44.1801)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="OmniLight3D23" type="OmniLight3D" parent="Finale Lights"]
+transform = Transform3D(-0.643336, 0, 0.765584, 0, 1, 0, -0.765584, 0, -0.643336, 56.3535, 48.7209, 47.0661)
+light_color = Color(1, 0.7, 0, 1)
+light_energy = 9.58
+shadow_enabled = true
+omni_range = 7.80336
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Finale Lights"]
+transform = Transform3D(-0.868137, 0.149397, -0.473306, 0.0222705, 0.964387, 0.263557, 0.495824, 0.218263, -0.840547, 51.5635, 47.3937, 24.5845)
+light_color = Color(1, 0.483333, 0, 1)
+light_energy = 237.775
+light_bake_mode = 1
+shadow_enabled = true
+spot_range = 66.3368
 
 [connection signal="body_entered" from="SpawnerDoor/SpawnTriggerArea" to="SpawnerDoor" method="_on_spawn_trigger_area_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea2" to="AssistantTextArea2" method="_on_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea2/AssistantTextArea3" to="AssistantTextArea2/AssistantTextArea3" method="_on_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea3" to="AssistantTextArea3" method="_on_body_entered"]
 [connection signal="body_entered" from="AssistantTextArea3/AssistantTextArea3" to="AssistantTextArea3/AssistantTextArea3" method="_on_body_entered"]
+[connection signal="timeout" from="EndCinematic/AlarmSFX/KlaxonTimer" to="EndCinematic" method="_on_klaxon_timer_timeout"]
 [connection signal="timeout" from="EndCinematic/Timer" to="EndCinematic" method="_on_timer_timeout"]
 [connection signal="area_entered" from="EndCinematic/DecompressionMoveTarget1/Area3D" to="EndCinematic/DecompressionMoveTarget1/Area3D" method="_on_area_entered"]
 [connection signal="body_entered" from="EndCinematic/DecompressionMoveTarget1/Area3D" to="EndCinematic/DecompressionMoveTarget1/Area3D" method="_on_body_entered"]
@@ -57584,3 +57744,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.520351, 22.5106)
 [editable path="Pilar/Pilar6"]
 [editable path="Pilar/Pilar8"]
 [editable path="Wallplates Open Detail"]
+[editable path="EndCinematic/AlarmLights/AlarmLight8"]
+[editable path="EndCinematic/AlarmLights/AlarmLight9"]
+[editable path="EndCinematic/AlarmLights/AlarmLight10"]
+[editable path="EndCinematic/AlarmLights/AlarmLight11"]

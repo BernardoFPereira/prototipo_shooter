@@ -27,6 +27,8 @@ signal blades_closed(crushed_count: int)
 @export var crush_area_margin: float = 0.6
 @export var require_contact: bool = true
 
+@onready var grind_sfx = $GrindSFX
+
 @onready var level_animations: AnimationPlayer = $LevelAnimations
 @onready var self_animations: AnimationPlayer = $SelfAnimations
 @onready var damage_area: Area3D = $Area3D
@@ -73,6 +75,7 @@ func on_button_pressed() -> void:
 	if is_lifted:
 		return
 	is_lifted = true
+	grind_sfx.stream_paused = true
 	_play_level_animation(lift_animation)
 	_tween_spin(0.0, spin_down_time)
 
@@ -81,6 +84,7 @@ func on_button_released() -> void:
 	if not is_lifted:
 		return
 	is_lifted = false
+	grind_sfx.stream_paused = false
 	_play_level_animation(unlift_animation)
 	if resume_on_release:
 		_tween_spin(1.0, spin_up_time)

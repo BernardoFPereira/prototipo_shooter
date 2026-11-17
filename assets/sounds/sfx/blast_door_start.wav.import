@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cqjt1iyxstovd"
-path="res://.godot/imported/blast_door_open.wav-106f8fbddafe629b35dc00a7994affba.sample"
+path="res://.godot/imported/blast_door_start.wav-9dcef0f95592b49a9343d349ea1aead4.sample"
 
 [deps]
 
-source_file="res://assets/sounds/sfx/blast_door_open.wav"
-dest_files=["res://.godot/imported/blast_door_open.wav-106f8fbddafe629b35dc00a7994affba.sample"]
+source_file="res://assets/sounds/sfx/blast_door_start.wav"
+dest_files=["res://.godot/imported/blast_door_start.wav-9dcef0f95592b49a9343d349ea1aead4.sample"]
 
 [params]
 

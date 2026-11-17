@@ -3,27 +3,29 @@ class_name EndCinematic
 
 @export var player: Player
 @export var blast_door: BlastDoor
-#@export var box_object_scene: PackedScene
 
 @export var boxes_to_replace: Array[Node3D]
 @export var tubes_to_replace: Array[Node3D]
 
 @export var spawn_doors: Array[SpawnerDoor]
 
-#@export var box_spawn_points: Array[Marker3D]
-#@export var tube_spawn_points: Array[Marker3D]
-#@onready var box_spawn_point = $BoxSpawnPoint
-#@onready var box_spawn_point_2 = $BoxSpawnPoint2
-
 @onready var decompression_move_target = $DecompressionMoveTarget1
 
 @onready var timer: Timer = $Timer
 @onready var enemy_detect_area = $EnemyDetectArea
 
-var player_is_turning: bool = false
+@onready var klaxon_timer = $AlarmSFX/KlaxonTimer
+@onready var alarm_loop = $AlarmSFX/AlarmLoop
+@onready var klaxon_sfx = $AlarmSFX/KlaxonSFX
+
+@onready var alarm_lights = $AlarmLights
 
 func start_decompression_sequence():
 	timer.start()
+	klaxon_timer.start()
+	alarm_loop.play()
+	
+	turn_on_lights()
 	
 	for door in spawn_doors:
 		door._on_trigger_activated()
@@ -37,8 +39,16 @@ func move_player():
 	var tween = create_tween()
 	tween.tween_property(player, "global_position", blast_door.global_position, 2).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUINT)
 
-func spawn_enemies():
-	pass
+func turn_on_lights():
+	for child in alarm_lights.get_children():
+		for subchild in child.get_children():
+			if subchild is SpotLight3D:
+				subchild.visible = true
+			if subchild is AnimationPlayer:
+				subchild.play("loop")
+			
+		if child is OmniLight3D:
+			child.light_energy = lerpf(0.0, 98.0, 0.2)
 
 func swap_enemy_models(enemies: Array[Node3D]):
 	print("Enemies Detected:")
@@ -99,3 +109,6 @@ func _on_timer_timeout():
 	spawn_tubes()
 	await get_tree().create_timer(3).timeout
 	move_player()
+
+func _on_klaxon_timer_timeout():
+	klaxon_sfx.play()
