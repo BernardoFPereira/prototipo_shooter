@@ -25255,7 +25255,8 @@ patrol_route_name = "PatrolRoute"
 
 [node name="AmbienceStream" type="AudioStreamPlayer" parent="AudioStreamers"]
 stream = ExtResource("28_u676d")
-volume_db = 10.0
+volume_db = 15.0
+pitch_scale = 0.8
 autoplay = true
 
 [node name="sala01grades" type="Node" parent="."]
