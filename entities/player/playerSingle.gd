@@ -1,14 +1,13 @@
 class_name Player
 extends CharacterBody3D
- 
-#region EXPORT VARS
+
 @export_category("Move and Look Properties")
 @export var camera_juice : camera_effects
 @export var fall_velocity_threshhold : float = -5.0
-@export var move_speed := 16
-@export var drag := 25
-@export var gravity := 42
- 
+@export var move_speed: int = 16
+@export var drag: int = 25
+@export var gravity: int = 42
+
 var current_fall_velocity : float
 var input_mouse: Vector2
 var movement_vector: Vector2
@@ -18,8 +17,8 @@ var is_end_cinematic: bool
 @onready var finale_canvas = $FinaleCanvas
 @onready var end_anim_player = $FinaleCanvas/EndFade/AnimationPlayer
 
-const JUMP_VELOCITY := 18
- 
+const JUMP_VELOCITY: int = 18
+
 @export_category("Combat Properties")
 @export var max_health: float = 100.0
 @export var melee_damage: float = 10.0
@@ -40,9 +39,7 @@ signal died
 @onready var helmet_crack: HelmetCrack = get_node_or_null("HelmetCrack")
 @onready var death_canvas: CanvasLayer = $DeathCanvas
 var can_coyote_jump: bool = true
-#endregion
- 
-#region STATE_MACHINE
+
 signal change_level
 var is_disarmed: bool
 var is_dead: bool = false
@@ -58,17 +55,15 @@ enum PlayerStates {
 	FIRE,
 	DECOMPRESSING,
 }
- 
+
 var state: PlayerStates = PlayerStates.IDLE
 var previous_state: PlayerStates = PlayerStates.IDLE
 var is_animating_action: bool = false
- 
+
 var blend_time: float = 0.15
- 
+
 @onready var animation_player: AnimationPlayer = $Head/Weapon/PlayerArmature/AnimationPlayer
-#endregion
- 
-#region SFX Nodes
+
 @onready var idle_sfx = $SFX/Idle
 @onready var walk_sfx = $SFX/Walk
 @onready var jump_sfx = $SFX/Jump
@@ -78,49 +73,44 @@ var blend_time: float = 0.15
 @onready var arm_kill = $SFX/ArmKill
 @onready var hit_fx = $SFX/HitFX
 
-#endregion
- 
-#region SCENE VARIABLES
+
 @onready var get_sword_area = $GetSwordArea
 @onready var sword_hit_area = $Head/SwordHitArea
- 
+
 @onready var head: Node3D = $Head
 @onready var camera = $Head/Camera3D
 @onready var weapon = $Head/Weapon
- 
+
 @onready var forearm_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/Forearm_geo
 @onready var index_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/index_geo
 @onready var middle_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/middle_geo
 @onready var pinky_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/pinky_geo
 @onready var ring_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/ring_geo
 @onready var thumb_geo = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/thumb_geo
- 
+
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
- 
+
 @export var arm_projectile_scene: PackedScene
-#@export var sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
 var next_level_scene: PackedScene
 var thrown_sword: Sword
-#endregion
- 
-#region HUD
+
 @onready var game_hud_canvas = $GameHUD
 @onready var health_bar = $GameHUD/HealthBar
 var real_value : float
 @onready var activation_timer = $ActivationTimer
- 
+
 @onready var hud_animations = $GameHUD/HUDAnimations
 @onready var avic_animations = $GameHUD/AVICAnimations
-var enemy_detected := "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
-var enemy_health := "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
+var enemy_detected: String = "res://UI/V2/HUD/Enemy/EnemyDetectedCH.png"
+var enemy_health: String = "res://UI/V2/HUD/Enemy/EnemyHealthBar.png"
 @onready var enemy_detection_range = $EnemyDetectionRange
 @onready var enemy_detection_collision = $EnemyDetectionRange/EnemyDetectionCollision
 @onready var detection_timer: Timer = $DetectionTimer
-var enemies_in_range: Array[Node] = []
- 
+var enemies_in_range: Array = []
+
 @onready var control = $GameHUD/Control
 @onready var assistant_text_box = $GameHUD/Control/AssistantTextBox
 @onready var centered_assistant_text_box = $GameHUD/CenteredAssistantTextBox
@@ -130,9 +120,7 @@ var new_message: String = ""
 @onready var assistant_pupil = $GameHUD/AssistantPupil
 @onready var assistant_text_link = $GameHUD/AssistantTextLink
 @onready var loading_screen = get_node_or_null("GameHUD/LoadingScreen")
-#endregion
- 
-#region UI VARIABLES
+
 const config_background = preload("uid://beg6jpulxo7uw")
 const on_button_texture = preload("uid://bo5sjwobb2r68")
 const off_button_texture = preload("uid://cp8sjbs1efomi")
@@ -141,9 +129,7 @@ const res_button_selected_texture = preload("uid://cev240nhyxski")
 const ctrls_key_background = preload("uid://bmu1oequesbqo")
 const quit_background = preload("uid://dmel4nekr0nx4")
 var resolution_button_group: ButtonGroup
-#endregion
- 
-#region TUTORIAL
+
 signal intro_finished
 signal action_performed(action: Action, amount: float)
 
@@ -161,7 +147,6 @@ signal assistant_message_shown(id: int)
 signal assistant_message_closed(id: int)
 var assistant_message_id: int = 0
 var _message_auto_close: bool = true
-#endregion
 
 @export_category("VFX")
 @export var muzzle_flash_particles: PackedScene = preload("uid://b8edqmwpwyrwk")
@@ -171,7 +156,7 @@ var blast_door: BlastDoor
 
 func _ready():
 	Menu.enter_gameplay_context(self)
- 
+
 	animation_player.animation_finished.connect(_on_animation_finished)
 	get_sword_area.body_entered.connect(_on_sword_back)
 	game_hud_canvas.visible = true
@@ -209,7 +194,7 @@ func _process(delta):
 	if is_animating_action and animation_player:
 		if not animation_player.is_playing():
 			_on_animation_finished(animation_player.current_animation)
- 
+
 func set_state(new_state: PlayerStates):
 	if state == new_state:
 		return
@@ -242,7 +227,7 @@ func set_state(new_state: PlayerStates):
 		PlayerStates.FIRE:
 			is_animating_action = true
 			play_animation_with_blend("fire", false)
- 
+
 func play_animation_with_blend(anim_name: String, loop: bool = true):
 	if not animation_player or not animation_player.has_animation(anim_name):
 		return
@@ -250,9 +235,12 @@ func play_animation_with_blend(anim_name: String, loop: bool = true):
 		return
 	var anim = animation_player.get_animation(anim_name)
 	if anim:
-		anim.loop_mode = Animation.LOOP_LINEAR if loop else Animation.LOOP_NONE
+		if loop:
+			anim.loop_mode = Animation.LOOP_LINEAR
+		else:
+			anim.loop_mode = Animation.LOOP_NONE
 	animation_player.play(anim_name, blend_time)
- 
+
 func _return_to_ground_state():
 	if is_on_floor():
 		if movement_vector:
@@ -261,9 +249,9 @@ func _return_to_ground_state():
 			set_state(PlayerStates.IDLE)
 	else:
 		set_state(PlayerStates.FALL)
- 
+
 func handle_input():
-	if is_dead: #or is_next_level:
+	if is_dead:
 		return
 	if Input.is_action_just_pressed("attack") and has_ability(Ability.PUSH):
 		try_attack()
@@ -277,7 +265,7 @@ func handle_input():
 			try_pull_sword()
 	if Input.is_action_just_pressed("jump") and has_ability(Ability.JUMP):
 		try_jump()
- 
+
 func _physics_process(delta):
 	if is_dead:
 		return
@@ -305,7 +293,7 @@ func _physics_process(delta):
 func _on_land():
 	walk_sfx.play()
 	camera_juice.add_fall_kick(3)
- 
+
 func handle_states(delta):
 	if has_ability(Ability.MOVE) and state != PlayerStates.DECOMPRESSING:
 		movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -371,9 +359,9 @@ func handle_states(delta):
 				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, delta * drag)
 	velocity.x = horizontal_velocity.x
 	velocity.z = horizontal_velocity.z
- 
+
 	head.rotation.z = lerp_angle(head.rotation.z, -movement_vector.x / drag * UI.camera_motion, delta * 6)
- 
+
 func _rotate_camera():
 	if is_dead:
 		return
@@ -381,20 +369,24 @@ func _rotate_camera():
 		return
 	if input_mouse and has_ability(Ability.LOOK):
 		rotate_y(-input_mouse.x * UI.mouse_sensitivity)
-		var invert := -1.0 if UI.invert_y else 1.0
+		var invert: float
+		if UI.invert_y:
+			invert = -1.0
+		else:
+			invert = 1.0
 		head.rotate_x(-input_mouse.y * UI.mouse_sensitivity * invert)
 		action_performed.emit(Action.LOOK, rad_to_deg(input_mouse.length() * UI.mouse_sensitivity))
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
 	head.rotation.y = clamp(head.rotation.y, deg_to_rad(0), deg_to_rad(0))
 	input_mouse = Vector2.ZERO
- 
+
 func _unhandled_input(event):
 	if is_dead:
 		return
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		input_mouse = event.relative
- 
+
 func _toggle_pause_menu():
 	if get_tree().paused:
 		get_tree().paused = false
@@ -404,17 +396,17 @@ func _toggle_pause_menu():
 		get_tree().paused = true
 		game_hud_canvas.visible = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
- 
+
 func release_mouse_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
- 
+
 func try_pull_sword():
 	if !activation_timer.is_stopped():
 		return
 	if !is_disarmed or !thrown_sword:
 		return
 	thrown_sword.set_state(thrown_sword.SwordState.PULLED_BACK)
- 
+
 func try_throw_sword():
 	if is_disarmed or is_end_cinematic:
 		return
@@ -433,8 +425,7 @@ func try_throw_sword():
 	thumb_geo.visible = false
 	arm_throw_sfx.play()
 	action_performed.emit(Action.THROW_ARM, 1.0)
-	#hud_animations.play("hand_flying")
- 
+
 func try_attack():
 	if is_disarmed or is_animating_action or is_end_cinematic:
 		return
@@ -442,7 +433,7 @@ func try_attack():
 		previous_state = state
 		set_state(PlayerStates.PUSH)
 		action_performed.emit(Action.PUSH, 1.0)
- 
+
 func try_fire():
 	if is_end_cinematic:
 		return
@@ -457,16 +448,13 @@ func try_fire():
 		set_state(PlayerStates.FIRE)
 		fire_sfx.play()
 		action_performed.emit(Action.FIRE, 1.0)
-		#camera_juice.add_weapon_kick(5, 0.5, 0.5)
-		
+
 		var muzzle_flash = muzzle_flash_particles.instantiate()
-		#muzzle_flash.global_transform = muzzle_flash_position.global_transform
 		muzzle_flash_position.add_child(muzzle_flash)
-		#get_tree().root.add_child(muzzle_flash)
 		muzzle_flash.global_position = muzzle_flash_position.global_position
-		
+
 		for child: GPUParticles3D in muzzle_flash.get_children():
-			child.emitting = true 
+			child.emitting = true
 
 func try_jump():
 	if is_end_cinematic:
@@ -479,7 +467,7 @@ func try_jump():
 	can_coyote_jump = false
 	set_state(PlayerStates.JUMP)
 	action_performed.emit(Action.JUMP, 1.0)
- 
+
 func check_fall_speed() -> bool:
 	if current_fall_velocity < fall_velocity_threshhold:
 		current_fall_velocity = 0.0
@@ -487,7 +475,7 @@ func check_fall_speed() -> bool:
 	else:
 		current_fall_velocity = 0.0
 		return false
- 
+
 func _on_animation_finished(anim_name):
 	match anim_name:
 		"push":
@@ -505,7 +493,7 @@ func _on_animation_finished(anim_name):
 		"extra_anims/air":
 			if is_on_floor():
 				_return_to_ground_state()
- 
+
 func _on_attack_hit():
 	if sword_hit_area.collision_result:
 		for collision in sword_hit_area.collision_result:
@@ -521,7 +509,7 @@ func _on_attack_hit():
 					return
 				enemy.spawn_blood(collision.point)
 				enemy.receive_sword_impact(melee_damage, global_position, impact_strength)
- 
+
 func _on_sword_back(body):
 	var sword: Sword = body.get_parent()
 	if sword is Sword and sword.sword_owner == self:
@@ -535,13 +523,13 @@ func _on_sword_back(body):
 		thumb_geo.visible = true
 		arm_back_sfx.play()
 		action_performed.emit(Action.ARM_RETURNED, 1.0)
- 
+
 func take_damage(amount: float):
 	if is_end_cinematic or is_dead:
 		return
-	
+
 	hit_fx.play()
-	
+
 	if current_health > 0:
 		current_health -= clampf(amount, 0, max_health)
 		bar_take_damage(clampf(amount, 0, max_health))
@@ -549,13 +537,12 @@ func take_damage(amount: float):
 		hud_animations.play("hit_vfx")
 		await get_tree().create_timer(.47).timeout
 		if is_dead:
-			return 
+			return
 		if current_health <= max_health/3:
 			idle_sfx.play()
 		if current_health <= 0:
 			die()
 
-#region DEATH
 func die() -> void:
 	if is_dead:
 		return
@@ -570,9 +557,9 @@ func die() -> void:
 		helmet_crack.play()
 	_dim_hud()
 
-	var death_length := 0.0
+	var death_length: float = 0.0
 	if animation_player and animation_player.has_animation(death_animation):
-		var anim := animation_player.get_animation(death_animation)
+		var anim: Animation = animation_player.get_animation(death_animation)
 		anim.loop_mode = Animation.LOOP_NONE
 		animation_player.play(death_animation, blend_time)
 		death_length = anim.length
@@ -583,23 +570,23 @@ func _dim_hud() -> void:
 	for c in game_hud_canvas.get_children():
 		if c is CanvasItem and c.name != "HelmetFrame":
 			items.append([c, c.modulate])
-	var apply := func(col: Color) -> void:
+	var apply: Callable = func(col: Color) -> void:
 		for e in items:
 			if is_instance_valid(e[0]):
 				var o: Color = e[1]
 				e[0].modulate = Color(o.r * col.r, o.g * col.g, o.b * col.b, o.a * col.a)
-	var tween := create_tween()
-	var from := Color.WHITE
+	var tween: Tween = create_tween()
+	var from: Color = Color.WHITE
 	for i in hud_flickers:
-		var dark := Color(hud_dead_color.r * 0.35, hud_dead_color.g * 0.35, hud_dead_color.b * 0.35, hud_dead_color.a)
-		var back := Color.WHITE.lerp(hud_dead_color, float(i) / maxf(hud_flickers, 1))
+		var dark: Color = Color(hud_dead_color.r * 0.35, hud_dead_color.g * 0.35, hud_dead_color.b * 0.35, hud_dead_color.a)
+		var back: Color = Color.WHITE.lerp(hud_dead_color, float(i) / maxf(hud_flickers, 1))
 		tween.tween_method(apply, from, dark, 0.04)
 		tween.tween_method(apply, dark, back, randf_range(0.05, 0.12))
 		from = back
 	tween.tween_method(apply, from, hud_dead_color, hud_dim_time).set_ease(Tween.EASE_OUT)
 
-	var glow_tween := create_tween().set_parallel(true)
-	var has_glow := false
+	var glow_tween: Tween = create_tween().set_parallel(true)
+	var has_glow: bool = false
 	for node in game_hud_canvas.find_children("*", "CanvasItem", true, false):
 		if node is GlowTextureRect or node is GlowProgressBar:
 			glow_tween.tween_property(node, "intensity", node.intensity * hud_dead_glow, hud_dim_time)
@@ -612,33 +599,32 @@ func _show_death_screen() -> void:
 		return
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	death_canvas.visible = true
-	var screen := death_canvas.get_node_or_null("DeathScreen") as CanvasItem
+	var screen: CanvasItem = death_canvas.get_node_or_null("DeathScreen") as CanvasItem
 	if screen and death_screen_fade > 0.0:
 		screen.modulate.a = 0.0
 		create_tween().tween_property(screen, "modulate:a", 1.0, death_screen_fade)
-#endregion
- 
+
 func bar_take_damage(damage: float):
 	real_value -= damage
 	var percent = real_value / max_health
 	var new_color = Color(1.0 - percent, percent, 0.0, health_bar.tint_progress.a)
- 
+
 	var tween = create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(health_bar, "value", real_value, 0.4)
 	tween.tween_property(health_bar, "tint_progress", new_color, 0.4)
 	tween.tween_property(health_bar, "glow_tint", new_color, 0.4)
- 
+
 func _on_enemy_detection_range_body_entered(body):
 	if body is EnemyMelee or body is EnemyRanged:
 		if not body in enemies_in_range:
 			enemies_in_range.append(body)
- 
+
 func _on_enemy_detection_range_body_exited(body):
 	if body is EnemyMelee or body is EnemyRanged:
 		body.detected = false
 		enemies_in_range.erase(body)
- 
+
 func _check_visibility():
 	if enemies_in_range.is_empty():
 		return
@@ -657,7 +643,7 @@ func _check_visibility():
 			if enemy.detected == false:
 				enemy.hud_animations.play("detected")
 				enemy.detected = true
- 
+
 func _on_hud_animations_animation_finished(anim_name):
 	match anim_name:
 		"start":
@@ -665,7 +651,7 @@ func _on_hud_animations_animation_finished(anim_name):
 				avic_animations.play("avic/centered_assistant_popup")
 			else:
 				_finish_intro()
- 
+
 func _on_avic_animations_animation_finished(anim_name):
 	match anim_name:
 		"avic/assistant_popup":
@@ -689,7 +675,6 @@ func _on_assistant_message_timeout():
 	if not assistant_hold_open and _message_auto_close:
 		hide_assistant_message()
 
-#region HABILIDADES / MENSAGENS (usado pelo Tutorial e pelas áreas de mensagem)
 func has_ability(ability: int) -> bool:
 	return (locked_abilities & ability) == 0
 
@@ -721,7 +706,6 @@ func hide_assistant_message(id: int = -1) -> void:
 
 func is_assistant_message_showing(id: int) -> bool:
 	return _assistant_open and id == assistant_message_id
-#endregion
 
 func get_message_data(message: String):
 	new_message = message

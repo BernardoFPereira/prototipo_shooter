@@ -21,63 +21,52 @@ var state = button_states.UNPRESSED
 func set_state(new_state):
 	if disabled:
 		return
-	
+
 	if new_state == state:
 		return
-		
+
 	state = new_state
-	
+
 	match state:
 		button_states.PRESSED:
-			#if linked_obj is SpawnerDoor:
-				#linked_obj.spawn_enemy()
-				#return
-			
+
 			button_on.play()
-			
+
 			if linked_obj == null:
-				push_warning("Botão %s sem Linked Obj." % name)
+				push_warning("Botão " + str(name) + " sem Linked Obj.")
 				return
-			
-			# Objetos com script próprio (ex: Triturador) decidem o que fazer.
+
 			if linked_obj.has_method("on_button_pressed"):
 				linked_obj.on_button_pressed()
 				button_geo.material_override = pressed_mat
 				return
-			
+
 			if linked_obj is EndCinematic:
 				linked_obj.start_decompression_sequence()
 				button_geo.material_override = pressed_mat
 				disabled = true
 				return
-			
-			#if linked_obj is Door:
-				#print("DOOR BROKEN BRUH")
-				#linked_obj.get_node("AnimationPlayer").play("break_open")
-				#disabled = true
-				#return
-			
+
+
 			linked_obj.get_node("AnimationPlayer").play("door_open")
 			linked_obj.get_node("Door_Open").playing = true
 			button_geo.material_override = pressed_mat
-		
+
 		button_states.UNPRESSED:
 			button_off.play()
-			
+
 			if linked_obj == null:
 				return
-			
-			#if linked_obj is BlastDoor:
-				#return
-			
+
+
 			if linked_obj is EndCinematic:
 				return
-			
+
 			if linked_obj.has_method("on_button_released"):
 				linked_obj.on_button_released()
 				button_geo.material_override = null
 				return
-			
+
 			linked_obj.get_node("AnimationPlayer").play_backwards("door_open")
 			linked_obj.get_node("Door_Close").playing = true
 			button_geo.material_override = null

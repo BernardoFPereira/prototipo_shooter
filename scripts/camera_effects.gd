@@ -57,18 +57,18 @@ func _process(delta: float) -> void:
 	fov = UI.fov
 	if not player_controller:
 		return
-	
+
 	calculate_view_offset(delta)
 
 func calculate_view_offset(delta):
 	if not player_controller:
 		return
-	
+
 	_fall_timer -= delta
 	_damage_timer -= delta
-	
+
 	var velocity = player_controller.velocity
-	
+
 	var speed = Vector2(velocity.x, velocity.z).length()
 	if speed > 0.1 and player_controller.is_on_floor():
 		_step_timer += delta * (speed / bob_frequency)
@@ -76,48 +76,51 @@ func calculate_view_offset(delta):
 	else:
 		_step_timer = 0.0
 	var bob_sin = sin(_step_timer * 2.0 * PI) * 0.5
-	
+
 	var angles = Vector3.ZERO
 	var offset = Vector3.ZERO
-	
-	# Camera Tilt
+
 	if enable_tilt:
 		var forward = global_transform.basis.z
 		var right = global_transform.basis.x
-		
+
 		var forward_dot = velocity.dot(forward)
 		var forward_tilt = clampf(forward_dot * deg_to_rad(run_pitch), deg_to_rad(-max_pitch), deg_to_rad(max_pitch))
 		angles.x += forward_tilt
-		
+
 		var right_dot = velocity.dot(right)
 		var side_tilt = clampf(right_dot * deg_to_rad(run_roll), deg_to_rad(-max_roll), deg_to_rad(max_roll))
 		angles.z -= side_tilt
-	
-	# Fall Kick
+
 	if enable_fall_kick:
-		var fall_ratio = max(0.0, _fall_timer / fall_time) if fall_time > 0 else 0.0
+		var fall_ratio
+		if fall_time > 0:
+			fall_ratio = max(0.0, _fall_timer / fall_time)
+		else:
+			fall_ratio = 0.0
 		var fall_kick_amount = fall_ratio * _fall_value
 		angles.x -= fall_kick_amount
 		offset.y -= fall_kick_amount
-	
-	# Damage Kick
+
 	if enable_damage_kick:
-		var damage_ratio = max(0.0, _damage_timer / damage_time) if damage_time > 0 else 0.0
+		var damage_ratio
+		if damage_time > 0:
+			damage_ratio = max(0.0, _damage_timer / damage_time)
+		else:
+			damage_ratio = 0.0
 		angles.x += damage_ratio * _damage_pitch
 		angles.y += damage_ratio * _damage_roll
-	
-	# Weapon Kick
+
 	if enable_weapon_kick:
 		_weapon_kick_angles = _weapon_kick_angles.move_toward(Vector3.ZERO, weapon_decay * delta)
 		angles += _weapon_kick_angles
-	
-	# Headbob
+
 	if enable_headbob and player_controller.is_on_floor():
 		offset.y += bob_sin * bob_up
 		angles.x += bob_sin * bob_pitch
 		angles.z += bob_sin * bob_roll
-	
-	
+
+
 	position = offset * UI.camera_motion
 	rotation = angles * UI.camera_motion
 
@@ -147,7 +150,7 @@ func add_screen_shake(amount: float, seconds: float) -> void:
 		return
 	if _screen_shake_tween:
 		_screen_shake_tween.kill()
-		
+
 	_screen_shake_tween = create_tween()
 	_screen_shake_tween.tween_method(update_screen_shake.bind(amount), 0.0, 1.0, seconds).set_ease(Tween.EASE_OUT)
 

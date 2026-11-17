@@ -1,7 +1,7 @@
 extends Control
 class_name MatrixRainBackground
 
-const CHAR_PATHS := [
+const CHAR_PATHS: Array = [
 	"res://assets/textures/ui/matrix_rain/char_01.png",
 	"res://assets/textures/ui/matrix_rain/char_02.png",
 	"res://assets/textures/ui/matrix_rain/char_03.png",
@@ -15,11 +15,11 @@ const CHAR_PATHS := [
 @export var glyph_textures: Array[Texture2D] = []
 @export var background_color: Color = Color(0.02, 0.02, 0.035, 1.0)
 
-const GLOW_TINT := Color(0.1, 0.5, 0.1)
-const GLOW_THRESHOLD := 0.1
-const GLOW_INTENSITY := 0.7
-const GLOW_BLUR_SIZE := 1.0
-const GLOW_LINE_OPACITY := 0.6
+const GLOW_TINT: Color = Color(0.1, 0.5, 0.1)
+const GLOW_THRESHOLD: float = 0.1
+const GLOW_INTENSITY: float = 0.7
+const GLOW_BLUR_SIZE: float = 1.0
+const GLOW_LINE_OPACITY: float = 0.6
 
 class LayerConfig:
 	var column_count: int
@@ -38,7 +38,7 @@ class LayerConfig:
 
 var _layers: Array = []
 var _columns: Array = []
-var _rng := RandomNumberGenerator.new()
+var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -56,10 +56,10 @@ func _load_default_textures() -> void:
 		if ResourceLoader.exists(path):
 			glyph_textures.append(load(path))
 	if glyph_textures.is_empty():
-		push_warning("MatrixRainBackground: nenhum glifo encontrado em assets/textures/ui/matrix_rain/ — a chuva de caracteres não vai aparecer.")
+		push_warning("MatrixRainBackground: nenhum glifo encontrado, a chuva de caracteres não vai aparecer.")
 
 func _setup_background() -> void:
-	var bg := ColorRect.new()
+	var bg: ColorRect = ColorRect.new()
 	bg.name = "DarkBackground"
 	bg.color = background_color
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -69,9 +69,9 @@ func _setup_background() -> void:
 
 func _setup_layers() -> void:
 	_layers = [
-		LayerConfig.new(16, 14.0, Vector2(35.0, 65.0), Vector2(0.5, 1.4), 0.35), # fundo
-		LayerConfig.new(11, 20.0, Vector2(75.0, 125.0), Vector2(0.35, 1.0), 0.65), # meio
-		LayerConfig.new(7, 28.0, Vector2(135.0, 200.0), Vector2(0.2, 0.7), 1.0), # frente
+		LayerConfig.new(16, 14.0, Vector2(35.0, 65.0), Vector2(0.5, 1.4), 0.35),
+		LayerConfig.new(11, 20.0, Vector2(75.0, 125.0), Vector2(0.35, 1.0), 0.65),
+		LayerConfig.new(7, 28.0, Vector2(135.0, 200.0), Vector2(0.2, 0.7), 1.0),
 	]
 
 func _build_columns() -> void:
@@ -112,12 +112,15 @@ func _spawn_glyph(col: Dictionary) -> void:
 	var layer: LayerConfig = col.layer
 	var tex: Texture2D = glyph_textures[_rng.randi_range(0, glyph_textures.size() - 1)]
 
-	var glyph := MatrixGlyph.new()
+	var glyph: MatrixGlyph = MatrixGlyph.new()
 	glyph.size = Vector2(layer.glyph_size, layer.glyph_size)
 	glyph.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	glyph.stretch_mode = TextureRect.STRETCH_SCALE
 	glyph.pivot_offset = Vector2(layer.glyph_size, layer.glyph_size) * 0.5
-	glyph.rotation = PI if _rng.randf() < 0.5 else 0.0
+	if _rng.randf() < 0.5:
+		glyph.rotation = PI
+	else:
+		glyph.rotation = 0.0
 	glyph.modulate.a = layer.alpha
 	glyph.position = Vector2(col.x * size.x - layer.glyph_size * 0.5, -layer.glyph_size)
 	glyph.set_meta("fall_speed", _rng.randf_range(layer.fall_speed_range.x, layer.fall_speed_range.y))

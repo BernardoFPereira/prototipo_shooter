@@ -1,35 +1,23 @@
 @tool
 extends Area3D
 
-## Área de mensagem do assistente: quando o jogador entra, mostra uma mensagem e (opcional)
-## libera habilidades e/ou conversa com um Tutorial da fase.
-##
-## `hide_mode` escolhe quando a mensagem some:
-##   TIME         -> depois de `hide_after` segundos (contando de quando o texto termina de aparecer);
-##   OTHER_AREA   -> quando o jogador entra na área `hide_area` (qualquer Area3D da fase);
-##   LEAVE_AREA   -> quando o jogador sai desta área;
-##   NEXT_MESSAGE -> fica na tela até outra mensagem do assistente aparecer (outra área, tutorial...).
-## Em qualquer modo, se outra mensagem aparecer antes, ela simplesmente substitui esta.
 
 enum HideMode {
-	TIME,         ## Some depois de `hide_after` segundos.
-	OTHER_AREA,   ## Some quando o jogador entra em `hide_area`.
-	LEAVE_AREA,   ## Some quando o jogador sai desta área.
-	NEXT_MESSAGE, ## Fica até outra mensagem do assistente aparecer.
+	TIME,
+	OTHER_AREA,
+	LEAVE_AREA,
+	NEXT_MESSAGE,
 }
 
 enum TutorialAction {
-	NONE,          ## Não mexe no tutorial.
-	START,         ## Começa o tutorial (use com Start Mode = MANUAL no Tutorial).
-	COMPLETE_STEP, ## Completa o passo atual (passos com Complete When = MANUAL).
-	STOP,          ## Encerra o tutorial e libera tudo.
+	NONE,
+	START,
+	COMPLETE_STEP,
+	STOP,
 }
 
-## Opcional: se ficar vazio, qualquer Player que entrar dispara a área.
 @export var player: Player
-## Mensagem do assistente. Vazio = não mostra nada (útil só pra liberar habilidade/avançar tutorial).
 @export_multiline var message: String
-## Coloca o [right] na frente da mensagem automaticamente.
 @export var align_right: bool = true
 
 @export_group("Hide Settings")
@@ -37,16 +25,11 @@ enum TutorialAction {
 	set(value):
 		hide_mode = value
 		notify_property_list_changed()
-## Segundos na tela depois do texto aparecer inteiro (modo TIME).
 @export var hide_after: float = 5.0
-## Área que fecha a mensagem quando o jogador entra nela (modo OTHER_AREA). Pode ser qualquer
-## Area3D que detecte o jogador — inclusive outra área de mensagem com a mensagem vazia.
 @export var hide_area: Area3D
-## Limite de segundos nos outros modos: fecha mesmo se a condição não acontecer. 0 = sem limite.
 @export var max_time: float = 0.0
 
 @export_group("Abilities")
-## Habilidades liberadas ao entrar na área.
 @export_flags("Visão", "Movimento", "Pulo", "Tiro", "Braço", "Empurrão") var unlock: int = 0
 
 @export_group("Tutorial")
@@ -54,7 +37,6 @@ enum TutorialAction {
 @export var tutorial_action: TutorialAction = TutorialAction.NONE
 
 @export_group("Playback")
-## Só dispara uma vez (a área se apaga depois que a mensagem sai da tela).
 @export var one_shot: bool = true
 
 var text_played: bool = false
@@ -109,15 +91,21 @@ func _on_body_entered(body) -> void:
 	_show(target)
 
 
-#region MENSAGEM
 func _show(target: Player) -> void:
 	_disconnect_player()
 	_target = target
-	_message_id = target.show_assistant_message(("[right]" if align_right else "") + message, false)
+	if align_right:
+		_message_id = target.show_assistant_message("[right]" + message, false)
+	else:
+		_message_id = target.show_assistant_message(message, false)
 	target.assistant_message_shown.connect(_on_message_shown)
 	target.assistant_message_closed.connect(_on_message_closed)
 
-	var seconds := hide_after if hide_mode == HideMode.TIME else max_time
+	var seconds: float
+	if hide_mode == HideMode.TIME:
+		seconds = hide_after
+	else:
+		seconds = max_time
 	if seconds > 0.0:
 		_waiting_reveal_time = seconds
 		target.assistant_text_box.text_revealed.connect(_on_text_revealed)
@@ -147,10 +135,8 @@ func _disconnect_player() -> void:
 		_target.assistant_message_closed.disconnect(_on_message_closed)
 	if _target.assistant_text_box.text_revealed.is_connected(_on_text_revealed):
 		_target.assistant_text_box.text_revealed.disconnect(_on_text_revealed)
-#endregion
 
 
-#region SINAIS
 func _on_text_revealed() -> void:
 	if _waiting_reveal_time <= 0.0 or not _target.is_assistant_message_showing(_message_id):
 		return
@@ -181,11 +167,10 @@ func _on_message_shown(id: int) -> void:
 func _on_message_closed(id: int) -> void:
 	if id == _message_id:
 		_done()
-#endregion
 
 
 func _validate_property(property: Dictionary) -> void:
-	var hidden_field := false
+	var hidden_field: bool = false
 	match property.name:
 		"hide_after":
 			hidden_field = hide_mode != HideMode.TIME

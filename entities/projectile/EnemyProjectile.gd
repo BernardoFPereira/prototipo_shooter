@@ -25,7 +25,7 @@ func _on_lifetime_timer_timeout():
 
 func _on_collision_area_area_entered(area):
 	var parent = area.get_parent()
-	
+
 	if parent is Player:
 		impact_sfx.play()
 		parent.take_damage(damage)

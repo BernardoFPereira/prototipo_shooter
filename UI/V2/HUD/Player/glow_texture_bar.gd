@@ -38,8 +38,6 @@ class_name GlowProgressBar
 		if _ensure_material():
 			_mat.set_shader_parameter("line_opacity", value)
 
-## Qual textura usar como base pro cálculo do glow (blur/detecção).
-## Só funciona corretamente se under/progress/over forem a MESMA imagem.
 enum GlowSourceTexture { UNDER, PROGRESS, OVER }
 @export var glow_source_texture: GlowSourceTexture = GlowSourceTexture.PROGRESS:
 	set(value):
@@ -47,7 +45,7 @@ enum GlowSourceTexture { UNDER, PROGRESS, OVER }
 		_assign_glow_source()
 
 var _mat: ShaderMaterial
-var _initialized := false
+var _initialized: bool = false
 
 func _ready():
 	_ensure_material()

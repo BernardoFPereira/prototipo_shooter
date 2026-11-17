@@ -39,7 +39,7 @@ class_name GlowTextureRect
 			_mat.set_shader_parameter("line_opacity", value)
 
 var _mat: ShaderMaterial
-var _initialized := false
+var _initialized: bool = false
 
 func _ready():
 	_ensure_material()
