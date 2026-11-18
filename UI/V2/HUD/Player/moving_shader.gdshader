@@ -14,8 +14,8 @@ uniform float darken_amount : hint_range(0.0, 1.0) = 0.25;
 uniform float glow_amount : hint_range(0.0, 3.0) = 0.6;
 uniform float opacity : hint_range(0.0, 1.0) = 1.0;
 
-uniform float displacement_strength : hint_range(0.0, 1) = 0.6; // intensidade do deslocamento
-uniform float displacement_frequency : hint_range(1.0, 60.0) = 25.0; // "ondulação" ao longo da linha
+uniform float displacement_strength : hint_range(0.0, 1) = 0.6; 
+uniform float displacement_frequency : hint_range(1.0, 60.0) = 25.0;
 uniform float displacement_wave_speed : hint_range(0.0, 30.0) = 12.0;
 
 void fragment() {
