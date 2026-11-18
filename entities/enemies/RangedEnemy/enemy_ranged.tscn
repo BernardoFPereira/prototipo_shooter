@@ -229,7 +229,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_sfd88")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m20e8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g441h"]
 shader = ExtResource("40_sb3w2")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -485,11 +485,11 @@ radius = 1.5
 max_neighbors = 20
 max_speed = 6.0
 
-[node name="SwordCollisionArea" type="Area3D" parent="."]
+[node name="ArmCollisionArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 32
 
-[node name="SwordHitCollision" type="CollisionShape3D" parent="SwordCollisionArea"]
+[node name="ArmHitCollision" type="CollisionShape3D" parent="ArmCollisionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11, 0)
 shape = SubResource("CapsuleShape3D_cvyrw")
 
@@ -543,7 +543,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_m20e8")
+material = SubResource("ShaderMaterial_g441h")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -596,4 +596,4 @@ material_override = SubResource("ShaderMaterial_vn3ks")
 mesh = SubResource("SphereMesh_a6jhn")
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
-[connection signal="body_entered" from="SwordCollisionArea" to="." method="_on_sword_entered"]
+[connection signal="body_entered" from="ArmCollisionArea" to="." method="_on_arm_entered"]

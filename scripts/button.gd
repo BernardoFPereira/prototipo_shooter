@@ -1,4 +1,4 @@
-class_name SwordButton
+class_name ArmButton
 extends Node3D
 
 @export_category("Objetos que são ativados")

@@ -253,7 +253,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_3uxr4")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ndm0f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7dra"]
 shader = ExtResource("40_thpls")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -352,8 +352,8 @@ script = ExtResource("1_x23wf")
 idle_sound_interval = 4.0
 attack_range = 2.5
 detection_range = 50.0
-hearing_range = 20.0
 eye_height = 2.3
+hearing_range = 20.0
 perception_interval = 0.2
 lose_target_time = 6.0
 search_time = 3.0
@@ -573,11 +573,11 @@ radius = 1.7
 max_neighbors = 20
 max_speed = 6.0
 
-[node name="SwordCollisionArea" type="Area3D" parent="."]
+[node name="ArmCollisionArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 32
 
-[node name="SwordHitCollision" type="CollisionShape3D" parent="SwordCollisionArea"]
+[node name="ArmHitCollision" type="CollisionShape3D" parent="ArmCollisionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 visible = false
 shape = SubResource("CapsuleShape3D_cvyrw")
@@ -629,7 +629,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_ndm0f")
+material = SubResource("ShaderMaterial_v7dra")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -683,4 +683,4 @@ mesh = SubResource("SphereMesh_0fwrs")
 
 [connection signal="area_entered" from="Armature/Skeleton3D/BoneAttachment3D/AttackArea" to="." method="_on_attack_area_entered"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
-[connection signal="body_entered" from="SwordCollisionArea" to="." method="_on_sword_entered"]
+[connection signal="body_entered" from="ArmCollisionArea" to="." method="_on_arm_entered"]

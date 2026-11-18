@@ -55,8 +55,6 @@ func _load_default_textures() -> void:
 	for path in CHAR_PATHS:
 		if ResourceLoader.exists(path):
 			glyph_textures.append(load(path))
-	if glyph_textures.is_empty():
-		push_warning("MatrixRainBackground: nenhum glifo encontrado, a chuva de caracteres não vai aparecer.")
 
 func _setup_background() -> void:
 	var bg: ColorRect = ColorRect.new()

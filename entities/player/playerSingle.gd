@@ -35,6 +35,9 @@ var current_health: float
 @export var hud_dim_time: float = 1.2
 @export var hud_flickers: int = 3
 @export var death_screen_shake: float = 3.0
+@export var death_look_reset_time: float = 0.35
+@export var death_blend_time: float = 0.05
+@export var death_horizontal_stop: float = 4.0
 signal died
 @onready var helmet_crack: HelmetCrack = $HelmetCrack
 @onready var death_canvas: CanvasLayer = $DeathCanvas
@@ -74,8 +77,8 @@ var blend_time: float = 0.15
 @onready var hit_fx = $SFX/HitFX
 
 
-@onready var get_sword_area = $GetSwordArea
-@onready var sword_hit_area = $Head/SwordHitArea
+@onready var get_arm_area = $GetArmArea
+@onready var arm_hit_area = $Head/ArmHitArea
 
 @onready var head: Node3D = $Head
 @onready var camera = $Head/Camera3D
@@ -91,11 +94,11 @@ var blend_time: float = 0.15
 @onready var muzzle = $Head/Weapon/PlayerArmature/Armature/Skeleton3D/BoneAttachment3D/Muzzle
 
 @export var arm_projectile_scene: PackedScene
-const sword_scene: PackedScene = preload("uid://dyngooikjw5l6")
+const arm_scene: PackedScene = preload("uid://dyngooikjw5l6")
 const projectile_scene: PackedScene = preload("uid://cdu40asu3x8p7")
 const menu_scene: PackedScene = preload("uid://d2rqkagxvdfhw")
 var next_level_scene: PackedScene
-var thrown_sword: Sword
+var thrown_arm: Arm
 
 @onready var game_hud_canvas = $GameHUD
 @onready var health_bar = $GameHUD/HealthBar
@@ -158,7 +161,7 @@ func _ready():
 	Menu.enter_gameplay_context(self)
 
 	animation_player.animation_finished.connect(_on_animation_finished)
-	get_sword_area.body_entered.connect(_on_sword_back)
+	get_arm_area.body_entered.connect(_on_arm_back)
 	game_hud_canvas.visible = true
 	enemy_detection_range.body_entered.connect(_on_enemy_detection_range_body_entered)
 	enemy_detection_range.body_exited.connect(_on_enemy_detection_range_body_exited)
@@ -177,7 +180,7 @@ func _ready():
 	assistant_text_link.scale = Vector2(0,0)
 	control.scale = Vector2(0,0)
 
-func _process(delta):
+func _process(_delta):
 	if is_dead:
 		return
 	_rotate_camera()
@@ -257,17 +260,18 @@ func handle_input():
 		try_attack()
 	if Input.is_action_just_pressed("fire") and has_ability(Ability.FIRE):
 		try_fire()
-	if Input.is_action_just_pressed("throw_sword"):
+	if Input.is_action_just_pressed("throw_arm"):
 		if !is_disarmed:
 			if has_ability(Ability.ARM):
-				try_throw_sword()
+				try_throw_arm()
 		else:
-			try_pull_sword()
+			try_pull_arm()
 	if Input.is_action_just_pressed("jump") and has_ability(Ability.JUMP):
 		try_jump()
 
 func _physics_process(delta):
 	if is_dead:
+		_fall_while_dead(delta)
 		return
 	velocity.y -= gravity * delta
 	if was_in_air and is_on_floor():
@@ -400,22 +404,22 @@ func _toggle_pause_menu():
 func release_mouse_mode():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func try_pull_sword():
+func try_pull_arm():
 	if !activation_timer.is_stopped():
 		return
-	if !is_disarmed or !thrown_sword:
+	if !is_disarmed or !thrown_arm:
 		return
-	thrown_sword.set_state(thrown_sword.SwordState.PULLED_BACK)
+	thrown_arm.set_state(thrown_arm.ArmState.PULLED_BACK)
 
-func try_throw_sword():
+func try_throw_arm():
 	if is_disarmed or is_end_cinematic:
 		return
-	var sword = sword_scene.instantiate() as Sword
-	sword.transform = head.global_transform
-	get_parent().add_child(sword, true)
-	sword.start(self, -head.global_transform.basis.z)
+	var arm = arm_scene.instantiate() as Arm
+	arm.transform = head.global_transform
+	get_parent().add_child(arm, true)
+	arm.start(self, -head.global_transform.basis.z)
 	is_disarmed = true
-	thrown_sword = sword
+	thrown_arm = arm
 	activation_timer.start()
 	forearm_geo.visible = false
 	index_geo.visible = false
@@ -495,24 +499,24 @@ func _on_animation_finished(anim_name):
 				_return_to_ground_state()
 
 func _on_attack_hit():
-	if sword_hit_area.collision_result:
-		for collision in sword_hit_area.collision_result:
+	if arm_hit_area.collision_result:
+		for collision in arm_hit_area.collision_result:
 			if collision.collider is EnemyMelee:
 				var enemy = collision.collider as EnemyMelee
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
 				enemy.spawn_blood(collision.point)
-				enemy.receive_sword_impact(melee_damage, global_position, impact_strength)
+				enemy.receive_arm_impact(melee_damage, global_position, impact_strength)
 			elif collision.collider is EnemyRanged:
 				var enemy = collision.collider as EnemyRanged
 				if enemy.current_state == enemy.EnemyState.DEAD:
 					return
 				enemy.spawn_blood(collision.point)
-				enemy.receive_sword_impact(melee_damage, global_position, impact_strength)
+				enemy.receive_arm_impact(melee_damage, global_position, impact_strength)
 
-func _on_sword_back(body):
-	var sword: Sword = body.get_parent()
-	if sword is Sword and sword.sword_owner == self:
+func _on_arm_back(body):
+	var arm: Arm = body.get_parent()
+	if arm is Arm and arm.arm_owner == self:
 		is_disarmed = false
 		body.get_parent().register_impact()
 		forearm_geo.visible = true
@@ -535,13 +539,23 @@ func take_damage(amount: float):
 		bar_take_damage(clampf(amount, 0, max_health))
 		camera_juice.add_screen_shake(2.0, 0.3)
 		hud_animations.play("hit_vfx")
+		if current_health <= 0:
+			die()
+			return
 		await get_tree().create_timer(.47).timeout
 		if is_dead:
 			return
 		if current_health <= max_health/3:
 			idle_sfx.play()
-		if current_health <= 0:
-			die()
+
+func _fall_while_dead(delta: float) -> void:
+	if is_on_floor():
+		velocity.y = 0.0
+	else:
+		velocity.y -= gravity * delta
+	velocity.x = lerp(velocity.x, 0.0, delta * death_horizontal_stop)
+	velocity.z = lerp(velocity.z, 0.0, delta * death_horizontal_stop)
+	move_and_slide()
 
 func die() -> void:
 	if is_dead:
@@ -550,6 +564,9 @@ func die() -> void:
 	current_health = 0
 	died.emit()
 	input_mouse = Vector2.ZERO
+	if death_look_reset_time > 0.0:
+		var look_tween: Tween = create_tween()
+		look_tween.tween_property(head, "rotation", Vector3.ZERO, death_look_reset_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	hide_assistant_message()
 	if camera_juice and death_screen_shake > 0.0:
 		camera_juice.add_screen_shake(death_screen_shake, 0.4)
@@ -561,7 +578,7 @@ func die() -> void:
 	if animation_player and animation_player.has_animation(death_animation):
 		var anim: Animation = animation_player.get_animation(death_animation)
 		anim.loop_mode = Animation.LOOP_NONE
-		animation_player.play(death_animation, blend_time)
+		animation_player.play(death_animation, death_blend_time)
 		death_length = anim.length
 	get_tree().create_timer(death_length + death_screen_delay, false).timeout.connect(_show_death_screen)
 

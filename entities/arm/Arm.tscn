@@ -1,11 +1,11 @@
 [gd_scene load_steps=64 format=3 uid="uid://dyngooikjw5l6"]
 
-[ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_h1e1e"]
+[ext_resource type="Script" path="res://entities/arm/arm.gd" id="1_h1e1e"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
-[ext_resource type="Material" uid="uid://c7oicl1hl28ur" path="res://entities/sword/swordstuckparticles.tres" id="2_usrfs"]
+[ext_resource type="Material" uid="uid://c7oicl1hl28ur" path="res://entities/arm/armstuckparticles.tres" id="2_usrfs"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="3_0q1b2"]
 [ext_resource type="Texture2D" uid="uid://8acna15ax3dq" path="res://models/player/PlayerArmature_cannontex.png" id="4_6mdsy"]
-[ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/sword/swordtipparticles.tres" id="4_i0gvs"]
+[ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/arm/armtipparticles.tres" id="4_i0gvs"]
 [ext_resource type="Texture2D" uid="uid://cm42np5vcb2pa" path="res://models/player/PlayerArmature_John_RocketArms_Mecharms_mtl_BaseColor.png" id="5_p00k7"]
 [ext_resource type="AudioStream" uid="uid://q3wb4eexmtl1" path="res://assets/sounds/sfx/player/arm_flying_loop.wav" id="8_01ftu"]
 [ext_resource type="AudioStream" uid="uid://dqub51bdg3ynw" path="res://assets/sounds/sfx/player/arm_impact.wav" id="9_cefh6"]
@@ -29,7 +29,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sword:position")
+tracks/0/path = NodePath("TrailPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -41,7 +41,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sword:rotation")
+tracks/1/path = NodePath("TrailPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -53,7 +53,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("sword/Sword_grp/attachplates_geo:scale")
+tracks/2/path = NodePath("TrailPivot/Sword_grp/attachplates_geo:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -65,7 +65,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("sword/Sword_grp/PlaneEffect_geo:scale")
+tracks/3/path = NodePath("TrailPivot/Sword_grp/PlaneEffect_geo:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -83,7 +83,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sword:position")
+tracks/0/path = NodePath("TrailPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -95,7 +95,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sword:rotation")
+tracks/1/path = NodePath("TrailPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -110,7 +110,7 @@ resource_name = "stuck"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sword:position")
+tracks/0/path = NodePath("TrailPivot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -122,7 +122,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sword:rotation")
+tracks/1/path = NodePath("TrailPivot:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -134,7 +134,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("sword/Sword_grp/attachplates_geo:scale")
+tracks/2/path = NodePath("TrailPivot/Sword_grp/attachplates_geo:scale")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -146,7 +146,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("sword/Sword_grp/PlaneEffect_geo:scale")
+tracks/3/path = NodePath("TrailPivot/Sword_grp/PlaneEffect_geo:scale")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -592,7 +592,7 @@ shader_parameter/Bits = 16.0
 [sub_resource type="QuadMesh" id="QuadMesh_yua88"]
 material = SubResource("ShaderMaterial_tmpnw")
 
-[node name="Sword" type="Node3D"]
+[node name="Arm" type="Node3D"]
 script = ExtResource("1_h1e1e")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -835,17 +835,17 @@ draw_pass_1 = SubResource("BoxMesh_x4phe")
 [node name="ImpactParticleMarker" type="Marker3D" parent="ArmProjectile/Armature"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.320651, 0.0828195, -0.759068)
 
-[node name="sword" parent="." instance=ExtResource("2_kqb88")]
+[node name="TrailPivot" parent="." instance=ExtResource("2_kqb88")]
 transform = Transform3D(-1.57913e-07, 0.0436224, -0.999048, -1, -3.61999e-06, 0, -3.61654e-06, 0.999048, 0.0436224, 0, 0, 0)
 visible = false
 
-[node name="attachplates_geo" parent="sword/Sword_grp" index="0"]
+[node name="attachplates_geo" parent="TrailPivot/Sword_grp" index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.14, 0, 0, 0, 1, -1.23099, 0.847151, -93.9703)
 
-[node name="PlaneEffect_geo" parent="sword/Sword_grp" index="2"]
+[node name="PlaneEffect_geo" parent="TrailPivot/Sword_grp" index="2"]
 transform = Transform3D(1, 0, 0, 0, 0.14, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Swordtrail Particles2" type="GPUParticles3D" parent="sword"]
+[node name="Armtrail Particles2" type="GPUParticles3D" parent="TrailPivot"]
 transform = Transform3D(8.15703e-12, -0.615086, 2.22661e-06, -2.24449e-06, -2.22661e-06, -0.615087, 0.615087, -8.857e-14, -2.24449e-06, 0.00124277, 1.02372, -0.00915593)
 emitting = false
 amount = 400
@@ -908,4 +908,4 @@ visibility_aabb = AABB(-4, -4, -4.27115, 8, 8, 8.54229)
 process_material = SubResource("ParticleProcessMaterial_duuna")
 draw_pass_1 = SubResource("QuadMesh_yua88")
 
-[editable path="sword"]
+[editable path="TrailPivot"]

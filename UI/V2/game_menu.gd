@@ -44,6 +44,8 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if SceneLoader.is_loading:
 		return
+	if is_instance_valid(current_player) and current_player.is_dead:
+		return
 	if context == Context.PAUSE_MENU and event.is_action_pressed("ui_cancel"):
 		if visible:
 			close_pause_menu()

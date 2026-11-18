@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="co-op_sword-shooter"
+config/name="VELOCIBORG"
 run/main_scene="res://Scenes/Maps/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://Scenes/Assets/icon.svg"
@@ -69,7 +69,7 @@ jump={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"echo":false,"script":null)
 ]
 }
-throw_sword={
+throw_arm={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(156, 18),"global_position":Vector2(160, 59),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
@@ -129,12 +129,12 @@ look_up={
 
 3d_physics/layer_3="SightArea"
 3d_physics/layer_5="LevelBlocks"
-3d_physics/layer_6="SwordCollision"
+3d_physics/layer_6="ArmCollision"
 3d_physics/layer_8="NavLink"
 3d_physics/layer_9="Knockback"
 3d_physics/layer_10="PlayerHitbox"
 3d_physics/layer_12="Inimigos"
-3d_physics/layer_13="SwordHit"
+3d_physics/layer_13="ArmHit"
 3d_physics/layer_16="SpawnDoor"
 3d_physics/layer_17="Triturador"
 3d_physics/layer_18="Lixo"

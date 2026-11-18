@@ -3,8 +3,8 @@ extends RigidBody3D
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var _legacy_sight_area: Area3D = get_node_or_null("SightArea")
-@onready var sword_collision_area: Area3D = $SwordCollisionArea
-@onready var sword_hit_collision: CollisionShape3D = $SwordCollisionArea/SwordHitCollision
+@onready var arm_collision_area: Area3D = $ArmCollisionArea
+@onready var arm_hit_collision: CollisionShape3D = $ArmCollisionArea/ArmHitCollision
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var ground_raycast: RayCast3D = $GroundRaycast
 @onready var shield_area: Area3D = get_node_or_null("ShieldArea3D")
@@ -12,8 +12,12 @@ extends RigidBody3D
 @onready var idle_sfx: AudioStreamPlayer3D = $SFX/Idle
 @onready var hit_sfx: AudioStreamPlayer3D = $SFX/Hit
 @onready var hit_impact_sfx: AudioStreamPlayer3D = $SFX/HitImpact
+
+##O intervalo em segundos entre os sons de idle
 @export var idle_sound_interval: float = 2.0
+##Variância do intervalo
 @export var idle_sound_variation: float = 1.5
+##Ativa/Desativa os sons de idle
 @export var enable_idle_sounds: bool = true
 var _idle_timer: Timer
 var _is_idle_sounds_enabled: bool = true
@@ -21,23 +25,35 @@ var _is_idle_sounds_enabled: bool = true
 var blood_particles_scene = preload("uid://dauurgt5mibfk")
 
 @export_category("Targets")
+##O alvo deste inimigo
 @export var target: CharacterBody3D
+##Nome da rota de patrulha (precisa ser idêntico ao patrol_route_name da rota desejada na cena 3D)
+##Deixe vazio para manter o inimigo posicionado até que ele detecte o player
 @export var patrol_route_name: String = ""
 var _patrol_waypoints: Array = []
 var _patrol_index: int = 0
 var _patrol_loop: bool = true
 
 @export_category("Combat Properties")
+##Vida máxima
 @export var max_health: float = 100
+##Alcance de ataque
 @export var attack_range: float = 2
+##Velocidade de ataque
 @export var attack_cooldown: float = 0.5
+##Distância ideal do player
 @export var preferred_distance: float = 0.0
 
 @export_group("Kiting")
+##Ativa/Desativa o Kiting do inimigo
 @export var kite_after_attack: bool = false
+##Tolerância da distância ideal (quanto maior o valor, maior a tolerância)
 @export var kite_tolerance: float = 3.0
+##Tempo máximo que o inimigo fica no estado de Kiting
 @export var kite_max_time: float = 2.5
+##Velocidade enquanto Kiting (0.0 para chase_speed padrão)
 @export var kite_speed: float = 0.0
+##Ativa/Desativa se o inimigo olha em direção ao player enquanto Kiting
 @export var kite_face_player: bool = false
 
 var current_health: float
@@ -46,24 +62,35 @@ var _kite_goal: Vector3
 var _kite_timer: float = 0.0
 
 @export_category("Movement Properties")
+##Velocidade enquanto não alarmado
 @export var patrol_speed: float = 2.0
+##Velocidade enquanto alarmado
 @export var chase_speed: float = 6.0
-@export var rotation_speed: float = 5.0
 var is_floating: bool
-@export var grounded_rest_time: float = 0.15
+var grounded_rest_time: float = 0.15
 var _vertical_rest_time: float = 0.0
 
 @export_category("Detection & Engagement")
+##Distância máxima do cone de visão
 @export var detection_range: float = 20.0
+##Ângulo do cone de visão
 @export_range(10.0, 360.0) var fov_degrees: float = 120.0
-@export var hearing_range: float = 5.0
+##Altura do cone de visão
 @export var eye_height: float = 1.5
+##Distância máxima da área de audição
+@export var hearing_range: float = 5.0
+##Distância segura para atacar o player
 @export var engagement_buffer: float = 0.5
+##Intervalo de tempo em segundos entre os checks pelo player
 @export var perception_interval: float = 0.15
+##Quanto tempo o alvo precisa ficar fora do alcance de percepção para o inimigo perdê-lo
 @export var lose_target_time: float = 4.0
+##Quanto tempo o inimigo continua procurando nas proximidades o alvo que acabou de perder
 @export var search_time: float = 2.5
-@export var waypoint_reach_distance: float = 1.0
+##Ativa/Desativa se é instanciado já com o alvo em percepção
 @export var start_alerted: bool = false
+##Tolerância do ponto de patrulha
+@export var waypoint_reach_distance: float = 1.0
 
 var _can_see_target: bool = false
 var _time_since_seen: float = INF
@@ -72,40 +99,48 @@ var _perception_timer: float = 0.0
 var _search_timer: float = 0.0
 
 @export_category("Hit Reaction")
+##O quanto ser atingido empurra para trás este inimigo
 @export var hit_knockback_force: float = 5.0
+##O quanto ser atingido empurra para cima este inimigo
 @export var hit_knockback_up: float = 6.0
+##O quanto a gravidade afeta o inimigo enquanto em estado de knockback
 @export var hit_gravity_scale: float = 2.0
+##Velocidade da animação de atingidoo
 @export var hit_anim_speed: float = 1
+##O quanto demora para o inimigo parar de deslizar após voltar para o chão
 @export var hit_ground_friction: float = 5.0
+##O tempo mínimo em segundos que o inimigo deve ficar atordoado
 @export var hit_min_stagger: float = 0.2
+##O tempo máximo em segundos que o inimigo deve ficar atordoado
 @export var hit_max_time: float = 2.5
 var _base_gravity_scale: float = 1.0
 var _hit_elapsed: float = 0.0
 var _hit_was_airborne: bool = false
 
 @export_category("Animation")
+##Duração de transição de animações
 @export var anim_blend_time: float = 0.15
 
 @export_category("Shield")
 
-enum AttackType { SWORD, SHOOT }
+enum AttackType { ARM, SHOOT }
 
 enum ShieldMode {
-	SWORD_BLOCK_SWORD_BREAK,
-	SWORD_BLOCK_SHOOT_BREAK,
+	ARM_BLOCK_ARM_BREAK,
+	ARM_BLOCK_SHOOT_BREAK,
 	SHOOT_BLOCK_SHOOT_BREAK,
-	SHOOT_BLOCK_SWORD_BREAK,
+	SHOOT_BLOCK_ARM_BREAK,
 }
 
 
 @export var SHIELD_MODE_COLORS: Dictionary = {
-	ShieldMode.SWORD_BLOCK_SWORD_BREAK: Color(0.545, 0.0, 1.0),
-	ShieldMode.SWORD_BLOCK_SHOOT_BREAK: Color(0.0, 0.75, 1.0),
+	ShieldMode.ARM_BLOCK_ARM_BREAK: Color(0.545, 0.0, 1.0),
+	ShieldMode.ARM_BLOCK_SHOOT_BREAK: Color(0.0, 0.75, 1.0),
 	ShieldMode.SHOOT_BLOCK_SHOOT_BREAK: Color(1.0, 0.45, 0.0),
-	ShieldMode.SHOOT_BLOCK_SWORD_BREAK: Color(1.0, 0.1, 0.25),
+	ShieldMode.SHOOT_BLOCK_ARM_BREAK: Color(1.0, 0.1, 0.25),
 }
 
-@export var shield_mode: ShieldMode = ShieldMode.SWORD_BLOCK_SWORD_BREAK:
+@export var shield_mode: ShieldMode = ShieldMode.ARM_BLOCK_ARM_BREAK:
 	set(value):
 		shield_mode = value
 		_apply_shield_color()
@@ -155,7 +190,6 @@ enum EnemyState {
 
 func _ready() -> void:
 	detection_ch.visible = false
-	_configure_engagement_ranges()
 	_setup_idle_sound_timer()
 	current_health = max_health
 	_base_gravity_scale = gravity_scale
@@ -173,12 +207,8 @@ func _ready() -> void:
 func _ready_extra() -> void:
 	pass
 
-func _pre_state_change(new_state: EnemyState) -> void:
+func _pre_state_change(_new_state: EnemyState) -> void:
 	pass
-
-func _configure_engagement_ranges() -> void:
-	if attack_range > detection_range:
-		push_warning(str(name) + ": attack_range está maior que detection_range.")
 
 func _resolve_patrol_route() -> void:
 	_patrol_waypoints.clear()
@@ -190,13 +220,10 @@ func _resolve_patrol_route() -> void:
 
 	var route: PatrolRoute = get_tree().get_first_node_in_group(patrol_route_name) as PatrolRoute
 	if route == null:
-		push_warning(str(name) + ": nenhuma PatrolRoute encontrada com route_name = \"" + patrol_route_name + "\".")
 		return
 
 	_patrol_waypoints = route.get_waypoints()
 	_patrol_loop = route.loop
-	if _patrol_waypoints.is_empty():
-		push_warning(str(name) + ": a PatrolRoute \"" + patrol_route_name + "\" não tem nenhum Marker3D filho.")
 
 func assign_patrol_route(route_name: String) -> void:
 	patrol_route_name = route_name
@@ -427,50 +454,50 @@ func spawn_blood(position: Vector3) -> void:
 	get_tree().root.add_child(blood_particles)
 	blood_particles.global_position = position
 
-func _on_sword_entered(body: Node) -> void:
-	if body.get_parent() is Sword:
-		var sword: Sword = body.get_parent() as Sword
+func _on_arm_entered(body: Node) -> void:
+	if body.get_parent() is Arm:
+		var arm: Arm = body.get_parent() as Arm
 
 		if !target:
-			sword.set_state(sword.SwordState.PULLED_BACK)
+			arm.set_state(arm.ArmState.PULLED_BACK)
 			return
 
-		match sword.state:
-			sword.SwordState.THROWN:
-				sword.speed = 0
-				sword.set_state(sword.SwordState.PULLED_BACK)
+		match arm.state:
+			arm.ArmState.THROWN:
+				arm.speed = 0
+				arm.set_state(arm.ArmState.PULLED_BACK)
 
-				if _shield_absorbs(AttackType.SWORD):
-					sword.impact_sfx.play()
+				if _shield_absorbs(AttackType.ARM):
+					arm.impact_sfx.play()
 					return
 
 				var tween = get_tree().create_tween()
 				var y_offset = Vector3(0, 0.5, 0)
 				var stopping_distance = 3.0
-				var direction = (global_position - sword.sword_owner.global_position).normalized()
+				var direction = (global_position - arm.arm_owner.global_position).normalized()
 				var target_position = global_position - direction * stopping_distance
 
-				tween.tween_property(sword.sword_owner, "global_position", target_position + y_offset, 0.16)
-				if global_position.distance_to(sword.sword_owner.global_position) > stopping_distance:
+				tween.tween_property(arm.arm_owner, "global_position", target_position + y_offset, 0.16)
+				if global_position.distance_to(arm.arm_owner.global_position) > stopping_distance:
 					await tween.finished
-				receive_sword_impact(current_health, target.global_position, 250)
+				receive_arm_impact(current_health, target.global_position, 250)
 
-			sword.SwordState.PULLED_BACK:
-				if shield_up and _shield_reacts_to(AttackType.SWORD):
+			arm.ArmState.PULLED_BACK:
+				if shield_up and _shield_reacts_to(AttackType.ARM):
 					return
-				receive_sword_impact(sword.damage, sword.global_position, 250)
+				receive_arm_impact(arm.damage, arm.global_position, 250)
 
 func _block_type() -> AttackType:
 	match shield_mode:
-		ShieldMode.SWORD_BLOCK_SWORD_BREAK, ShieldMode.SWORD_BLOCK_SHOOT_BREAK:
-			return AttackType.SWORD
+		ShieldMode.ARM_BLOCK_ARM_BREAK, ShieldMode.ARM_BLOCK_SHOOT_BREAK:
+			return AttackType.ARM
 		_:
 			return AttackType.SHOOT
 
 func _break_type() -> AttackType:
 	match shield_mode:
-		ShieldMode.SWORD_BLOCK_SWORD_BREAK, ShieldMode.SHOOT_BLOCK_SWORD_BREAK:
-			return AttackType.SWORD
+		ShieldMode.ARM_BLOCK_ARM_BREAK, ShieldMode.SHOOT_BLOCK_ARM_BREAK:
+			return AttackType.ARM
 		_:
 			return AttackType.SHOOT
 
@@ -639,7 +666,7 @@ func set_current_state(new_state: EnemyState) -> void:
 		EnemyState.DEAD:
 			_pre_state_change(new_state)
 			nav_agent.set_avoidance_enabled(false)
-			sword_collision_area.set_collision_mask_value(6, false)
+			arm_collision_area.set_collision_mask_value(6, false)
 			nav_agent.max_speed = 0
 			_play_anim("hit", true, hit_anim_speed)
 			stop_idle_sounds()
@@ -648,7 +675,7 @@ func set_current_state(new_state: EnemyState) -> void:
 		gravity_scale = _base_gravity_scale
 	current_state = new_state
 
-func receive_sword_impact(damage: int, hit_position: Vector3, impact_strength: int) -> void:
+func receive_arm_impact(damage: int, hit_position: Vector3, impact_strength: int) -> void:
 	if current_state == EnemyState.DEAD:
 		return
 
