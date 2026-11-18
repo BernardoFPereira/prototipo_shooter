@@ -122,32 +122,26 @@ var sounds: Dictionary = {
 
 var audio_players: Dictionary = {}
 var current_music: String = ""
-var current_music_player: AudioStreamPlayer = null
+
+@onready var master_player: AudioStreamPlayer = $MasterPlayer
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
+@onready var sfx_player: AudioStreamPlayer = $SFXPlayer
+@onready var hud_player: AudioStreamPlayer = $HUDPlayer
+@onready var current_music_player: AudioStreamPlayer = $GlobalMusicPlayer
+@onready var _brightness_rect: ColorRect = $BrightnessOverlay
+@onready var _fps_label: Label = $FPSLabel
 
 var is_introduction: bool
 var is_walk_introduction: bool
 var is_fire_introduction: bool
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	layer = 120
-	_setup_audio_players()
-	_build_overlays()
+	audio_players[AudioBus.MASTER] = master_player
+	audio_players[AudioBus.MUSIC] = music_player
+	audio_players[AudioBus.SFX] = sfx_player
+	audio_players[AudioBus.HUD] = hud_player
 	load_settings()
 	play_music("soundtrack_1", 0)
-
-func _setup_audio_players() -> void:
-	for bus in AudioBus.values():
-		var player = AudioStreamPlayer.new()
-		player.bus = AudioServer.get_bus_name(bus)
-		player.process_mode = Node.PROCESS_MODE_ALWAYS
-		add_child(player)
-		audio_players[bus] = player
-	current_music_player = AudioStreamPlayer.new()
-	current_music_player.bus = AudioServer.get_bus_name(AudioBus.MUSIC)
-	current_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
-	self.add_child(current_music_player)
-	current_music_player.name = "GlobalMusicPlayer"
 
 func play_sound(sound_name: String) -> void:
 	var sound_data = sounds[sound_name]
@@ -168,9 +162,6 @@ func _on_music_finished(player: AudioStreamPlayer, stream: AudioStream) -> void:
 	player.play()
 
 func play_music(music_name: String, fade_in: float = 0.0) -> void:
-
-	if not is_instance_valid(current_music_player):
-		_setup_audio_players()
 	var sound_data = sounds[music_name]
 	current_music = music_name
 	if fade_in > 0:
@@ -439,51 +430,7 @@ func _old_db_to_percent(db: float) -> float:
 	return old_slider / 20.0 * 100.0
 
 
-var _fps_label: Label
-var _brightness_rect: ColorRect
 var _fps_timer: float = 0.0
-
-const BRIGHTNESS_SHADER_CODE: String = """
-shader_type canvas_item;
-uniform sampler2D screen_tex : hint_screen_texture, filter_nearest;
-uniform float brightness = 1.0;
-void fragment() {
-	vec3 c = texture(screen_tex, SCREEN_UV).rgb;
-	// Gama: clareia/escurece os meio-tons sem estourar o branco nem acinzentar o preto.
-	c = pow(max(c, vec3(0.0)), vec3(1.0 / brightness));
-	COLOR = vec4(c, 1.0);
-}
-"""
-
-func _build_overlays() -> void:
-	_brightness_rect = ColorRect.new()
-	_brightness_rect.name = "BrightnessOverlay"
-	_brightness_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_brightness_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var shader: Shader = Shader.new()
-	shader.code = BRIGHTNESS_SHADER_CODE
-	var mat: ShaderMaterial = ShaderMaterial.new()
-	mat.shader = shader
-	_brightness_rect.material = mat
-	_brightness_rect.visible = false
-	add_child(_brightness_rect)
-
-	_fps_label = Label.new()
-	_fps_label.name = "FPSLabel"
-	_fps_label.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	_fps_label.offset_left = -220
-	_fps_label.offset_right = -16
-	_fps_label.offset_top = 8
-	_fps_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_fps_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_fps_label.add_theme_color_override("font_color", Color(0, 1, 0))
-	_fps_label.add_theme_color_override("font_outline_color", Color(0, 0, 0))
-	_fps_label.add_theme_constant_override("outline_size", 6)
-	if ResourceLoader.exists("res://UI/Fonts/m6x11plus.ttf"):
-		_fps_label.add_theme_font_override("font", load("res://UI/Fonts/m6x11plus.ttf"))
-	_fps_label.add_theme_font_size_override("font_size", 36)
-	_fps_label.visible = false
-	add_child(_fps_label)
 
 func _process(delta: float) -> void:
 	if _fps_label and _fps_label.visible:
@@ -491,7 +438,3 @@ func _process(delta: float) -> void:
 		if _fps_timer <= 0.0:
 			_fps_timer = 0.25
 			_fps_label.text = str(Engine.get_frames_per_second()) + " FPS"
-
-func _exit_tree() -> void:
-	if is_instance_valid(current_music_player):
-		current_music_player.queue_free()

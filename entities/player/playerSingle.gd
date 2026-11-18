@@ -36,7 +36,7 @@ var current_health: float
 @export var hud_flickers: int = 3
 @export var death_screen_shake: float = 3.0
 signal died
-@onready var helmet_crack: HelmetCrack = get_node_or_null("HelmetCrack")
+@onready var helmet_crack: HelmetCrack = $HelmetCrack
 @onready var death_canvas: CanvasLayer = $DeathCanvas
 var can_coyote_jump: bool = true
 

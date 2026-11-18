@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://deuh25yy4vciy"]
+[gd_scene load_steps=5 format=3 uid="uid://deuh25yy4vciy"]
 
 [ext_resource type="PackedScene" uid="uid://dkatyl3wf25vl" path="res://models/level2/triturados/amasso3_geo.glb" id="1_6f2ld"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="amasso3" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(-1.05741, 0.242093, -0.0850026, 0.145594, 0.0962109, 1.11786, 0.499893, -0.398758, -0.82089, -0.769095, -0.360255, 0.87132, 1.23078, -0.0910488, 0.10182, -0.0770074, 0.216582, -1.12892, -0.845967, -0.321831, -0.74394, -0.769095, 0.370436, 0.71742, 0.91176, -0.268451, 0.534607, -0.807651, 0.370436, -0.70581, -1.1803, -0.234693, 0.0976783, 0.769306, 0.0243027, -0.93666, 0.615321, 0.0627269, 1.02522, -0.653667, -0.360255, -0.89807, -0.42281, 0.293509, 1.02522, 1.05952, -0.305466, -0.0123059, 1.11535, -0.0525456, -0.55191, 0.539723, -0.192733, 0.887363, 0.192164, 0.139654, -1.16751, -1.03827, -0.321831, 0.60188, -0.961395, 0.40894, 0.33267, -1.0267, -0.0132232, -0.48905, -0.42281, 0.293509, -1.01361, 1.07703, -0.0525456, 0.60188, -0.923079, 0.40894, -0.35965, 0.0384208, 0.178157, 1.17912, 0.230721, -0.398758, -0.85971, -1.17917, -0.013319, -0.0122439, -0.183356, -0.270071, 0.941547, 0.615321, 0.0627269, -1.05197, -0.807651, 0.370436, 0.71742, -1.17984, -0.234599, -0.0860324)
+
+[node name="amasso3" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 8.0
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="amasso3_geo2" parent="." instance=ExtResource("1_6f2ld")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

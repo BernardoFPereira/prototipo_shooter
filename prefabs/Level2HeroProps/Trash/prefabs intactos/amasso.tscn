@@ -1,8 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://df0otobnd2m8t"]
+[gd_scene load_steps=18 format=3 uid="uid://df0otobnd2m8t"]
 
 [ext_resource type="Texture2D" uid="uid://bpvj0n2d4lofx" path="res://models/level2/amasso_geo_tonel amassado txtr.png" id="1_hu5cf"]
 [ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash.gd" id="1_v8n78"]
 [ext_resource type="AudioStream" uid="uid://evlq5gilnju" path="res://assets/sounds/sfx/trash_crunch/trash_crunch01.wav" id="3_an0l6"]
+[ext_resource type="PackedScene" uid="uid://plitcowfsvtp" path="res://assets/sounds/sfx/SpatialAudioPlayer3D.tscn" id="8_xqivg"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="10_fisica"]
+[ext_resource type="AudioStream" uid="uid://ppiqnopex2o6" path="res://assets/sounds/sfx/trash_crunch/trash_crunch02.wav" id="10_q3p1l"]
+[ext_resource type="AudioStream" uid="uid://dq1b6mihef4e5" path="res://assets/sounds/sfx/trash_crunch/trash_crunch03.wav" id="11_5tgo6"]
+[ext_resource type="PackedScene" uid="uid://dq7jnclkki6nj" path="res://prefabs/Level2HeroProps/Trash/TrashCrushFX.tscn" id="11_fx"]
+[ext_resource type="PackedScene" uid="uid://266cjpphxx72" path="res://prefabs/Level2HeroProps/Trash/prefabs dos triturados/amasso_1.tscn" id="12_pedaco1"]
+[ext_resource type="AudioStream" uid="uid://c0gc0xatlyb7" path="res://assets/sounds/sfx/trash_crunch/trash_crunch04.wav" id="12_x0yp2"]
+[ext_resource type="PackedScene" uid="uid://cso77rpq5acso" path="res://prefabs/Level2HeroProps/Trash/prefabs dos triturados/amasso_2.tscn" id="13_pedaco2"]
+[ext_resource type="PackedScene" uid="uid://deuh25yy4vciy" path="res://prefabs/Level2HeroProps/Trash/prefabs dos triturados/amasso_3.tscn" id="14_pedaco3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drkob"]
 resource_name = "amasso_mtl"
@@ -45,16 +54,36 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_5auwm")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_m4srb"]
-points = PackedVector3Array(-109.983, 13.5197, -35.9502, 18.5681, 109.85, -42.6418, -65.296, 102.036, 74.9668, 44.9422, -98.9831, 73.0936, 22.833, -112.022, -47.484, -106.852, -62.7433, 74.4938, 93.717, 9.59855, 73.1875, 122.334, -9.29527, -24.7629, -75.6505, -65.9554, -69.9016, 53.6121, 90.2368, 74.7458, -56.3072, 84.7279, -65.6416, -106.613, 63.089, 74.3269, 107.008, 59.4732, -28.5807, -60.8615, -96.7794, 74.255, 107.008, -58.9862, -28.5807, -45.6409, -96.7525, -62.683, 79.1813, -61.9795, 73.6058, -83.0145, 58.7233, -69.7371, -122.324, -9.29363, 74.5956, 11.574, 106.352, 75.3203, 69.3406, 98.4882, -36.5168, 15.4419, -105.865, 75.3203, -114.775, -1.65699, -32.4369, 3.76945, 112.051, -51.0804, -98.9248, -1.64634, -74.1135, 62.6942, -97.4737, -38.6361, 78.8684, 62.2206, 73.3153, -45.5101, 96.9615, -62.5031, -78.8947, 84.7794, 9.44366, -94.3836, -50.7186, -47.1124, 3.78738, -112.095, -51.3234, -15.119, -107.51, 73.7933)
+points = PackedVector3Array(-1.09983, 0.359502, 0.135197, 0.185681, 0.426418, 1.0985, -0.65296, -0.749668, 1.02036, 0.449422, -0.730936, -0.989831, 0.22833, 0.47484, -1.12022, -1.06852, -0.744938, -0.627433, 0.93717, -0.731875, 0.0959855, 1.22334, 0.247629, -0.0929527, -0.756505, 0.699016, -0.659554, 0.536121, -0.747458, 0.902368, -0.563072, 0.656416, 0.847279, -1.06613, -0.743269, 0.63089, 1.07008, 0.285807, 0.594732, -0.608615, -0.74255, -0.967794, 1.07008, 0.285807, -0.589862, -0.456409, 0.62683, -0.967525, 0.791813, -0.736058, -0.619795, -0.830145, 0.697371, 0.587233, -1.22324, -0.745956, -0.0929363, 0.11574, -0.753203, 1.06352, 0.693406, 0.365168, 0.984882, 0.154419, -0.753203, -1.05865, -1.14775, 0.324369, -0.0165699, 0.0376945, 0.510804, 1.12051, -0.989248, 0.741135, -0.0164634, 0.626942, 0.386361, -0.974737, 0.788684, -0.733153, 0.622206, -0.455101, 0.625031, 0.969615, -0.788947, -0.0944366, 0.847794, -0.943836, 0.471124, -0.507186, 0.0378738, 0.513234, -1.12095, -0.15119, -0.737933, -1.0751)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4pspo"]
+random_pitch = 1.1
+random_volume_offset_db = 0.2
+streams_count = 4
+stream_0/stream = ExtResource("3_an0l6")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("10_q3p1l")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("11_5tgo6")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("12_x0yp2")
+stream_3/weight = 1.0
 
 [node name="amasso" type="RigidBody3D"]
 collision_layer = 131072
 collision_mask = 131089
 mass = 5.0
+physics_material_override = ExtResource("10_fisica")
 continuous_cd = true
+max_contacts_reported = 8
+contact_monitor = true
+linear_damp = 0.2
+angular_damp = 1.5
 script = ExtResource("1_v8n78")
-procedural_shape = false
+crush_fx = ExtResource("11_fx")
 debris_color = Color(0.219608, 0.215686, 0.231373, 1)
+size = 1.0304
+shard_scenes = Array[PackedScene]([ExtResource("12_pedaco1"), ExtResource("13_pedaco2"), ExtResource("14_pedaco3")])
 
 [node name="amasso_geo2" type="Node3D" parent="."]
 
@@ -64,9 +93,9 @@ mesh = SubResource("ArrayMesh_iovc1")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0.00773096, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00773096, 0)
 shape = SubResource("ConvexPolygonShape3D_m4srb")
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_an0l6")
+[node name="AudioStreamPlayer3D" parent="." instance=ExtResource("8_xqivg")]
+stream = SubResource("AudioStreamRandomizer_4pspo")
 bus = &"SFX"

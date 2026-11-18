@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://cpio1gxmvgxd8"]
+[gd_scene load_steps=5 format=3 uid="uid://cpio1gxmvgxd8"]
 
 [ext_resource type="PackedScene" uid="uid://dr5de8qwbdbxy" path="res://models/level2/triturados/placaret2_geo.glb" id="1_0w1he"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="placaret2" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(-1.67407, 0.123965, -1.30161, -0.313641, -0.137557, 1.31411, -0.156657, -0.137557, 1.15716, -0.313641, 0.123965, 1.31411, 1.67407, 0.123965, -1.30161, -1.67407, -0.137557, -1.30161, 1.67407, -0.137557, -1.30161, -1.67407, -0.137557, 0.319901, -1.67407, 0.123965, 0.319901, 1.67407, 0.123965, -1.19689, 1.67407, -0.137557, -1.19689, -0.366079, -0.137557, 1.31411, -0.156657, 0.123965, 1.15716, -0.366079, 0.123965, 1.31411)
+
+[node name="placaret2" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 4.5807
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="placaret2_geo2" parent="." instance=ExtResource("1_0w1he")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6lta6swthc8a"]
+[gd_scene load_steps=5 format=3 uid="uid://c6lta6swthc8a"]
 
 [ext_resource type="PackedScene" uid="uid://dlmyhf644181j" path="res://models/level2/triturados/retang2_geo.glb" id="1_sdj7w"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="retang2" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(0.822253, -0.315316, 0.907368, -0.907384, 0.818603, -0.822293, -0.822295, 0.818602, -0.907382, -0.787246, -0.849117, -0.933219, -0.907368, -0.825694, 0.822281, 0.907369, 0.563498, -0.822305, -0.822281, 0.818588, 0.907368, 0.822268, -0.315322, -0.907384, 0.907353, 0.563488, 0.822293, -0.787246, -0.849117, 0.933221, 0.907369, -0.315326, -0.822305, -0.907384, -0.825708, -0.822293, -0.907368, 0.818588, 0.822281, 0.90734, -0.315316, 0.822281, 0.822254, 0.563481, 0.90737, 0.822268, 0.56349, -0.907384, 0.872646, -0.33064, 0.763505, 0.872655, -0.330643, -0.763511, -0.822295, -0.825707, -0.907382, -0.822281, -0.825693, 0.907368)
+
+[node name="retang2" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 8.0
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="retang2_geo2" parent="." instance=ExtResource("1_sdj7w")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

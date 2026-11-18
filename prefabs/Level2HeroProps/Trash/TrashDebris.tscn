@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhpqbe4pq0h6o"]
+
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_debris.gd" id="1_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="2_fisica"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cor"]
+resource_local_to_scene = true
+albedo_color = Color(0.36, 0.33, 0.27, 1)
+roughness = 0.95
+
+[sub_resource type="BoxMesh" id="BoxMesh_pedaco"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_cor")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pedaco"]
+resource_local_to_scene = true
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="TrashDebris" type="RigidBody3D" groups=["trash_debris"]]
+collision_layer = 262144
+collision_mask = 262161
+physics_material_override = ExtResource("2_fisica")
+angular_damp = 2.0
+script = ExtResource("1_script")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pedaco")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_pedaco")

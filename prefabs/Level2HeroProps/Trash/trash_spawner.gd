@@ -15,8 +15,6 @@ extends Node3D
 @export var initial_velocity: Vector3 = Vector3(0, -3, 0)
 @export var max_spin: float = 3.0
 
-const DEFAULT_TRASH: PackedScene = preload("res://prefabs/Level2HeroProps/Trash/Trash.tscn")
-
 var _timer: float = 0.0
 var _alive: Array = []
 
@@ -56,12 +54,10 @@ func is_active() -> bool:
 
 
 func spawn_trash() -> Node3D:
-	var scene: PackedScene
-	if not trash_scenes.is_empty():
-		scene = trash_scenes.pick_random()
-	else:
-		scene = DEFAULT_TRASH
-	if scene == null or not scene.can_instantiate():
+	if trash_scenes.is_empty():
+		return null
+	var scene: PackedScene = trash_scenes.pick_random()
+	if scene == null:
 		return null
 	var trash: Node3D = scene.instantiate()
 	var holder: Node
