@@ -319,7 +319,7 @@ height = 2.4
 radial_segments = 8
 rings = 4
 
-[node name="EnemyRanged" type="RigidBody3D"]
+[node name="EnemyRanged" type="RigidBody3D" groups=["Enemies"]]
 collision_layer = 528640
 axis_lock_angular_x = true
 axis_lock_angular_z = true

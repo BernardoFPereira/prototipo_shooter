@@ -50,6 +50,8 @@ func explode():
 	collision_area.set_deferred("monitoring", false)
 	collision_area.set_deferred("monitorable", false)
 	impact_sfx.play()
+	remove_from_group("PlayerAttacks")
+	_alert_enemies()
 	var explosion = preload("res://entities/projectile/ProjectileExplosion.tscn").instantiate()
 	explosion.global_transform = global_transform
 	get_tree().root.add_child(explosion)
@@ -76,6 +78,11 @@ func explode():
 			var vent = collision.collider as BreakableVent
 			vent.break_vent()
 
+
+func _alert_enemies() -> void:
+	for enemy in get_tree().get_nodes_in_group("Enemies"):
+		if enemy is EnemyBase:
+			enemy.hear_noise(global_position)
 
 func _on_lifetime_timer_timeout():
 	call_deferred("queue_free")

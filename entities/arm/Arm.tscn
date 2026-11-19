@@ -592,7 +592,7 @@ shader_parameter/Bits = 16.0
 [sub_resource type="QuadMesh" id="QuadMesh_yua88"]
 material = SubResource("ShaderMaterial_tmpnw")
 
-[node name="Arm" type="Node3D"]
+[node name="Arm" type="Node3D" groups=["PlayerAttacks"]]
 script = ExtResource("1_h1e1e")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

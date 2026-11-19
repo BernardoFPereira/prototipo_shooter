@@ -92,6 +92,11 @@ var _vertical_rest_time: float = 0.0
 ##Tolerância do ponto de patrulha
 @export var waypoint_reach_distance: float = 1.0
 
+@export_group("Alerta")
+@export var alert_allies: bool = true
+@export var notice_player_attacks: bool = true
+@export var alert_hearing_range: float = 15.0
+
 var _can_see_target: bool = false
 var _time_since_seen: float = INF
 var _last_known_position: Vector3
@@ -350,6 +355,8 @@ func _update_perception(delta: float) -> void:
 	if _can_see_target:
 		_time_since_seen = 0.0
 		_last_known_position = target.global_position
+	elif notice_player_attacks and is_calm():
+		_check_player_attacks()
 
 func can_see_target() -> bool:
 	if not _has_valid_target() or current_state == EnemyState.DEAD:
@@ -386,6 +393,65 @@ func alert(at_position: Vector3 = Vector3.INF) -> void:
 	_time_since_seen = 0.0
 	if current_state in [EnemyState.IDLE, EnemyState.PATROLLING, EnemyState.SEARCHING]:
 		set_current_state(EnemyState.CHASING)
+
+func is_calm() -> bool:
+	return current_state in [EnemyState.IDLE, EnemyState.PATROLLING, EnemyState.SEARCHING]
+
+func can_perceive_point(point: Vector3, hearing_distance: float) -> bool:
+	if current_state == EnemyState.DEAD:
+		return false
+	var to_point: Vector3 = point - global_position
+	var distance: float = to_point.length()
+	if distance <= hearing_distance:
+		return true
+	if distance > detection_range:
+		return false
+	if fov_degrees < 360.0:
+		var flat: Vector3 = Vector3(to_point.x, 0.0, to_point.z).normalized()
+		var forward: Vector3 = global_transform.basis.z
+		forward.y = 0.0
+		if forward.normalized().dot(flat) < cos(deg_to_rad(fov_degrees * 0.5)):
+			return false
+	return _has_line_of_sight_to(point)
+
+func _has_line_of_sight_to(point: Vector3) -> bool:
+	var from: Vector3 = global_position + Vector3(0, eye_height, 0)
+	var ray_params: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, point)
+	ray_params.exclude = [self]
+	ray_params.collision_mask = 1
+	var hit: Dictionary = get_world_3d().direct_space_state.intersect_ray(ray_params)
+	if hit.is_empty():
+		return true
+	var hit_position: Vector3 = hit.position
+	return hit_position.distance_to(point) < 0.5
+
+func hear_noise(point: Vector3) -> void:
+	if not is_calm():
+		return
+	if can_perceive_point(point, alert_hearing_range):
+		alert(point)
+
+func _check_player_attacks() -> void:
+	for attack in get_tree().get_nodes_in_group("PlayerAttacks"):
+		if attack is Arm and attack.state == Arm.ArmState.STUCK:
+			continue
+		if attack is Node3D and can_perceive_point(attack.global_position, alert_hearing_range):
+			alert()
+			return
+
+func _call_allies() -> void:
+	if not alert_allies:
+		return
+	var my_point: Vector3 = global_position + Vector3(0, eye_height, 0)
+	for ally in get_tree().get_nodes_in_group("Enemies"):
+		if ally == self or not (ally is EnemyBase):
+			continue
+		if not ally.is_calm():
+			continue
+		if ally.can_perceive_point(my_point, ally.alert_hearing_range):
+			if ally.target == null:
+				ally.target = target
+			ally.alert(_last_known_position)
 
 func _has_valid_target() -> bool:
 	return target != null and is_instance_valid(target)
@@ -604,6 +670,7 @@ func _update_shield_visual() -> void:
 	shield_area.set_deferred("monitorable", shield_up)
 
 func set_current_state(new_state: EnemyState) -> void:
+	var was_alert: bool = current_state in [EnemyState.CHASING, EnemyState.ATTACKING, EnemyState.REPOSITIONING]
 	match new_state:
 		EnemyState.IDLE:
 			if current_state == EnemyState.DEAD:
@@ -674,6 +741,8 @@ func set_current_state(new_state: EnemyState) -> void:
 	if new_state != EnemyState.HIT:
 		gravity_scale = _base_gravity_scale
 	current_state = new_state
+	if new_state == EnemyState.CHASING and not was_alert:
+		_call_allies()
 
 func receive_arm_impact(damage: int, hit_position: Vector3, impact_strength: int) -> void:
 	if current_state == EnemyState.DEAD:

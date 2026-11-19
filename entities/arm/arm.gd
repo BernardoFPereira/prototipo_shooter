@@ -89,6 +89,7 @@ func _on_arm_impact(result: KinematicCollision3D):
 	var collider = result.get_collider()
 
 	if collider.is_in_group("Unstuckable"):
+		_alert_enemies()
 		set_state(ArmState.PULLED_BACK)
 		return
 
@@ -101,6 +102,7 @@ func _on_arm_impact(result: KinematicCollision3D):
 	var collision_parent = collider.get_parent()
 
 	if collision_parent.is_in_group("Unstuckable"):
+		_alert_enemies()
 		set_state(ArmState.PULLED_BACK)
 		return
 
@@ -130,8 +132,14 @@ func _on_arm_impact(result: KinematicCollision3D):
 	impact_sfx.play()
 
 	get_tree().root.add_child(impact_particle_instance)
+	_alert_enemies()
 
 	set_state(ArmState.STUCK)
+
+func _alert_enemies() -> void:
+	for enemy in get_tree().get_nodes_in_group("Enemies"):
+		if enemy is EnemyBase:
+			enemy.hear_noise(global_position)
 
 func _on_old_arm_impact(result: KinematicCollision3D):
 	var collider = result.get_collider()
