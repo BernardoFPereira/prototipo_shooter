@@ -4,7 +4,8 @@ extends EnemyBase
 @onready var attack_collision: CollisionShape3D = $Armature/Skeleton3D/BoneAttachment3D/AttackArea/AttackCollision
 @onready var attack_area: Area3D = $Armature/Skeleton3D/BoneAttachment3D/AttackArea
 
-@export_category("Combat Properties")
+@export_category("Combate")
+##Dano do ataque
 @export var attack_damage: int = 55
 
 func _pre_state_change(new_state: EnemyState) -> void:

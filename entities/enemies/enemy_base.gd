@@ -24,7 +24,7 @@ var _is_idle_sounds_enabled: bool = true
 
 var blood_particles_scene = preload("uid://dauurgt5mibfk")
 
-@export_category("Targets")
+@export_category("Alvos")
 ##O alvo deste inimigo
 @export var target: CharacterBody3D
 ##Nome da rota de patrulha (precisa ser idêntico ao patrol_route_name da rota desejada na cena 3D)
@@ -34,7 +34,7 @@ var _patrol_waypoints: Array = []
 var _patrol_index: int = 0
 var _patrol_loop: bool = true
 
-@export_category("Combat Properties")
+@export_category("Combate")
 ##Vida máxima
 @export var max_health: float = 100
 ##Alcance de ataque
@@ -44,33 +44,7 @@ var _patrol_loop: bool = true
 ##Distância ideal do player
 @export var preferred_distance: float = 0.0
 
-@export_group("Kiting")
-##Ativa/Desativa o Kiting do inimigo
-@export var kite_after_attack: bool = false
-##Tolerância da distância ideal (quanto maior o valor, maior a tolerância)
-@export var kite_tolerance: float = 3.0
-##Tempo máximo que o inimigo fica no estado de Kiting
-@export var kite_max_time: float = 2.5
-##Velocidade enquanto Kiting (0.0 para chase_speed padrão)
-@export var kite_speed: float = 0.0
-##Ativa/Desativa se o inimigo olha em direção ao player enquanto Kiting
-@export var kite_face_player: bool = false
-
-var current_health: float
-var _attack_cooldown_left: float = 0.0
-var _kite_goal: Vector3
-var _kite_timer: float = 0.0
-
-@export_category("Movement Properties")
-##Velocidade enquanto não alarmado
-@export var patrol_speed: float = 2.0
-##Velocidade enquanto alarmado
-@export var chase_speed: float = 6.0
-var is_floating: bool
-var grounded_rest_time: float = 0.15
-var _vertical_rest_time: float = 0.0
-
-@export_category("Detection & Engagement")
+@export_group("Detecção")
 ##Distância máxima do cone de visão
 @export var detection_range: float = 20.0
 ##Ângulo do cone de visão
@@ -81,7 +55,7 @@ var _vertical_rest_time: float = 0.0
 @export var hearing_range: float = 5.0
 ##Distância segura para atacar o player
 @export var engagement_buffer: float = 0.5
-##Intervalo de tempo em segundos entre os checks pelo player
+##Intervalo de tempo em segundos entre os checks de percepção
 @export var perception_interval: float = 0.15
 ##Quanto tempo o alvo precisa ficar fora do alcance de percepção para o inimigo perdê-lo
 @export var lose_target_time: float = 4.0
@@ -93,8 +67,11 @@ var _vertical_rest_time: float = 0.0
 @export var waypoint_reach_distance: float = 1.0
 
 @export_group("Alerta")
+##Ativa/Desativa outros inimigos perceberem seu estado de alerta
 @export var alert_allies: bool = true
+##Ativa/Desativa percepção de ataques do player
 @export var notice_player_attacks: bool = true
+##Distância máxima do alcançe da audição para inimigos alertados/ataques do player
 @export var alert_hearing_range: float = 15.0
 
 var _can_see_target: bool = false
@@ -103,7 +80,7 @@ var _last_known_position: Vector3
 var _perception_timer: float = 0.0
 var _search_timer: float = 0.0
 
-@export_category("Hit Reaction")
+@export_group("Reação à dano")
 ##O quanto ser atingido empurra para trás este inimigo
 @export var hit_knockback_force: float = 5.0
 ##O quanto ser atingido empurra para cima este inimigo
@@ -122,11 +99,37 @@ var _base_gravity_scale: float = 1.0
 var _hit_elapsed: float = 0.0
 var _hit_was_airborne: bool = false
 
-@export_category("Animation")
+@export_group("Kiting")
+##Ativa/Desativa o Kiting do inimigo
+@export var kite_after_attack: bool = false
+##Tolerância da distância ideal (quanto maior o valor, maior a tolerância)
+@export var kite_tolerance: float = 3.0
+##Tempo máximo que o inimigo fica no estado de Kiting
+@export var kite_max_time: float = 2.5
+##Velocidade enquanto Kiting (0.0 para chase_speed padrão)
+@export var kite_speed: float = 0.0
+##Ativa/Desativa se o inimigo olha em direção ao player enquanto Kiting
+@export var kite_face_player: bool = false
+
+var current_health: float
+var _attack_cooldown_left: float = 0.0
+var _kite_goal: Vector3
+var _kite_timer: float = 0.0
+
+@export_category("Movimento")
+##Velocidade enquanto não alarmado
+@export var patrol_speed: float = 2.0
+##Velocidade enquanto alarmado
+@export var chase_speed: float = 6.0
+var is_floating: bool
+var grounded_rest_time: float = 0.15
+var _vertical_rest_time: float = 0.0
+
+@export_category("Animação")
 ##Duração de transição de animações
 @export var anim_blend_time: float = 0.15
 
-@export_category("Shield")
+@export_category("escudo")
 
 enum AttackType { ARM, SHOOT }
 
@@ -137,7 +140,13 @@ enum ShieldMode {
 	SHOOT_BLOCK_ARM_BREAK,
 }
 
+##Escudo selecionado
+@export var shield_mode: ShieldMode = ShieldMode.ARM_BLOCK_ARM_BREAK:
+	set(value):
+		shield_mode = value
+		_apply_shield_color()
 
+##Cor de cada variação de escudo
 @export var SHIELD_MODE_COLORS: Dictionary = {
 	ShieldMode.ARM_BLOCK_ARM_BREAK: Color(0.545, 0.0, 1.0),
 	ShieldMode.ARM_BLOCK_SHOOT_BREAK: Color(0.0, 0.75, 1.0),
@@ -145,11 +154,7 @@ enum ShieldMode {
 	ShieldMode.SHOOT_BLOCK_ARM_BREAK: Color(1.0, 0.1, 0.25),
 }
 
-@export var shield_mode: ShieldMode = ShieldMode.ARM_BLOCK_ARM_BREAK:
-	set(value):
-		shield_mode = value
-		_apply_shield_color()
-
+##Ativa/desativa o escudo
 @export var shield_up: bool = false:
 	set(value):
 		shield_up = value
@@ -157,10 +162,14 @@ enum ShieldMode {
 			_update_shield_visual()
 @export var shield_str: int = 1
 
-@export_group("Shield Break FX")
+@export_group("Efeitos Visuais")
+##Asset do efeito de quebra do escudo
 @export var shield_break_fx: PackedScene = preload("res://entities/enemies/ShieldBreakGlyphs.tscn")
+##Duração da animação visual do escudo
 @export var shield_glitch_time: float = 0.3
+##Tempo de congelamento do jogo durante o ataque que quebra o escudo
 @export var hitstop_duration: float = 0.07
+##Velocidade do jogo durante o congelamento (1.00 significa 100% da velocidade)
 @export var hitstop_time_scale: float = 0.05
 
 var _shield_hits_left: int = 1
@@ -179,6 +188,7 @@ signal shield_broken
 var detected: bool = false
 
 @export_category("GIBS")
+##Assets dos pedaços do inimigo ao ser explodido
 @export var gibs: PackedScene = preload("res://prefabs/enemy_gibs.tscn")
 
 var current_state: EnemyState = EnemyState.IDLE

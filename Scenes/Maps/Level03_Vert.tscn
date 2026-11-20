@@ -56241,11 +56241,11 @@ script = ExtResource("4_4ij1r")
 mesh_vector_data = SubResource("Resource_m3r8q")
 
 [node name="EnemyMelee4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_i001a")]
-transform = Transform3D(0.893089, 0, -0.44988, 0, 1, 0, 0.44988, 0, 0.893089, -16.6132, 0.0157796, -13.4623)
+transform = Transform3D(0.489854, 0, -0.871804, 0, 1, 0, 0.871804, 0, 0.489854, -9.03707, 0.0157806, 0.905698)
 target = NodePath("../Player")
 
 [node name="EnemyMelee5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_i001a")]
-transform = Transform3D(-0.780136, 0, 0.625611, 0, 1, 0, -0.625611, 0, -0.780136, -19.2057, 0.0157796, -10.7881)
+transform = Transform3D(-0.780136, 0, 0.625611, 0, 1, 0, -0.625611, 0, -0.780136, -12.5506, 0.0157796, 3.34283)
 target = NodePath("../Player")
 
 [node name="EnemyMelee8" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_i001a")]
@@ -56253,11 +56253,11 @@ transform = Transform3D(-0.0640624, 0, -0.997947, 0, 1, 0, 0.997947, 0, -0.06406
 target = NodePath("../Player")
 
 [node name="EnemyMelee9" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_i001a")]
-transform = Transform3D(-0.405923, 0, -0.913907, 0, 1, 0, 0.913907, 0, -0.405923, 14.1419, 0.0157796, -14.5013)
+transform = Transform3D(-0.405923, 0, -0.913907, 0, 1, 0, 0.913907, 0, -0.405923, 7.6764, 0.0157796, -7.1953)
 target = NodePath("../Player")
 
 [node name="EnemyMelee10" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_i001a")]
-transform = Transform3D(0.949322, 0, 0.314307, 0, 1, 0, -0.314307, 0, 0.949322, 9.41114, 0.0157796, -18.9657)
+transform = Transform3D(-0.298308, 0, 0.95447, 0, 1, 0, -0.95447, 0, -0.298308, 3.00212, 0.0157796, -7.80005)
 target = NodePath("../Player")
 
 [node name="EnemyMelee6" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_i001a")]
@@ -57111,7 +57111,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9875, 0, 3.4877)
 shape = SubResource("BoxShape3D_2yunp")
 
 [node name="EnemyRanged2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("25_8tvge")]
-transform = Transform3D(-0.179197, 0, 0.983813, 0, 1, 0, -0.983813, 0, -0.179197, -18.0414, 0.269813, 6.06498)
+transform = Transform3D(0.761719, 0, 0.647907, 0, 1, 0, -0.647907, 0, 0.761719, -12.5786, 0.269813, -0.370431)
 target = NodePath("../Player")
 
 [node name="Iluminação" type="Node" parent="."]
