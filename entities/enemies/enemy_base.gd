@@ -166,6 +166,7 @@ enum EnemyState {
 	DEAD,
 	SEARCHING,
 	REPOSITIONING, ## se afastando do player até preferred_distance (kiting)
+	DECOMPRESS,
 }
  
 func _ready() -> void:
@@ -236,6 +237,11 @@ func _physics_process(delta: float) -> void:
 		_attack_cooldown_left -= delta
 
 	match current_state:
+		EnemyState.DECOMPRESS:
+			_stop_moving()
+			var target_transform = global_transform.looking_at(get_tree().get_first_node_in_group("BlastDoor").global_position, Vector3.UP)
+			global_transform = global_transform.interpolate_with(target_transform, 0.3)
+			
 		EnemyState.IDLE:
 			_stop_moving()
 			if _can_see_target:

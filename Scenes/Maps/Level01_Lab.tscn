@@ -17195,7 +17195,7 @@ bus = &"SFX"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2366, 0, -18.2162)
 
 [node name="rebble_02" type="MeshInstance3D" parent="Rubble"]
-transform = Transform3D(2.60984, 0, 0, 0, 2.60984, 0, 0, 0, 2.60984, -3.32283, -0.0263183, 1.84396)
+transform = Transform3D(1.89743, 0, -1.79193, 0, 2.60984, 0, 1.79193, 0, 1.89743, -3.32283, -0.0263181, 1.84396)
 mesh = SubResource("ArrayMesh_41hkk")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("59_p1iy3")
@@ -17225,6 +17225,114 @@ skeleton = NodePath("")
 surface_material_override/0 = ExtResource("60_7cwer")
 
 [node name="Icosphere_009" type="MeshInstance3D" parent="Rubble/rebble_02"]
+transform = Transform3D(0.0210233, 0.0365726, -0.00734463, -9.42496e-10, 0.0160129, 0.0300579, 0.0236254, -0.0325445, 0.00653568, -0.602209, 0.0986745, 0.36012)
+mesh = SubResource("ArrayMesh_nmw4j")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="rebble_05" type="MeshInstance3D" parent="Rubble"]
+transform = Transform3D(-2.22336, 0, 0.392346, 0, 2.23176, 0, -0.331093, 0, -2.63469, -3.99285, -0.0719396, -19.1163)
+mesh = SubResource("ArrayMesh_41hkk")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("59_p1iy3")
+
+[node name="Icosphere_005" type="MeshInstance3D" parent="Rubble/rebble_05"]
+transform = Transform3D(0.0653745, 0, 0, 0, 0.0331015, 0.0621351, 0, -0.101201, 0.0203235, 0.212497, 0.0689683, 0.871095)
+mesh = SubResource("ArrayMesh_blmnm")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_006" type="MeshInstance3D" parent="Rubble/rebble_05"]
+transform = Transform3D(0.019566, -0.0779471, 0.0156536, -1.60994e-09, 0.0273526, 0.0513438, -0.0503527, -0.0302885, 0.00608263, 0.612152, 0.130207, 0.152526)
+mesh = SubResource("ArrayMesh_loy45")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_007" type="MeshInstance3D" parent="Rubble/rebble_05"]
+transform = Transform3D(-0.0251831, 0.130715, -0.0262506, 2.62605e-09, 0.0446161, 0.0837493, 0.0844402, 0.0389841, -0.0078289, -0.72883, 0.0696743, -0.0800762)
+mesh = SubResource("ArrayMesh_daonk")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_008" type="MeshInstance3D" parent="Rubble/rebble_05"]
+transform = Transform3D(-0.0645513, 0.00388583, 0.00756774, 0.0103337, 0.0283002, 0.0467285, -0.000416193, 0.0999815, -0.0135208, 0.313325, 0.0582068, -0.715954)
+mesh = SubResource("ArrayMesh_vmvwb")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_009" type="MeshInstance3D" parent="Rubble/rebble_05"]
+transform = Transform3D(0.0210233, 0.0365726, -0.00734463, -9.42496e-10, 0.0160129, 0.0300579, 0.0236254, -0.0325445, 0.00653568, -0.602209, 0.0986745, 0.36012)
+mesh = SubResource("ArrayMesh_nmw4j")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="rebble_04" type="MeshInstance3D" parent="Rubble"]
+transform = Transform3D(-2.59287, 0, 0.297117, 0, 3.63268, 0, -0.297117, 0, -2.59287, -6.02125, -0.531237, -1.12197)
+mesh = SubResource("ArrayMesh_41hkk")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("59_p1iy3")
+
+[node name="Icosphere_005" type="MeshInstance3D" parent="Rubble/rebble_04"]
+transform = Transform3D(0.0653745, 0, 0, 0, 0.0331015, 0.0621351, 0, -0.101201, 0.0203235, 0.212497, 0.0689683, 0.871095)
+mesh = SubResource("ArrayMesh_blmnm")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_006" type="MeshInstance3D" parent="Rubble/rebble_04"]
+transform = Transform3D(0.019566, -0.0779471, 0.0156536, -1.60994e-09, 0.0273526, 0.0513438, -0.0503527, -0.0302885, 0.00608263, 0.612152, 0.130207, 0.152526)
+mesh = SubResource("ArrayMesh_loy45")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_007" type="MeshInstance3D" parent="Rubble/rebble_04"]
+transform = Transform3D(-0.0251831, 0.130715, -0.0262506, 2.62605e-09, 0.0446161, 0.0837493, 0.0844402, 0.0389841, -0.0078289, -0.72883, 0.0696743, -0.0800762)
+mesh = SubResource("ArrayMesh_daonk")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_008" type="MeshInstance3D" parent="Rubble/rebble_04"]
+transform = Transform3D(-0.0645513, 0.00388583, 0.00756774, 0.0103337, 0.0283002, 0.0467285, -0.000416193, 0.0999815, -0.0135208, 0.313325, 0.0582068, -0.715954)
+mesh = SubResource("ArrayMesh_vmvwb")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_009" type="MeshInstance3D" parent="Rubble/rebble_04"]
+transform = Transform3D(0.0210233, 0.0365726, -0.00734463, -9.42496e-10, 0.0160129, 0.0300579, 0.0236254, -0.0325445, 0.00653568, -0.602209, 0.0986745, 0.36012)
+mesh = SubResource("ArrayMesh_nmw4j")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="rebble_03" type="MeshInstance3D" parent="Rubble"]
+transform = Transform3D(1.89743, 0, -1.79193, 0, 5.30546, 0, 1.79193, 0, 1.89743, -5.77175, -0.514546, -21.8701)
+mesh = SubResource("ArrayMesh_41hkk")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("59_p1iy3")
+
+[node name="Icosphere_005" type="MeshInstance3D" parent="Rubble/rebble_03"]
+transform = Transform3D(0.0653745, 0, 0, 0, 0.0331015, 0.0621351, 0, -0.101201, 0.0203235, 0.212497, 0.0689683, 0.871095)
+mesh = SubResource("ArrayMesh_blmnm")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_006" type="MeshInstance3D" parent="Rubble/rebble_03"]
+transform = Transform3D(0.019566, -0.0779471, 0.0156536, -1.60994e-09, 0.0273526, 0.0513438, -0.0503527, -0.0302885, 0.00608263, 0.612152, 0.130207, 0.152526)
+mesh = SubResource("ArrayMesh_loy45")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_007" type="MeshInstance3D" parent="Rubble/rebble_03"]
+transform = Transform3D(-0.0251831, 0.130715, -0.0262506, 2.62605e-09, 0.0446161, 0.0837493, 0.0844402, 0.0389841, -0.0078289, -0.72883, 0.0696743, -0.0800762)
+mesh = SubResource("ArrayMesh_daonk")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_008" type="MeshInstance3D" parent="Rubble/rebble_03"]
+transform = Transform3D(-0.0645513, 0.00388583, 0.00756774, 0.0103337, 0.0283002, 0.0467285, -0.000416193, 0.0999815, -0.0135208, 0.313325, 0.0582068, -0.715954)
+mesh = SubResource("ArrayMesh_vmvwb")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("60_7cwer")
+
+[node name="Icosphere_009" type="MeshInstance3D" parent="Rubble/rebble_03"]
 transform = Transform3D(0.0210233, 0.0365726, -0.00734463, -9.42496e-10, 0.0160129, 0.0300579, 0.0236254, -0.0325445, 0.00653568, -0.602209, 0.0986745, 0.36012)
 mesh = SubResource("ArrayMesh_nmw4j")
 skeleton = NodePath("")

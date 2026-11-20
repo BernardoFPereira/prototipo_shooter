@@ -61,7 +61,7 @@ func swap_enemy_models(enemies: Array[Node3D]):
 	for enemy in enemies:
 		#enemy = enemy as EnemyBase
 		#enemy.current_state = EnemyBase.EnemyState.IDLE
-		enemy.set_current_state(enemy.EnemyState.IDLE)
+		enemy.set_current_state(enemy.EnemyState.DECOMPRESS)
 		enemy.target = null
 	
 	for enemy in enemies:

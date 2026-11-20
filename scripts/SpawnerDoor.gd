@@ -36,7 +36,7 @@ func spawn_enemy():
 			add_sibling(spawned)
 			#get_tree().root.add_child(spawned)
 			if aggro:
-				spawned.current_state = EnemyBase.EnemyState.SEARCHING
+				spawned.current_state = EnemyBase.EnemyState.CHASING
 			door_anim_player.play("door_open")
 			await get_tree().create_timer(3).timeout
 			door_anim_player.play_backwards("door_open")
@@ -52,7 +52,7 @@ func spawn_enemy():
 			add_sibling(spawned)
 			#get_tree().root.add_child(spawned)
 			if aggro:
-				spawned.current_state = EnemyBase.EnemyState.SEARCHING
+				spawned.current_state = EnemyBase.EnemyState.CHASING
 			door_anim_player.play("door_open")
 			await get_tree().create_timer(3).timeout
 			door_anim_player.play_backwards("door_open")
