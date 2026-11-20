@@ -41,7 +41,7 @@ class_name GlowRotatingIcon
 @export var rotation_speed: float = 2.0
 
 var _mat: ShaderMaterial
-var _initialized := false
+var _initialized: bool = false
 var _current_rotation: float = 0.0
 
 func _ready():

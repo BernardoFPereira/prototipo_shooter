@@ -24,9 +24,9 @@ func start_decompression_sequence():
 	timer.start()
 	klaxon_timer.start()
 	alarm_loop.play()
-	
+
 	turn_on_lights()
-	
+
 	for door in spawn_doors:
 		door._on_trigger_activated()
 
@@ -46,32 +46,30 @@ func turn_on_lights():
 				subchild.visible = true
 			if subchild is AnimationPlayer:
 				subchild.play("loop")
-			
+
 		if child is OmniLight3D:
 			child.light_energy = lerpf(0.0, 98.0, 0.2)
 
-func swap_enemy_models(enemies: Array[Node3D]):
+func swap_enemy_models(enemies: Array):
 	print("Enemies Detected:")
 	print(enemy_detect_area.get_overlapping_bodies())
 	print("---")
-	
+
 	var enemy_melee = load("res://entities/enemies/MeleeEnemy/decompressed_enemy_melee.tscn")
 	var enemy_ranged = load("res://entities/enemies/RangedEnemy/decompressed_enemy_ranged.tscn")
-	
+
 	for enemy in enemies:
-		#enemy = enemy as EnemyBase
-		#enemy.current_state = EnemyBase.EnemyState.IDLE
 		enemy.set_current_state(enemy.EnemyState.IDLE)
 		enemy.target = null
-	
+
 	for enemy in enemies:
 		var enemy_inst
-		
+
 		if enemy is EnemyMelee:
 			enemy_inst = enemy_melee.instantiate()
 		if enemy is EnemyRanged:
 			enemy_inst = enemy_ranged.instantiate()
-		
+
 		$DecompressedEnemies.add_child(enemy_inst)
 		enemy_inst.global_transform = enemy.global_transform
 		enemy.call_deferred("queue_free")
@@ -105,7 +103,6 @@ func _on_timer_timeout():
 	swap_enemy_models(enemy_detect_area.get_overlapping_bodies())
 	await get_tree().create_timer(1.5).timeout
 	spawn_boxes()
-	#await get_tree().create_timer(0.4).timeout
 	spawn_tubes()
 	await get_tree().create_timer(3).timeout
 	move_player()

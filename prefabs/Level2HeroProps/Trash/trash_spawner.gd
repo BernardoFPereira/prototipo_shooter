@@ -15,14 +15,12 @@ extends Node3D
 @export var initial_velocity: Vector3 = Vector3(0, -3, 0)
 @export var max_spin: float = 3.0
 
-const DEFAULT_TRASH := preload("res://prefabs/Level2HeroProps/Trash/Trash.tscn")
-
 var _timer: float = 0.0
-var _alive: Array[Node3D] = []
+var _alive: Array = []
 
 
 func _ready() -> void:
-	var marker := get_node_or_null("EditorMarker")
+	var marker: Node = get_node_or_null("EditorMarker")
 	if marker:
 		marker.visible = false
 	if triturador == null:
@@ -37,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	if _timer > 0.0:
 		return
 	_timer = randf_range(interval.x, interval.y)
-	var still_alive: Array[Node3D] = []
+	var still_alive: Array = []
 	for n in _alive:
 		if is_instance_valid(n):
 			still_alive.append(n)
@@ -56,13 +54,19 @@ func is_active() -> bool:
 
 
 func spawn_trash() -> Node3D:
-	var scene: PackedScene = trash_scenes.pick_random() if not trash_scenes.is_empty() else DEFAULT_TRASH
-	if scene == null or not scene.can_instantiate():
+	if trash_scenes.is_empty():
+		return null
+	var scene: PackedScene = trash_scenes.pick_random()
+	if scene == null:
 		return null
 	var trash: Node3D = scene.instantiate()
-	var holder := get_tree().current_scene if get_tree().current_scene else get_parent()
+	var holder: Node
+	if get_tree().current_scene:
+		holder = get_tree().current_scene
+	else:
+		holder = get_parent()
 	holder.add_child(trash)
-	var offset := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * spawn_radius
+	var offset: Vector2 = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * spawn_radius
 	trash.global_position = global_position + Vector3(offset.x, 0.0, offset.y)
 	trash.rotation = Vector3(randf() * TAU, randf() * TAU, randf() * TAU)
 	if trash is RigidBody3D:
@@ -78,7 +82,7 @@ func _find_triturador(node: Node) -> Triturador:
 	if node is Triturador:
 		return node
 	for child in node.get_children():
-		var found := _find_triturador(child)
+		var found: Triturador = _find_triturador(child)
 		if found:
 			return found
 	return null

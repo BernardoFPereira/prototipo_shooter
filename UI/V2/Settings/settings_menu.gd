@@ -1,15 +1,7 @@
 class_name SettingsPanel
 extends Control
 
-## Menu de configurações. Visual PROVISÓRIO (controles padrão do Godot) — dá pra trocar o
-## visual à vontade: o script só procura os nós pelo nome único (%Nome), então pode mover,
-## re-estilizar ou trocar o layout, desde que os nós com % continuem existindo e sendo do
-## mesmo tipo (OptionButton, HSlider, CheckButton, Label, Button).
-##
-## Tudo é aplicado na hora pelo autoload UI (UI.set_*). O GameMenu chama UI.save_settings()
-## ao fechar o painel.
 
-# Vídeo
 @onready var window_mode_option: OptionButton = %WindowModeOption
 @onready var resolution_option: OptionButton = %ResolutionOption
 @onready var vsync_check: CheckButton = %VSyncCheck
@@ -19,7 +11,6 @@ extends Control
 @onready var brightness_slider: HSlider = %BrightnessSlider
 @onready var brightness_value: Label = %BrightnessValue
 @onready var show_fps_check: CheckButton = %ShowFpsCheck
-# Áudio
 @onready var music_slider: HSlider = %MusicSlider
 @onready var music_value: Label = %MusicValue
 @onready var music_mute: CheckButton = %MusicMute
@@ -29,25 +20,22 @@ extends Control
 @onready var hud_slider: HSlider = %HUDSlider
 @onready var hud_value: Label = %HUDValue
 @onready var hud_mute: CheckButton = %HUDMute
-# Controles
 @onready var sens_slider: HSlider = %SensSlider
 @onready var sens_value: Label = %SensValue
 @onready var invert_y_check: CheckButton = %InvertYCheck
-# Acessibilidade
 @onready var camera_motion_slider: HSlider = %CameraMotionSlider
 @onready var camera_motion_value: Label = %CameraMotionValue
 
 @onready var reset_button: Button = %ResetButton
 
-var _is_setup := false
-var _updating := false # true enquanto os controles são preenchidos (não dispara os sinais)
+var _is_setup: bool = false
+var _updating: bool = false
 
 
 func _ready() -> void:
 	setup()
 
 
-## Chamado pelo GameMenu no _ready (e aqui mesmo, se o painel for usado sozinho).
 func setup() -> void:
 	if _is_setup:
 		return
@@ -57,7 +45,6 @@ func setup() -> void:
 	refresh_from_settings()
 
 
-## Coloca nos controles os valores atuais do UI (ex: depois de "Restaurar padrão").
 func refresh_from_settings() -> void:
 	_updating = true
 	window_mode_option.select(UI.window_mode)
@@ -89,7 +76,10 @@ func _fill_options() -> void:
 		resolution_option.add_item(key)
 	max_fps_option.clear()
 	for fps in UI.FPS_OPTIONS:
-		max_fps_option.add_item("Sem limite" if fps == 0 else str(fps))
+		if fps == 0:
+			max_fps_option.add_item("Sem limite")
+		else:
+			max_fps_option.add_item(str(fps))
 
 
 func _connect_signals() -> void:
@@ -114,7 +104,6 @@ func _connect_signals() -> void:
 
 	reset_button.pressed.connect(_on_reset_pressed)
 
-	# Sons: hover em tudo, clique ao soltar as barras (o som de efeitos/interface já sai no volume novo).
 	for control in find_children("*", "Control", true, false):
 		if control is BaseButton or control is Slider:
 			control.mouse_entered.connect(_on_button_hovered)
@@ -122,7 +111,6 @@ func _connect_signals() -> void:
 			control.drag_ended.connect(func(_changed): UI.play_sound("confirm_button"))
 
 
-## Aplica uma mudança vinda do jogador (ignora quando é o próprio script preenchendo os campos).
 func _apply(change: Callable, click_sound: bool = true) -> void:
 	if _updating:
 		return
@@ -133,13 +121,13 @@ func _apply(change: Callable, click_sound: bool = true) -> void:
 
 
 func _update_value_labels() -> void:
-	fov_value.text = "%d°" % roundi(fov_slider.value)
-	brightness_value.text = "%d%%" % roundi(brightness_slider.value)
-	music_value.text = "%d%%" % roundi(music_slider.value)
-	sfx_value.text = "%d%%" % roundi(sfx_slider.value)
-	hud_value.text = "%d%%" % roundi(hud_slider.value)
-	sens_value.text = "%.1f" % sens_slider.value
-	camera_motion_value.text = "%d%%" % roundi(camera_motion_slider.value)
+	fov_value.text = str(roundi(fov_slider.value)) + "°"
+	brightness_value.text = str(roundi(brightness_slider.value)) + "%"
+	music_value.text = str(roundi(music_slider.value)) + "%"
+	sfx_value.text = str(roundi(sfx_slider.value)) + "%"
+	hud_value.text = str(roundi(hud_slider.value)) + "%"
+	sens_value.text = str(snappedf(sens_slider.value, 0.1))
+	camera_motion_value.text = str(roundi(camera_motion_slider.value)) + "%"
 	resolution_option.tooltip_text = "Fullscreen: Afeta a resolução da câmera 3D / Janela: Afeta o tamanho da janela"
 
 
@@ -149,6 +137,5 @@ func _on_reset_pressed() -> void:
 	UI.play_sound("back_button")
 
 
-## Os botões do menu principal também usam este som de hover (conexões do GameMenu.tscn).
 func _on_button_hovered() -> void:
 	UI.play_sound("hover_button")

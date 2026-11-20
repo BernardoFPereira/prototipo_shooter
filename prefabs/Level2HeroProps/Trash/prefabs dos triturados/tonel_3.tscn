@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://bums7ppiu6cdd"]
+[gd_scene load_steps=5 format=3 uid="uid://bums7ppiu6cdd"]
 
 [ext_resource type="PackedScene" uid="uid://dr8stvtuv454i" path="res://models/level2/triturados/tonel3_geo.glb" id="1_7yvf2"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="tonel3" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(0.076018, -0.576939, 1.22107, 0.076018, 0.643868, 1.22107, -0.945617, -0.438196, -0.8276, 0.0760183, 0.64387, -1.22107, -1.22101, 0.643837, 0.0762534, 1.09929, 0.63987, 0.530405, -1.05288, -0.117343, 0.63894, 0.669833, -0.674685, 1.10314, 0.669833, -0.0833964, -1.10338, 1.05538, 0.636142, -0.640456, -1.05541, 0.636031, -0.640471, -0.640603, 0.635928, 1.05524, 1.10338, -0.477545, 0.591073, -0.669833, -0.319886, -1.10338, -1.09927, -0.421742, -0.530634, 0.640678, 0.636128, 1.05512, 1.22165, -0.0440471, -0.236281, -0.640618, 0.635942, -1.05526, 1.22101, 0.643961, 0.0762531, 0.0785134, -0.0440471, -1.26115, -0.631966, -0.116072, 1.04101, 0.118017, -0.635073, 1.22165, -1.18235, -0.263177, -0.0738389, -1.05538, 0.636017, 0.640456, 0.640603, 0.636053, -1.05524, 1.10338, -0.477545, 0.669833, -0.669833, -0.359235, -1.02462, 1.06388, 0.113481, -0.70909, -0.985121, -0.477414, -0.709337, 1.22165, -0.241056, 0.157521, 0.669833, -0.674685, 1.02438, -0.076254, 0.643842, -1.22102)
+
+[node name="tonel3" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 8.0
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="tonel3_geo" parent="." instance=ExtResource("1_7yvf2")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

@@ -11,7 +11,7 @@ class_name BlastDoor
 func start_decompress():
 	decompression_fx.visible = true
 	gpu_particles_3d.emitting = true
-	
+
 func open_blast_door():
 	animation_player.play("open")
 	open_sfx.play()

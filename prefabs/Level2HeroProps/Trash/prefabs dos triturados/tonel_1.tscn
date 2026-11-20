@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://dl5m4qhee6nno"]
+[gd_scene load_steps=5 format=3 uid="uid://dl5m4qhee6nno"]
 
 [ext_resource type="PackedScene" uid="uid://cji3bf1iv4irj" path="res://models/level2/triturados/tonel1_geo.glb" id="1_hc10i"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="tonel1" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(-1.13887, -0.686563, -0.379625, 0.0756395, -0.686563, 1.21499, 0.0747313, 0.10923, 1.2004, 1.05539, -0.681537, -0.640458, -0.0787605, 0.311988, -1.26116, -1.10339, 0.706269, 0.55157, 1.26116, -0.0820154, 0.0390099, -1.05524, -0.681575, 0.640605, -0.0758774, -0.686563, -1.21499, 0.669834, 0.272685, -1.10339, -0.630331, 0.548362, 1.06388, 1.05522, -0.681427, 0.64059, -1.26116, 0.311988, -0.0392568, -0.55157, 0.0754748, -1.14289, 0.597403, -0.0383084, 0.983854, -0.640605, -0.681575, 1.05524, -1.05526, -0.68159, -0.640619, 0.530841, -0.685431, -1.09921, 1.21523, -0.686563, 0.0758922, 0.640679, -0.681521, 1.05513, -0.640619, -0.68159, -1.05526, -1.21499, -0.686563, 0.0758774, -0.709338, 0.548362, 1.06388, 0.985123, 0.115056, -0.669588, 1.03534, -0.151039, 0.628525, -1.00907, 0.0687554, -0.612576, -0.512314, 0.509059, 1.10339, 0.394049, 0.311988, -1.18215, -1.02438, 0.706269, 0.669834, -1.18215, 0.548362, 0.394049, -0.0758774, -0.686563, 1.21499, 1.22165, -0.0425734, -0.236281)
+
+[node name="tonel1" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 8.0
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="tonel1_geo" parent="." instance=ExtResource("1_hc10i")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

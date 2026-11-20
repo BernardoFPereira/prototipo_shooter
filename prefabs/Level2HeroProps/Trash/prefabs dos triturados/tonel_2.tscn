@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdjbvbuvesgja"]
+[gd_scene load_steps=5 format=3 uid="uid://bdjbvbuvesgja"]
 
 [ext_resource type="PackedScene" uid="uid://rtqjm3dcaeha" path="res://models/level2/triturados/tonel2_geo.glb" id="1_w0wcj"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="tonel2" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(0.0762678, -0.780322, 1.221, 0.0748794, 0.319879, 1.19877, 1.22102, 0.821983, -0.0762381, -1.26115, 0.691103, -0.0784971, 1.22107, -1.00925, 0.0760044, 0.530621, 0.816561, -1.09927, -1.05534, -0.846201, -0.640539, -1.05531, 0.774085, 0.640526, -0.640696, 0.585823, -1.05518, -1.26115, -0.608995, 0.0784991, 1.01754, -0.846186, -0.678303, 0.979872, -1.03482, 0.71593, 1.10339, 1.08529, -0.551461, -0.551816, 0.809274, 1.10317, 1.05482, 0.434814, 0.640463, -0.639798, -0.39336, 1.0537, -0.551816, -0.92426, -1.10317, -0.0752345, 0.848506, -1.20446, 0.0762682, -0.589674, -1.22101, 0.640667, 0.246516, 1.05514, 0.640682, -0.657706, -1.05516, 0.640667, -0.959229, 1.05514, 0.236281, 0.966907, -1.10317, -1.04786, 0.431957, -0.636003, 1.21967, -1.00809, -0.0761536, -1.03886, -0.239306, 0.630539, -1.26115, -0.687705, -0.0390012, -0.0757427, -0.737194, 1.2126, 0.753789, 0.887343, -0.942051, 0.945618, 1.08529, -0.630205, 1.09923, -1.04071, 0.530634, -0.472809, -0.884799, -1.14266)
+
+[node name="tonel2" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 8.0
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="tonel2_geo" parent="." instance=ExtResource("1_w0wcj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

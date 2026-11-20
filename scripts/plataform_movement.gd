@@ -22,11 +22,10 @@ func move_to_next_target(speed):
 	if current_node_idx == len(path) - 1:
 		target = path[0]
 		current_node_idx = 0
-	
+
 	global_position = global_position.move_toward(target.global_position, speed)
-	
+
 	if global_position == target.global_position:
 		current_node = target
 		current_node_idx += 1
 		target = path[current_node_idx]
-	

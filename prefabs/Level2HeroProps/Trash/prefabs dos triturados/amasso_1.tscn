@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://266cjpphxx72"]
+[gd_scene load_steps=5 format=3 uid="uid://266cjpphxx72"]
 
 [ext_resource type="PackedScene" uid="uid://o62ymqj7ha1v" path="res://models/level2/triturados/amasso1_geo.glb" id="1_2d8u6"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="amasso1" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(-0.860946, -0.311815, -0.609795, 0.198151, -0.311815, 1.02732, 0.48716, -0.311815, 0.930984, -0.914822, 0.329528, 0.531007, 0.0409464, 0.329528, -1.02675, 0.911404, -0.292003, -0.637307, 0.92618, 0.0108183, 0.495518, -0.977969, -0.29519, 0.474821, -0.832754, 0.311825, -0.536681, 0.198151, -0.311815, -1.02732, -0.596085, 0.187887, 0.885012, 0.92618, 0.0108183, -0.495518, -1.05634, 0.329528, 0.141513, 1.033, -0.311815, 0.0319781, -0.497318, -0.258433, -0.939361, 0.46593, 0.0462451, 0.849523, -0.475601, -0.311815, 0.962962, -1.07887, -0.260981, -0.0677314, 0.564992, -0.220676, -0.954316, 0.996937, 0.0462451, 0, 0.914317, -0.29292, 0.639357, -0.171323, 0.329528, -1.02675, 0.208262, -0.294027, 1.08129, -0.941641, -0.260564, -0.57509, -0.530792, 0.311825, -0.838433, 1.08519, -0.259801, 0.0336028, -0.767617, -0.2927, 0.773507, 0.0389651, -0.257417, -1.06934, 0.606668, -0.257224, 0.934849, -0.496628, -0.258088, 1.00503, -0.879333, 0.329528, 0.531007, -0.399923, -0.294186, -0.980434)
+
+[node name="amasso1" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 5.96977
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="amasso1_geo2" parent="." instance=ExtResource("1_2d8u6")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

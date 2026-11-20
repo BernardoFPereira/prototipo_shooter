@@ -1,101 +1,76 @@
+class_name TrashCrushFX
 extends Node3D
 
-## Efeito de lixo esmagado — mesma ideia dos gibs dos inimigos (enemy_gibs.gd): a cena é criada
-## no lugar do objeto, liga todas as partículas (poeira e lascas) e se apaga sozinha depois.
-## A diferença: além das partículas, solta pedaços com FÍSICA (TrashDebris) que caem por baixo
-## do triturador e ficam acumulados no chão.
+@export var debris_scene: PackedScene
 
-## Preenchidos por quem cria o efeito (Trash.crush()).
+@export_group("Pedaços com física")
+@export var debris_size_ratio: Vector2 = Vector2(0.12, 0.3)
+@export var debris_spread_speed: float = 2.5
+@export var debris_vertical_speed: Vector2 = Vector2(-3.0, 1.0)
+
+@export_group("Partículas")
+@export var dust_color: Color = Color(0.6, 0.58, 0.52)
+@export var lifetime: float = 3.0
+
 var color: Color = Color(0.36, 0.33, 0.27)
 var source_size: float = 1.0
 var debris_count: int = 5
 var ignore_bodies: Array = []
-## Onde o lixo foi esmagado (posição global).
 var spawn_position: Vector3 = Vector3.ZERO
-## Pedaços da mesh que saem desta vez (o Trash sorteia; normalmente vazio).
 var shard_scenes: Array = []
-var shard_scale: float = 1.0
 
-@export_group("Pedaços com física")
-## Tamanho de cada pedaço, proporcional ao tamanho do lixo (sorteado entre x e y).
-@export var debris_size_ratio: Vector2 = Vector2(0.12, 0.3)
-## Velocidade horizontal máxima com que os pedaços se espalham.
-@export var debris_spread_speed: float = 2.5
-## Velocidade vertical inicial (negativo = já sai indo pra baixo).
-@export var debris_vertical_speed: Vector2 = Vector2(-3.0, 1.0)
-## Layer dos pedaços (padrão 19). Eles colidem com as layers de `debris_mask`.
-@export_flags_3d_physics var debris_layer: int = 1 << 18
-## Padrão: layers 1 e 5 (chão/paredes) e 19 (outros pedaços, pra empilhar).
-@export_flags_3d_physics var debris_mask: int = 1 | (1 << 4) | (1 << 18)
-
-@export_group("Partículas")
-## Quanto tempo (s) o efeito fica vivo antes de se apagar (os pedaços com física continuam).
-@export var lifetime: float = 3.0
+@onready var dust: GPUParticles3D = $Dust
+@onready var chips: GPUParticles3D = $Chips
 
 
 func _ready() -> void:
-	# Posiciona ANTES de soltar pedaços/partículas. Antes, a posição só era aplicada depois do
-	# add_child — e o _ready roda dentro do add_child, então tudo saía na origem da fase.
 	global_position = spawn_position
-	for child in get_children():
-		if child is GPUParticles3D:
-			_tint_particles(child)
-			child.emitting = true
+	var dust_material: ParticleProcessMaterial = dust.process_material
+	dust_material.color = color.lerp(dust_color, 0.6)
+	var chips_material: ParticleProcessMaterial = chips.process_material
+	chips_material.color = color
+	dust.emitting = true
+	chips.emitting = true
 	_spawn_debris()
 	_spawn_shards()
 	get_tree().create_timer(lifetime, false).timeout.connect(queue_free)
 
 
-## A poeira/lascas pegam a cor do lixo (um pouco mais clara pra poeira).
-func _tint_particles(particles: GPUParticles3D) -> void:
-	var mat := particles.process_material as ParticleProcessMaterial
-	if mat == null:
-		return
-	mat = mat.duplicate()
-	if particles.name == "Dust":
-		mat.color = color.lerp(Color(0.6, 0.58, 0.52), 0.6)
-	else:
-		mat.color = color
-	particles.process_material = mat
+func _ignore_crusher(body: RigidBody3D) -> void:
+	for other in ignore_bodies:
+		if other is PhysicsBody3D and is_instance_valid(other):
+			body.add_collision_exception_with(other)
 
 
 func _spawn_debris() -> void:
-	var holder := get_parent()
+	if debris_scene == null:
+		return
+	var holder: Node = get_parent()
 	for i in debris_count:
-		var piece := TrashDebris.new()
-		var piece_size := source_size * randf_range(debris_size_ratio.x, debris_size_ratio.y)
+		var piece: TrashDebris = debris_scene.instantiate()
+		var piece_size: float = source_size * randf_range(debris_size_ratio.x, debris_size_ratio.y)
 		piece.setup(piece_size, color.darkened(randf_range(0.0, 0.25)))
-		piece.collision_layer = debris_layer
-		piece.collision_mask = debris_mask
-		for body in ignore_bodies:
-			if body is PhysicsBody3D and is_instance_valid(body):
-				piece.add_collision_exception_with(body)
+		_ignore_crusher(piece)
 		holder.add_child(piece)
-		var offset := Vector3(randf_range(-0.5, 0.5), randf_range(-0.3, 0.3), randf_range(-0.5, 0.5)) * source_size
+		var offset: Vector3 = Vector3(randf_range(-0.5, 0.5), randf_range(-0.3, 0.3), randf_range(-0.5, 0.5)) * source_size
 		piece.global_position = global_position + offset
 		piece.rotation = Vector3(randf() * TAU, randf() * TAU, randf() * TAU)
-		var dir := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * debris_spread_speed
-		piece.linear_velocity = Vector3(dir.x, randf_range(debris_vertical_speed.x, debris_vertical_speed.y), dir.y)
+		var spread: Vector2 = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * debris_spread_speed
+		piece.linear_velocity = Vector3(spread.x, randf_range(debris_vertical_speed.x, debris_vertical_speed.y), spread.y)
 		piece.angular_velocity = Vector3(randf_range(-8, 8), randf_range(-8, 8), randf_range(-8, 8))
 
 
-## Pedaços quebrados do modelo (só às vezes — o Trash decide). Mesmas regras dos pedacinhos:
-## atravessam o triturador, caem e ficam no chão.
 func _spawn_shards() -> void:
-	var holder := get_parent()
+	var holder: Node = get_parent()
 	for scene in shard_scenes:
-		if scene == null or not scene.can_instantiate():
+		if scene == null:
 			continue
-		var shard := TrashShard.create(scene, shard_scale)
-		shard.collision_layer = debris_layer
-		shard.collision_mask = debris_mask
-		for body in ignore_bodies:
-			if body is PhysicsBody3D and is_instance_valid(body):
-				shard.add_collision_exception_with(body)
+		var shard: TrashShard = scene.instantiate()
+		_ignore_crusher(shard)
 		holder.add_child(shard)
-		var offset := Vector3(randf_range(-0.4, 0.4), randf_range(-0.2, 0.2), randf_range(-0.4, 0.4)) * source_size
+		var offset: Vector3 = Vector3(randf_range(-0.4, 0.4), randf_range(-0.2, 0.2), randf_range(-0.4, 0.4)) * source_size
 		shard.global_position = global_position + offset
 		shard.rotation = Vector3(randf() * TAU, randf() * TAU, randf() * TAU)
-		var dir := Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * debris_spread_speed * 0.6
-		shard.linear_velocity = Vector3(dir.x, randf_range(debris_vertical_speed.x, debris_vertical_speed.y), dir.y)
+		var spread: Vector2 = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).limit_length(1.0) * debris_spread_speed * 0.6
+		shard.linear_velocity = Vector3(spread.x, randf_range(debris_vertical_speed.x, debris_vertical_speed.y), spread.y)
 		shard.angular_velocity = Vector3(randf_range(-4, 4), randf_range(-4, 4), randf_range(-4, 4))

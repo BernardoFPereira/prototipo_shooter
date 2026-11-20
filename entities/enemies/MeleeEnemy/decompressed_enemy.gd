@@ -3,7 +3,6 @@ class_name DecompressedEnemy
 
 @onready var animation_player = $AnimationPlayer
 var current_move_target: Marker3D
-#var move_target_1: Marker3D
 
 func _ready():
 	animation_player.play("hit")

@@ -35,7 +35,7 @@ signal blades_closed(crushed_count: int)
 
 var is_lifted: bool = false
 var _spin_tween: Tween
-var _bodies_inside: Array[Player] = []
+var _bodies_inside: Array = []
 var _next_hit_time: Dictionary = {}
 var _clock: float = 0.0
 var _crush_area: Area3D
@@ -61,7 +61,7 @@ func _physics_process(delta: float) -> void:
 	_clock += delta
 	if _bodies_inside.is_empty() or not is_hurting():
 		return
-	var now := _clock
+	var now: float = _clock
 	for body in _bodies_inside.duplicate():
 		if not is_instance_valid(body):
 			_remove_invalid_bodies()
@@ -102,7 +102,7 @@ func _tween_spin(target_speed: float, duration: float) -> void:
 	if target_speed > 0.0 and not self_animations.is_playing():
 		self_animations.speed_scale = 0.0
 		self_animations.play(grinder_animation)
-	var remaining := absf(target_speed - self_animations.speed_scale)
+	var remaining: float = absf(target_speed - self_animations.speed_scale)
 	_spin_tween = create_tween()
 	if target_speed < self_animations.speed_scale:
 		_spin_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -115,19 +115,19 @@ func _tween_spin(target_speed: float, duration: float) -> void:
 
 func _play_level_animation(anim_name: StringName) -> void:
 	if not level_animations.has_animation(anim_name):
-		push_warning("Triturador: animação '%s' não existe no LevelAnimations." % anim_name)
+		push_warning("Triturador: animação '" + str(anim_name) + "' não existe no LevelAnimations.")
 		return
-	var anim := level_animations.get_animation(anim_name)
-	var track := anim.find_track(NodePath(".:position"), Animation.TYPE_VALUE)
+	var anim: Animation = level_animations.get_animation(anim_name)
+	var track: int = anim.find_track(NodePath(".:position"), Animation.TYPE_VALUE)
 	level_animations.play(anim_name)
 	if track == -1:
 		return
-	var best_time := 0.0
-	var best_dist := INF
-	var steps := 100
+	var best_time: float = 0.0
+	var best_dist: float = INF
+	var steps: int = 100
 	for i in steps + 1:
-		var t := anim.length * float(i) / float(steps)
-		var dist := position.distance_to(anim.value_track_interpolate(track, t))
+		var t: float = anim.length * float(i) / float(steps)
+		var dist: float = position.distance_to(anim.value_track_interpolate(track, t))
 		if dist < best_dist:
 			best_dist = dist
 			best_time = t
@@ -138,12 +138,12 @@ func _check_blades_closed() -> void:
 	if not self_animations.is_playing() or self_animations.current_animation != grinder_animation:
 		_last_grinder_pos = -1.0
 		return
-	var pos := self_animations.current_animation_position
-	var last := _last_grinder_pos
+	var pos: float = self_animations.current_animation_position
+	var last: float = _last_grinder_pos
 	_last_grinder_pos = pos
 	if last < 0.0:
 		return
-	var crossed := false
+	var crossed: bool = false
 	if pos >= last:
 		crossed = last < crush_time and pos >= crush_time
 	else:
@@ -155,8 +155,8 @@ func _check_blades_closed() -> void:
 func crush_now() -> int:
 	if crush_only_while_spinning and not is_hurting():
 		return 0
-	var count := 0
-	var ignore := get_crush_exceptions()
+	var count: int = 0
+	var ignore: Array = get_crush_exceptions()
 	for body in _crush_area.get_overlapping_bodies():
 		if not body.has_method("crush"):
 			continue
@@ -193,7 +193,7 @@ func _setup_crush_area() -> void:
 	for shape_node in damage_area.get_children():
 		if not (shape_node is CollisionShape3D) or shape_node.shape == null:
 			continue
-		var copy := CollisionShape3D.new()
+		var copy: CollisionShape3D = CollisionShape3D.new()
 		copy.transform = shape_node.transform
 		copy.shape = _grown_shape(shape_node.shape)
 		_crush_area.add_child(copy)
@@ -227,7 +227,7 @@ func _on_damage_area_body_exited(body: Node3D) -> void:
 
 
 func _remove_invalid_bodies() -> void:
-	var valid: Array[Player] = []
+	var valid: Array = []
 	for body in _bodies_inside:
 		if is_instance_valid(body):
 			valid.append(body)

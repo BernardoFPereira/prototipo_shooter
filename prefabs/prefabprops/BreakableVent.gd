@@ -15,29 +15,25 @@ class_name BreakableVent
 @onready var piece_2 = $BreakFX/Piece2
 @onready var piece_3 = $BreakFX/Piece3
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
 func break_vent():
-	#collision_shape_3d.disabled = true
 	set_collision_layer_value(1, false)
 	set_collision_layer_value(5, false)
 	set_collision_layer_value(9, false)
-	
+
 	for child in break_fx.get_children():
 		var fx = child as GPUParticles3D
 		var p_mat = fx.process_material as ParticleProcessMaterial
-		#print(fx.name)
 		if self.scale < Vector3(1, 1, 1):
 			print("small vent")
 			p_mat.scale_min = 1
 			p_mat.scale_max = 1
-			
+
 			if fx.name == "Piece1" || fx.name == "Piece2" || fx.name == "Piece3":
 				p_mat.scale_min = 2
 				p_mat.scale_max = 2
@@ -54,11 +50,8 @@ func break_vent():
 				p_mat.scale_min = 4
 				p_mat.scale_max = 4
 		fx.emitting = true
-	
+
 	vent_mesh.visible = false
 	break_audio.play()
-	#clean_up_vent()
 	await get_tree().create_timer(1.5).timeout
 	call_deferred("queue_free")
-
-#func clean_up_vent():

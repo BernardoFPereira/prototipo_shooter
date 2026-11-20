@@ -318,7 +318,7 @@ height = 2.4
 radial_segments = 8
 rings = 4
 
-[node name="EnemyRanged" type="RigidBody3D"]
+[node name="EnemyRanged" type="RigidBody3D" groups=["Enemies"]]
 collision_layer = 561408
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -473,11 +473,11 @@ radius = 1.5
 max_neighbors = 20
 max_speed = 6.0
 
-[node name="SwordCollisionArea" type="Area3D" parent="."]
+[node name="ArmCollisionArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 32
 
-[node name="SwordHitCollision" type="CollisionShape3D" parent="SwordCollisionArea"]
+[node name="ArmHitCollision" type="CollisionShape3D" parent="ArmCollisionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11, 0)
 shape = SubResource("CapsuleShape3D_cvyrw")
 
@@ -579,4 +579,4 @@ material_override = SubResource("ShaderMaterial_vn3ks")
 mesh = SubResource("SphereMesh_a6jhn")
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_velocity_computed"]
-[connection signal="body_entered" from="SwordCollisionArea" to="." method="_on_sword_entered"]
+[connection signal="body_entered" from="ArmCollisionArea" to="." method="_on_arm_entered"]

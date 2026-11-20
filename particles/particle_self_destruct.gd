@@ -5,6 +5,6 @@ func _ready():
 		for child in get_children():
 			child.emitting = true
 
-func _process(delta):
+func _process(_delta):
 	await get_tree().create_timer(1.5).timeout
 	queue_free()

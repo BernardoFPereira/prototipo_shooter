@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://b41xm5tprpqt0"]
+[gd_scene load_steps=5 format=3 uid="uid://b41xm5tprpqt0"]
 
 [ext_resource type="PackedScene" uid="uid://cexv7mvf6l7ve" path="res://models/level2/triturados/cuboide1_geo.glb" id="1_ruklj"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="cuboide1" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(-0.693146, 0.443276, -1.04013, 1.21186, -0.28265, 1.33755, 1.21185, -0.40809, 1.21211, -1.33743, -0.282624, 1.21201, -1.21188, -0.408101, -1.21214, 1.33745, -0.282627, -1.21203, 0.606537, 0.443276, 1.38684, 1.38684, 0.269854, -0.910077, -1.38684, 0.269854, 0.866365, 0.606537, 0.399921, -1.38684, -1.38684, 0.443276, -0.563368, 1.38684, 0.0965165, 1.1699, 1.21186, -0.408096, -1.21213, -1.21186, -0.408096, 1.21213, -1.25651, 0.00989025, 1.38684, -1.21188, -0.282655, -1.33757, -1.33745, -0.282628, -1.21203, 1.21186, -0.282651, -1.33755, -1.14743, 0.00989025, -1.26643, 1.33743, -0.282623, 1.21201, 1.21335, 0.0965165, 1.38684, -1.21188, -0.282654, 1.33757, 1.18043, 0.091271, -1.30286, 0.476759, 0.443276, 1.38684, -1.32769, 0.341779, -0.871261, -1.38684, 0.183228, 1.04013, -1.31047, 0.00989025, -1.18758, 0.649977, 0.399921, -1.34339, -0.563096, 0.443276, -1.04013, -0.866636, 0.443276, -0.996415, 1.38684, 0.226583, -0.303268, 1.30346, 0.0913084, -1.18122)
+
+[node name="cuboide1" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 8.0
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="cuboide1_geo2" parent="." instance=ExtResource("1_ruklj")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

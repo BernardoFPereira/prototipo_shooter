@@ -5,15 +5,12 @@ extends Node3D
 @export var can_open: bool = true
 @export var detect_enemies: bool = true
 @export var detect_player: bool = true
-## true = porta aberta (ou abrindo). Só muda quando uma animação começa.
 var is_opened: bool = false
-## O que a porta QUER fazer agora (aberta se tem alguém dentro). Se uma animação estiver tocando,
-## a porta espera ela terminar e só então vai pro estado desejado — nunca corta a animação.
 var _want_open: bool = false
 
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
-var _bodies_inside: Array[Node3D] = []
+var _bodies_inside: Array = []
 
 
 func _ready() -> void:
@@ -52,8 +49,7 @@ func _counts(body) -> bool:
 
 
 func _has_someone_inside() -> bool:
-	# Reconstrói a lista (erase() de objeto já destruído num Array tipado dá erro).
-	var still_inside: Array[Node3D] = []
+	var still_inside: Array = []
 	for body in _bodies_inside:
 		if not is_instance_valid(body):
 			continue
@@ -66,15 +62,16 @@ func _has_someone_inside() -> bool:
 	return not _bodies_inside.is_empty()
 
 
-## Toca open/close só quando nenhuma animação estiver tocando. Se o jogador sair e entrar rápido,
-## a animação atual termina inteira e depois a porta vai pro estado certo.
 func _update_door() -> void:
 	if anim_player.is_playing():
-		return # _on_animation_finished chama de novo quando terminar
+		return
 	if _want_open == is_opened:
 		return
 	is_opened = _want_open
-	anim_player.play("open" if is_opened else "close")
+	if is_opened:
+		anim_player.play("open")
+	else:
+		anim_player.play("close")
 
 
 func _on_animation_finished(_anim_name: StringName) -> void:

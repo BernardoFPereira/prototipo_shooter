@@ -13,6 +13,6 @@ func _on_timer_timeout():
 	glare.emitting = true
 	animation_player.play("flicker")
 	audio_stream.play()
-	
+
 	timer.wait_time = randf_range(1.2, 4.0)
 	timer.start()

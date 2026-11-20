@@ -1,7 +1,7 @@
 extends TextureRect
 class_name MatrixGlyph
 
-const GLOW_SHADER := preload("res://UI/V2/HUD/2DGlowShader.gdshader")
+const GLOW_SHADER: Shader = preload("res://UI/V2/HUD/2DGlowShader.gdshader")
 
 var _mat: ShaderMaterial
 
@@ -14,7 +14,7 @@ func _ready() -> void:
 func configure(tex: Texture2D, glow_tint: Color, intensity: float, blur_size: float,
 		threshold: float = 0.1, line_opacity: float = 0.5) -> void:
 	if _mat == null:
-		push_warning("MatrixGlyph.configure() chamado antes de add_child() — chamem depois.")
+		push_warning("MatrixGlyph: configure() foi chamado antes do add_child().")
 		_ready()
 
 	texture = tex

@@ -2,11 +2,10 @@ extends CanvasLayer
 
 signal settings_changed
 
-#region SETTINGS
-const SETTINGS_FILE := "user://menu_settings.cfg"
+const SETTINGS_FILE: String = "user://menu_settings.cfg"
 
 enum WindowMode { WINDOWED, FULLSCREEN, BORDERLESS }
-const WINDOW_MODE_NAMES := ["Janela", "Tela cheia", "Tela cheia sem borda"]
+const WINDOW_MODE_NAMES: Array = ["Janela", "Tela cheia", "Tela cheia sem borda"]
 
 
 var resolutions: Dictionary = {
@@ -18,11 +17,11 @@ var resolutions: Dictionary = {
 	"960x540": Vector2i(960, 540),
 	"800x450": Vector2i(800, 450),
 }
-const BASE_HEIGHT: float = 1080.0 
+const BASE_HEIGHT: float = 1080.0
 
-const FPS_OPTIONS := [30, 60, 120, 144, 165, 240, 0] 
+const FPS_OPTIONS: Array = [30, 60, 120, 144, 165, 240, 0]
 
-const DEFAULTS := {
+const DEFAULTS: Dictionary = {
 	"window_mode": WindowMode.FULLSCREEN,
 	"resolution": "1920x1080",
 	"vsync": true,
@@ -41,7 +40,6 @@ const DEFAULTS := {
 	"camera_motion": 1.0,
 }
 
-# Vídeo
 var window_mode: int = DEFAULTS.window_mode
 var resolution_key: String = DEFAULTS.resolution
 var current_resolution: Vector2i = Vector2i(1920, 1080)
@@ -53,7 +51,6 @@ var fov: float = DEFAULTS.fov
 var show_fps: bool = DEFAULTS.show_fps
 var brightness: float = DEFAULTS.brightness
 
-# Áudio (0 a 100 na barra)
 var music_percent: float = DEFAULTS.music_percent
 var sfx_percent: float = DEFAULTS.sfx_percent
 var hud_percent: float = DEFAULTS.hud_percent
@@ -61,11 +58,8 @@ var music_muted: bool = false
 var sfx_muted: bool = false
 var hud_muted: bool = false
 
-# Conforto (0 a 1)
 var camera_motion: float = DEFAULTS.camera_motion
-#endregion
 
-#region CONTROLS
 var is_keyboard: bool = true
 var mouse_sensitivity: float = DEFAULTS.mouse_sensitivity
 var invert_y: bool = DEFAULTS.invert_y
@@ -80,22 +74,20 @@ func slider_to_sensitivity(value: float) -> float:
 func sensitivity_to_slider(sens: float) -> float:
 	var normalized = clampf((sens - SENSITIVITY_MIN) / (SENSITIVITY_MAX - SENSITIVITY_MIN), 0.0, 1.0)
 	return normalized * SENS_SLIDER_MAX
-#endregion
 
-#region AUDIO MANAGEMENT
 enum AudioBus {
 	MASTER = 0,
 	MUSIC = 1,
 	SFX = 2,
 	HUD = 3
 }
- 
+
 enum SoundCategory {
 	SFX,
 	MUSIC,
 	HUD
 }
- 
+
 var sounds: Dictionary = {
 	"hover_button": {
 		"stream": preload("res://assets/sounds/hud/hover_button.wav"),
@@ -127,40 +119,30 @@ var sounds: Dictionary = {
 		"loop": true
 	},
 }
- 
+
 var audio_players: Dictionary = {}
 var current_music: String = ""
-var current_music_player: AudioStreamPlayer = null
-#endregion
- 
-#region PLAYER VARIABLES
+
+@onready var master_player: AudioStreamPlayer = $MasterPlayer
+@onready var music_player: AudioStreamPlayer = $MusicPlayer
+@onready var sfx_player: AudioStreamPlayer = $SFXPlayer
+@onready var hud_player: AudioStreamPlayer = $HUDPlayer
+@onready var current_music_player: AudioStreamPlayer = $GlobalMusicPlayer
+@onready var _brightness_rect: ColorRect = $BrightnessOverlay
+@onready var _fps_label: Label = $FPSLabel
+
 var is_introduction: bool
 var is_walk_introduction: bool
 var is_fire_introduction: bool
-#endregion
- 
+
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS 
-	layer = 120
-	_setup_audio_players()
-	_build_overlays()
+	audio_players[AudioBus.MASTER] = master_player
+	audio_players[AudioBus.MUSIC] = music_player
+	audio_players[AudioBus.SFX] = sfx_player
+	audio_players[AudioBus.HUD] = hud_player
 	load_settings()
 	play_music("soundtrack_1", 0)
- 
-func _setup_audio_players() -> void:
-	for bus in AudioBus.values():
-		var player = AudioStreamPlayer.new()
-		player.bus = AudioServer.get_bus_name(bus)
-		player.process_mode = Node.PROCESS_MODE_ALWAYS
-		add_child(player)
-		audio_players[bus] = player
-	current_music_player = AudioStreamPlayer.new()
-	current_music_player.bus = AudioServer.get_bus_name(AudioBus.MUSIC)
-	current_music_player.process_mode = Node.PROCESS_MODE_ALWAYS
-	self.add_child(current_music_player)
-	current_music_player.name = "GlobalMusicPlayer"
- 
-#region AUDIO PLAYBACK
+
 func play_sound(sound_name: String) -> void:
 	var sound_data = sounds[sound_name]
 	var player = audio_players[sound_data.bus]
@@ -174,15 +156,12 @@ func play_sound(sound_name: String) -> void:
 	if sound_data.category == SoundCategory.MUSIC and sound_data.get("loop", false):
 		player.finished.connect(_on_music_finished.bind(player, sound_data.stream), CONNECT_ONE_SHOT)
 	player.play()
- 
+
 func _on_music_finished(player: AudioStreamPlayer, stream: AudioStream) -> void:
 	player.stream = stream
 	player.play()
- 
+
 func play_music(music_name: String, fade_in: float = 0.0) -> void:
-	
-	if not is_instance_valid(current_music_player):
-		_setup_audio_players()
 	var sound_data = sounds[music_name]
 	current_music = music_name
 	if fade_in > 0:
@@ -191,7 +170,7 @@ func play_music(music_name: String, fade_in: float = 0.0) -> void:
 		current_music_player.stream = sound_data.stream
 		current_music_player.volume_db = sound_data.volume_db
 		current_music_player.play()
- 
+
 func stop_music(fade_out: float = 0.0) -> void:
 	if not is_instance_valid(current_music_player):
 		return
@@ -199,21 +178,19 @@ func stop_music(fade_out: float = 0.0) -> void:
 		_fade_out_music(fade_out)
 	else:
 		current_music_player.stop()
- 
+
 func _fade_in_music(stream: AudioStream, duration: float) -> void:
 	current_music_player.stream = stream
 	current_music_player.volume_db = MIN_DB
 	current_music_player.play()
 	var tween = create_tween()
 	tween.tween_property(current_music_player, "volume_db", 0.0, duration)
- 
+
 func _fade_out_music(duration: float) -> void:
 	var tween = create_tween()
 	tween.tween_property(current_music_player, "volume_db", MIN_DB, duration)
 	tween.tween_callback(current_music_player.stop)
-#endregion
 
-#region VOLUME
 const MIN_DB: float = -80.0
 const VOLUME_MAX_DB: float = 0.0
 
@@ -258,10 +235,8 @@ func set_muted(bus: AudioBus, muted: bool) -> void:
 		AudioBus.HUD: hud_muted = muted
 	AudioServer.set_bus_mute(bus, muted)
 	settings_changed.emit()
-#endregion
 
 
-#region VÍDEO
 func set_window_mode(mode: int) -> void:
 	window_mode = clampi(mode, 0, WindowMode.size() - 1)
 	match window_mode:
@@ -288,7 +263,10 @@ func set_resolution(key: String) -> void:
 
 func set_vsync(enabled: bool) -> void:
 	vsync = enabled
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if enabled else DisplayServer.VSYNC_DISABLED)
+	if enabled:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+	else:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	settings_changed.emit()
 
 func set_max_fps(fps: int) -> void:
@@ -317,10 +295,10 @@ func _apply_render_scale() -> void:
 	get_tree().root.scaling_3d_scale = clampf(current_resolution.y / BASE_HEIGHT, 0.25, 1.0)
 
 func _apply_window_size() -> void:
-	var usable := DisplayServer.screen_get_usable_rect().size
-	var size := current_resolution
+	var usable: Vector2i = DisplayServer.screen_get_usable_rect().size
+	var size: Vector2i = current_resolution
 	if size.x > usable.x or size.y > usable.y:
-		var ratio := minf(float(usable.x) / size.x, float(usable.y) / size.y)
+		var ratio: float = minf(float(usable.x) / size.x, float(usable.y) / size.y)
 		size = Vector2i(int(size.x * ratio), int(size.y * ratio))
 	get_window().size = size
 	center_window()
@@ -329,10 +307,8 @@ func center_window() -> void:
 	var screen_center = DisplayServer.screen_get_position() + DisplayServer.screen_get_size() / 2
 	var window_size = get_window().get_size_with_decorations()
 	get_window().set_position(screen_center - window_size / 2)
-#endregion
 
 
-#region CONTROLES / CONFORTO
 func set_mouse_sensitivity(value: float) -> void:
 	mouse_sensitivity = clampf(value, SENSITIVITY_MIN, SENSITIVITY_MAX)
 	settings_changed.emit()
@@ -345,10 +321,7 @@ func set_camera_motion(value: float) -> void:
 	camera_motion = clampf(value, 0.0, 1.0)
 	settings_changed.emit()
 
-#endregion
 
-
-#region APLICAR / SALVAR / CARREGAR
 func apply_settings() -> void:
 	set_resolution(resolution_key)
 	set_window_mode(window_mode)
@@ -415,11 +388,13 @@ func load_settings() -> void:
 		reset_to_defaults()
 		return
 	var version: int = config.get_value("meta", "version", 1)
-	# Vídeo
 	if version >= 2:
 		window_mode = config.get_value("video", "window_mode", DEFAULTS.window_mode)
-	else: # formato antigo: só "fullscreen" true/false
-		window_mode = WindowMode.FULLSCREEN if config.get_value("video", "fullscreen", false) else WindowMode.WINDOWED
+	else:
+		if config.get_value("video", "fullscreen", false):
+			window_mode = WindowMode.FULLSCREEN
+		else:
+			window_mode = WindowMode.WINDOWED
 	resolution_key = config.get_value("video", "resolution", DEFAULTS.resolution)
 	if not resolutions.has(resolution_key):
 		resolution_key = DEFAULTS.resolution
@@ -429,19 +404,17 @@ func load_settings() -> void:
 	fov = config.get_value("video", "fov", DEFAULTS.fov)
 	show_fps = config.get_value("video", "show_fps", DEFAULTS.show_fps)
 	brightness = config.get_value("video", "brightness", DEFAULTS.brightness)
-	# Áudio
 	if version >= 2:
 		music_percent = config.get_value("audio", "music_percent", DEFAULTS.music_percent)
 		sfx_percent = config.get_value("audio", "sfx_percent", DEFAULTS.sfx_percent)
 		hud_percent = config.get_value("audio", "hud_percent", DEFAULTS.hud_percent)
-	else: # formato antigo guardava dB; o máximo antigo (-5 dB) vira 100%
+	else:
 		music_percent = _old_db_to_percent(config.get_value("audio", "music_volume", -5.0))
 		sfx_percent = _old_db_to_percent(config.get_value("audio", "sfx_volume", -5.0))
 		hud_percent = _old_db_to_percent(config.get_value("audio", "hud_volume", -5.0))
 	music_muted = config.get_value("audio", "music_muted", false)
 	sfx_muted = config.get_value("audio", "sfx_muted", false)
 	hud_muted = config.get_value("audio", "hud_muted", false)
-	# Controles / conforto
 	mouse_sensitivity = config.get_value("controls", "mouse_sensitivity", DEFAULTS.mouse_sensitivity)
 	invert_y = config.get_value("controls", "invert_y", DEFAULTS.invert_y)
 	camera_motion = config.get_value("comfort", "camera_motion", DEFAULTS.camera_motion)
@@ -453,66 +426,15 @@ func load_settings() -> void:
 func _old_db_to_percent(db: float) -> float:
 	if db <= -79.0:
 		return 0.0
-	var old_slider := clampf(20.0 - (-5.0 - db) / 2.0, 0.0, 20.0)
+	var old_slider: float = clampf(20.0 - (-5.0 - db) / 2.0, 0.0, 20.0)
 	return old_slider / 20.0 * 100.0
-#endregion
 
 
-#region OVERLAYS
-var _fps_label: Label
-var _brightness_rect: ColorRect
 var _fps_timer: float = 0.0
-
-const BRIGHTNESS_SHADER_CODE := """
-shader_type canvas_item;
-uniform sampler2D screen_tex : hint_screen_texture, filter_nearest;
-uniform float brightness = 1.0;
-void fragment() {
-	vec3 c = texture(screen_tex, SCREEN_UV).rgb;
-	// Gama: clareia/escurece os meio-tons sem estourar o branco nem acinzentar o preto.
-	c = pow(max(c, vec3(0.0)), vec3(1.0 / brightness));
-	COLOR = vec4(c, 1.0);
-}
-"""
-
-func _build_overlays() -> void:
-	_brightness_rect = ColorRect.new()
-	_brightness_rect.name = "BrightnessOverlay"
-	_brightness_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_brightness_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var shader := Shader.new()
-	shader.code = BRIGHTNESS_SHADER_CODE
-	var mat := ShaderMaterial.new()
-	mat.shader = shader
-	_brightness_rect.material = mat
-	_brightness_rect.visible = false
-	add_child(_brightness_rect)
-
-	_fps_label = Label.new()
-	_fps_label.name = "FPSLabel"
-	_fps_label.set_anchors_preset(Control.PRESET_TOP_RIGHT)
-	_fps_label.offset_left = -220
-	_fps_label.offset_right = -16
-	_fps_label.offset_top = 8
-	_fps_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_fps_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_fps_label.add_theme_color_override("font_color", Color(0, 1, 0))
-	_fps_label.add_theme_color_override("font_outline_color", Color(0, 0, 0))
-	_fps_label.add_theme_constant_override("outline_size", 6)
-	if ResourceLoader.exists("res://UI/Fonts/m6x11plus.ttf"):
-		_fps_label.add_theme_font_override("font", load("res://UI/Fonts/m6x11plus.ttf"))
-	_fps_label.add_theme_font_size_override("font_size", 36)
-	_fps_label.visible = false
-	add_child(_fps_label)
 
 func _process(delta: float) -> void:
 	if _fps_label and _fps_label.visible:
 		_fps_timer -= delta
 		if _fps_timer <= 0.0:
 			_fps_timer = 0.25
-			_fps_label.text = "%d FPS" % Engine.get_frames_per_second()
-#endregion
-
-func _exit_tree() -> void:
-	if is_instance_valid(current_music_player):
-		current_music_player.queue_free()
+			_fps_label.text = str(Engine.get_frames_per_second()) + " FPS"

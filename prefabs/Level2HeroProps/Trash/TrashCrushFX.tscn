@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dq7jnclkki6nj"]
+[gd_scene load_steps=12 format=3 uid="uid://dq7jnclkki6nj"]
 
 [ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_crush_fx.gd" id="1_d8gpv"]
 [ext_resource type="Shader" uid="uid://epm1yivou7pv" path="res://vfx/pixelated_particle_billboard.tres" id="2_dq8qn"]
+[ext_resource type="PackedScene" uid="uid://bhpqbe4pq0h6o" path="res://prefabs/Level2HeroProps/Trash/TrashDebris.tscn" id="3_pedaco"]
 
 [sub_resource type="Curve" id="Curve_6vhj1"]
 _data = [Vector2(0, 0.6), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -11,6 +12,7 @@ point_count = 3
 curve = SubResource("Curve_6vhj1")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hgise"]
+resource_local_to_scene = true
 emission_shape = 1
 emission_sphere_radius = 0.5
 direction = Vector3(0, 1, 0)
@@ -34,6 +36,7 @@ material = SubResource("ShaderMaterial_02vey")
 size = Vector2(0.5, 0.5)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qccgl"]
+resource_local_to_scene = true
 emission_shape = 1
 emission_sphere_radius = 0.4
 direction = Vector3(0, 1, 0)
@@ -57,6 +60,7 @@ size = Vector3(0.03, 0.03, 0.03)
 
 [node name="TrashCrushFX" type="Node3D"]
 script = ExtResource("1_d8gpv")
+debris_scene = ExtResource("3_pedaco")
 
 [node name="Dust" type="GPUParticles3D" parent="."]
 layers = 4

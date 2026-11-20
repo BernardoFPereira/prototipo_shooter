@@ -28,8 +28,8 @@ const quit_background = preload("uid://dmel4nekr0nx4")
 var context: Context = Context.MAIN_MENU
 var current_player: Player = null
 
-const LEVEL_SCENE := "uid://cw50tmi4jwwv4"
-const MENU_SCENE := "uid://d2rqkagxvdfhw"
+const LEVEL_SCENE: String = "uid://cw50tmi4jwwv4"
+const MENU_SCENE: String = "uid://d2rqkagxvdfhw"
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -44,6 +44,8 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if SceneLoader.is_loading:
 		return
+	if is_instance_valid(current_player) and current_player.is_dead:
+		return
 	if context == Context.PAUSE_MENU and event.is_action_pressed("ui_cancel"):
 		if visible:
 			close_pause_menu()
@@ -51,7 +53,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			_open_pause_menu()
 
 
-#region CONTEXT SWITCHING
 func open_as_main_menu() -> void:
 	context = Context.MAIN_MENU
 	current_player = null
@@ -61,22 +62,22 @@ func open_as_main_menu() -> void:
 	retry_button.visible = false
 	credits_button.visible = true
 
-	if not SceneLoader.is_loading: 
+	if not SceneLoader.is_loading:
 		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	visible = true
-	
+
 	UI.is_introduction = false
 	UI.is_walk_introduction = false
 	UI.is_fire_introduction = false
-	
+
 	_reset_groups()
 
 func enter_gameplay_context(player: Player) -> void:
 	context = Context.PAUSE_MENU
 	current_player = player
 	visible = false
-	if not SceneLoader.is_loading: 
+	if not SceneLoader.is_loading:
 		get_tree().paused = false
 
 func _open_pause_menu() -> void:
@@ -113,9 +114,7 @@ func _reset_groups() -> void:
 	ctrls_button.button_pressed = false
 	credits_button.button_pressed = false
 	quit_button.button_pressed = false
-#endregion
 
-#region BUTTON HANDLERS
 func _on_play_pressed() -> void:
 	UI.play_sound("confirm_button")
 	UI.is_introduction = true
@@ -205,4 +204,3 @@ func _on_really_quit_pressed() -> void:
 	else:
 		visible = false
 		SceneLoader.go_to_main_menu(MENU_SCENE)
-#endregion

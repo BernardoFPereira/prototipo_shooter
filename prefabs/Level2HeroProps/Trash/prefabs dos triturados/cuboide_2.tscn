@@ -1,7 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmtnh7lhsbgxu"]
+[gd_scene load_steps=5 format=3 uid="uid://cmtnh7lhsbgxu"]
 
 [ext_resource type="PackedScene" uid="uid://c808shctlug4j" path="res://models/level2/triturados/cuboide2_geo.glb" id="1_6vsj3"]
+[ext_resource type="Script" path="res://prefabs/Level2HeroProps/Trash/trash_shard.gd" id="2_script"]
+[ext_resource type="PhysicsMaterial" uid="uid://2ye1ihw7nk0u" path="res://prefabs/Level2HeroProps/Trash/trash_physics.tres" id="3_fisica"]
 
-[node name="cuboide2" type="Node3D"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
+points = PackedVector3Array(1.25651, -0.796096, 1.38684, 1.30638, -0.749582, 1.18387, -1.34844, -0.816047, -1.22199, 1.03985, 0.243903, -1.38684, -1.25651, 0.850762, -1.38684, -1.34842, -0.816033, 1.22197, 1.25651, -0.796096, -1.38684, -1.21188, 0.820739, 1.33757, 1.30585, -0.0555642, 1.18339, -0.260099, 0.764068, -1.38684, -1.03985, -0.839443, -1.38684, -1.03985, -0.839443, 1.38684, -1.33814, 0.653627, 1.21265, 1.38684, -0.796096, -1.25679, -0.159855, 0.665556, 1.27985, 1.32923, 0.0262741, 0.166023, -1.34844, 0.700925, -1.22199, 1.21047, 0.109897, -1.33602, 1.19199, -0.0558651, 1.31561, 1.23792, 0.0654228, 0.718786, 1.33666, -0.307521, -1.21131, -0.402973, 0.751268, 1.28972, -1.12646, 0.850762, -1.38684, -1.22185, -0.816131, -1.34858, -1.22183, -0.816118, 1.34856, -0.890497, 0.795132, 1.29554, 0, 0.585632, 1.28003)
+
+[node name="cuboide2" type="RigidBody3D" groups=["trash_shard"]]
+collision_layer = 262144
+collision_mask = 262161
+mass = 8.0
+physics_material_override = ExtResource("3_fisica")
+linear_damp = 0.2
+angular_damp = 1.5
+script = ExtResource("2_script")
 
 [node name="cuboide2_geo2" parent="." instance=ExtResource("1_6vsj3")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_1")

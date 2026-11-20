@@ -7,7 +7,7 @@ func _ready():
 	for child in get_children():
 		if child is GPUParticles3D:
 			child.emitting = true
-	
+
 	spawn_decals()
 
 func spawn_decals():
@@ -18,10 +18,10 @@ func spawn_decals():
 		decal_to_spawn.upper_fade = 0
 		decal_to_spawn.lower_fade = 0
 		decal_to_spawn.cull_mask = 1
-		
+
 		add_sibling(decal_to_spawn)
 		decal_to_spawn.global_position = global_position + Vector3(randf_range(-3.0, 3.0), -2, randf_range(-3.0, 3.0))
-		
+
 		await get_tree().create_timer(.5).timeout
 
 func _on_timer_timeout():
