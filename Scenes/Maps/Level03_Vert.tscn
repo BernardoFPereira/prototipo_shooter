@@ -57213,7 +57213,7 @@ spot_range = 24.9662
 spot_angle = 42.7336
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Iluminação/lanterna2/lanterninha/SpotLight3D" index="0"]
-transform = Transform3D(1, 4.47035e-08, -4.47035e-08, 0, 1, 0, 7.45058e-09, -2.98023e-08, 1, -0.41823, 0.356283, -0.501779)
+transform = Transform3D(1, -2.98023e-08, 6.70552e-08, -2.98023e-08, 1, -5.96046e-08, 0, -2.98023e-08, 1, -0.41823, 0.356283, -0.501778)
 light_color = Color(1, 0.415686, 0.239216, 1)
 light_energy = 51.63
 shadow_enabled = true
@@ -57308,7 +57308,7 @@ spot_angle = 56.3558
 transform = Transform3D(0.299919, 0.147727, 0.942459, -0.0377779, 0.989003, -0.143, -0.95322, 0.00728542, 0.302199, -19.2794, -3.62191, 19.422)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Iluminação/OmniLight3D/lanterninha4"]
-transform = Transform3D(0.503205, -0.862063, 0.0602148, -0.0129297, 0.0621601, 0.997981, -0.864069, -0.502968, 0.020132, 0.00957298, 3.09784, 0.0531044)
+transform = Transform3D(0.503205, -0.862063, 0.0602146, -0.0129297, 0.0621601, 0.997981, -0.864069, -0.502968, 0.0201322, 0.00957108, 3.09784, 0.0531044)
 light_color = Color(1, 0.560784, 0.368627, 1)
 light_energy = 355.185
 light_indirect_energy = 1.25
