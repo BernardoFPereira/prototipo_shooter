@@ -168,7 +168,9 @@ enum EnemyState {
 	REPOSITIONING, ## se afastando do player até preferred_distance (kiting)
 	DECOMPRESS,
 }
- 
+
+var blast_door
+
 func _ready() -> void:
 	detection_ch.visible = false
 	_configure_engagement_ranges()
@@ -238,17 +240,15 @@ func _physics_process(delta: float) -> void:
 
 	match current_state:
 		EnemyState.DECOMPRESS:
-			_stop_moving()
-			var target_transform = global_transform.looking_at(get_tree().get_first_node_in_group("BlastDoor").global_position, Vector3.UP)
+			#_stop_moving()
+			var target_transform = global_transform.looking_at(blast_door.global_position, Vector3.UP, true)
 			global_transform = global_transform.interpolate_with(target_transform, 0.3)
-			
 		EnemyState.IDLE:
 			_stop_moving()
 			if _can_see_target:
 				set_current_state(EnemyState.CHASING)
 			elif not _patrol_waypoints.is_empty():
 				set_current_state(EnemyState.PATROLLING)
-
 		EnemyState.PATROLLING:
 			if _can_see_target:
 				set_current_state(EnemyState.CHASING)
@@ -258,7 +258,6 @@ func _physics_process(delta: float) -> void:
 				_advance_patrol_waypoint()
 			else:
 				_face_movement()
-
 		EnemyState.CHASING:
 			if not _has_valid_target():
 				set_current_state(EnemyState.IDLE)
@@ -266,18 +265,15 @@ func _physics_process(delta: float) -> void:
 			if _time_since_seen > lose_target_time:
 				set_current_state(EnemyState.SEARCHING)
 				return
-
 			if _attack_cooldown_left <= 0.0 and target_is_in_range():
 				set_current_state(EnemyState.ATTACKING)
 				return
-
 			if _can_see_target:
 				_move_to(target.global_position, chase_speed, _engage_distance())
 				_face_target()
 			else:
 				_move_to(_last_known_position, chase_speed, waypoint_reach_distance)
 				_face_movement()
-
 		EnemyState.SEARCHING:
 			if _can_see_target:
 				set_current_state(EnemyState.CHASING)
@@ -287,7 +283,6 @@ func _physics_process(delta: float) -> void:
 					set_current_state(EnemyState.PATROLLING if not _patrol_waypoints.is_empty() else EnemyState.IDLE)
 			else:
 				_face_movement()
-
 		EnemyState.REPOSITIONING:
 			_kite_timer -= delta
 			var speed := kite_speed if kite_speed > 0.0 else chase_speed
@@ -298,14 +293,13 @@ func _physics_process(delta: float) -> void:
 				_face_movement()
 			if arrived or _kite_timer <= 0.0 or not _has_valid_target():
 				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
-
 		EnemyState.HIT:
 			_face_target()
 			if not is_floating:
 				var slow := clampf(hit_ground_friction * delta, 0.0, 1.0)
 				linear_velocity.x = lerpf(linear_velocity.x, 0.0, slow)
 				linear_velocity.z = lerpf(linear_velocity.z, 0.0, slow)
-
+			
 			_hit_elapsed += delta
 			if is_floating:
 				_hit_was_airborne = true
@@ -313,10 +307,8 @@ func _physics_process(delta: float) -> void:
 				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
 			if current_state == EnemyState.HIT and hit_max_time > 0.0 and _hit_elapsed >= hit_max_time:
 				set_current_state(EnemyState.CHASING if _has_valid_target() else EnemyState.IDLE)
-
 		EnemyState.ATTACKING:
 			_face_target()
-
 		EnemyState.DEAD:
 			rotation.y = 0
 
@@ -588,6 +580,11 @@ func _update_shield_visual() -> void:
 
 func set_current_state(new_state: EnemyState) -> void:
 	match new_state:
+		EnemyState.DECOMPRESS:
+			blast_door = get_tree().get_first_node_in_group("BlastDoor")
+			_pre_state_change(new_state)
+			_play_anim("idle", true)
+			
 		EnemyState.IDLE:
 			if current_state == EnemyState.DEAD:
 				return

@@ -22,6 +22,7 @@ class_name EndCinematic
 
 func start_decompression_sequence():
 	timer.start()
+	klaxon_sfx.play()
 	klaxon_timer.start()
 	alarm_loop.play()
 	
@@ -52,7 +53,7 @@ func turn_on_lights():
 
 func swap_enemy_models(enemies: Array[Node3D]):
 	print("Enemies Detected:")
-	print(enemy_detect_area.get_overlapping_bodies())
+	#print(enemy_detect_area.get_overlapping_bodies())
 	print("---")
 	
 	var enemy_melee = load("res://entities/enemies/MeleeEnemy/decompressed_enemy_melee.tscn")
@@ -62,7 +63,7 @@ func swap_enemy_models(enemies: Array[Node3D]):
 		#enemy = enemy as EnemyBase
 		#enemy.current_state = EnemyBase.EnemyState.IDLE
 		enemy.set_current_state(enemy.EnemyState.DECOMPRESS)
-		enemy.target = null
+		#enemy.target = null
 	
 	for enemy in enemies:
 		var enemy_inst
@@ -95,6 +96,7 @@ func spawn_tubes():
 		tube_inst.global_position = tube.global_position
 		tube_inst.scale = tube.scale
 		$MovingObjects.add_child(tube_inst)
+		tube.call_deferred("queue_free")
 		var _time = randf_range(0.8, 3.0)
 		await get_tree().create_timer(_time).timeout
 

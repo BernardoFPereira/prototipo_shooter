@@ -377,13 +377,19 @@ func handle_states(delta):
 func _rotate_camera():
 	if is_dead:
 		return
-	if is_end_cinematic:
-		return
+	#if is_end_cinematic:
+		#return
 	if input_mouse and has_ability(Ability.LOOK):
-		rotate_y(-input_mouse.x * UI.mouse_sensitivity)
-		var invert := -1.0 if UI.invert_y else 1.0
-		head.rotate_x(-input_mouse.y * UI.mouse_sensitivity * invert)
-		action_performed.emit(Action.LOOK, rad_to_deg(input_mouse.length() * UI.mouse_sensitivity))
+		if is_end_cinematic:
+			rotate_y(-input_mouse.x * (UI.mouse_sensitivity / 8))
+			var invert := -1.0 if UI.invert_y else 1.0
+			head.rotate_x(-input_mouse.y * (UI.mouse_sensitivity / 8) * invert)
+			action_performed.emit(Action.LOOK, rad_to_deg(input_mouse.length() * UI.mouse_sensitivity))
+		else:
+			rotate_y(-input_mouse.x * UI.mouse_sensitivity)
+			var invert := -1.0 if UI.invert_y else 1.0
+			head.rotate_x(-input_mouse.y * UI.mouse_sensitivity * invert)
+			action_performed.emit(Action.LOOK, rad_to_deg(input_mouse.length() * UI.mouse_sensitivity))
 	head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 	head.rotation.z = clamp(head.rotation.z, -deg_to_rad(50), deg_to_rad(50))
 	head.rotation.y = clamp(head.rotation.y, deg_to_rad(0), deg_to_rad(0))

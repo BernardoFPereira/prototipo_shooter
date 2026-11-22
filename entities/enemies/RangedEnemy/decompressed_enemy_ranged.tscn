@@ -228,7 +228,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_52qx1")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_33lbq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7t3wb"]
 shader = ExtResource("40_rgh1r")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -525,7 +525,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_33lbq")
+material = SubResource("ShaderMaterial_7t3wb")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

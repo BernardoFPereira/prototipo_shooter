@@ -13,6 +13,7 @@ class_name SpawnerDoor
 @export var one_shot = true
 @export var is_triggered: bool
 @export var aggro: bool
+@export var is_wave: bool
  
 @export_category("Patrol")
 @export var patrol_route_name: String = ""
@@ -29,14 +30,20 @@ func spawn_enemy():
 	if melee:
 		for melee_enemy in melee:
 			var to_spawn = load("res://entities/enemies/MeleeEnemy/enemy_melee.tscn")
-			var spawned = to_spawn.instantiate()
+			var spawned: EnemyBase = to_spawn.instantiate()
 			spawned.global_transform = spawn_point.global_transform
 			spawned.target = get_tree().get_first_node_in_group("Player")
 			spawned.patrol_route_name = patrol_route_name
+			if aggro:
+				spawned.start_alerted = true
+				spawned.lose_target_time = 10.0
+				#spawned.set_current_state(EnemyBase.EnemyState.CHASING)
+				
 			add_sibling(spawned)
 			#get_tree().root.add_child(spawned)
 			if aggro:
-				spawned.current_state = EnemyBase.EnemyState.CHASING
+				spawned.set_current_state(EnemyBase.EnemyState.CHASING)
+
 			door_anim_player.play("door_open")
 			await get_tree().create_timer(3).timeout
 			door_anim_player.play_backwards("door_open")
@@ -52,7 +59,7 @@ func spawn_enemy():
 			add_sibling(spawned)
 			#get_tree().root.add_child(spawned)
 			if aggro:
-				spawned.current_state = EnemyBase.EnemyState.CHASING
+				spawned.set_current_state(EnemyBase.EnemyState.CHASING)
 			door_anim_player.play("door_open")
 			await get_tree().create_timer(3).timeout
 			door_anim_player.play_backwards("door_open")

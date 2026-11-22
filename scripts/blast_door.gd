@@ -15,6 +15,7 @@ func start_decompress():
 func open_blast_door():
 	animation_player.play("open")
 	open_sfx.play()
+	await get_tree().create_timer(0.5).timeout
 	decompress_start.play()
 	await get_tree().create_timer(0.5).timeout
 	decompress_loop.play()
