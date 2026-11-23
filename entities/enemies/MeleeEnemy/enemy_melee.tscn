@@ -253,7 +253,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_3uxr4")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ucgeo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bec7g"]
 shader = ExtResource("40_thpls")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -542,7 +542,7 @@ skin = SubResource("Skin_d5emy")
 surface_material_override/0 = ExtResource("3_4b8fk")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D"]
-transform = Transform3D(-0.946919, -0.312275, -0.0763451, 0.159578, -0.662761, 0.73163, -0.279068, 0.680612, 0.677413, -0.548647, 1.49822, -0.0221227)
+transform = Transform3D(-0.946919, -0.312275, -0.0763437, 0.159578, -0.66276, 0.731631, -0.279067, 0.680613, 0.677412, -0.548647, 1.49822, -0.0221226)
 bone_name = "lowerArm.R"
 bone_idx = 11
 
@@ -631,7 +631,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_ucgeo")
+material = SubResource("ShaderMaterial_bec7g")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

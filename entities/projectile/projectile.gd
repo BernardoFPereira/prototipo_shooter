@@ -60,13 +60,13 @@ func explode():
 	get_tree().root.add_child(explosion)
 	
 	for collision in explosion_area.collision_result:
-		
 		if collision.collider is Player:
 			var player = collision.collider as Player
 			var knockback_force = global_position.direction_to(player.global_position) * knockback
 			print(knockback_force)
 			knockback_force.y = min(knockback_force.y, max_jump_height)
 			player.velocity += knockback_force
+			player.velocity.y = min(player.velocity.y, 20)
 			print(player.velocity)
 		
 		if collision.collider is EnemyMelee:

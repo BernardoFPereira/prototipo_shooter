@@ -1,8 +1,7 @@
-[gd_scene load_steps=64 format=3 uid="uid://dyngooikjw5l6"]
+[gd_scene load_steps=61 format=3 uid="uid://dyngooikjw5l6"]
 
 [ext_resource type="Script" path="res://entities/sword/sword.gd" id="1_h1e1e"]
 [ext_resource type="PackedScene" uid="uid://dl82ow63gekjk" path="res://Scenes/Assets/sword.glb" id="2_kqb88"]
-[ext_resource type="Material" uid="uid://c7oicl1hl28ur" path="res://entities/sword/swordstuckparticles.tres" id="2_usrfs"]
 [ext_resource type="Texture2D" uid="uid://cd0g5ow1n140w" path="res://models/player/PlayerArmature_John_RocketArms_Arm_mtl_BaseColor.png" id="3_0q1b2"]
 [ext_resource type="Texture2D" uid="uid://8acna15ax3dq" path="res://models/player/PlayerArmature_cannontex.png" id="4_6mdsy"]
 [ext_resource type="Material" uid="uid://c7ipp8wermpp2" path="res://entities/sword/swordtipparticles.tres" id="4_i0gvs"]
@@ -162,16 +161,6 @@ _data = {
 "flying": SubResource("Animation_3dbqs"),
 "stuck": SubResource("Animation_epnd4")
 }
-
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8k2t4"]
-albedo_color = Color(0.3773, 0.77, 0.48202, 0.803922)
-
-[sub_resource type="BoxMesh" id="BoxMesh_fbjm6"]
-lightmap_size_hint = Vector2i(5, 8)
-material = SubResource("ORMMaterial3D_8k2t4")
-custom_aabb = AABB(2.22, 1.375, 0, 0, 53.035, 0)
-flip_faces = true
-size = Vector3(0.165, 0.135, 0.23)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46sd6"]
 resource_name = "arms_mat.1001"
@@ -603,16 +592,6 @@ replication_config = SubResource("SceneReplicationConfig_3aojy")
 libraries = {
 "": SubResource("AnimationLibrary_44j61")
 }
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="AnimationPlayer"]
-transform = Transform3D(0.615086, 0, 0, 0, 0.615086, 0, 0, 0, 0.615086, 0, 0.0613556, 0.165778)
-emitting = false
-amount = 250
-explosiveness = 0.18
-randomness = 0.24
-visibility_aabb = AABB(-1.90855, -2.54887, -3.00871, 3.8171, 4.7032, 6.01741)
-process_material = ExtResource("2_usrfs")
-draw_pass_1 = SubResource("BoxMesh_fbjm6")
 
 [node name="ArmProjectile" type="Node3D" parent="."]
 

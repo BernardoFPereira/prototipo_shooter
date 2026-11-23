@@ -252,7 +252,7 @@ streams_count = 1
 stream_0/stream = ExtResource("39_x0e86")
 stream_0/weight = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7oo7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3xmt4"]
 shader = ExtResource("40_l2tgb")
 shader_parameter/glow_tint = Color(1, 1, 1, 1)
 shader_parameter/detect_color = Color(1, 1, 1, 1)
@@ -343,6 +343,7 @@ radial_segments = 8
 rings = 4
 
 [node name="EnemyMelee" type="RigidBody3D" groups=["Enemies"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_layer = 561408
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -613,7 +614,7 @@ size = Vector2i(1920, 1080)
 
 [node name="DetectionCH" type="TextureRect" parent="SubViewport"]
 visible = false
-material = SubResource("ShaderMaterial_s7oo7")
+material = SubResource("ShaderMaterial_3xmt4")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

@@ -426,6 +426,7 @@ func try_throw_sword():
 		return
 	var sword = sword_scene.instantiate() as Sword
 	sword.transform = head.global_transform
+	sword.rotate_y(deg_to_rad(180))
 	get_parent().add_child(sword, true)
 	sword.start(self, -head.global_transform.basis.z)
 	is_disarmed = true

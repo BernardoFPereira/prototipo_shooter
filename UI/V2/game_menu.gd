@@ -28,7 +28,10 @@ const quit_background = preload("uid://dmel4nekr0nx4")
 var context: Context = Context.MAIN_MENU
 var current_player: Player = null
 
-const LEVEL_SCENE := "uid://cw50tmi4jwwv4"
+# load fx scene
+const LEVEL_SCENE := "uid://blihpfym3wjqe"
+# level 1
+#const LEVEL_SCENE := "uid://cw50tmi4jwwv4"
 const MENU_SCENE := "uid://d2rqkagxvdfhw"
 
 func _ready() -> void:
@@ -123,7 +126,8 @@ func _on_play_pressed() -> void:
 	UI.is_fire_introduction = true
 	UI.save_settings()
 	visible = false
-	SceneLoader.change_scene(LEVEL_SCENE, SceneLoader.first_level_name)
+	#SceneLoader.change_scene(LEVEL_SCENE, SceneLoader.first_level_name)
+	SceneLoader.change_scene(LEVEL_SCENE, "")
 
 func _on_resume_button_pressed() -> void:
 	UI.play_sound("confirm_button")
