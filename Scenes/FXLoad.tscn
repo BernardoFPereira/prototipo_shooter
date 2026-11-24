@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://blihpfym3wjqe"]
+[gd_scene load_steps=14 format=3 uid="uid://blihpfym3wjqe"]
 
 [ext_resource type="Script" path="res://scripts/FXLoad.gd" id="1_laqyy"]
 [ext_resource type="PackedScene" uid="uid://b8edqmwpwyrwk" path="res://vfx/muzzle_flash.tscn" id="1_ty1b4"]
+[ext_resource type="PackedScene" uid="uid://b7u7jvyxg7n1a" path="res://UI/V2/Loading/LoadingScreen.tscn" id="2_pgxco"]
 [ext_resource type="PackedScene" uid="uid://cilki820ynbi3" path="res://vfx/spark_fx.tscn" id="2_ut54r"]
 [ext_resource type="PackedScene" uid="uid://bkecmbnogq48m" path="res://entities/projectile/EnemyProjectile.tscn" id="3_7l704"]
 [ext_resource type="PackedScene" uid="uid://dkeqiailpja6v" path="res://particles/EnemyMuzzleFlash.tscn" id="3_13bv7"]
@@ -17,6 +18,26 @@ size = Vector2(20, 20)
 
 [node name="FxLoad" type="Node3D"]
 script = ExtResource("1_laqyy")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LoadingScreen" parent="." instance=ExtResource("2_pgxco")]
+is_FXLoad = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3, 7)
@@ -60,5 +81,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02715, 0, -2.01595)
 
 [node name="NextLevelTimer" type="Timer" parent="."]
 wait_time = 4.0
+autostart = true
 
 [connection signal="timeout" from="NextLevelTimer" to="." method="_on_next_level_timer_timeout"]

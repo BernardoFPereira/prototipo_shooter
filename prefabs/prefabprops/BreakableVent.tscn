@@ -235,6 +235,7 @@ skeleton = NodePath("")
 [node name="BreakAudio" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_y5lcq")
 pitch_scale = 0.73
+bus = &"SFX"
 
 [node name="BreakFX" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.62756, -0.205161)

@@ -127,7 +127,8 @@ func _on_play_pressed() -> void:
 	UI.save_settings()
 	visible = false
 	#SceneLoader.change_scene(LEVEL_SCENE, SceneLoader.first_level_name)
-	SceneLoader.change_scene(LEVEL_SCENE, "")
+	#SceneLoader.change_scene(LEVEL_SCENE, "")
+	get_tree().change_scene_to_file(LEVEL_SCENE)
 
 func _on_resume_button_pressed() -> void:
 	UI.play_sound("confirm_button")

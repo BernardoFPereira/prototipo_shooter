@@ -15707,6 +15707,12 @@ shadow_mesh = SubResource("ArrayMesh_u1ahk")
 
 [node name="Level01Lab" type="Node3D"]
 
+[node name="Tutorial" parent="." node_paths=PackedStringArray("player") instance=ExtResource("46_82ven")]
+player = NodePath("../Player")
+enabled = true
+play_intro_animation = true
+steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bwkuk")
 
@@ -17151,11 +17157,6 @@ stream = ExtResource("46_abbtk")
 autoplay = true
 max_distance = 20.0
 bus = &"SFX"
-
-[node name="Tutorial" parent="." node_paths=PackedStringArray("player") instance=ExtResource("46_82ven")]
-player = NodePath("../Player")
-play_intro_animation = true
-steps = Array[Resource("res://entities/assistant/tutorial_step.gd")]([ExtResource("47_dkwpy"), ExtResource("48_f3844"), ExtResource("49_jd1kq"), ExtResource("50_h71nm"), ExtResource("51_utego"), ExtResource("52_bvus0"), ExtResource("53_5fi18")])
 
 [node name="AmbienceCombat" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.53923, 2.81368, -43.3126)

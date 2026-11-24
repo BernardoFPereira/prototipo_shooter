@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="co-op_sword-shooter"
+config/name="VELOCIBORG"
 run/main_scene="res://Scenes/Maps/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-config/icon="res://Scenes/Assets/icon.svg"
+config/icon="res://assets/icons/icon mao.png"
 
 [autoload]
 

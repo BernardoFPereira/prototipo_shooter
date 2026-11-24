@@ -33,6 +33,8 @@ signal loading_finished
 ## Quantos segundos de chuva são "adiantados" quando a tela aparece, pra ela já surgir cheia.
 @export var rain_prewarm_seconds: float = 25.0
 
+@export var is_FXLoad: bool
+
 const MATRIX_RAIN_SCENE := preload("res://UI/V2/Background/MatrixRainBackground.tscn")
 
 ## true do começo do fade de entrada até o fim do fade de saída.
@@ -118,7 +120,8 @@ func _run(target, display_name: String, mouse_mode_after: Input.MouseMode) -> vo
 	loading_started.emit()
 
 	# 1) Trava tudo: pausa o jogo e esconde o mouse.
-	get_tree().paused = true
+	if !is_FXLoad:
+		get_tree().paused = true
 	Engine.time_scale = 1.0
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
@@ -141,7 +144,10 @@ func _run(target, display_name: String, mouse_mode_after: Input.MouseMode) -> vo
 		push_error("SceneLoader: não consegui carregar %s" % str(target))
 		_end(mouse_mode_after)
 		return
-
+	
+	if is_FXLoad:
+		return
+		
 	# 4) Troca a cena com o jogo ainda pausado e espera ela entrar na árvore.
 	get_tree().change_scene_to_packed(packed)
 	await get_tree().process_frame

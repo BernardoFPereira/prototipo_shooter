@@ -83,7 +83,7 @@ func spawn_boxes():
 	for box in boxes_to_replace:
 		var box_to_spawn = load("res://models/level3/DecompressionCube.tscn")
 		var box_inst: Node3D = box_to_spawn.instantiate()
-		box_inst.global_position = box.global_position
+		box_inst.global_transform = box.global_transform
 		box_inst.scale = box.scale
 		$MovingObjects.add_child(box_inst)
 		var _time = randf_range(0.4, 2.0)
@@ -93,7 +93,7 @@ func spawn_tubes():
 	for tube in tubes_to_replace:
 		var tube_to_spawn = load("res://models/level3/DecompressedTubinho.tscn")
 		var tube_inst: Node3D = tube_to_spawn.instantiate()
-		tube_inst.global_position = tube.global_position
+		tube_inst.global_transform = tube.global_transform
 		tube_inst.scale = tube.scale
 		$MovingObjects.add_child(tube_inst)
 		tube.call_deferred("queue_free")
