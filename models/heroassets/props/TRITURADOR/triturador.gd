@@ -33,6 +33,8 @@ signal blades_closed(crushed_count: int)
 @onready var self_animations: AnimationPlayer = $SelfAnimations
 @onready var damage_area: Area3D = $Area3D
 
+var volume_tween: Tween
+
 var is_lifted: bool = false
 var _spin_tween: Tween
 var _bodies_inside: Array[Player] = []
@@ -52,10 +54,8 @@ func _ready() -> void:
 	if not self_animations.is_playing() and self_animations.has_animation(grinder_animation):
 		self_animations.play(grinder_animation)
 
-
 func _process(_delta: float) -> void:
 	_check_blades_closed()
-
 
 func _physics_process(delta: float) -> void:
 	_clock += delta
@@ -70,12 +70,22 @@ func _physics_process(delta: float) -> void:
 			_next_hit_time[body] = now + damage_interval
 			body.take_damage(damage)
 
+func tween_volume(down: bool):
+	if volume_tween and volume_tween.is_running():
+		volume_tween.kill()
+	
+	volume_tween = create_tween()
+	match down:
+		true:
+			volume_tween.tween_property(grind_sfx, "volume_db", -80.0, 8.5)
+		false:
+			volume_tween.tween_property(grind_sfx, "volume_db", -5.0, 2.5)
 
 func on_button_pressed() -> void:
 	if is_lifted:
 		return
 	is_lifted = true
-	grind_sfx.stream_paused = true
+	tween_volume(true)
 	_play_level_animation(lift_animation)
 	_tween_spin(0.0, spin_down_time)
 
@@ -84,7 +94,8 @@ func on_button_released() -> void:
 	if not is_lifted:
 		return
 	is_lifted = false
-	grind_sfx.stream_paused = false
+	#grind_sfx.stream_paused = false
+	tween_volume(false)
 	_play_level_animation(unlift_animation)
 	if resume_on_release:
 		_tween_spin(1.0, spin_up_time)

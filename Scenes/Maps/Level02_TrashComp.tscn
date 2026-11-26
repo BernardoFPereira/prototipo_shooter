@@ -1,4 +1,4 @@
-[gd_scene load_steps=2396 format=3 uid="uid://dao0r7la1y2am"]
+[gd_scene load_steps=2397 format=3 uid="uid://dao0r7la1y2am"]
 
 [ext_resource type="PackedScene" uid="uid://dumkd0qt2sxvx" path="res://entities/player/playerSingle.tscn" id="1_u3ph8"]
 [ext_resource type="Texture2D" uid="uid://c55p5mrs35hv1" path="res://textures/Captura de tela 2026-08-22 144501.png" id="2_pwg0r"]
@@ -48,6 +48,7 @@
 [ext_resource type="AudioStream" uid="uid://fpd72o8ew0vp" path="res://assets/sounds/sfx/Props/door_close.wav" id="38_iislk"]
 [ext_resource type="PackedScene" uid="uid://dlo1vt6qx5qyy" path="res://prefabs/prefabprops/prefabs05/grade.tscn" id="38_qa60o"]
 [ext_resource type="Texture2D" uid="uid://co7avk5obna6g" path="res://textures/Pilar_Pillar_mtl_Base_color.png" id="39_er7xb"]
+[ext_resource type="AudioStream" uid="uid://bh4ljjc7lh4vs" path="res://assets/sounds/ambience/waste_disposal_ambience.wav" id="41_7gg8c"]
 [ext_resource type="PackedScene" uid="uid://bvvatsxla1lbb" path="res://prefabs/prefabprops/tubinho.tscn" id="45_dnldu"]
 [ext_resource type="PackedScene" uid="uid://c1lx7l4mmragh" path="res://prefabs/prefabprops/prefabsl3/cube.tscn" id="46_gmar1"]
 [ext_resource type="PackedScene" uid="uid://dyb8cmsdiiecf" path="res://models/heroassets/props/plano7.glb" id="47_v7gsk"]
@@ -25253,10 +25254,16 @@ patrol_route_name = "PatrolRoute"
 
 [node name="AudioStreamers" type="Node" parent="."]
 
-[node name="AmbienceStream" type="AudioStreamPlayer" parent="AudioStreamers"]
+[node name="AmbientDrone" type="AudioStreamPlayer" parent="AudioStreamers"]
 stream = ExtResource("28_u676d")
 volume_db = 15.0
 pitch_scale = 0.8
+autoplay = true
+
+[node name="AmbientNoise" type="AudioStreamPlayer" parent="AudioStreamers"]
+stream = ExtResource("41_7gg8c")
+volume_db = -3.0
+pitch_scale = 0.6
 autoplay = true
 
 [node name="sala01grades" type="Node" parent="."]
