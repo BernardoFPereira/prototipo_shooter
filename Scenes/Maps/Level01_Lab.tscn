@@ -16410,18 +16410,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28054, -1, -0.825699)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_01csi")
 materials = Array[Material]([ExtResource("9_26o24"), ExtResource("10_yctok")])
+collision_layer = 17
 
 [node name="Block_96" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28054, -1, -0.825699)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_sqrxt")
 materials = Array[Material]([ExtResource("9_s7sjn"), ExtResource("9_26o24"), ExtResource("10_yctok")])
+collision_layer = 17
 
 [node name="Block_97" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28054, -1, -0.825699)
 script = ExtResource("3_enwg2")
 mesh_vector_data = SubResource("Resource_k18wl")
 materials = Array[Material]([ExtResource("9_26o24"), ExtResource("10_yctok")])
+collision_layer = 17
 
 [node name="Block_98" type="Node3D" parent="CyclopsBlocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.2805, 10.5, -72.8257)
@@ -16609,6 +16612,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.46324, 9.25586, 29.0036)
 light_color = Color(0, 0.843137, 0.843137, 1)
 shadow_enabled = true
 omni_range = 15.889
+
+[node name="OmniLight3D19" type="OmniLight3D" parent="CorridorLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.6749, -0.944068, 28.3191)
+light_color = Color(0.150391, 0.889857, 0, 1)
+light_energy = 17.905
+light_bake_mode = 1
+omni_range = 45.4062
 
 [node name="OmniLight3D12" type="OmniLight3D" parent="CorridorLights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8668, 9.25586, 35.9842)
