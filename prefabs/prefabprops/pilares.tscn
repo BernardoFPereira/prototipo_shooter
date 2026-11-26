@@ -113,6 +113,7 @@ mesh = SubResource("ArrayMesh_tmd4a")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fatwall_geo"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fatwall_geo/StaticBody3D"]
 transform = Transform3D(1, 4.23516e-22, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -124,6 +125,7 @@ mesh = SubResource("ArrayMesh_v2bnb")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="thinwall_geo"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="thinwall_geo/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_ctkl4")
@@ -134,6 +136,7 @@ mesh = SubResource("ArrayMesh_tmd4a")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fatwall_geo4"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fatwall_geo4/StaticBody3D"]
 transform = Transform3D(1, -8.47033e-22, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -145,6 +148,7 @@ mesh = SubResource("ArrayMesh_v2bnb")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="thinwall_geo4"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="thinwall_geo4/StaticBody3D"]
 transform = Transform3D(1, 4.23516e-22, 0, -4.23516e-22, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -156,6 +160,7 @@ mesh = SubResource("ArrayMesh_tmd4a")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fatwall_geo2"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fatwall_geo2/StaticBody3D"]
 transform = Transform3D(1, 0, 5.09141e-16, 9.31323e-10, 1, -2.22045e-16, 1.08975e-14, 1.11022e-16, 1, 0, 0, 0)
@@ -167,6 +172,7 @@ mesh = SubResource("ArrayMesh_v2bnb")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="thinwall_geo2"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="thinwall_geo2/StaticBody3D"]
 transform = Transform3D(1, 0, -1.24033e-14, 0, 1, 0, -2.39782e-15, -1.11022e-16, 1, 0, 0, 0)
@@ -178,6 +184,7 @@ mesh = SubResource("ArrayMesh_tmd4a")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fatwall_geo3"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fatwall_geo3/StaticBody3D"]
 transform = Transform3D(1, 0, -3.03316e-15, 0, 1, -2.22045e-16, 3.79557e-15, 2.22045e-16, 1, 0, 0, 0)
@@ -189,6 +196,7 @@ mesh = SubResource("ArrayMesh_v2bnb")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="thinwall_geo3"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="thinwall_geo3/StaticBody3D"]
 transform = Transform3D(1, 0, -5.27616e-15, -2.32831e-10, 1, 0, -2.40303e-15, 1.11022e-16, 1, 0, 0, 0)
@@ -200,6 +208,7 @@ mesh = SubResource("ArrayMesh_tmd4a")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fatwall_geo5"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fatwall_geo5/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 9.31323e-10, 1, 0, 0, -3.55271e-15, 1, 0, 0, 0)
@@ -211,6 +220,7 @@ mesh = SubResource("ArrayMesh_tmd4a")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="fatwall_geo6"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="fatwall_geo6/StaticBody3D"]
 transform = Transform3D(1, 0, -2.3283e-10, -7.10543e-15, 1, -3.55271e-15, -9.31319e-10, 3.55271e-15, 1, 0, 0, 0)

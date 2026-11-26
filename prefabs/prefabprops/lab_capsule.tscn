@@ -1,6 +1,57 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcj3yqwdv0enk"]
+[gd_scene load_steps=13 format=3 uid="uid://dcj3yqwdv0enk"]
 
 [ext_resource type="PackedScene" uid="uid://118n0of05q30" path="res://models/heroassets/props/LabCapsule.glb" id="1_b2t8n"]
+[ext_resource type="Shader" uid="uid://ccvuq36vuv0j6" path="res://prefabs/prefabprops/lab_capsule.tres" id="2_du1kp"]
+[ext_resource type="Texture2D" uid="uid://dkrelgaykdvfl" path="res://prefabs/prefabprops/noise1.png" id="3_olu1c"]
+[ext_resource type="Texture2D" uid="uid://beeoeiplnt0ro" path="res://textures/propstextures/LabCapsule_bubls_mtl_BaseColor.png" id="4_fw2nn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbx4o"]
+render_priority = 0
+shader = ExtResource("2_du1kp")
+shader_parameter/Scale = Vector2(16.935, 9.29)
+shader_parameter/Speed = Vector2(0.02, 0)
+shader_parameter/Texture2DParameter = ExtResource("3_olu1c")
+shader_parameter/Texture2DParameter2 = ExtResource("4_fw2nn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jcpcf"]
+resource_name = "bubls_mtl.001"
+transparency = 4
+cull_mode = 2
+albedo_color = Color(1, 1, 1, 0.3)
+albedo_texture = ExtResource("4_fw2nn")
+roughness = 0.2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_j76hs"]
+_surfaces = [{
+"aabb": AABB(-201.248, -201.248, -595.56, 402.496, 402.496, 601.24),
+"format": 34896613377,
+"index_count": 48,
+"index_data": PackedByteArray(3, 0, 5, 0, 7, 0, 3, 0, 1, 0, 5, 0, 11, 0, 12, 0, 15, 0, 11, 0, 9, 0, 12, 0, 6, 0, 14, 0, 13, 0, 6, 0, 4, 0, 14, 0, 8, 0, 0, 0, 2, 0, 8, 0, 10, 0, 0, 0, 0, 0, 3, 0, 2, 0, 0, 0, 1, 0, 3, 0, 5, 0, 6, 0, 7, 0, 5, 0, 4, 0, 6, 0, 8, 0, 11, 0, 10, 0, 8, 0, 9, 0, 11, 0, 12, 0, 14, 0, 15, 0, 12, 0, 13, 0, 14, 0),
+"name": "bubls_mtl.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray(0, 0, 153, 217, 255, 255, 0, 0, 101, 38, 255, 255, 255, 255, 0, 0, 0, 0, 153, 217, 0, 0, 0, 0, 101, 38, 255, 255, 0, 0, 0, 0, 255, 255, 153, 217, 255, 255, 0, 0, 153, 217, 255, 255, 255, 255, 0, 0, 255, 255, 153, 217, 0, 0, 0, 0, 153, 217, 255, 255, 0, 0, 0, 0, 0, 0, 101, 38, 0, 0, 0, 0, 101, 38, 0, 0, 0, 0, 0, 0, 0, 0, 101, 38, 255, 255, 0, 0, 101, 38, 0, 0, 255, 255, 0, 0, 153, 217, 0, 0, 0, 0, 0, 0, 255, 255, 101, 38, 0, 0, 0, 0, 255, 255, 101, 38, 255, 255, 0, 0, 153, 217, 0, 0, 255, 255, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_o5cff"]
+resource_name = "LabCapsule_Mesh_045"
+_surfaces = [{
+"aabb": AABB(-201.248, -201.248, -595.56, 402.496, 402.496, 601.24),
+"attribute_data": PackedByteArray(194, 223, 153, 199, 47, 204, 4, 179, 160, 175, 241, 178, 54, 241, 138, 199, 170, 223, 11, 171, 160, 175, 241, 178, 47, 204, 4, 179, 29, 241, 252, 170, 54, 241, 138, 199, 160, 175, 241, 178, 121, 175, 136, 236, 194, 223, 153, 199, 29, 241, 252, 170, 47, 204, 4, 179, 8, 204, 155, 236, 170, 223, 11, 171, 194, 223, 153, 199, 121, 175, 136, 236, 160, 175, 241, 178, 54, 241, 138, 199, 170, 223, 11, 171, 8, 204, 155, 236, 47, 204, 4, 179, 29, 241, 252, 170, 121, 175, 136, 236, 194, 223, 153, 199, 54, 241, 138, 199, 8, 204, 155, 236, 29, 241, 252, 170, 121, 175, 136, 236, 8, 204, 155, 236, 170, 223, 11, 171),
+"format": 34896613399,
+"index_count": 48,
+"index_data": PackedByteArray(6, 0, 10, 0, 14, 0, 6, 0, 2, 0, 10, 0, 22, 0, 24, 0, 30, 0, 22, 0, 18, 0, 24, 0, 13, 0, 29, 0, 27, 0, 13, 0, 9, 0, 29, 0, 17, 0, 1, 0, 5, 0, 17, 0, 21, 0, 1, 0, 0, 0, 7, 0, 4, 0, 0, 0, 3, 0, 7, 0, 11, 0, 12, 0, 15, 0, 11, 0, 8, 0, 12, 0, 16, 0, 23, 0, 20, 0, 16, 0, 19, 0, 23, 0, 25, 0, 28, 0, 31, 0, 25, 0, 26, 0, 28, 0),
+"material": SubResource("StandardMaterial3D_jcpcf"),
+"name": "bubls_mtl.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 32,
+"vertex_data": PackedByteArray(0, 0, 153, 217, 255, 255, 204, 57, 0, 0, 153, 217, 255, 255, 5, 0, 101, 38, 255, 255, 255, 255, 166, 42, 101, 38, 255, 255, 255, 255, 204, 57, 0, 0, 153, 217, 0, 0, 204, 57, 0, 0, 153, 217, 0, 0, 5, 0, 101, 38, 255, 255, 0, 0, 166, 42, 101, 38, 255, 255, 0, 0, 204, 57, 255, 255, 153, 217, 255, 255, 56, 58, 255, 255, 153, 217, 255, 255, 5, 0, 153, 217, 255, 255, 255, 255, 166, 42, 153, 217, 255, 255, 255, 255, 56, 58, 255, 255, 153, 217, 0, 0, 56, 58, 255, 255, 153, 217, 0, 0, 5, 0, 153, 217, 255, 255, 0, 0, 166, 42, 153, 217, 255, 255, 0, 0, 56, 58, 0, 0, 101, 38, 0, 0, 56, 58, 0, 0, 101, 38, 0, 0, 5, 0, 101, 38, 0, 0, 0, 0, 166, 42, 101, 38, 0, 0, 0, 0, 56, 58, 0, 0, 101, 38, 255, 255, 56, 58, 0, 0, 101, 38, 255, 255, 5, 0, 101, 38, 0, 0, 255, 255, 166, 42, 101, 38, 0, 0, 255, 255, 56, 58, 153, 217, 0, 0, 0, 0, 166, 42, 153, 217, 0, 0, 0, 0, 204, 57, 255, 255, 101, 38, 0, 0, 204, 57, 255, 255, 101, 38, 0, 0, 5, 0, 255, 255, 101, 38, 255, 255, 204, 57, 255, 255, 101, 38, 255, 255, 5, 0, 153, 217, 0, 0, 255, 255, 166, 42, 153, 217, 0, 0, 255, 255, 204, 57, 113, 28, 25, 70, 4, 0, 253, 63, 89, 85, 82, 85, 113, 28, 25, 70, 113, 28, 25, 70, 4, 0, 253, 63, 89, 85, 82, 85, 113, 28, 25, 70, 22, 58, 141, 157, 250, 255, 1, 192, 89, 85, 82, 85, 22, 58, 141, 157, 22, 58, 141, 157, 250, 255, 1, 192, 89, 85, 82, 85, 22, 58, 141, 157, 232, 197, 113, 98, 4, 0, 253, 63, 165, 170, 172, 170, 232, 197, 113, 98, 232, 197, 113, 98, 4, 0, 253, 63, 165, 170, 172, 170, 232, 197, 113, 98, 165, 170, 172, 170, 141, 227, 229, 185, 141, 227, 229, 185, 250, 255, 1, 192, 141, 227, 229, 185, 250, 255, 1, 192, 165, 170, 172, 170, 141, 227, 229, 185)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_j76hs")
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vina4"]
 points = PackedVector3Array(215.492, 150.819, 6.08191, 215.492, -150.862, 6.08191, 215.492, 150.819, -637.714, 150.819, 215.492, 6.08191, 150.819, -215.492, 6.08191, 215.492, -150.862, -637.714, 150.819, 215.492, -637.714, -150.862, 215.492, 6.08191, -150.862, -215.492, 6.08191, 150.819, -215.492, -637.714, -150.862, 215.492, -637.714, -215.492, 150.819, 6.08191, -215.492, -150.862, 6.08191, -150.862, -215.492, -637.714, -215.492, 150.819, -637.714, -215.492, -150.862, -637.714)
@@ -18,34 +69,46 @@ data = PackedVector3Array(-151.921, 217.018, -301.009, 151.914, 217.018, 2.8707,
 
 [node name="LabCapsule" parent="." instance=ExtResource("1_b2t8n")]
 
-[node name="Glass_geo" parent="LabCapsule/Tube_grp" index="1"]
+[node name="Bubbles_geo" parent="LabCapsule/Tube_grp" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_lbx4o")
+
+[node name="Bubbles_geo2" type="MeshInstance3D" parent="LabCapsule/Tube_grp" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -132.332)
+mesh = SubResource("ArrayMesh_o5cff")
+skeleton = NodePath("")
+
+[node name="Glass_geo" parent="LabCapsule/Tube_grp" index="2"]
 layers = 17
 
 [node name="StaticBody3D" type="StaticBody3D" parent="LabCapsule/Tube_grp/Glass_geo" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LabCapsule/Tube_grp/Glass_geo/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_vina4")
 
-[node name="metalback_geo" parent="LabCapsule/Tube_grp" index="2"]
+[node name="metalback_geo" parent="LabCapsule/Tube_grp" index="3"]
 layers = 17
 
 [node name="StaticBody3D" type="StaticBody3D" parent="LabCapsule/Tube_grp/metalback_geo" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LabCapsule/Tube_grp/metalback_geo/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_hxkk4")
 
-[node name="metalbar_geo" parent="LabCapsule/Tube_grp" index="3"]
+[node name="metalbar_geo" parent="LabCapsule/Tube_grp" index="4"]
 layers = 17
 
 [node name="StaticBody3D" type="StaticBody3D" parent="LabCapsule/Tube_grp/metalbar_geo" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LabCapsule/Tube_grp/metalbar_geo/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_2np0c")
 
-[node name="Panel_geo" parent="LabCapsule/Tube_grp" index="4"]
+[node name="Panel_geo" parent="LabCapsule/Tube_grp" index="5"]
 layers = 17
 
 [node name="StaticBody3D" type="StaticBody3D" parent="LabCapsule/Tube_grp/Panel_geo" index="0"]
+collision_layer = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LabCapsule/Tube_grp/Panel_geo/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_urro8")
