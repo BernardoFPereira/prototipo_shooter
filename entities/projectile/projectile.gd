@@ -66,7 +66,7 @@ func explode():
 			print(knockback_force)
 			knockback_force.y = min(knockback_force.y, max_jump_height)
 			player.velocity += knockback_force
-			player.velocity.y = min(player.velocity.y, 20)
+			player.velocity.y = min(player.velocity.y, 30)
 			print(player.velocity)
 		
 		if collision.collider is EnemyMelee:
