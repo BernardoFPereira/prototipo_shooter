@@ -765,3 +765,4 @@ stream = ExtResource("2_ieq5w")
 volume_db = -4.0
 pitch_scale = 0.64
 autoplay = true
+bus = &"SFX"
