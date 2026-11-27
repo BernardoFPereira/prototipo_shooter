@@ -57390,11 +57390,8 @@ is_triggered = true
 aggro = true
 patrol_route_name = "PatrolRouteFloor1"
 
-[node name="ConcaveDoor" parent="EndTriggerDoor1/portadiorama/porta" index="2"]
-visible = false
-
-[node name="ConvexDoor" parent="EndTriggerDoor1/portadiorama/porta" index="3"]
-visible = false
+[node name="CollisionShape3D" parent="EndTriggerDoor1/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35638, -0.0180511)
 
 [node name="EndTriggerDoor2" parent="." instance=ExtResource("71_xq23j")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 49.1063, 50.4085, 8.94812)
@@ -57804,6 +57801,10 @@ spot_range = 66.3368
 [editable path="Pilar/Pilar6"]
 [editable path="Pilar/Pilar8"]
 [editable path="Wallplates Open Detail"]
+[editable path="Wallplates Open Detail/bevel6"]
+[editable path="Wallplates Open Detail/bevel7"]
+[editable path="Wallplates Open Detail/bevel8"]
+[editable path="Wallplates Open Detail/bevel9"]
 [editable path="EndTriggerDoor1"]
 [editable path="EndCinematic/AlarmLights/AlarmLight8"]
 [editable path="EndCinematic/AlarmLights/AlarmLight9"]
